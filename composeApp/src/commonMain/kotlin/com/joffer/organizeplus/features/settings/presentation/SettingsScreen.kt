@@ -48,26 +48,9 @@ fun SettingsScreen(
     Column(
         modifier = modifier.fillMaxSize()
     ) {
-        TopAppBar(
-            title = {
-                Text(
-                    text = stringResource(Res.string.settings_title),
-                    style = Typography.titleLarge,
-                    color = AppColorScheme.onSurface
-                )
-            },
-            navigationIcon = {
-                IconButton(onClick = onNavigateBack) {
-                    Icon(
-                        imageVector = Icons.Default.ArrowBack,
-                        contentDescription = "Back",
-                        tint = AppColorScheme.onSurface
-                    )
-                }
-            },
-            colors = TopAppBarDefaults.topAppBarColors(
-                containerColor = AppColorScheme.surface
-            )
+        AppTopAppBarWithBackButton(
+            title = stringResource(Res.string.settings_title),
+            onBackClick = onNavigateBack
         )
         
         Column(

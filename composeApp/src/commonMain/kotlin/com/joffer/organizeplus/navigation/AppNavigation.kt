@@ -43,17 +43,11 @@ fun AppNavigation(
         composable(NavigationRoutes.DASHBOARD) {
             DashboardScreen(
                 viewModel = dashboardViewModel,
-                onNavigateToCreateDuty = {
-                    navController.navigate(NavigationRoutes.CREATE_DUTY)
-                },
                 onNavigateToDuties = {
                     navController.navigate(NavigationRoutes.DUTIES)
                 },
                 onNavigateToEditDuty = { dutyId ->
                     navController.navigate(NavigationRoutes.editDuty(dutyId))
-                },
-                onNavigateToSettings = {
-                    navController.navigate(NavigationRoutes.SETTINGS)
                 }
             )
         }

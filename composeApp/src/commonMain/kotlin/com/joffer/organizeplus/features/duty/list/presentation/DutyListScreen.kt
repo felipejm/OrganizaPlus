@@ -126,7 +126,8 @@ fun DutyListScreen(
                 }
             } else if (uiState.duties.isEmpty()) {
                 Box(
-                    modifier = Modifier.fillMaxSize(),
+                    modifier = Modifier
+                        .fillMaxSize(),
                     contentAlignment = Alignment.Center
                 ) {
                     OrganizeResult(

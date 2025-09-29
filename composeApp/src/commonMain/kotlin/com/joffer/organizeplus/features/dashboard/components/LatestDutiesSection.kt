@@ -58,18 +58,23 @@ fun LatestDutiesSection(
             
             if (duties.isEmpty()) {
                 // Empty state with add duty button
-                OrganizeResult(
-                    type = ResultType.INFO,
-                    title = stringResource(Res.string.no_duties_created_yet),
-                    description = stringResource(Res.string.start_creating_first_duty),
-                    actions = {
-                        OrganizePrimaryButton(
-                            text = stringResource(Res.string.add_duty),
-                            onClick = onAddDuty,
-                            modifier = Modifier.fillMaxWidth()
-                        )
-                    }
-                )
+                Box(
+                    modifier = Modifier.fillMaxWidth(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    OrganizeResult(
+                        type = ResultType.INFO,
+                        title = stringResource(Res.string.no_duties_created_yet),
+                        description = stringResource(Res.string.start_creating_first_duty),
+                        actions = {
+                            OrganizePrimaryButton(
+                                text = stringResource(Res.string.add_duty),
+                                onClick = onAddDuty,
+                                modifier = Modifier.fillMaxWidth()
+                            )
+                        }
+                    )
+                }
             } else {
                 Column(
                     verticalArrangement = Arrangement.spacedBy(Spacing.sm)

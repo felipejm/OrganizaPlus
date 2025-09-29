@@ -6,7 +6,9 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
+import androidx.compose.material3.SnackbarDuration
 import androidx.compose.runtime.*
+import kotlinx.coroutines.delay
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -58,9 +60,36 @@ fun CreateDutyScreen(
 ) {
     val uiState by viewModel.uiState.collectAsState()
     val formState by viewModel.formState.collectAsState()
-    
-    // Note: Navigation back is handled when success snackbar is dismissed
-    
+    val snackbarHostState = remember { SnackbarHostState() }
+
+    // Get string resources
+    val successMessage = stringResource(Res.string.duty_saved_success)
+    val closeLabel = stringResource(Res.string.close)
+    val errorMessage = stringResource(Res.string.error_saving)
+
+    // Handle success snackbar
+    LaunchedEffect(uiState.showSuccessSnackbar) {
+        if (uiState.showSuccessSnackbar) {
+            onNavigateBack()
+            snackbarHostState.showSnackbar(
+                message = successMessage,
+                actionLabel = closeLabel,
+                duration = SnackbarDuration.Short
+            )
+        }
+    }
+
+    // Handle error snackbar
+    LaunchedEffect(uiState.showErrorSnackbar) {
+        if (uiState.showErrorSnackbar) {
+            snackbarHostState.showSnackbar(
+                message = uiState.errorMessage ?: errorMessage,
+                actionLabel = closeLabel,
+                duration = SnackbarDuration.Long
+            )
+        }
+    }
+
     Scaffold(
         topBar = {
             AppTopAppBarWithBackButton(
@@ -71,46 +100,14 @@ fun CreateDutyScreen(
             )
         },
         snackbarHost = {
-            SnackbarHost(hostState = remember { SnackbarHostState() }) {
-                when {
-                    uiState.showErrorSnackbar -> {
-                        LaunchedEffect(Unit) {
-                            viewModel.onIntent(CreateDutyIntent.ClearErrorSnackbar)
-                        }
-                        ErrorSnackbar(
-                            message = uiState.errorMessage ?: stringResource(Res.string.error_saving),
-                            actionLabel = stringResource(Res.string.close),
-                            onActionClick = { viewModel.onIntent(CreateDutyIntent.ClearErrorSnackbar) }
-                        )
-                    }
-                    uiState.showSuccessSnackbar -> {
-                        LaunchedEffect(Unit) {
-                            viewModel.onIntent(CreateDutyIntent.ClearSuccessSnackbar)
-                            onNavigateBack()
-                        }
-                        SuccessSnackbar(
-                            message = stringResource(Res.string.duty_saved_success),
-                            actionLabel = stringResource(Res.string.close),
-                            onActionClick = { 
-                                viewModel.onIntent(CreateDutyIntent.ClearSuccessSnackbar)
-                                onNavigateBack()
-                            }
-                        )
-                    }
-                }
-            }
+            SnackbarHost(hostState = snackbarHostState)
         }
     ) { paddingValues ->
         Column(
             modifier = modifier
                 .fillMaxSize()
                 .padding(paddingValues)
-        ) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .verticalScroll(rememberScrollState())
-                .padding(Spacing.md)
+                .padding(horizontal = Spacing.md)
         ) {
             // Title Field
             FormField(
@@ -122,9 +119,9 @@ fun CreateDutyScreen(
                 isError = uiState.errors.containsKey(CreateDutyFormField.Title),
                 errorMessage = getErrorMessage(viewModel.getFieldError(CreateDutyFormField.Title))
             )
-            
+
             Spacer(modifier = Modifier.height(Spacing.md))
-            
+
             // Duty Type Field
             DropdownField(
                 label = stringResource(Res.string.duty_type_label),
@@ -142,9 +139,9 @@ fun CreateDutyScreen(
                 isError = uiState.errors.containsKey(CreateDutyFormField.DutyType),
                 errorMessage = getErrorMessage(viewModel.getFieldError(CreateDutyFormField.DutyType))
             )
-            
+
             Spacer(modifier = Modifier.height(Spacing.md))
-            
+
             // Category Field
             DropdownField(
                 label = stringResource(Res.string.create_duty_category),
@@ -155,9 +152,9 @@ fun CreateDutyScreen(
                 isError = uiState.errors.containsKey(CreateDutyFormField.CategoryName),
                 errorMessage = getErrorMessage(viewModel.getFieldError(CreateDutyFormField.CategoryName))
             )
-            
+
             Spacer(modifier = Modifier.height(Spacing.md))
-            
+
             // Start Date Field
             DateInputField(
                 label = stringResource(Res.string.create_duty_start_date),
@@ -168,9 +165,9 @@ fun CreateDutyScreen(
                 isError = uiState.errors.containsKey(CreateDutyFormField.StartDate),
                 errorMessage = getErrorMessage(viewModel.getFieldError(CreateDutyFormField.StartDate))
             )
-            
+
             Spacer(modifier = Modifier.height(Spacing.md))
-            
+
             // Due Date Field
             DateInputField(
                 label = stringResource(Res.string.create_duty_due_date),
@@ -181,12 +178,9 @@ fun CreateDutyScreen(
                 isError = uiState.errors.containsKey(CreateDutyFormField.DueDate),
                 errorMessage = getErrorMessage(viewModel.getFieldError(CreateDutyFormField.DueDate))
             )
-            
-            Spacer(modifier = Modifier.height(Spacing.md))
-            
-            
+
             Spacer(modifier = Modifier.height(Spacing.xl))
-            
+
             // Action Buttons
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -202,7 +196,7 @@ fun CreateDutyScreen(
                 ) {
                     Text(stringResource(Res.string.create_duty_cancel))
                 }
-                
+
                 Button(
                     onClick = { viewModel.onIntent(CreateDutyIntent.SaveCreateDuty) },
                     modifier = Modifier.weight(1f),
@@ -225,7 +219,6 @@ fun CreateDutyScreen(
                     }
                 }
             }
-        }
         }
     }
 }

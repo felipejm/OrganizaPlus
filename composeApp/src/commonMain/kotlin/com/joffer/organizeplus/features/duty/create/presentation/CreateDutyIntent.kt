@@ -7,8 +7,6 @@ sealed class CreateDutyIntent {
     object SaveCreateDuty : CreateDutyIntent()
     object ClearError : CreateDutyIntent()
     object ClearSuccess : CreateDutyIntent()
-    object ClearErrorSnackbar : CreateDutyIntent()
-    object ClearSuccessSnackbar : CreateDutyIntent()
     
     data class UpdateFormField(
         val field: CreateDutyFormField,

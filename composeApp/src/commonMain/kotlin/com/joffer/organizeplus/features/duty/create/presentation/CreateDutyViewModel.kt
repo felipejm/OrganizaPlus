@@ -31,8 +31,6 @@ class CreateDutyViewModel(
             CreateDutyIntent.SaveCreateDuty -> saveCreateDuty()
             CreateDutyIntent.ClearError -> clearError()
             CreateDutyIntent.ClearSuccess -> clearSuccess()
-            CreateDutyIntent.ClearErrorSnackbar -> clearErrorSnackbar()
-            CreateDutyIntent.ClearSuccessSnackbar -> clearSuccessSnackbar()
             
             is CreateDutyIntent.UpdateFormField -> updateFormField(intent.field, intent.value)
         }
@@ -111,14 +109,6 @@ class CreateDutyViewModel(
     
     private fun clearSuccess() {
         _uiState.value = _uiState.value.copy(showSuccessMessage = false)
-    }
-    
-    private fun clearErrorSnackbar() {
-        _uiState.value = _uiState.value.copy(showErrorSnackbar = false, errorMessage = null)
-    }
-    
-    private fun clearSuccessSnackbar() {
-        _uiState.value = _uiState.value.copy(showSuccessSnackbar = false)
     }
     
 }

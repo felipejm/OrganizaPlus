@@ -57,22 +57,20 @@ fun OrganizeResult(
     modifier: Modifier = Modifier,
     animated: Boolean = true
 ) {
-    var isVisible by remember { mutableStateOf(!animated) }
-    
+
     LaunchedEffect(Unit) {
         if (animated) {
             delay(100) // Small delay for smooth animation
-            isVisible = true
         }
     }
-    
+
     val (colors, iconVector) = when (type) {
         ResultType.SUCCESS -> SuccessColors to (icon ?: Icons.Default.CheckCircle)
         ResultType.ERROR -> ErrorColors to (icon ?: Icons.Default.Warning)
         ResultType.WARNING -> WarningColors to (icon ?: Icons.Default.Warning)
         ResultType.INFO -> InfoColors to (icon ?: Icons.Default.Info)
     }
-    
+
     Box(
         modifier = modifier
             .fillMaxWidth()
@@ -81,6 +79,7 @@ fun OrganizeResult(
             }
     ) {
         Column(
+            modifier = modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(Spacing.md)
         ) {
@@ -100,27 +99,27 @@ fun OrganizeResult(
                     modifier = Modifier.size(48.dp)
                 )
             }
-            
+
             // Title
             Text(
                 text = title,
                 style = Typography.h3,
-                color = Color(0xFF1F1F1F), // Neutral 700
+                color = AppColorScheme.neutral700,
                 fontWeight = FontWeight.Medium,
                 textAlign = androidx.compose.ui.text.style.TextAlign.Center
             )
-            
+
             // Description
             if (description != null) {
                 Text(
                     text = description,
                     style = Typography.body,
-                    color = Color(0xFF4F4F4F), // Neutral 600
+                    color = AppColorScheme.neutral600,
                     fontWeight = FontWeight.Normal,
                     textAlign = androidx.compose.ui.text.style.TextAlign.Center
                 )
             }
-            
+
             // Actions
             if (actions != null) {
                 Spacer(modifier = Modifier.height(Spacing.md))
@@ -141,14 +140,14 @@ fun OrganizeResultCard(
     animated: Boolean = true
 ) {
     var isVisible by remember { mutableStateOf(!animated) }
-    
+
     LaunchedEffect(Unit) {
         if (animated) {
             delay(100)
             isVisible = true
         }
     }
-    
+
     Box(
         modifier = modifier
             .fillMaxWidth()

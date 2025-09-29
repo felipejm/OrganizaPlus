@@ -24,16 +24,6 @@ class CreateDutyValidator {
             errors[CreateDutyFormField.CategoryName] = CreateDutyValidationError.EmptyCategory
         }
         
-        if (form.hasStartDateReminder && 
-            (form.startDateReminderDaysBefore < 1 || form.startDateReminderDaysBefore > 30)) {
-            errors[CreateDutyFormField.StartDateReminderDays] = CreateDutyValidationError.InvalidReminderDays
-        }
-        
-        if (form.hasDueDateReminder && 
-            (form.dueDateReminderDaysBefore < 1 || form.dueDateReminderDaysBefore > 30)) {
-            errors[CreateDutyFormField.DueDateReminderDays] = CreateDutyValidationError.InvalidReminderDays
-        }
-        
         return errors
     }
 }

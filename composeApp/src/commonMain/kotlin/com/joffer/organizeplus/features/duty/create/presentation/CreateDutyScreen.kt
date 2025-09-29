@@ -24,7 +24,6 @@ import organizeplus.composeapp.generated.resources.Res
 import organizeplus.composeapp.generated.resources.create_duty_title
 import organizeplus.composeapp.generated.resources.create_duty_due_date
 import organizeplus.composeapp.generated.resources.create_duty_category
-import organizeplus.composeapp.generated.resources.create_duty_reminders
 import organizeplus.composeapp.generated.resources.create_duty_save
 import organizeplus.composeapp.generated.resources.create_duty_cancel
 import organizeplus.composeapp.generated.resources.navigation_create_duty_new
@@ -32,17 +31,8 @@ import organizeplus.composeapp.generated.resources.navigation_edit_duty_new
 import organizeplus.composeapp.generated.resources.placeholder_title
 import organizeplus.composeapp.generated.resources.placeholder_category
 import organizeplus.composeapp.generated.resources.create_duty_start_date
-import organizeplus.composeapp.generated.resources.label_start_date_reminders
-import organizeplus.composeapp.generated.resources.label_due_date_reminders
-import organizeplus.composeapp.generated.resources.label_days_before
-import organizeplus.composeapp.generated.resources.label_time
-import organizeplus.composeapp.generated.resources.placeholder_reminder_days
-import organizeplus.composeapp.generated.resources.placeholder_reminder_time
-import organizeplus.composeapp.generated.resources.category_electricity
-import organizeplus.composeapp.generated.resources.category_condo
-import organizeplus.composeapp.generated.resources.category_loan
-import organizeplus.composeapp.generated.resources.category_das
-import organizeplus.composeapp.generated.resources.category_internet
+import organizeplus.composeapp.generated.resources.category_personal
+import organizeplus.composeapp.generated.resources.category_enterprise
 import organizeplus.composeapp.generated.resources.error_title_required
 import organizeplus.composeapp.generated.resources.error_start_date_required
 import organizeplus.composeapp.generated.resources.error_due_date_required
@@ -67,11 +57,7 @@ fun CreateDutyScreen(
     val uiState by viewModel.uiState.collectAsState()
     val formState by viewModel.formState.collectAsState()
     
-    LaunchedEffect(uiState.showSuccessMessage) {
-        if (uiState.showSuccessMessage) {
-            onNavigateBack()
-        }
-    }
+    // Note: Navigation back is handled when success snackbar is dismissed
     
     Scaffold(
         topBar = {
@@ -100,7 +86,10 @@ fun CreateDutyScreen(
                         SuccessSnackbar(
                             message = stringResource(Res.string.duty_saved_success),
                             actionLabel = stringResource(Res.string.close),
-                            onActionClick = { viewModel.onIntent(CreateDutyIntent.ClearSuccessSnackbar) }
+                            onActionClick = { 
+                                viewModel.onIntent(CreateDutyIntent.ClearSuccessSnackbar)
+                                onNavigateBack()
+                            }
                         )
                     }
                 }
@@ -191,120 +180,6 @@ fun CreateDutyScreen(
             Spacer(modifier = Modifier.height(Spacing.md))
             
             
-            // Reminders Section
-            Text(
-                text = stringResource(Res.string.create_duty_reminders),
-                style = Typography.titleMedium,
-                color = AppColorScheme.formText,
-                fontWeight = FontWeight.Bold
-            )
-            
-            Spacer(modifier = Modifier.height(Spacing.md))
-            
-            // Start Date Reminders
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Checkbox(
-                    checked = formState.hasStartDateReminder,
-                    onCheckedChange = { viewModel.onIntent(CreateDutyIntent.UpdateFormField(CreateDutyFormField.HasStartDateReminder, it)) }
-                )
-                Spacer(modifier = Modifier.width(Spacing.sm))
-                Text(
-                    text = stringResource(Res.string.label_start_date_reminders),
-                    style = Typography.bodyMedium,
-                    color = AppColorScheme.formText
-                )
-            }
-            
-            if (formState.hasStartDateReminder) {
-                Spacer(modifier = Modifier.height(Spacing.sm))
-                
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(Spacing.sm)
-                ) {
-                    FormField(
-                        label = stringResource(Res.string.label_days_before),
-                        value = formState.startDateReminderDaysBefore.toString(),
-                        onValueChange = { 
-                            val days = it.toIntOrNull() ?: 0
-                            viewModel.onIntent(CreateDutyIntent.UpdateFormField(CreateDutyFormField.StartDateReminderDays, days))
-                        },
-                        placeholder = stringResource(Res.string.placeholder_reminder_days),
-                        isRequired = true,
-                        isError = uiState.errors.containsKey(CreateDutyFormField.StartDateReminderDays),
-                        errorMessage = getErrorMessage(viewModel.getFieldError(CreateDutyFormField.StartDateReminderDays)),
-                        modifier = Modifier.weight(1f)
-                    )
-                    
-                    FormField(
-                        label = stringResource(Res.string.label_time),
-                        value = formState.startDateReminderTime,
-                        onValueChange = { viewModel.onIntent(CreateDutyIntent.UpdateFormField(CreateDutyFormField.StartDateReminderTime, it)) },
-                        placeholder = stringResource(Res.string.placeholder_reminder_time),
-                        isRequired = true,
-                        isError = uiState.errors.containsKey(CreateDutyFormField.StartDateReminderTime),
-                        errorMessage = getErrorMessage(viewModel.getFieldError(CreateDutyFormField.StartDateReminderTime)),
-                        modifier = Modifier.weight(1f)
-                    )
-                }
-            }
-            
-            Spacer(modifier = Modifier.height(Spacing.md))
-            
-            // Due Date Reminders
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Checkbox(
-                    checked = formState.hasDueDateReminder,
-                    onCheckedChange = { viewModel.onIntent(CreateDutyIntent.UpdateFormField(CreateDutyFormField.HasDueDateReminder, it)) }
-                )
-                Spacer(modifier = Modifier.width(Spacing.sm))
-                Text(
-                    text = stringResource(Res.string.label_due_date_reminders),
-                    style = Typography.bodyMedium,
-                    color = AppColorScheme.formText
-                )
-            }
-            
-            if (formState.hasDueDateReminder) {
-                Spacer(modifier = Modifier.height(Spacing.sm))
-                
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(Spacing.sm)
-                ) {
-                    FormField(
-                        label = stringResource(Res.string.label_days_before),
-                        value = formState.dueDateReminderDaysBefore.toString(),
-                        onValueChange = { 
-                            val days = it.toIntOrNull() ?: 0
-                            viewModel.onIntent(CreateDutyIntent.UpdateFormField(CreateDutyFormField.DueDateReminderDays, days))
-                        },
-                        placeholder = stringResource(Res.string.placeholder_reminder_days),
-                        isRequired = true,
-                        isError = uiState.errors.containsKey(CreateDutyFormField.DueDateReminderDays),
-                        errorMessage = getErrorMessage(viewModel.getFieldError(CreateDutyFormField.DueDateReminderDays)),
-                        modifier = Modifier.weight(1f)
-                    )
-                    
-                    FormField(
-                        label = stringResource(Res.string.label_time),
-                        value = formState.dueDateReminderTime,
-                        onValueChange = { viewModel.onIntent(CreateDutyIntent.UpdateFormField(CreateDutyFormField.DueDateReminderTime, it)) },
-                        placeholder = stringResource(Res.string.placeholder_reminder_time),
-                        isRequired = true,
-                        isError = uiState.errors.containsKey(CreateDutyFormField.DueDateReminderTime),
-                        errorMessage = getErrorMessage(viewModel.getFieldError(CreateDutyFormField.DueDateReminderTime)),
-                        modifier = Modifier.weight(1f)
-                    )
-                }
-            }
-            
             Spacer(modifier = Modifier.height(Spacing.xl))
             
             // Action Buttons
@@ -354,11 +229,8 @@ fun CreateDutyScreen(
 @Composable
 private fun getCategoryOptions(): List<Pair<String, String>> {
     return listOf(
-        stringResource(Res.string.category_electricity) to stringResource(Res.string.category_electricity),
-        stringResource(Res.string.category_condo) to stringResource(Res.string.category_condo),
-        stringResource(Res.string.category_loan) to stringResource(Res.string.category_loan),
-        stringResource(Res.string.category_das) to stringResource(Res.string.category_das),
-        stringResource(Res.string.category_internet) to stringResource(Res.string.category_internet)
+        stringResource(Res.string.category_personal) to stringResource(Res.string.category_personal),
+        stringResource(Res.string.category_enterprise) to stringResource(Res.string.category_enterprise)
     )
 }
 
@@ -378,7 +250,6 @@ private fun getErrorMessage(error: CreateDutyValidationError?): String? {
         CreateDutyValidationError.EmptyStartDate -> stringResource(Res.string.error_start_date_required)
         CreateDutyValidationError.EmptyDueDate -> stringResource(Res.string.error_due_date_required)
         CreateDutyValidationError.EmptyCategory -> stringResource(Res.string.error_category_required)
-        CreateDutyValidationError.InvalidReminderDays -> stringResource(Res.string.error_reminder_days_range)
         else -> null
     }
 }

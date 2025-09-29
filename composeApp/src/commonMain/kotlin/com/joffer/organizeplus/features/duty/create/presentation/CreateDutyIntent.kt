@@ -10,19 +10,9 @@ sealed class CreateDutyIntent {
     object ClearSuccess : CreateDutyIntent()
     object ClearErrorSnackbar : CreateDutyIntent()
     object ClearSuccessSnackbar : CreateDutyIntent()
-    object ShowCustomRule : CreateDutyIntent()
-    object HideCustomRule : CreateDutyIntent()
-    object ShowStartDateReminderOptions : CreateDutyIntent()
-    object HideStartDateReminderOptions : CreateDutyIntent()
-    object ShowDueDateReminderOptions : CreateDutyIntent()
-    object HideDueDateReminderOptions : CreateDutyIntent()
-    object ShowTimePicker : CreateDutyIntent()
-    object HideTimePicker : CreateDutyIntent()
     
     data class UpdateFormField(
         val field: CreateDutyFormField,
         val value: Any
     ) : CreateDutyIntent()
-    
-    data class SelectTime(val time: String) : CreateDutyIntent()
 }

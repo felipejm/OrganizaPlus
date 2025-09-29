@@ -34,17 +34,8 @@ class CreateDutyViewModel(
             CreateDutyIntent.ClearSuccess -> clearSuccess()
             CreateDutyIntent.ClearErrorSnackbar -> clearErrorSnackbar()
             CreateDutyIntent.ClearSuccessSnackbar -> clearSuccessSnackbar()
-            CreateDutyIntent.ShowCustomRule -> showCustomRule()
-            CreateDutyIntent.HideCustomRule -> hideCustomRule()
-            CreateDutyIntent.ShowStartDateReminderOptions -> showStartDateReminderOptions()
-            CreateDutyIntent.HideStartDateReminderOptions -> hideStartDateReminderOptions()
-            CreateDutyIntent.ShowDueDateReminderOptions -> showDueDateReminderOptions()
-            CreateDutyIntent.HideDueDateReminderOptions -> hideDueDateReminderOptions()
-            CreateDutyIntent.ShowTimePicker -> showTimePicker()
-            CreateDutyIntent.HideTimePicker -> hideTimePicker()
             
             is CreateDutyIntent.UpdateFormField -> updateFormField(intent.field, intent.value)
-            is CreateDutyIntent.SelectTime -> selectTime(intent.time)
         }
     }
     
@@ -55,12 +46,6 @@ class CreateDutyViewModel(
             CreateDutyFormField.DueDate -> updateDueDate(value)
             CreateDutyFormField.DutyType -> updateDutyType(value)
             CreateDutyFormField.CategoryName -> updateCategoryName(value)
-            CreateDutyFormField.HasStartDateReminder -> updateStartDateReminder(value)
-            CreateDutyFormField.StartDateReminderDays -> updateStartDateReminderDays(value)
-            CreateDutyFormField.StartDateReminderTime -> updateStartDateReminderTime(value)
-            CreateDutyFormField.HasDueDateReminder -> updateDueDateReminder(value)
-            CreateDutyFormField.DueDateReminderDays -> updateDueDateReminderDays(value)
-            CreateDutyFormField.DueDateReminderTime -> updateDueDateReminderTime(value)
         }
         
         _uiState.value = _uiState.value.copy(hasUnsavedChanges = true)
@@ -71,12 +56,6 @@ class CreateDutyViewModel(
     private fun updateDueDate(value: Any) = _formState.value.copy(dueDate = value as String)
     private fun updateDutyType(value: Any) = _formState.value.copy(dutyType = value as DutyType)
     private fun updateCategoryName(value: Any) = _formState.value.copy(categoryName = value as String)
-    private fun updateStartDateReminder(value: Any) = _formState.value.copy(hasStartDateReminder = value as Boolean)
-    private fun updateStartDateReminderDays(value: Any) = _formState.value.copy(startDateReminderDaysBefore = value as Int)
-    private fun updateStartDateReminderTime(value: Any) = _formState.value.copy(startDateReminderTime = value as String)
-    private fun updateDueDateReminder(value: Any) = _formState.value.copy(hasDueDateReminder = value as Boolean)
-    private fun updateDueDateReminderDays(value: Any) = _formState.value.copy(dueDateReminderDaysBefore = value as Int)
-    private fun updateDueDateReminderTime(value: Any) = _formState.value.copy(dueDateReminderTime = value as String)
     
     fun getFieldError(field: CreateDutyFormField): CreateDutyValidationError? {
         return _uiState.value.errors[field]
@@ -125,7 +104,8 @@ class CreateDutyViewModel(
     }
     
     private fun cancelForm() {
-        _uiState.value = _uiState.value.copy(showSuccessMessage = true)
+        // Just clear any unsaved changes, don't set success message
+        _uiState.value = _uiState.value.copy(hasUnsavedChanges = false)
     }
     
     private fun clearError() {
@@ -144,44 +124,4 @@ class CreateDutyViewModel(
         _uiState.value = _uiState.value.copy(showSuccessSnackbar = false)
     }
     
-    private fun showCustomRule() {
-        _uiState.value = _uiState.value.copy(showCustomRule = true)
-    }
-    
-    private fun hideCustomRule() {
-        _uiState.value = _uiState.value.copy(showCustomRule = false)
-    }
-    
-    private fun showStartDateReminderOptions() {
-        _uiState.value = _uiState.value.copy(showStartDateReminderOptions = true)
-    }
-    
-    private fun hideStartDateReminderOptions() {
-        _uiState.value = _uiState.value.copy(showStartDateReminderOptions = false)
-    }
-    
-    private fun showDueDateReminderOptions() {
-        _uiState.value = _uiState.value.copy(showDueDateReminderOptions = true)
-    }
-    
-    private fun hideDueDateReminderOptions() {
-        _uiState.value = _uiState.value.copy(showDueDateReminderOptions = false)
-    }
-    
-    
-    private fun showTimePicker() {
-        _uiState.value = _uiState.value.copy(showTimePicker = true)
-    }
-    
-    private fun hideTimePicker() {
-        _uiState.value = _uiState.value.copy(showTimePicker = false)
-    }
-    
-    
-    
-    private fun selectTime(time: String) {
-        _uiState.value = _uiState.value.copy(showTimePicker = false)
-        _formState.value = _formState.value.copy(startDateReminderTime = time)
-        _uiState.value = _uiState.value.copy(hasUnsavedChanges = true)
-    }
 }

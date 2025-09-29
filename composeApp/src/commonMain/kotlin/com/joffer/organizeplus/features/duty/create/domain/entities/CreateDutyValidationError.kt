@@ -5,5 +5,4 @@ sealed class CreateDutyValidationError {
     object EmptyStartDate : CreateDutyValidationError()
     object EmptyDueDate : CreateDutyValidationError()
     object EmptyCategory : CreateDutyValidationError()
-    object InvalidReminderDays : CreateDutyValidationError()
 }

@@ -10,13 +10,7 @@ data class CreateDutyForm(
     val startDate: String = "",
     val dueDate: String = "",
     val dutyType: DutyType = DutyType.ACTIONABLE,
-    val categoryName: String = "",
-    val hasStartDateReminder: Boolean = false,
-    val startDateReminderDaysBefore: Int = 3,
-    val startDateReminderTime: String = "09:00",
-    val hasDueDateReminder: Boolean = false,
-    val dueDateReminderDaysBefore: Int = 3,
-    val dueDateReminderTime: String = "09:00"
+    val categoryName: String = ""
 ) {
     fun isValid(): Boolean {
         return title.isNotBlank() && 

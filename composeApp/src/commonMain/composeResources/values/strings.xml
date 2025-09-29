@@ -184,11 +184,8 @@
     <string name="recurring_custom">Custom</string>
     
     <!-- Categories -->
-    <string name="category_electricity">Electricity Bill</string>
-    <string name="category_condo">Condo Fee</string>
-    <string name="category_loan">Loan</string>
-    <string name="category_das">DAS Company</string>
-    <string name="category_internet">Internet</string>
+    <string name="category_personal">Pessoal</string>
+    <string name="category_enterprise">Empresa</string>
     
     <!-- Dialog messages -->
     <string name="dialog_discard_changes">Discard changes?</string>

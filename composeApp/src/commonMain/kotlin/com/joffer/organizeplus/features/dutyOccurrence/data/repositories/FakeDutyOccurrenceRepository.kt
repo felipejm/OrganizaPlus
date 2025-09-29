@@ -4,6 +4,8 @@ import com.joffer.organizeplus.features.dutyOccurrence.domain.entities.DutyOccur
 import com.joffer.organizeplus.features.dutyOccurrence.domain.repositories.DutyOccurrenceRepository
 import kotlinx.coroutines.delay
 import kotlinx.datetime.Clock
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
 
 class FakeDutyOccurrenceRepository : DutyOccurrenceRepository {
     
@@ -15,8 +17,7 @@ class FakeDutyOccurrenceRepository : DutyOccurrenceRepository {
             
             val savedOccurrence = dutyOccurrence.copy(
                 id = kotlin.random.Random.nextLong().toString(),
-                createdAt = Clock.System.now(),
-                updatedAt = Clock.System.now()
+                createdAt = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date
             )
             
             dutyOccurrences.add(savedOccurrence)

@@ -2,6 +2,7 @@ package com.joffer.organizeplus.database.converters
 
 import androidx.room.TypeConverter
 import kotlinx.datetime.LocalDate
+import kotlinx.datetime.format
 
 class LocalDateConverter {
     

@@ -8,6 +8,7 @@ plugins {
     alias(libs.plugins.composeHotReload)
     alias(libs.plugins.kotlinx.serialization)
     alias(libs.plugins.sqldelight)
+    alias(libs.plugins.ksp)
     alias(libs.plugins.detekt)
 }
 
@@ -149,6 +150,24 @@ sqldelight {
 
 
 
+
+dependencies {
+    add("kspCommonMainMetadata", libs.room.compiler)
+    add("kspAndroid", libs.room.compiler)
+    add("kspIosArm64", libs.room.compiler)
+    add("kspIosSimulatorArm64", libs.room.compiler)
+}
+
+// Fix KSP task dependencies
+tasks.withType<com.google.devtools.ksp.gradle.KspAATask> {
+    dependsOn("generateResourceAccessorsForAndroidDebug")
+    dependsOn("generateResourceAccessorsForAndroidMain")
+    dependsOn("generateActualResourceCollectorsForAndroidMain")
+    dependsOn("generateComposeResClass")
+    dependsOn("generateResourceAccessorsForCommonMain")
+    dependsOn("generateExpectResourceCollectorsForCommonMain")
+    dependsOn("generateCommonMainOrganizePlusDatabaseInterface")
+}
 
 detekt {
     buildUponDefaultConfig = true

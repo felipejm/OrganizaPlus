@@ -12,7 +12,11 @@ object DutyMapper {
             title = entity.title,
             startDate = entity.createdAt, // Using createdAt as startDate
             dueDate = entity.dueDate ?: entity.createdAt,
-            type = DutyType.ACTIONABLE, // Default type, can be enhanced later
+            type = when (entity.type) {
+                "ACTIONABLE" -> DutyType.ACTIONABLE
+                "PAYABLE" -> DutyType.PAYABLE
+                else -> DutyType.ACTIONABLE
+            },
             categoryId = entity.category ?: "",
             status = if (entity.isCompleted) Duty.Status.PAID else Duty.Status.PENDING,
             priority = when (entity.priority) {
@@ -33,6 +37,7 @@ object DutyMapper {
             id = domain.id.toLongOrNull() ?: 0L,
             title = domain.title,
             description = null,
+            type = domain.type.name,
             dueDate = domain.dueDate,
             isCompleted = domain.status == Duty.Status.PAID,
             priority = domain.priority.name,

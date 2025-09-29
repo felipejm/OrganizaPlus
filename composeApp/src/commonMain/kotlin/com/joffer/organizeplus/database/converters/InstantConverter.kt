@@ -11,7 +11,7 @@ class InstantConverter {
     }
     
     @TypeConverter
-    fun toInstant(epochMillis: Long?): Instant? {
-        return epochMillis?.let { Instant.fromEpochMilliseconds(it) }
+    fun toInstant(timestamp: Long?): Instant? {
+        return timestamp?.let { Instant.fromEpochMilliseconds(it) }
     }
 }

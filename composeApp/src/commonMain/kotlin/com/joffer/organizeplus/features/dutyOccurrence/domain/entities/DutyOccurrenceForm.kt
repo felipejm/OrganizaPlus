@@ -1,8 +1,8 @@
 package com.joffer.organizeplus.features.dutyOccurrence.domain.entities
 
-import kotlinx.datetime.LocalDate
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
+import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 
@@ -17,15 +17,13 @@ data class DutyOccurrenceForm(
     }
     
     fun toDutyOccurrence(): DutyOccurrence {
-        val now = Clock.System.now()
+        val now = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date
         return DutyOccurrence(
             id = id ?: "",
             dutyId = dutyId,
             paidAmount = paidAmount,
             completedDate = completedDate,
-            notes = null,
-            createdAt = now,
-            updatedAt = now
+            createdAt = now
         )
     }
 }

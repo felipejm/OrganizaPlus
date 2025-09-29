@@ -24,21 +24,9 @@ fun ChipShowcaseScreen(
 ) {
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = {
-                    Text(
-                        text = "Chips",
-                        style = Typography.h2
-                    )
-                },
-                navigationIcon = {
-                    IconButton(onClick = onNavigateBack) {
-                        Icon(
-                            imageVector = Icons.Default.ArrowBack,
-                            contentDescription = "Back"
-                        )
-                    }
-                }
+            AppTopAppBarWithBackButton(
+                title = "Chips",
+                onBackClick = onNavigateBack
             )
         }
     ) { paddingValues ->

@@ -86,6 +86,7 @@ fun CreateDutyScreen(
                     uiState.showSuccessSnackbar -> {
                         LaunchedEffect(Unit) {
                             viewModel.onIntent(CreateDutyIntent.ClearSuccessSnackbar)
+                            onNavigateBack()
                         }
                         SuccessSnackbar(
                             message = stringResource(Res.string.duty_saved_success),

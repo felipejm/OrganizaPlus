@@ -294,4 +294,14 @@
     <string name="radio_showcase_title">Radio Components</string>
     <string name="form_showcase_title">Form Components</string>
     <string name="result_showcase_title">Result Components</string>
+    
+    <!-- Dashboard -->
+    <string name="latest_duties_title">Latest Duties</string>
+    <string name="view_all_duties">View All Duties</string>
+    <string name="add_duty">Add Duty</string>
+    <string name="no_duties_created_yet">No duties created yet</string>
+    <string name="start_creating_first_duty">Start creating your first duty to organize your obligations</string>
+    <string name="upcoming_7_days">Upcoming 7 days</string>
+    <string name="no_duties_next_7_days">No duties in the next 7 days</string>
+    <string name="view_all_obligations">View all obligations</string>
 </resources>

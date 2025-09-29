@@ -140,11 +140,6 @@ enum class ComponentCategory(
         description = "Content containers and layouts",
         route = "cards"
     ),
-    FORMS(
-        title = "Forms",
-        description = "Input fields, dropdowns, and form components",
-        route = "forms"
-    ),
     INPUTS(
         title = "Inputs",
         description = "New input component with multiple sizes and states",

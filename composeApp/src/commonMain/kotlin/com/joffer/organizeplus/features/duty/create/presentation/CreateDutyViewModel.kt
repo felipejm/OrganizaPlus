@@ -50,7 +50,9 @@ class CreateDutyViewModel(
         _uiState.value = _uiState.value.copy(hasUnsavedChanges = true)
     }
     
-    private fun updateTitle(value: Any) = _formState.value.copy(title = value as String)
+    private fun updateTitle(value: Any) = _formState.value.copy(title = (value as String).trim().split(" ").joinToString(" ") { word -> 
+        word.replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() }
+    })
     private fun updateStartDate(value: Any) = _formState.value.copy(startDate = value as String)
     private fun updateDueDate(value: Any) = _formState.value.copy(dueDate = value as String)
     private fun updateDutyType(value: Any) = _formState.value.copy(dutyType = value as DutyType)

@@ -14,7 +14,8 @@ class GetDashboardDataUseCaseImpl(
         return repository.getUpcomingDuties(7).map { result ->
             result.map { upcomingDuties ->
                 DashboardData(
-                    upcomingDuties = upcomingDuties
+                    upcomingDuties = upcomingDuties,
+                    latestDuties = emptyList() // Will be populated separately
                 )
             }
         }

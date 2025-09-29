@@ -5,6 +5,7 @@ data class DashboardUiState(
     val isLoading: Boolean = false,
     val error: String? = null,
     val upcomingDuties: List<Duty> = emptyList(),
+    val latestDuties: List<Duty> = emptyList(),
     val showSnoozeSnackbar: Boolean = false,
     val snoozedDutyId: String? = null
 )

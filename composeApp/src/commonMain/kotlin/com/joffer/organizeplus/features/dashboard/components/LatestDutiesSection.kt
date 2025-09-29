@@ -15,6 +15,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.joffer.organizeplus.common.utils.DateUtils
 import com.joffer.organizeplus.designsystem.components.*
+import com.joffer.organizeplus.designsystem.components.ResultType
 import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.Typography
@@ -22,21 +23,23 @@ import com.joffer.organizeplus.features.dashboard.domain.entities.Duty
 import com.joffer.organizeplus.utils.CategoryIconProvider
 import org.jetbrains.compose.resources.stringResource
 import organizeplus.composeapp.generated.resources.Res
-import organizeplus.composeapp.generated.resources.upcoming_7_days
-import organizeplus.composeapp.generated.resources.no_duties_next_7_days
-import organizeplus.composeapp.generated.resources.view_all_obligations
+import organizeplus.composeapp.generated.resources.latest_duties_title
+import organizeplus.composeapp.generated.resources.view_all_duties
+import organizeplus.composeapp.generated.resources.add_duty
+import organizeplus.composeapp.generated.resources.no_duties_created_yet
+import organizeplus.composeapp.generated.resources.start_creating_first_duty
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 
 /**
- * Upcoming duties section with swipe actions
+ * Latest duties section showing the 3 most recently created duties
  */
 @Composable
-fun UpcomingSection(
+fun LatestDutiesSection(
     duties: List<Duty>,
-    onMarkPaid: (String) -> Unit,
-    onEdit: (String) -> Unit,
     onViewAll: () -> Unit,
+    onAddDuty: () -> Unit,
+    onEdit: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     OrganizeCard(
@@ -46,7 +49,7 @@ fun UpcomingSection(
             modifier = Modifier.padding(Spacing.md)
         ) {
             Text(
-                text = stringResource(Res.string.upcoming_7_days),
+                text = stringResource(Res.string.latest_duties_title),
                 style = Typography.cardTitle,
                 color = AppColorScheme.formText
             )
@@ -54,20 +57,26 @@ fun UpcomingSection(
             Spacer(modifier = Modifier.height(Spacing.md))
             
             if (duties.isEmpty()) {
-                Text(
-                    text = stringResource(Res.string.no_duties_next_7_days),
-                    style = Typography.bodyMedium,
-                    color = AppColorScheme.formSecondaryText,
-                    modifier = Modifier.fillMaxWidth()
+                // Empty state with add duty button
+                OrganizeResult(
+                    type = ResultType.INFO,
+                    title = stringResource(Res.string.no_duties_created_yet),
+                    description = stringResource(Res.string.start_creating_first_duty),
+                    actions = {
+                        OrganizePrimaryButton(
+                            text = stringResource(Res.string.add_duty),
+                            onClick = onAddDuty,
+                            modifier = Modifier.fillMaxWidth()
+                        )
+                    }
                 )
             } else {
                 Column(
                     verticalArrangement = Arrangement.spacedBy(Spacing.sm)
                 ) {
-                    duties.take(4).forEach { duty ->
-                        UpcomingDutyItem(
+                    duties.forEach { duty ->
+                        LatestDutyItem(
                             duty = duty,
-                            onMarkPaid = { onMarkPaid(duty.id) },
                             onEdit = { onEdit(duty.id) }
                         )
                     }
@@ -80,7 +89,7 @@ fun UpcomingSection(
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Text(
-                        text = stringResource(Res.string.view_all_obligations),
+                        text = stringResource(Res.string.view_all_duties),
                         color = AppColorScheme.primary
                     )
                 }
@@ -90,9 +99,8 @@ fun UpcomingSection(
 }
 
 @Composable
-private fun UpcomingDutyItem(
+private fun LatestDutyItem(
     duty: Duty,
-    onMarkPaid: () -> Unit,
     onEdit: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -161,7 +169,7 @@ private fun UpcomingDutyItem(
                 )
             }
             
-            // Status and attachment
+            // Status
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(Spacing.xs)
@@ -173,9 +181,7 @@ private fun UpcomingDutyItem(
                 }
                 
                 StatusChip(status = status)
-                
             }
         }
     }
 }
-

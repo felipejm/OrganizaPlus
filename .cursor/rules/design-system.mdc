@@ -1,0 +1,7 @@
+---
+description: Use design system
+globs:
+alwaysApply: true
+---
+
+- Always give preference to use the components created in the design system module.

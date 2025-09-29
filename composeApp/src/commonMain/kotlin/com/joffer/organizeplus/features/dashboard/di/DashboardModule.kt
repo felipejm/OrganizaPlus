@@ -15,5 +15,5 @@ val dashboardModule = module {
     single<GetDashboardDataUseCase> { GetDashboardDataUseCaseImpl(get()) }
     single<MarkObligationPaidUseCase> { MarkObligationPaidUseCaseImpl(get()) }
     
-    single { DashboardViewModel(get(), get()) }
+    single { DashboardViewModel(get(), get(), get()) }
 }

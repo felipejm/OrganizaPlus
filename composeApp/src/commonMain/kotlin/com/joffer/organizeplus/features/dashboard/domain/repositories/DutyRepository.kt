@@ -14,4 +14,5 @@ interface DutyRepository {
     suspend fun deleteDuty(id: String): Flow<Result<Unit>>
     suspend fun markDutyPaid(id: String, paidAt: Instant): Flow<Result<Unit>>
     suspend fun getUpcomingDuties(days: Int = 7): Flow<Result<List<Duty>>>
+    suspend fun getLatestDuties(limit: Int = 3): Flow<Result<List<Duty>>>
 }

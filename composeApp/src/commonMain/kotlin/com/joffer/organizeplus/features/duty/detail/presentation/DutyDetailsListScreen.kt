@@ -16,6 +16,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.joffer.organizeplus.common.utils.DateUtils
 import com.joffer.organizeplus.designsystem.components.*
+import com.joffer.organizeplus.designsystem.components.ResultType
 import com.joffer.organizeplus.designsystem.components.ErrorBanner
 import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 import com.joffer.organizeplus.designsystem.spacing.Spacing
@@ -89,12 +90,22 @@ fun DutyDetailsListScreen(
                 }
                 
                 uiState.records.isEmpty() -> {
-                    EmptyState(
-                        title = stringResource(Res.string.duty_occurrence_list_empty_title),
-                        subtitle = stringResource(Res.string.duty_occurrence_list_empty_subtitle),
-                        onAction = { showAddOccurrenceBottomSheet = true },
-                        actionText = stringResource(Res.string.duty_occurrence_list_add_occurrence)
-                    )
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        OrganizeResult(
+                            type = ResultType.INFO,
+                            title = stringResource(Res.string.duty_occurrence_list_empty_title),
+                            description = stringResource(Res.string.duty_occurrence_list_empty_subtitle),
+                            actions = {
+                                OrganizePrimaryButton(
+                                    text = stringResource(Res.string.duty_occurrence_list_add_occurrence),
+                                    onClick = { showAddOccurrenceBottomSheet = true }
+                                )
+                            }
+                        )
+                    }
                 }
                 
                 else -> {
@@ -191,34 +202,3 @@ private fun DutyDetailsListItem(
     }
 }
 
-@Composable
-private fun EmptyState(
-    title: String,
-    subtitle: String,
-    onAction: () -> Unit,
-    actionText: String
-) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(Spacing.xl),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        Text(
-            text = title,
-            style = Typography.titleMedium,
-            color = AppColorScheme.onSurface
-        )
-        Spacer(modifier = Modifier.height(Spacing.sm))
-        Text(
-            text = subtitle,
-            style = Typography.bodyMedium,
-            color = AppColorScheme.formSecondaryText
-        )
-        Spacer(modifier = Modifier.height(Spacing.md))
-        Button(onClick = onAction) {
-            Text(actionText)
-        }
-    }
-}

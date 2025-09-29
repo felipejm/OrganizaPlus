@@ -285,4 +285,14 @@
     <string name="radio_showcase_title">Componentes de Radio</string>
     <string name="form_showcase_title">Componentes de Formulário</string>
     <string name="result_showcase_title">Componentes de Resultado</string>
+    
+    <!-- Dashboard -->
+    <string name="latest_duties_title">Últimas Tarefas</string>
+    <string name="view_all_duties">Ver Todas as Tarefas</string>
+    <string name="add_duty">Adicionar Tarefa</string>
+    <string name="no_duties_created_yet">Nenhuma tarefa criada ainda</string>
+    <string name="start_creating_first_duty">Comece criando sua primeira tarefa para organizar suas obrigações</string>
+    <string name="upcoming_7_days">Próximos 7 dias</string>
+    <string name="no_duties_next_7_days">Nenhuma tarefa nos próximos 7 dias</string>
+    <string name="view_all_obligations">Ver todas as obrigações</string>
 </resources>

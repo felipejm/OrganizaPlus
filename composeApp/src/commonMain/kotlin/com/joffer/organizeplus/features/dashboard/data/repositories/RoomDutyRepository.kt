@@ -65,4 +65,10 @@ class RoomDutyRepository(
             Result.success(entities.map { DutyMapper.toDomainEntity(it) })
         }
     }
+    
+    override suspend fun getLatestDuties(limit: Int): Flow<Result<List<Duty>>> {
+        return dutyDao.getAllDuties().map { entities ->
+            Result.success(entities.take(limit).map { DutyMapper.toDomainEntity(it) })
+        }
+    }
 }

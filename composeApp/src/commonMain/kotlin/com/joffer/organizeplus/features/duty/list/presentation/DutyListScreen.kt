@@ -18,6 +18,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.joffer.organizeplus.common.utils.DateUtils
 import com.joffer.organizeplus.designsystem.components.*
+import com.joffer.organizeplus.designsystem.components.ResultType
 import com.joffer.organizeplus.features.duty.list.components.DutyListItem
 import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 import com.joffer.organizeplus.designsystem.spacing.Spacing
@@ -39,6 +40,7 @@ import organizeplus.composeapp.generated.resources.duty_list_mark_paid
 import organizeplus.composeapp.generated.resources.duty_list_edit
 import organizeplus.composeapp.generated.resources.duty_list_occurrences
 import organizeplus.composeapp.generated.resources.duty_list_delete
+import organizeplus.composeapp.generated.resources.add_duty
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -127,25 +129,17 @@ fun DutyListScreen(
                     modifier = Modifier.fillMaxSize(),
                     contentAlignment = Alignment.Center
                 ) {
-                    Column(
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        Text(
-                            text = stringResource(Res.string.duty_list_empty_title),
-                            style = Typography.titleMedium,
-                            color = AppColorScheme.onSurface
-                        )
-                        Spacer(modifier = Modifier.height(Spacing.sm))
-                        Text(
-                            text = stringResource(Res.string.duty_list_empty_subtitle),
-                            style = Typography.bodyMedium,
-                            color = AppColorScheme.formSecondaryText
-                        )
-                        Spacer(modifier = Modifier.height(Spacing.md))
-                        Button(onClick = onNavigateToCreateDuty) {
-                            Text("Add Duty")
+                    OrganizeResult(
+                        type = ResultType.INFO,
+                        title = stringResource(Res.string.duty_list_empty_title),
+                        description = stringResource(Res.string.duty_list_empty_subtitle),
+                        actions = {
+                            OrganizePrimaryButton(
+                                text = stringResource(Res.string.add_duty),
+                                onClick = onNavigateToCreateDuty
+                            )
                         }
-                    }
+                    )
                 }
             } else {
                 LazyColumn(

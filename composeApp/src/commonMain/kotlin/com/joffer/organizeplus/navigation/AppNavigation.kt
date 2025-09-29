@@ -49,6 +49,9 @@ fun AppNavigation(
                 onNavigateToEditDuty = { dutyId ->
                     navController.navigate(NavigationRoutes.editDuty(dutyId))
                 },
+                onNavigateToCreateDuty = {
+                    navController.navigate(NavigationRoutes.CREATE_DUTY)
+                },
                 onNavigateToSettings = {
                     navController.navigate(NavigationRoutes.SETTINGS)
                 }
@@ -146,13 +149,6 @@ fun AppNavigation(
             )
         }
         
-        composable("forms") {
-            com.joffer.organizeplus.designsystem.catalog.FormShowcaseScreen(
-                onNavigateBack = {
-                    navController.popBackStack()
-                }
-            )
-        }
         
         composable("inputs") {
             com.joffer.organizeplus.designsystem.catalog.InputShowcaseScreen(

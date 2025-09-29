@@ -12,12 +12,14 @@ import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 import com.joffer.organizeplus.features.dashboard.components.UpcomingSection
+import com.joffer.organizeplus.features.dashboard.components.LatestDutiesSection
 import com.joffer.organizeplus.designsystem.components.ErrorBanner
 import com.joffer.organizeplus.features.dashboard.presentation.DashboardViewModel
 import com.joffer.organizeplus.features.dashboard.DashboardIntent
 import org.jetbrains.compose.resources.stringResource
 import organizeplus.composeapp.generated.resources.Res
 import organizeplus.composeapp.generated.resources.settings_button_description
+import organizeplus.composeapp.generated.resources.app_name
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -25,6 +27,7 @@ fun DashboardScreen(
     viewModel: DashboardViewModel,
     onNavigateToDuties: () -> Unit,
     onNavigateToEditDuty: (String) -> Unit,
+    onNavigateToCreateDuty: () -> Unit,
     onNavigateToSettings: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -38,7 +41,7 @@ fun DashboardScreen(
         modifier = modifier,
         topBar = {
             AppTopAppBarWithActions(
-                title = "Organize+",
+                title = stringResource(Res.string.app_name),
                 actions = {
                     IconButton(onClick = onNavigateToSettings) {
                         Icon(
@@ -74,11 +77,11 @@ fun DashboardScreen(
                 }
             } else {
                 item {
-                    UpcomingSection(
-                        duties = uiState.upcomingDuties,
-                        onMarkPaid = { viewModel.onIntent(DashboardIntent.MarkObligationPaid(it)) },
-                        onEdit = onNavigateToEditDuty,
-                        onViewAll = onNavigateToDuties
+                    LatestDutiesSection(
+                        duties = uiState.latestDuties,
+                        onViewAll = onNavigateToDuties,
+                        onAddDuty = onNavigateToCreateDuty,
+                        onEdit = onNavigateToEditDuty
                     )
                 }
                 

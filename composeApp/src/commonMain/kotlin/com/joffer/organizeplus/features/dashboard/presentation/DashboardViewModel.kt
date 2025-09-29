@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.joffer.organizeplus.features.dashboard.domain.usecases.GetDashboardDataUseCase
 import com.joffer.organizeplus.features.dashboard.domain.usecases.MarkObligationPaidUseCase
+import com.joffer.organizeplus.features.dashboard.domain.repositories.DutyRepository
 import com.joffer.organizeplus.features.dashboard.DashboardUiState
 import com.joffer.organizeplus.features.dashboard.DashboardIntent
 import kotlinx.coroutines.flow.*
@@ -11,7 +12,8 @@ import kotlinx.coroutines.launch
 import io.github.aakira.napier.Napier
 class DashboardViewModel(
     private val getDashboardDataUseCase: GetDashboardDataUseCase,
-    private val markObligationPaidUseCase: MarkObligationPaidUseCase
+    private val markObligationPaidUseCase: MarkObligationPaidUseCase,
+    private val dutyRepository: DutyRepository
 ) : ViewModel() {
     
     private val _uiState = MutableStateFlow(DashboardUiState())
@@ -38,30 +40,49 @@ class DashboardViewModel(
         viewModelScope.launch {
             _uiState.value = _uiState.value.copy(isLoading = true, error = null)
             
-            getDashboardDataUseCase()
-                .catch { exception ->
-                    _uiState.value = _uiState.value.copy(
-                        isLoading = false,
-                        error = exception.message ?: "Erro desconhecido"
-                    )
-                }
-                .collect { result ->
-                    result.fold(
-                        onSuccess = { data ->
-                            _uiState.value = _uiState.value.copy(
-                                isLoading = false,
-                                upcomingDuties = data.upcomingDuties,
-                                error = null
-                            )
-                        },
-                        onFailure = { exception ->
-                            _uiState.value = _uiState.value.copy(
-                                isLoading = false,
-                                error = exception.message ?: "Erro ao carregar dados"
-                            )
-                        }
-                    )
-                }
+            // Load both upcoming and latest duties
+            launch {
+                getDashboardDataUseCase()
+                    .catch { exception ->
+                        _uiState.value = _uiState.value.copy(
+                            isLoading = false,
+                            error = exception.message ?: "Erro desconhecido"
+                        )
+                    }
+                    .collect { result ->
+                        result.fold(
+                            onSuccess = { data ->
+                                _uiState.value = _uiState.value.copy(
+                                    isLoading = false,
+                                    upcomingDuties = data.upcomingDuties,
+                                    error = null
+                                )
+                            },
+                            onFailure = { exception ->
+                                _uiState.value = _uiState.value.copy(
+                                    isLoading = false,
+                                    error = exception.message ?: "Erro ao carregar dados"
+                                )
+                            }
+                        )
+                    }
+            }
+            
+            // Load latest duties separately
+            launch {
+                dutyRepository.getLatestDuties(3)
+                    .catch { /* ignore errors for latest duties */ }
+                    .collect { result ->
+                        result.fold(
+                            onSuccess = { latestDuties ->
+                                _uiState.value = _uiState.value.copy(
+                                    latestDuties = latestDuties
+                                )
+                            },
+                            onFailure = { /* ignore */ }
+                        )
+                    }
+            }
         }
     }
     

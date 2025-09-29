@@ -26,21 +26,9 @@ fun ButtonShowcaseScreen(
 ) {
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = {
-                    Text(
-                        text = "Buttons",
-                        style = Typography.h2
-                    )
-                },
-                navigationIcon = {
-                    IconButton(onClick = onNavigateBack) {
-                        Icon(
-                            imageVector = Icons.Default.ArrowBack,
-                            contentDescription = "Back"
-                        )
-                    }
-                }
+            AppTopAppBarWithBackButton(
+                title = "Buttons",
+                onBackClick = onNavigateBack
             )
         }
     ) { paddingValues ->

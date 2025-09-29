@@ -114,6 +114,109 @@ fun AppNavigation(
                 viewModel = settingsViewModel,
                 onNavigateBack = {
                     navController.popBackStack()
+                },
+                onNavigateToDesignSystem = {
+                    navController.navigate("design_system_catalog")
+                }
+            )
+        }
+        
+        composable("design_system_catalog") {
+            com.joffer.organizeplus.designsystem.catalog.DesignSystemCatalogScreen(
+                onNavigateBack = {
+                    navController.popBackStack()
+                },
+                onNavigateToComponent = { route ->
+                    navController.navigate(route)
+                }
+            )
+        }
+        
+        // Design System Component Showcases
+        composable("buttons") {
+            com.joffer.organizeplus.designsystem.catalog.ButtonShowcaseScreen(
+                onNavigateBack = {
+                    navController.popBackStack()
+                }
+            )
+        }
+        
+        composable("cards") {
+            com.joffer.organizeplus.designsystem.catalog.CardShowcaseScreen(
+                onNavigateBack = {
+                    navController.popBackStack()
+                }
+            )
+        }
+        
+        composable("forms") {
+            com.joffer.organizeplus.designsystem.catalog.FormShowcaseScreen(
+                onNavigateBack = {
+                    navController.popBackStack()
+                }
+            )
+        }
+        
+        composable("inputs") {
+            com.joffer.organizeplus.designsystem.catalog.InputShowcaseScreen(
+                onNavigateBack = {
+                    navController.popBackStack()
+                }
+            )
+        }
+        
+        composable("chips") {
+            com.joffer.organizeplus.designsystem.catalog.ChipShowcaseScreen(
+                onNavigateBack = {
+                    navController.popBackStack()
+                }
+            )
+        }
+        
+        composable("badges") {
+            com.joffer.organizeplus.designsystem.catalog.BadgeShowcaseScreen(
+                onNavigateBack = {
+                    navController.popBackStack()
+                }
+            )
+        }
+        
+        composable("simple_tags") {
+            com.joffer.organizeplus.designsystem.catalog.SimpleTagShowcaseScreen(
+                onNavigateBack = {
+                    navController.popBackStack()
+                }
+            )
+        }
+        
+        composable("banners") {
+            com.joffer.organizeplus.designsystem.catalog.BannerShowcaseScreen(
+                onNavigateBack = {
+                    navController.popBackStack()
+                }
+            )
+        }
+        
+        composable("layouts") {
+            com.joffer.organizeplus.designsystem.catalog.LayoutShowcaseScreen(
+                onNavigateBack = {
+                    navController.popBackStack()
+                }
+            )
+        }
+        
+        composable("colors") {
+            com.joffer.organizeplus.designsystem.catalog.ColorShowcaseScreen(
+                onNavigateBack = {
+                    navController.popBackStack()
+                }
+            )
+        }
+        
+        composable("typography") {
+            com.joffer.organizeplus.designsystem.catalog.TypographyShowcaseScreen(
+                onNavigateBack = {
+                    navController.popBackStack()
                 }
             )
         }

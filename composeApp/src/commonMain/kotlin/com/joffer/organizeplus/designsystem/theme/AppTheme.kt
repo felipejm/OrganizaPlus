@@ -32,18 +32,18 @@ fun AppTheme(
             onError = AppColorScheme.onError,
             errorContainer = AppColorScheme.errorContainer,
             onErrorContainer = AppColorScheme.onErrorContainer,
-            background = Color(0xFF121212),
-            onBackground = Color(0xFFFFFFFF),
-            surface = Color(0xFF1E1E1E),
-            onSurface = Color(0xFFFFFFFF),
-            surfaceVariant = Color(0xFF2C2C2C),
-            onSurfaceVariant = Color(0xFFBDBDBD),
-            outline = AppColorScheme.outline,
-            outlineVariant = AppColorScheme.outlineVariant,
+            background = AppColorScheme.neutral700,
+            onBackground = AppColorScheme.white,
+            surface = AppColorScheme.neutral600,
+            onSurface = AppColorScheme.white,
+            surfaceVariant = AppColorScheme.neutral500,
+            onSurfaceVariant = AppColorScheme.neutral200,
+            outline = AppColorScheme.neutral400,
+            outlineVariant = AppColorScheme.neutral500,
             scrim = AppColorScheme.scrim,
-            inverseSurface = AppColorScheme.inverseSurface,
-            inverseOnSurface = AppColorScheme.inverseOnSurface,
-            inversePrimary = AppColorScheme.inversePrimary
+            inverseSurface = AppColorScheme.neutral700,
+            inverseOnSurface = AppColorScheme.white,
+            inversePrimary = AppColorScheme.primary300
         )
     } else {
         lightColorScheme(
@@ -79,11 +79,7 @@ fun AppTheme(
     }
 
     MaterialTheme(
-        colorScheme = colorScheme.copy(
-            // Adicionar as cores do HTML ao MaterialTheme
-            primary = AppColorScheme.htmlPrimary,
-            tertiary = AppColorScheme.htmlAmber
-        ),
+        colorScheme = colorScheme,
         content = content
     )
 }

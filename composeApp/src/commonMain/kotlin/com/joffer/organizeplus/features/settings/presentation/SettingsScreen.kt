@@ -32,6 +32,7 @@ import organizeplus.composeapp.generated.resources.settings_about
 fun SettingsScreen(
     viewModel: SettingsViewModel,
     onNavigateBack: () -> Unit,
+    onNavigateToDesignSystem: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val uiState by viewModel.uiState.collectAsState()
@@ -90,44 +91,40 @@ fun SettingsScreen(
             
             Spacer(modifier = Modifier.height(Spacing.lg))
             
-            // Appearance Settings
+            // Design System
             SettingsSection(
-                title = stringResource(Res.string.settings_appearance)
+                title = "Design System"
             ) {
-                // TODO: Add appearance settings
-                Text(
-                    text = "Theme settings coming soon",
-                    style = Typography.bodyMedium,
-                    color = AppColorScheme.formSecondaryText
-                )
-            }
-            
-            Spacer(modifier = Modifier.height(Spacing.lg))
-            
-            // Notifications Settings
-            SettingsSection(
-                title = stringResource(Res.string.settings_notifications)
-            ) {
-                // TODO: Add notification settings
-                Text(
-                    text = "Notification settings coming soon",
-                    style = Typography.bodyMedium,
-                    color = AppColorScheme.formSecondaryText
-                )
-            }
-            
-            Spacer(modifier = Modifier.height(Spacing.lg))
-            
-            // About Settings
-            SettingsSection(
-                title = stringResource(Res.string.settings_about)
-            ) {
-                // TODO: Add about settings
-                Text(
-                    text = "About settings coming soon",
-                    style = Typography.bodyMedium,
-                    color = AppColorScheme.formSecondaryText
-                )
+                OrganizeCard(
+                    onClick = onNavigateToDesignSystem,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(Spacing.md),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Column {
+                            Text(
+                                text = "Design System Catalog",
+                                style = Typography.title,
+                                color = AppColorScheme.onSurface
+                            )
+                            Text(
+                                text = "Explore components, colors, and typography",
+                                style = Typography.body,
+                                color = AppColorScheme.onSurfaceVariant
+                            )
+                        }
+                        Text(
+                            text = "→",
+                            style = Typography.title,
+                            color = AppColorScheme.primary
+                        )
+                    }
+                }
             }
             
             Spacer(modifier = Modifier.height(Spacing.xl))

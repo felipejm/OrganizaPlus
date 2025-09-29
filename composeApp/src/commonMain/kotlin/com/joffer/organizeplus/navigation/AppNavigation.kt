@@ -9,8 +9,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.joffer.organizeplus.features.dashboard.presentation.DashboardScreen
 import com.joffer.organizeplus.features.dashboard.presentation.DashboardViewModel
-import com.joffer.organizeplus.features.duty.presentation.DutyScreen
-import com.joffer.organizeplus.features.duty.presentation.DutyViewModel
+import com.joffer.organizeplus.features.createDuty.presentation.CreateDutyScreen
+import com.joffer.organizeplus.features.createDuty.presentation.CreateDutyViewModel
 import com.joffer.organizeplus.features.dutyList.presentation.DutyListScreen
 import com.joffer.organizeplus.features.dutyList.presentation.DutyListViewModel
 import com.joffer.organizeplus.features.dutyDetails.presentation.DutyDetailsListScreen
@@ -59,9 +59,9 @@ fun AppNavigation(
         }
         
         composable(NavigationRoutes.CREATE_DUTY) {
-            val dutyViewModel: DutyViewModel = koinInject()
-            DutyScreen(
-                viewModel = dutyViewModel,
+            val createDutyViewModel: CreateDutyViewModel = koinInject()
+            CreateDutyScreen(
+                viewModel = createDutyViewModel,
                 onNavigateBack = {
                     navController.popBackStack()
                 }
@@ -88,9 +88,9 @@ fun AppNavigation(
         }
         
         composable(NavigationRoutes.EDIT_DUTY) {
-            val dutyViewModel: DutyViewModel = koinInject()
-            DutyScreen(
-                viewModel = dutyViewModel,
+            val createDutyViewModel: CreateDutyViewModel = koinInject()
+            CreateDutyScreen(
+                viewModel = createDutyViewModel,
                 onNavigateBack = {
                     navController.popBackStack()
                 }

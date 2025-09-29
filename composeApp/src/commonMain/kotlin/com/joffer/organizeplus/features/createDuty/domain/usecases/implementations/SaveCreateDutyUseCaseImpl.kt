@@ -1,7 +1,7 @@
-package com.joffer.organizeplus.features.duty.domain.usecases.implementations
+package com.joffer.organizeplus.features.createDuty.domain.usecases.implementations
 
-import com.joffer.organizeplus.features.duty.domain.entities.DutyForm
-import com.joffer.organizeplus.features.duty.domain.usecases.SaveDutyUseCase
+import com.joffer.organizeplus.features.createDuty.domain.entities.CreateDutyForm
+import com.joffer.organizeplus.features.createDuty.domain.usecases.SaveCreateDutyUseCase
 import com.joffer.organizeplus.features.dashboard.domain.repositories.DutyRepository
 import com.joffer.organizeplus.features.dashboard.domain.entities.Duty
 import com.joffer.organizeplus.features.dashboard.domain.entities.DutyCategory
@@ -15,11 +15,11 @@ import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import kotlinx.datetime.atStartOfDayIn
 
-class SaveDutyUseCaseImpl(
+class SaveCreateDutyUseCaseImpl(
     private val repository: DutyRepository
-) : SaveDutyUseCase {
+) : SaveCreateDutyUseCase {
     
-    override suspend operator fun invoke(form: DutyForm): Flow<Result<Unit>> {
+    override suspend operator fun invoke(form: CreateDutyForm): Flow<Result<Unit>> {
         return try {
             val duty = convertFormToDuty(form)
             repository.insertDuty(duty)
@@ -28,7 +28,7 @@ class SaveDutyUseCaseImpl(
         }
     }
     
-    private suspend fun convertFormToDuty(form: DutyForm): Duty {
+    private suspend fun convertFormToDuty(form: CreateDutyForm): Duty {
         val now = Clock.System.now()
         val startDate = parseDate(form.startDate) ?: now
         val dueDate = parseDate(form.dueDate) ?: now

@@ -142,6 +142,20 @@
     <string name="navigation_create_duty">New Duty</string>
     <string name="navigation_edit_duty">Edit Duty</string>
     
+    <!-- CreateDuty form strings -->
+    <string name="create_duty_title">Title</string>
+    <string name="create_duty_start_date">Start Date</string>
+    <string name="create_duty_due_date">Due Date</string>
+    <string name="create_duty_type_personal">Personal</string>
+    <string name="create_duty_type_company">Company</string>
+    <string name="create_duty_category">Category</string>
+    <string name="create_duty_recurring">Recurring</string>
+    <string name="create_duty_reminders">Reminders</string>
+    <string name="create_duty_save">Save</string>
+    <string name="create_duty_cancel">Cancel</string>
+    <string name="navigation_create_duty_new">Create Duty</string>
+    <string name="navigation_edit_duty_new">Edit Duty</string>
+    
     <!-- Form placeholders -->
     <string name="placeholder_title">Enter duty title</string>
     <string name="placeholder_category">Select a category</string>

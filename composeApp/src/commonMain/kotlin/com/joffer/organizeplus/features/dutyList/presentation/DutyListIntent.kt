@@ -11,3 +11,4 @@ sealed class DutyListIntent {
     object Retry : DutyListIntent()
 }
 
+

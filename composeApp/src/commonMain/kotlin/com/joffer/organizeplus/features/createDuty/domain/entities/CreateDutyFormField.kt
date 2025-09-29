@@ -1,0 +1,15 @@
+package com.joffer.organizeplus.features.createDuty.domain.entities
+
+sealed class CreateDutyFormField {
+    object Title : CreateDutyFormField()
+    object StartDate : CreateDutyFormField()
+    object DueDate : CreateDutyFormField()
+    object DutyType : CreateDutyFormField()
+    object CategoryName : CreateDutyFormField()
+    object HasStartDateReminder : CreateDutyFormField()
+    object StartDateReminderDays : CreateDutyFormField()
+    object StartDateReminderTime : CreateDutyFormField()
+    object HasDueDateReminder : CreateDutyFormField()
+    object DueDateReminderDays : CreateDutyFormField()
+    object DueDateReminderTime : CreateDutyFormField()
+}

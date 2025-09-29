@@ -1,12 +1,12 @@
-package com.joffer.organizeplus.features.duty.presentation
+package com.joffer.organizeplus.features.createDuty.presentation
 
-import com.joffer.organizeplus.features.duty.domain.entities.DutyForm
-import com.joffer.organizeplus.features.duty.domain.entities.DutyFormField
-import com.joffer.organizeplus.features.duty.domain.entities.ValidationError
+import com.joffer.organizeplus.features.createDuty.domain.entities.CreateDutyForm
+import com.joffer.organizeplus.features.createDuty.domain.entities.CreateDutyFormField
+import com.joffer.organizeplus.features.createDuty.domain.entities.CreateDutyValidationError
 
-data class DutyUiState(
+data class CreateDutyUiState(
     val isLoading: Boolean = false,
-    val errors: Map<DutyFormField, ValidationError> = emptyMap(),
+    val errors: Map<CreateDutyFormField, CreateDutyValidationError> = emptyMap(),
     val showCustomRule: Boolean = false,
     val showStartDateReminderOptions: Boolean = false,
     val showDueDateReminderOptions: Boolean = false,

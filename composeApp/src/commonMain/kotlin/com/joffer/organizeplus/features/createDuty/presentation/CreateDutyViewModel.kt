@@ -1,12 +1,12 @@
-package com.joffer.organizeplus.features.duty.presentation
+package com.joffer.organizeplus.features.createDuty.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.joffer.organizeplus.features.duty.domain.entities.DutyForm
-import com.joffer.organizeplus.features.duty.domain.entities.DutyFormField
-import com.joffer.organizeplus.features.duty.domain.entities.ValidationError
-import com.joffer.organizeplus.features.duty.domain.validation.DutyValidator
-import com.joffer.organizeplus.features.duty.domain.usecases.SaveDutyUseCase
+import com.joffer.organizeplus.features.createDuty.domain.entities.CreateDutyForm
+import com.joffer.organizeplus.features.createDuty.domain.entities.CreateDutyFormField
+import com.joffer.organizeplus.features.createDuty.domain.entities.CreateDutyValidationError
+import com.joffer.organizeplus.features.createDuty.domain.validation.CreateDutyValidator
+import com.joffer.organizeplus.features.createDuty.domain.usecases.SaveCreateDutyUseCase
 import com.joffer.organizeplus.features.dashboard.domain.entities.DutyType
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -15,52 +15,52 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 import io.github.aakira.napier.Napier
 
-class DutyViewModel(
-    private val saveDutyUseCase: SaveDutyUseCase,
+class CreateDutyViewModel(
+    private val saveCreateDutyUseCase: SaveCreateDutyUseCase,
     private val dutyId: String? = null
 ) : ViewModel() {
     
-    private val _uiState = MutableStateFlow(DutyUiState())
-    val uiState: StateFlow<DutyUiState> = _uiState.asStateFlow()
+    private val _uiState = MutableStateFlow(CreateDutyUiState())
+    val uiState: StateFlow<CreateDutyUiState> = _uiState.asStateFlow()
     
-    private val _formState = MutableStateFlow(DutyForm())
-    val formState: StateFlow<DutyForm> = _formState.asStateFlow()
+    private val _formState = MutableStateFlow(CreateDutyForm())
+    val formState: StateFlow<CreateDutyForm> = _formState.asStateFlow()
     
-    fun onIntent(intent: DutyIntent) {
+    fun onIntent(intent: CreateDutyIntent) {
         when (intent) {
-            DutyIntent.SaveDuty -> saveDuty()
-            DutyIntent.CancelForm -> cancelForm()
-            DutyIntent.ClearError -> clearError()
-            DutyIntent.ClearSuccess -> clearSuccess()
-            DutyIntent.ClearErrorSnackbar -> clearErrorSnackbar()
-            DutyIntent.ClearSuccessSnackbar -> clearSuccessSnackbar()
-            DutyIntent.ShowCustomRule -> showCustomRule()
-            DutyIntent.HideCustomRule -> hideCustomRule()
-            DutyIntent.ShowStartDateReminderOptions -> showStartDateReminderOptions()
-            DutyIntent.HideStartDateReminderOptions -> hideStartDateReminderOptions()
-            DutyIntent.ShowDueDateReminderOptions -> showDueDateReminderOptions()
-            DutyIntent.HideDueDateReminderOptions -> hideDueDateReminderOptions()
-            DutyIntent.ShowTimePicker -> showTimePicker()
-            DutyIntent.HideTimePicker -> hideTimePicker()
+            CreateDutyIntent.SaveCreateDuty -> saveCreateDuty()
+            CreateDutyIntent.CancelForm -> cancelForm()
+            CreateDutyIntent.ClearError -> clearError()
+            CreateDutyIntent.ClearSuccess -> clearSuccess()
+            CreateDutyIntent.ClearErrorSnackbar -> clearErrorSnackbar()
+            CreateDutyIntent.ClearSuccessSnackbar -> clearSuccessSnackbar()
+            CreateDutyIntent.ShowCustomRule -> showCustomRule()
+            CreateDutyIntent.HideCustomRule -> hideCustomRule()
+            CreateDutyIntent.ShowStartDateReminderOptions -> showStartDateReminderOptions()
+            CreateDutyIntent.HideStartDateReminderOptions -> hideStartDateReminderOptions()
+            CreateDutyIntent.ShowDueDateReminderOptions -> showDueDateReminderOptions()
+            CreateDutyIntent.HideDueDateReminderOptions -> hideDueDateReminderOptions()
+            CreateDutyIntent.ShowTimePicker -> showTimePicker()
+            CreateDutyIntent.HideTimePicker -> hideTimePicker()
             
-            is DutyIntent.UpdateFormField -> updateFormField(intent.field, intent.value)
-            is DutyIntent.SelectTime -> selectTime(intent.time)
+            is CreateDutyIntent.UpdateFormField -> updateFormField(intent.field, intent.value)
+            is CreateDutyIntent.SelectTime -> selectTime(intent.time)
         }
     }
     
-    private fun updateFormField(field: DutyFormField, value: Any) {
+    private fun updateFormField(field: CreateDutyFormField, value: Any) {
         _formState.value = when (field) {
-            DutyFormField.Title -> updateTitle(value)
-            DutyFormField.StartDate -> updateStartDate(value)
-            DutyFormField.DueDate -> updateDueDate(value)
-            DutyFormField.DutyType -> updateDutyType(value)
-            DutyFormField.CategoryName -> updateCategoryName(value)
-            DutyFormField.HasStartDateReminder -> updateStartDateReminder(value)
-            DutyFormField.StartDateReminderDays -> updateStartDateReminderDays(value)
-            DutyFormField.StartDateReminderTime -> updateStartDateReminderTime(value)
-            DutyFormField.HasDueDateReminder -> updateDueDateReminder(value)
-            DutyFormField.DueDateReminderDays -> updateDueDateReminderDays(value)
-            DutyFormField.DueDateReminderTime -> updateDueDateReminderTime(value)
+            CreateDutyFormField.Title -> updateTitle(value)
+            CreateDutyFormField.StartDate -> updateStartDate(value)
+            CreateDutyFormField.DueDate -> updateDueDate(value)
+            CreateDutyFormField.DutyType -> updateDutyType(value)
+            CreateDutyFormField.CategoryName -> updateCategoryName(value)
+            CreateDutyFormField.HasStartDateReminder -> updateStartDateReminder(value)
+            CreateDutyFormField.StartDateReminderDays -> updateStartDateReminderDays(value)
+            CreateDutyFormField.StartDateReminderTime -> updateStartDateReminderTime(value)
+            CreateDutyFormField.HasDueDateReminder -> updateDueDateReminder(value)
+            CreateDutyFormField.DueDateReminderDays -> updateDueDateReminderDays(value)
+            CreateDutyFormField.DueDateReminderTime -> updateDueDateReminderTime(value)
         }
         
         _uiState.value = _uiState.value.copy(hasUnsavedChanges = true)
@@ -78,19 +78,19 @@ class DutyViewModel(
     private fun updateDueDateReminderDays(value: Any) = _formState.value.copy(dueDateReminderDaysBefore = value as Int)
     private fun updateDueDateReminderTime(value: Any) = _formState.value.copy(dueDateReminderTime = value as String)
     
-    fun getFieldError(field: DutyFormField): ValidationError? {
+    fun getFieldError(field: CreateDutyFormField): CreateDutyValidationError? {
         return _uiState.value.errors[field]
     }
     
-    private fun saveDuty() {
+    private fun saveCreateDuty() {
         viewModelScope.launch {
             val form = _formState.value
-            val errors = DutyValidator().validate(form)
+            val errors = CreateDutyValidator().validate(form)
 
             if (errors.isEmpty()) {
                 _uiState.value = _uiState.value.copy(isLoading = true)
 
-                saveDutyUseCase(form)
+                saveCreateDutyUseCase(form)
                     .catch { exception ->
                         Napier.e("Error saving obligation", exception)
                         _uiState.value = _uiState.value.copy(

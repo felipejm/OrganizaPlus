@@ -40,7 +40,7 @@ fun DutyListItem(
                     modifier = Modifier.weight(1f)
                 ) {
                             Text(
-                                text = CategoryIconProvider.getIconForCategory(duty.categoryId),
+                                text = CategoryIconProvider.getIconForCategory(duty.categoryName),
                                 style = Typography.headlineMedium,
                                 modifier = Modifier.padding(end = Spacing.xs)
                             )

@@ -13,8 +13,6 @@ data class DutyEntity(
     val type: String = "ACTIONABLE",
     val dueDate: Instant? = null,
     val isCompleted: Boolean = false,
-    val priority: String = "MEDIUM",
-    val category: String? = null,
-    val createdAt: Instant,
-    val updatedAt: Instant
+    val categoryName: String? = null,
+    val createdAt: Instant
 )

@@ -32,6 +32,8 @@ class DutyViewModel(
             DutyIntent.CancelForm -> cancelForm()
             DutyIntent.ClearError -> clearError()
             DutyIntent.ClearSuccess -> clearSuccess()
+            DutyIntent.ClearErrorSnackbar -> clearErrorSnackbar()
+            DutyIntent.ClearSuccessSnackbar -> clearSuccessSnackbar()
             DutyIntent.ShowCustomRule -> showCustomRule()
             DutyIntent.HideCustomRule -> hideCustomRule()
             DutyIntent.ShowStartDateReminderOptions -> showStartDateReminderOptions()
@@ -40,8 +42,6 @@ class DutyViewModel(
             DutyIntent.HideDueDateReminderOptions -> hideDueDateReminderOptions()
             DutyIntent.ShowTimePicker -> showTimePicker()
             DutyIntent.HideTimePicker -> hideTimePicker()
-            DutyIntent.ConfirmExit -> confirmExit()
-            DutyIntent.CancelExit -> cancelExit()
             
             is DutyIntent.UpdateFormField -> updateFormField(intent.field, intent.value)
             is DutyIntent.SelectTime -> selectTime(intent.time)
@@ -54,8 +54,7 @@ class DutyViewModel(
             DutyFormField.StartDate -> updateStartDate(value)
             DutyFormField.DueDate -> updateDueDate(value)
             DutyFormField.DutyType -> updateDutyType(value)
-            DutyFormField.Category -> updateCategory(value)
-            DutyFormField.Priority -> updatePriority(value)
+            DutyFormField.CategoryName -> updateCategoryName(value)
             DutyFormField.HasStartDateReminder -> updateStartDateReminder(value)
             DutyFormField.StartDateReminderDays -> updateStartDateReminderDays(value)
             DutyFormField.StartDateReminderTime -> updateStartDateReminderTime(value)
@@ -71,8 +70,7 @@ class DutyViewModel(
     private fun updateStartDate(value: Any) = _formState.value.copy(startDate = value as String)
     private fun updateDueDate(value: Any) = _formState.value.copy(dueDate = value as String)
     private fun updateDutyType(value: Any) = _formState.value.copy(dutyType = value as DutyType)
-    private fun updateCategory(value: Any) = _formState.value.copy(categoryId = value as String)
-    private fun updatePriority(value: Any) = _formState.value.copy(priority = value as DutyForm.Priority)
+    private fun updateCategoryName(value: Any) = _formState.value.copy(categoryName = value as String)
     private fun updateStartDateReminder(value: Any) = _formState.value.copy(hasStartDateReminder = value as Boolean)
     private fun updateStartDateReminderDays(value: Any) = _formState.value.copy(startDateReminderDaysBefore = value as Int)
     private fun updateStartDateReminderTime(value: Any) = _formState.value.copy(startDateReminderTime = value as String)
@@ -97,7 +95,8 @@ class DutyViewModel(
                         Napier.e("Error saving obligation", exception)
                         _uiState.value = _uiState.value.copy(
                             isLoading = false,
-                            errorMessage = exception.message
+                            errorMessage = exception.message,
+                            showErrorSnackbar = true
                         )
                     }
                     .collect { result ->
@@ -105,7 +104,7 @@ class DutyViewModel(
                             onSuccess = {
                                 _uiState.value = _uiState.value.copy(
                                     isLoading = false,
-                                    showSuccessMessage = true,
+                                    showSuccessSnackbar = true,
                                     hasUnsavedChanges = false
                                 )
                             },
@@ -113,7 +112,8 @@ class DutyViewModel(
                                 Napier.e("Failed to save obligation", exception)
                                 _uiState.value = _uiState.value.copy(
                                     isLoading = false,
-                                    errorMessage = exception.message
+                                    errorMessage = exception.message,
+                                    showErrorSnackbar = true
                                 )
                             }
                         )
@@ -125,11 +125,7 @@ class DutyViewModel(
     }
     
     private fun cancelForm() {
-        if (_uiState.value.hasUnsavedChanges) {
-            _uiState.value = _uiState.value.copy(showExitDialog = true)
-        } else {
-            _uiState.value = _uiState.value.copy(showSuccessMessage = true)
-        }
+        _uiState.value = _uiState.value.copy(showSuccessMessage = true)
     }
     
     private fun clearError() {
@@ -138,6 +134,14 @@ class DutyViewModel(
     
     private fun clearSuccess() {
         _uiState.value = _uiState.value.copy(showSuccessMessage = false)
+    }
+    
+    private fun clearErrorSnackbar() {
+        _uiState.value = _uiState.value.copy(showErrorSnackbar = false, errorMessage = null)
+    }
+    
+    private fun clearSuccessSnackbar() {
+        _uiState.value = _uiState.value.copy(showSuccessSnackbar = false)
     }
     
     private fun showCustomRule() {
@@ -173,14 +177,6 @@ class DutyViewModel(
         _uiState.value = _uiState.value.copy(showTimePicker = false)
     }
     
-    private fun confirmExit() {
-        _uiState.value = _uiState.value.copy(showExitDialog = false)
-        _uiState.value = _uiState.value.copy(showSuccessMessage = true)
-    }
-    
-    private fun cancelExit() {
-        _uiState.value = _uiState.value.copy(showExitDialog = false)
-    }
     
     
     private fun selectTime(time: String) {

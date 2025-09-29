@@ -258,4 +258,10 @@
     <string name="date_placeholder">dd/MM/aaaa</string>
     <string name="validation_field_required">Campo obrigatório</string>
     <string name="validation_date_required">Data obrigatória</string>
+    
+    <!-- Additional strings for DutyScreen -->
+    <string name="error_saving">Erro ao salvar</string>
+    <string name="duty_saved_success">Tarefa salva com sucesso!</string>
+    <string name="back_arrow">←</string>
+    <string name="duty_type_label">Tipo de Tarefa</string>
 </resources>

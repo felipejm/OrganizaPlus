@@ -110,17 +110,17 @@ private fun UpcomingDutyItem(
             verticalAlignment = Alignment.CenterVertically
         ) {
             // Circular icon
-            val iconColor = when (duty.categoryId) {
+            val iconColor = when (duty.categoryName) {
                 "4" -> AppColorScheme.iconOrange
                 else -> AppColorScheme.iconBlue
             }
             
-            val iconContainerColor = when (duty.categoryId) {
+            val iconContainerColor = when (duty.categoryName) {
                 "4" -> AppColorScheme.iconOrangeContainer
                 else -> AppColorScheme.iconBlueContainer
             }
             
-            val iconText = CategoryIconProvider.getIconForCategory(duty.categoryId)
+            val iconText = CategoryIconProvider.getIconForCategory(duty.categoryName)
             
             Box(
                 modifier = Modifier

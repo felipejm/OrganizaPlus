@@ -20,8 +20,8 @@ class DutyValidator {
             errors[DutyFormField.DueDate] = ValidationError.EmptyDueDate
         }
         
-        if (form.categoryId.isBlank()) {
-            errors[DutyFormField.Category] = ValidationError.EmptyCategory
+        if (form.categoryName.isBlank()) {
+            errors[DutyFormField.CategoryName] = ValidationError.EmptyCategory
         }
         
         if (form.hasStartDateReminder && 

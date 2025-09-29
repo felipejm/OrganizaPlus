@@ -8,6 +8,8 @@ sealed class DutyIntent {
     object CancelForm : DutyIntent()
     object ClearError : DutyIntent()
     object ClearSuccess : DutyIntent()
+    object ClearErrorSnackbar : DutyIntent()
+    object ClearSuccessSnackbar : DutyIntent()
     object ShowCustomRule : DutyIntent()
     object HideCustomRule : DutyIntent()
     object ShowStartDateReminderOptions : DutyIntent()
@@ -16,8 +18,6 @@ sealed class DutyIntent {
     object HideDueDateReminderOptions : DutyIntent()
     object ShowTimePicker : DutyIntent()
     object HideTimePicker : DutyIntent()
-    object ConfirmExit : DutyIntent()
-    object CancelExit : DutyIntent()
     
     data class UpdateFormField(
         val field: DutyFormField,

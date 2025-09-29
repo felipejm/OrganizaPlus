@@ -11,8 +11,9 @@ data class DutyUiState(
     val showStartDateReminderOptions: Boolean = false,
     val showDueDateReminderOptions: Boolean = false,
     val hasUnsavedChanges: Boolean = false,
-    val showExitDialog: Boolean = false,
     val showSuccessMessage: Boolean = false,
     val errorMessage: String? = null,
-    val showTimePicker: Boolean = false
+    val showTimePicker: Boolean = false,
+    val showErrorSnackbar: Boolean = false,
+    val showSuccessSnackbar: Boolean = false
 )

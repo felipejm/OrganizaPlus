@@ -45,11 +45,9 @@ class FakeDutyRepository : DutyRepository {
                 startDate = now,
                 dueDate = now,
                 type = DutyType.PAYABLE,
-                categoryId = "1",
+                categoryName = "Conta de Luz",
                 status = Duty.Status.PENDING,
-                priority = Duty.Priority.MEDIUM,
-                createdAt = now,
-                updatedAt = now
+                createdAt = now
             ),
             Duty(
                 id = "2",
@@ -57,11 +55,9 @@ class FakeDutyRepository : DutyRepository {
                 startDate = now,
                 dueDate = now,
                 type = DutyType.PAYABLE,
-                categoryId = "2",
+                categoryName = "Condomínio",
                 status = Duty.Status.PAID,
-                priority = Duty.Priority.HIGH,
-                createdAt = now,
-                updatedAt = now
+                createdAt = now
             ),
             Duty(
                 id = "3",
@@ -69,11 +65,9 @@ class FakeDutyRepository : DutyRepository {
                 startDate = now,
                 dueDate = now,
                 type = DutyType.ACTIONABLE,
-                categoryId = "4",
+                categoryName = "DAS Empresa",
                 status = Duty.Status.PENDING,
-                priority = Duty.Priority.URGENT,
-                createdAt = now,
-                updatedAt = now
+                createdAt = now
             ),
             Duty(
                 id = "4",
@@ -81,11 +75,9 @@ class FakeDutyRepository : DutyRepository {
                 startDate = now,
                 dueDate = tomorrow,
                 type = DutyType.PAYABLE,
-                categoryId = "5",
+                categoryName = "Internet",
                 status = Duty.Status.PENDING,
-                priority = Duty.Priority.MEDIUM,
-                createdAt = now,
-                updatedAt = now
+                createdAt = now
             ),
             Duty(
                 id = "5",
@@ -93,11 +85,9 @@ class FakeDutyRepository : DutyRepository {
                 startDate = now,
                 dueDate = nextWeek,
                 type = DutyType.PAYABLE,
-                categoryId = "3",
+                categoryName = "Financiamento",
                 status = Duty.Status.PENDING,
-                priority = Duty.Priority.HIGH,
-                createdAt = now,
-                updatedAt = now
+                createdAt = now
             )
         ))
     }
@@ -152,7 +142,7 @@ class FakeDutyRepository : DutyRepository {
         if (shouldThrowError) {
             return flowOf(Result.failure(Exception(errorMessage)))
         }
-        val filtered = duties.filter { it.categoryId == categoryId }
+        val filtered = duties.filter { it.categoryName == categoryId }
         return flowOf(Result.success(filtered))
     }
 
@@ -161,7 +151,7 @@ class FakeDutyRepository : DutyRepository {
             return flowOf(Result.failure(Exception(errorMessage)))
         }
         val filtered = duties.filter { duty -> 
-            val category = categories.find { it.id == duty.categoryId }
+            val category = categories.find { it.name == duty.categoryName }
             category?.isPersonal == isPersonal
         }
         return flowOf(Result.success(filtered))
@@ -308,11 +298,11 @@ class FakeDutyRepository : DutyRepository {
         }
         
         val personalDutys = monthlyDutys.filter { duty -> 
-            val category = categories.find { it.id == duty.categoryId }
+            val category = categories.find { it.name == duty.categoryName }
             category?.isPersonal == true
         }
         val businessDutys = monthlyDutys.filter { duty -> 
-            val category = categories.find { it.id == duty.categoryId }
+            val category = categories.find { it.name == duty.categoryName }
             category?.isPersonal == false
         }
         

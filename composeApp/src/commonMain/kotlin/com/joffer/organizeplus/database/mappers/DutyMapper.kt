@@ -17,18 +17,10 @@ object DutyMapper {
                 "PAYABLE" -> DutyType.PAYABLE
                 else -> DutyType.ACTIONABLE
             },
-            categoryId = entity.category ?: "",
+            categoryName = entity.categoryName ?: "",
             status = if (entity.isCompleted) Duty.Status.PAID else Duty.Status.PENDING,
-            priority = when (entity.priority) {
-                "LOW" -> Duty.Priority.LOW
-                "MEDIUM" -> Duty.Priority.MEDIUM
-                "HIGH" -> Duty.Priority.HIGH
-                "URGENT" -> Duty.Priority.URGENT
-                else -> Duty.Priority.MEDIUM
-            },
             snoozeUntil = null,
-            createdAt = entity.createdAt,
-            updatedAt = entity.updatedAt
+            createdAt = entity.createdAt
         )
     }
     
@@ -40,10 +32,8 @@ object DutyMapper {
             type = domain.type.name,
             dueDate = domain.dueDate,
             isCompleted = domain.status == Duty.Status.PAID,
-            priority = domain.priority.name,
-            category = domain.categoryId,
-            createdAt = domain.createdAt,
-            updatedAt = domain.updatedAt
+            categoryName = domain.categoryName,
+            createdAt = domain.createdAt
         )
     }
 }

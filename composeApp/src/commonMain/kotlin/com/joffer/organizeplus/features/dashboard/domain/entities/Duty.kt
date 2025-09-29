@@ -8,19 +8,13 @@ data class Duty(
     val startDate: Instant,
     val dueDate: Instant,
     val type: DutyType,
-    val categoryId: String,
+    val categoryName: String,
     val status: Status,
-    val priority: Priority,
     val snoozeUntil: Instant? = null,
-    val createdAt: Instant,
-    val updatedAt: Instant
+    val createdAt: Instant
 ) {
     enum class Status {
         PENDING, PAID, OVERDUE, SNOOZED
-    }
-    
-    enum class Priority {
-        LOW, MEDIUM, HIGH, URGENT
     }
     
     fun isOverdue(): Boolean {

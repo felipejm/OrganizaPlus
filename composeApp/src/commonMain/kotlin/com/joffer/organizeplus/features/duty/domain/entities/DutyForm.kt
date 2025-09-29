@@ -10,23 +10,18 @@ data class DutyForm(
     val startDate: String = "",
     val dueDate: String = "",
     val dutyType: DutyType = DutyType.ACTIONABLE,
-    val categoryId: String = "",
+    val categoryName: String = "",
     val hasStartDateReminder: Boolean = false,
     val startDateReminderDaysBefore: Int = 3,
     val startDateReminderTime: String = "09:00",
     val hasDueDateReminder: Boolean = false,
     val dueDateReminderDaysBefore: Int = 3,
-    val dueDateReminderTime: String = "09:00",
-    val priority: Priority = Priority.MEDIUM
+    val dueDateReminderTime: String = "09:00"
 ) {
-    enum class Priority {
-        LOW, MEDIUM, HIGH, URGENT
-    }
-
     fun isValid(): Boolean {
         return title.isNotBlank() && 
                startDate.isNotBlank() &&
                dueDate.isNotBlank() && 
-               categoryId.isNotBlank()
+               categoryName.isNotBlank()
     }
 }

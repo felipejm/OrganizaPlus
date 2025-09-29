@@ -7,7 +7,6 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.joffer.organizeplus.designsystem.components.*
@@ -49,6 +48,14 @@ import organizeplus.composeapp.generated.resources.error_start_date_required
 import organizeplus.composeapp.generated.resources.error_due_date_required
 import organizeplus.composeapp.generated.resources.error_category_required
 import organizeplus.composeapp.generated.resources.error_reminder_days_range
+import organizeplus.composeapp.generated.resources.duty_type_label
+import organizeplus.composeapp.generated.resources.duty_type_payable
+import organizeplus.composeapp.generated.resources.duty_type_actionable
+import organizeplus.composeapp.generated.resources.error_saving
+import organizeplus.composeapp.generated.resources.duty_saved_success
+import organizeplus.composeapp.generated.resources.back_arrow
+import organizeplus.composeapp.generated.resources.placeholder_date
+import organizeplus.composeapp.generated.resources.close
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -66,277 +73,254 @@ fun DutyScreen(
         }
     }
     
-    if (uiState.showExitDialog) {
-        ExitDialog(
-            onConfirm = { onNavigateBack() },
-            onDismiss = { viewModel.onIntent(DutyIntent.ClearError) }
-        )
-    }
-    
-    Column(
-        modifier = modifier.fillMaxSize()
-    ) {
-        TopAppBar(
-            title = {
-                Text(
-                    text = if (formState.id == null) stringResource(Res.string.navigation_create_duty) else stringResource(Res.string.navigation_edit_duty),
-                    style = Typography.titleMedium,
-                    color = AppColorScheme.formText
-                )
-            },
-            navigationIcon = {
-                IconButton(onClick = { viewModel.onIntent(DutyIntent.CancelForm) }) {
-                    Text(
-                        text = "←",
-                        style = Typography.titleLarge,
-                        color = AppColorScheme.formIcon
-                    )
-                }
-            },
-            colors = TopAppBarDefaults.topAppBarColors(
-                containerColor = AppColorScheme.surface,
-                titleContentColor = AppColorScheme.formText
+    Scaffold(
+        topBar = {
+            AppTopAppBarWithBackButton(
+                title = if (formState.id == null) stringResource(Res.string.navigation_create_duty) else stringResource(Res.string.navigation_edit_duty),
+                onBackClick = { viewModel.onIntent(DutyIntent.CancelForm) }
             )
-        )
-        
+        },
+        snackbarHost = {
+            SnackbarHost(hostState = remember { SnackbarHostState() }) {
+                when {
+                    uiState.showErrorSnackbar -> {
+                        LaunchedEffect(Unit) {
+                            viewModel.onIntent(DutyIntent.ClearErrorSnackbar)
+                        }
+                        ErrorSnackbar(
+                            message = uiState.errorMessage ?: stringResource(Res.string.error_saving),
+                            actionLabel = stringResource(Res.string.close),
+                            onActionClick = { viewModel.onIntent(DutyIntent.ClearErrorSnackbar) }
+                        )
+                    }
+                    uiState.showSuccessSnackbar -> {
+                        LaunchedEffect(Unit) {
+                            viewModel.onIntent(DutyIntent.ClearSuccessSnackbar)
+                        }
+                        SuccessSnackbar(
+                            message = stringResource(Res.string.duty_saved_success),
+                            actionLabel = stringResource(Res.string.close),
+                            onActionClick = { viewModel.onIntent(DutyIntent.ClearSuccessSnackbar) }
+                        )
+                    }
+                }
+            }
+        }
+    ) { paddingValues ->
+        Column(
+            modifier = modifier
+                .fillMaxSize()
+                .padding(paddingValues)
+        ) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
                 .padding(Spacing.md)
         ) {
-            
-            FormSection {
-                    FormField(
-                        label = stringResource(Res.string.duty_title),
-                        value = formState.title,
-                        onValueChange = { viewModel.onIntent(DutyIntent.UpdateFormField(DutyFormField.Title, it)) },
-                        placeholder = stringResource(Res.string.placeholder_title),
-                        isRequired = true,
-                        isError = uiState.errors.containsKey(DutyFormField.Title),
-                        errorMessage = getErrorMessage(viewModel.getFieldError(DutyFormField.Title))
-                    )
-            }
+            // Title Field
+            FormField(
+                label = stringResource(Res.string.duty_title),
+                value = formState.title,
+                onValueChange = { viewModel.onIntent(DutyIntent.UpdateFormField(DutyFormField.Title, it)) },
+                placeholder = stringResource(Res.string.placeholder_title),
+                isRequired = true,
+                isError = uiState.errors.containsKey(DutyFormField.Title),
+                errorMessage = getErrorMessage(viewModel.getFieldError(DutyFormField.Title))
+            )
             
             Spacer(modifier = Modifier.height(Spacing.md))
             
-            FormSection {
-                DropdownField(
-                    label = "Tipo",
-                    value = formState.dutyType.name,
-                    options = getDutyTypeOptions(),
-                    onValueChange = { viewModel.onIntent(DutyIntent.UpdateFormField(DutyFormField.DutyType, DutyType.valueOf(it))) },
-                    placeholder = "Selecione o tipo de tarefa",
-                    isRequired = true,
-                    isError = uiState.errors.containsKey(DutyFormField.DutyType),
-                    errorMessage = getErrorMessage(viewModel.getFieldError(DutyFormField.DutyType))
+            // Duty Type Field
+            DropdownField(
+                label = stringResource(Res.string.duty_type_label),
+                value = formState.dutyType.name,
+                onValueChange = { selectedType ->
+                    val dutyType = when (selectedType) {
+                        "PAYABLE" -> DutyType.PAYABLE
+                        "ACTIONABLE" -> DutyType.ACTIONABLE
+                        else -> DutyType.ACTIONABLE
+                    }
+                    viewModel.onIntent(DutyIntent.UpdateFormField(DutyFormField.DutyType, dutyType))
+                },
+                options = getDutyTypeOptions(),
+                isRequired = true,
+                isError = uiState.errors.containsKey(DutyFormField.DutyType),
+                errorMessage = getErrorMessage(viewModel.getFieldError(DutyFormField.DutyType))
+            )
+            
+            Spacer(modifier = Modifier.height(Spacing.md))
+            
+            // Category Field
+            DropdownField(
+                label = stringResource(Res.string.duty_category),
+                value = formState.categoryName,
+                onValueChange = { viewModel.onIntent(DutyIntent.UpdateFormField(DutyFormField.CategoryName, it)) },
+                options = getCategoryOptions(),
+                isRequired = true,
+                isError = uiState.errors.containsKey(DutyFormField.CategoryName),
+                errorMessage = getErrorMessage(viewModel.getFieldError(DutyFormField.CategoryName))
+            )
+            
+            Spacer(modifier = Modifier.height(Spacing.md))
+            
+            // Start Date Field
+            DateInputField(
+                label = stringResource(Res.string.duty_start_date),
+                value = formState.startDate,
+                onValueChange = { viewModel.onIntent(DutyIntent.UpdateFormField(DutyFormField.StartDate, it)) },
+                placeholder = stringResource(Res.string.placeholder_date),
+                isRequired = true,
+                isError = uiState.errors.containsKey(DutyFormField.StartDate),
+                errorMessage = getErrorMessage(viewModel.getFieldError(DutyFormField.StartDate))
+            )
+            
+            Spacer(modifier = Modifier.height(Spacing.md))
+            
+            // Due Date Field
+            DateInputField(
+                label = stringResource(Res.string.duty_due_date),
+                value = formState.dueDate,
+                onValueChange = { viewModel.onIntent(DutyIntent.UpdateFormField(DutyFormField.DueDate, it)) },
+                placeholder = stringResource(Res.string.placeholder_date),
+                isRequired = true,
+                isError = uiState.errors.containsKey(DutyFormField.DueDate),
+                errorMessage = getErrorMessage(viewModel.getFieldError(DutyFormField.DueDate))
+            )
+            
+            Spacer(modifier = Modifier.height(Spacing.md))
+            
+            
+            // Reminders Section
+            Text(
+                text = stringResource(Res.string.duty_reminders),
+                style = Typography.titleMedium,
+                color = AppColorScheme.formText,
+                fontWeight = FontWeight.Bold
+            )
+            
+            Spacer(modifier = Modifier.height(Spacing.md))
+            
+            // Start Date Reminders
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Checkbox(
+                    checked = formState.hasStartDateReminder,
+                    onCheckedChange = { viewModel.onIntent(DutyIntent.UpdateFormField(DutyFormField.HasStartDateReminder, it)) }
+                )
+                Spacer(modifier = Modifier.width(Spacing.sm))
+                Text(
+                    text = stringResource(Res.string.label_start_date_reminders),
+                    style = Typography.bodyMedium,
+                    color = AppColorScheme.formText
                 )
             }
             
-            Spacer(modifier = Modifier.height(Spacing.md))
-            
-            FormSection {
-                DropdownField(
-                    label = stringResource(Res.string.duty_category),
-                    value = formState.categoryId.takeIf { it.isNotBlank() },
-                    options = getCategoryOptions(),
-                    onValueChange = { viewModel.onIntent(DutyIntent.UpdateFormField(DutyFormField.Category, it)) },
-                    placeholder = stringResource(Res.string.placeholder_category),
-                    isRequired = true,
-                    isError = uiState.errors.containsKey(DutyFormField.Category),
-                    errorMessage = getErrorMessage(viewModel.getFieldError(DutyFormField.Category))
-                )
-            }
-            
-            Spacer(modifier = Modifier.height(Spacing.md))
-            
-            FormSection {
+            if (formState.hasStartDateReminder) {
+                Spacer(modifier = Modifier.height(Spacing.sm))
+                
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.spacedBy(Spacing.sm)
                 ) {
-                    DateInputField(
-                        label = stringResource(Res.string.duty_start_date),
-                        value = formState.startDate,
-                        onValueChange = { viewModel.onIntent(DutyIntent.UpdateFormField(DutyFormField.StartDate, it)) },
+                    FormField(
+                        label = stringResource(Res.string.label_days_before),
+                        value = formState.startDateReminderDaysBefore.toString(),
+                        onValueChange = { 
+                            val days = it.toIntOrNull() ?: 0
+                            viewModel.onIntent(DutyIntent.UpdateFormField(DutyFormField.StartDateReminderDays, days))
+                        },
+                        placeholder = stringResource(Res.string.placeholder_reminder_days),
                         isRequired = true,
-                        isError = uiState.errors.containsKey(DutyFormField.StartDate),
-                        errorMessage = getErrorMessage(viewModel.getFieldError(DutyFormField.StartDate)),
+                        isError = uiState.errors.containsKey(DutyFormField.StartDateReminderDays),
+                        errorMessage = getErrorMessage(viewModel.getFieldError(DutyFormField.StartDateReminderDays)),
                         modifier = Modifier.weight(1f)
                     )
                     
-                    DateInputField(
-                        label = stringResource(Res.string.duty_due_date),
-                        value = formState.dueDate,
-                        onValueChange = { viewModel.onIntent(DutyIntent.UpdateFormField(DutyFormField.DueDate, it)) },
+                    FormField(
+                        label = stringResource(Res.string.label_time),
+                        value = formState.startDateReminderTime,
+                        onValueChange = { viewModel.onIntent(DutyIntent.UpdateFormField(DutyFormField.StartDateReminderTime, it)) },
+                        placeholder = stringResource(Res.string.placeholder_reminder_time),
                         isRequired = true,
-                        isError = uiState.errors.containsKey(DutyFormField.DueDate),
-                        errorMessage = getErrorMessage(viewModel.getFieldError(DutyFormField.DueDate)),
+                        isError = uiState.errors.containsKey(DutyFormField.StartDateReminderTime),
+                        errorMessage = getErrorMessage(viewModel.getFieldError(DutyFormField.StartDateReminderTime)),
                         modifier = Modifier.weight(1f)
                     )
-                }
-            }
-            
-            
-            Spacer(modifier = Modifier.height(Spacing.md))
-            
-            FormSection {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text(
-                        text = stringResource(Res.string.label_start_date_reminders),
-                        style = Typography.bodyMedium,
-                        color = AppColorScheme.formLabel,
-                        fontWeight = FontWeight.Medium
-                    )
-                    
-                    Switch(
-                        checked = formState.hasStartDateReminder,
-                        onCheckedChange = { viewModel.onIntent(DutyIntent.UpdateFormField(DutyFormField.HasStartDateReminder, it)) },
-                        colors = SwitchDefaults.colors(
-                            checkedThumbColor = Color.White,
-                            checkedTrackColor = AppColorScheme.primary,
-                            uncheckedThumbColor = Color.White,
-                            uncheckedTrackColor = AppColorScheme.formBorder
-                        )
-                    )
-                }
-                
-                if (uiState.showStartDateReminderOptions) {
-                    Spacer(modifier = Modifier.height(Spacing.sm))
-                    
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.spacedBy(Spacing.sm)
-                    ) {
-                        FormField(
-                            label = stringResource(Res.string.label_days_before),
-                            value = formState.startDateReminderDaysBefore.toString(),
-                            onValueChange = { 
-                                it.toIntOrNull()?.let { days ->
-                                    viewModel.onIntent(DutyIntent.UpdateFormField(DutyFormField.StartDateReminderDays, days))
-                                }
-                            },
-                            placeholder = stringResource(Res.string.placeholder_reminder_days),
-                            isError = uiState.errors.containsKey(DutyFormField.StartDateReminderDays),
-                            errorMessage = getErrorMessage(viewModel.getFieldError(DutyFormField.StartDateReminderDays)),
-                            modifier = Modifier.weight(1f)
-                        )
-                        
-                        FormField(
-                            label = stringResource(Res.string.label_time),
-                            value = formState.startDateReminderTime,
-                            onValueChange = { viewModel.onIntent(DutyIntent.UpdateFormField(DutyFormField.StartDateReminderTime, it)) },
-                            placeholder = stringResource(Res.string.placeholder_reminder_time),
-                            isError = uiState.errors.containsKey(DutyFormField.StartDateReminderTime),
-                            errorMessage = getErrorMessage(viewModel.getFieldError(DutyFormField.StartDateReminderTime)),
-                            modifier = Modifier.weight(1f)
-                        )
-                    }
                 }
             }
             
             Spacer(modifier = Modifier.height(Spacing.md))
             
-            FormSection {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text(
-                        text = stringResource(Res.string.label_due_date_reminders),
-                        style = Typography.bodyMedium,
-                        color = AppColorScheme.formLabel,
-                        fontWeight = FontWeight.Medium
-                    )
-                    
-                    Switch(
-                        checked = formState.hasDueDateReminder,
-                        onCheckedChange = { viewModel.onIntent(DutyIntent.UpdateFormField(DutyFormField.HasDueDateReminder, it)) },
-                        colors = SwitchDefaults.colors(
-                            checkedThumbColor = Color.White,
-                            checkedTrackColor = AppColorScheme.primary,
-                            uncheckedThumbColor = Color.White,
-                            uncheckedTrackColor = AppColorScheme.formBorder
-                        )
-                    )
-                }
-                
-                if (uiState.showDueDateReminderOptions) {
-                    Spacer(modifier = Modifier.height(Spacing.sm))
-                    
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.spacedBy(Spacing.sm)
-                    ) {
-                        FormField(
-                            label = stringResource(Res.string.label_days_before),
-                            value = formState.dueDateReminderDaysBefore.toString(),
-                            onValueChange = { 
-                                it.toIntOrNull()?.let { days ->
-                                    viewModel.onIntent(DutyIntent.UpdateFormField(DutyFormField.DueDateReminderDays, days))
-                                }
-                            },
-                            placeholder = stringResource(Res.string.placeholder_reminder_days),
-                            isError = uiState.errors.containsKey(DutyFormField.DueDateReminderDays),
-                            errorMessage = getErrorMessage(viewModel.getFieldError(DutyFormField.DueDateReminderDays)),
-                            modifier = Modifier.weight(1f)
-                        )
-                        
-                        FormField(
-                            label = stringResource(Res.string.label_time),
-                            value = formState.dueDateReminderTime,
-                            onValueChange = { viewModel.onIntent(DutyIntent.UpdateFormField(DutyFormField.DueDateReminderTime, it)) },
-                            placeholder = stringResource(Res.string.placeholder_reminder_time),
-                            isError = uiState.errors.containsKey(DutyFormField.DueDateReminderTime),
-                            errorMessage = getErrorMessage(viewModel.getFieldError(DutyFormField.DueDateReminderTime)),
-                            modifier = Modifier.weight(1f)
-                        )
-                    }
-                }
-            }
-            
-            
-            Spacer(modifier = Modifier.height(100.dp))
-        }
-    }
-    
-    Box(
-        modifier = Modifier.fillMaxSize()
-    ) {
-        Card(
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .fillMaxWidth(),
-            colors = CardDefaults.cardColors(
-                containerColor = Color.White
-            ),
-            elevation = CardDefaults.cardElevation(
-                defaultElevation = 8.dp
-            )
-        ) {
+            // Due Date Reminders
             Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(Spacing.md),
-                horizontalArrangement = Arrangement.spacedBy(Spacing.sm)
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Checkbox(
+                    checked = formState.hasDueDateReminder,
+                    onCheckedChange = { viewModel.onIntent(DutyIntent.UpdateFormField(DutyFormField.HasDueDateReminder, it)) }
+                )
+                Spacer(modifier = Modifier.width(Spacing.sm))
+                Text(
+                    text = stringResource(Res.string.label_due_date_reminders),
+                    style = Typography.bodyMedium,
+                    color = AppColorScheme.formText
+                )
+            }
+            
+            if (formState.hasDueDateReminder) {
+                Spacer(modifier = Modifier.height(Spacing.sm))
+                
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(Spacing.sm)
+                ) {
+                    FormField(
+                        label = stringResource(Res.string.label_days_before),
+                        value = formState.dueDateReminderDaysBefore.toString(),
+                        onValueChange = { 
+                            val days = it.toIntOrNull() ?: 0
+                            viewModel.onIntent(DutyIntent.UpdateFormField(DutyFormField.DueDateReminderDays, days))
+                        },
+                        placeholder = stringResource(Res.string.placeholder_reminder_days),
+                        isRequired = true,
+                        isError = uiState.errors.containsKey(DutyFormField.DueDateReminderDays),
+                        errorMessage = getErrorMessage(viewModel.getFieldError(DutyFormField.DueDateReminderDays)),
+                        modifier = Modifier.weight(1f)
+                    )
+                    
+                    FormField(
+                        label = stringResource(Res.string.label_time),
+                        value = formState.dueDateReminderTime,
+                        onValueChange = { viewModel.onIntent(DutyIntent.UpdateFormField(DutyFormField.DueDateReminderTime, it)) },
+                        placeholder = stringResource(Res.string.placeholder_reminder_time),
+                        isRequired = true,
+                        isError = uiState.errors.containsKey(DutyFormField.DueDateReminderTime),
+                        errorMessage = getErrorMessage(viewModel.getFieldError(DutyFormField.DueDateReminderTime)),
+                        modifier = Modifier.weight(1f)
+                    )
+                }
+            }
+            
+            Spacer(modifier = Modifier.height(Spacing.xl))
+            
+            // Action Buttons
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(Spacing.md)
             ) {
                 Button(
                     onClick = { viewModel.onIntent(DutyIntent.CancelForm) },
                     modifier = Modifier.weight(1f),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = AppColorScheme.formBackground
-                    ),
-                    shape = MaterialTheme.shapes.medium
-                ) {
-                    Text(
-                        text = stringResource(Res.string.duty_cancel),
-                        color = AppColorScheme.formText
+                        containerColor = AppColorScheme.surface,
+                        contentColor = AppColorScheme.formText
                     )
+                ) {
+                    Text(stringResource(Res.string.duty_cancel))
                 }
                 
                 Button(
@@ -344,69 +328,45 @@ fun DutyScreen(
                     modifier = Modifier.weight(1f),
                     enabled = !uiState.isLoading,
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = AppColorScheme.primary
-                    ),
-                    shape = MaterialTheme.shapes.medium
+                        containerColor = AppColorScheme.primary,
+                        contentColor = AppColorScheme.onPrimary
+                    )
                 ) {
                     if (uiState.isLoading) {
                         CircularProgressIndicator(
                             modifier = Modifier.size(16.dp),
-                            color = Color.White
+                            color = AppColorScheme.onPrimary
                         )
                     } else {
                         Text(
-                            text = "Salvar",
-                            color = Color.White
+                            text = stringResource(Res.string.duty_save),
+                            color = AppColorScheme.onPrimary
                         )
                     }
                 }
             }
         }
+        }
     }
 }
 
-@Composable
-private fun ExitDialog(
-    onConfirm: () -> Unit,
-    onDismiss: () -> Unit
-) {
-    AlertDialog(
-        onDismissRequest = onDismiss,
-        title = {
-            Text("Descartar alterações?")
-        },
-        text = {
-            Text("Você tem alterações não salvas. Deseja realmente sair?")
-        },
-        confirmButton = {
-            TextButton(onClick = onConfirm) {
-                Text("Sair")
-            }
-        },
-        dismissButton = {
-            TextButton(onClick = onDismiss) {
-                Text("Cancelar")
-            }
-        }
-    )
-}
 
 @Composable
 private fun getCategoryOptions(): List<Pair<String, String>> {
     return listOf(
-        "1" to stringResource(Res.string.category_electricity),
-        "2" to stringResource(Res.string.category_condo),
-        "3" to stringResource(Res.string.category_loan),
-        "4" to stringResource(Res.string.category_das),
-        "5" to stringResource(Res.string.category_internet)
+        stringResource(Res.string.category_electricity) to stringResource(Res.string.category_electricity),
+        stringResource(Res.string.category_condo) to stringResource(Res.string.category_condo),
+        stringResource(Res.string.category_loan) to stringResource(Res.string.category_loan),
+        stringResource(Res.string.category_das) to stringResource(Res.string.category_das),
+        stringResource(Res.string.category_internet) to stringResource(Res.string.category_internet)
     )
 }
 
 @Composable
 private fun getDutyTypeOptions(): List<Pair<String, String>> {
     return listOf(
-        DutyType.PAYABLE.name to "Pagável",
-        DutyType.ACTIONABLE.name to "Executável"
+        DutyType.PAYABLE.name to stringResource(Res.string.duty_type_payable),
+        DutyType.ACTIONABLE.name to stringResource(Res.string.duty_type_actionable)
     )
 }
 

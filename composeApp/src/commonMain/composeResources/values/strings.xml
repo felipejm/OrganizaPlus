@@ -256,4 +256,10 @@
     <string name="date_placeholder">dd/MM/yyyy</string>
     <string name="validation_field_required">Field is required</string>
     <string name="validation_date_required">Date is required</string>
+    
+    <!-- Additional strings for DutyScreen -->
+    <string name="error_saving">Error saving</string>
+    <string name="duty_saved_success">Duty saved successfully!</string>
+    <string name="back_arrow">←</string>
+    <string name="duty_type_label">Duty Type</string>
 </resources>

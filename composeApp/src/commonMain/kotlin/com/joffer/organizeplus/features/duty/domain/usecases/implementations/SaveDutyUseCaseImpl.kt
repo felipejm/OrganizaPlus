@@ -42,11 +42,9 @@ class SaveDutyUseCaseImpl(
             startDate = startDate,
             dueDate = dueDate,
             type = dutyType,
-            categoryId = form.categoryId,
+            categoryName = form.categoryName,
             status = Duty.Status.PENDING,
-            priority = convertPriority(form.priority),
-            createdAt = now,
-            updatedAt = now
+            createdAt = now
         )
     }
     
@@ -59,14 +57,6 @@ class SaveDutyUseCaseImpl(
         }
     }
     
-    private fun convertPriority(priority: DutyForm.Priority): Duty.Priority {
-        return when (priority) {
-            DutyForm.Priority.LOW -> Duty.Priority.LOW
-            DutyForm.Priority.MEDIUM -> Duty.Priority.MEDIUM
-            DutyForm.Priority.HIGH -> Duty.Priority.HIGH
-            DutyForm.Priority.URGENT -> Duty.Priority.URGENT
-        }
-    }
     
     
     private fun generateId(): String {

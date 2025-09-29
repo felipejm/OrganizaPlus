@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- App -->
-    <string name="app_name">OrganizePlus</string>
+    <string name="app_name">Organize+</string>
     
     <!-- Dashboard -->
     <string name="dashboard_title">Dashboard</string>
@@ -208,7 +208,7 @@
     <string name="success_duty_saved">Duty saved successfully!</string>
     
     <!-- Duties List Screen -->
-    <string name="duty_list_title">All Duties</string>
+    <string name="duty_list_title">Duties</string>
     <string name="duty_list_search_hint">Search duties...</string>
     <string name="duty_list_empty_title">No duties found</string>
     <string name="duty_list_empty_subtitle">Create your first duty to get started</string>
@@ -232,6 +232,7 @@
     
     <!-- Settings -->
     <string name="settings_title">Settings</string>
+    <string name="settings_button_description">Settings</string>
     <string name="settings_user_name">User Name</string>
     <string name="settings_user_name_hint">Enter your name</string>
     <string name="settings_save">Save</string>
@@ -240,6 +241,10 @@
     <string name="settings_appearance">Appearance</string>
     <string name="settings_notifications">Notifications</string>
     <string name="settings_about">About</string>
+    <string name="settings_design_system">Design System</string>
+    <string name="settings_design_system_catalog">Design System Catalog</string>
+    <string name="settings_design_system_description">Explore components, colors, and typography</string>
+    <string name="settings_arrow_forward">Navigate forward</string>
     
     <!-- Duty Occurrence -->
     <string name="duty_occurrence_list_title">Duty Occurrences</string>
@@ -273,4 +278,13 @@
     <string name="duty_saved_success">Duty saved successfully!</string>
     <string name="back_arrow">←</string>
     <string name="duty_type_label">Duty Type</string>
+    
+    <!-- Content Descriptions -->
+    <string name="back_button_description">Back</string>
+    <string name="success_icon_description">Success</string>
+    <string name="new_activity_description">New activity</string>
+    <string name="add_occurrence_description">Add Occurrence</string>
+    <string name="delete_duty_description">Delete Duty</string>
+    <string name="add_duty_description">Add Duty</string>
+    <string name="search_description">Search</string>
 </resources>

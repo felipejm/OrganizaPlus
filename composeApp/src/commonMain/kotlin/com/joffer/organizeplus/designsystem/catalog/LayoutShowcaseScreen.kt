@@ -25,21 +25,9 @@ fun LayoutShowcaseScreen(
 ) {
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = {
-                    Text(
-                        text = "Layouts",
-                        style = Typography.h2
-                    )
-                },
-                navigationIcon = {
-                    IconButton(onClick = onNavigateBack) {
-                        Icon(
-                            imageVector = Icons.Default.ArrowBack,
-                            contentDescription = "Back"
-                        )
-                    }
-                }
+            AppTopAppBarWithBackButton(
+                title = "Layouts",
+                onBackClick = onNavigateBack
             )
         }
     ) { paddingValues ->
@@ -89,18 +77,8 @@ private fun LayoutShowcaseItem(
             )
             
             Spacer(modifier = Modifier.height(Spacing.md))
-            
-            when (item) {
-                LayoutShowcaseItem.EMPTY_STATE -> {
-                    EmptyStateExamples()
-                }
-                LayoutShowcaseItem.FORM_SECTION -> {
-                    FormSectionExamples()
-                }
-                LayoutShowcaseItem.LOADING -> {
-                    LoadingExamples()
-                }
-            }
+
+            EmptyStateExamples()
         }
     }
 }
@@ -139,126 +117,6 @@ private fun EmptyStateExamples() {
             actionText = "Add New Task",
             onAction = { /* Handle add new */ }
         )
-    }
-}
-
-@Composable
-private fun FormSectionExamples() {
-    Column(
-        verticalArrangement = Arrangement.spacedBy(Spacing.sm)
-    ) {
-        Text(
-            text = "Form Sections",
-            style = Typography.subtitle,
-            color = AppColorScheme.onSurface
-        )
-        
-        FormSection {
-            FormField(
-                label = "First Name",
-                value = "",
-                onValueChange = { },
-                placeholder = "Enter your first name"
-            )
-            
-            FormField(
-                label = "Last Name",
-                value = "",
-                onValueChange = { },
-                placeholder = "Enter your last name"
-            )
-            
-            FormField(
-                label = "Email",
-                value = "",
-                onValueChange = { },
-                placeholder = "Enter your email address"
-            )
-        }
-        
-        FormSection {
-            FormField(
-                label = "Theme",
-                value = "",
-                onValueChange = { },
-                placeholder = "Select theme preference"
-            )
-            
-            FormField(
-                label = "Notifications",
-                value = "",
-                onValueChange = { },
-                placeholder = "Configure notifications"
-            )
-        }
-    }
-}
-
-@Composable
-private fun LoadingExamples() {
-    Column(
-        verticalArrangement = Arrangement.spacedBy(Spacing.sm)
-    ) {
-        Text(
-            text = "Loading States",
-            style = Typography.subtitle,
-            color = AppColorScheme.onSurface
-        )
-        
-        // Loading card
-        OrganizeCard {
-            Column(
-                modifier = Modifier.padding(Spacing.md),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                CircularProgressIndicator(
-                    color = AppColorScheme.primary,
-                    modifier = Modifier.size(32.dp)
-                )
-                
-                Spacer(modifier = Modifier.height(Spacing.sm))
-                
-                Text(
-                    text = "Loading...",
-                    style = Typography.body,
-                    color = AppColorScheme.onSurfaceVariant
-                )
-            }
-        }
-        
-        // Skeleton loading
-        OrganizeCard {
-            Column(
-                modifier = Modifier.padding(Spacing.md)
-            ) {
-                // Skeleton for title
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth(0.6f)
-                        .height(20.dp)
-                        .background(
-                            color = AppColorScheme.neutral200,
-                            shape = androidx.compose.foundation.shape.RoundedCornerShape(4.dp)
-                        )
-                )
-                
-                Spacer(modifier = Modifier.height(Spacing.sm))
-                
-                // Skeleton for content
-                repeat(3) {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(16.dp)
-                            .background(
-                                color = AppColorScheme.neutral200,
-                                shape = androidx.compose.foundation.shape.RoundedCornerShape(4.dp)
-                            )
-                    )
-                    Spacer(modifier = Modifier.height(Spacing.xs))
-                }
-            }
-        }
     }
 }
 
@@ -319,12 +177,4 @@ enum class LayoutShowcaseItem(
         title = "Empty States",
         description = "Components for when there's no content to display"
     ),
-    FORM_SECTION(
-        title = "Form Sections",
-        description = "Grouped form fields with section headers"
-    ),
-    LOADING(
-        title = "Loading States",
-        description = "Components for showing loading and skeleton states"
-    )
 }

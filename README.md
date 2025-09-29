@@ -111,6 +111,17 @@ OrganizePlus/
 
 ---
 
+## 📋 Project Rules
+
+### 🚫 No Hardcoded Strings
+
+**CRITICAL RULE**: Never use hardcoded strings in the codebase. All user-facing text must be defined in string resources.
+
+- ✅ **Correct**: `stringResource(Res.string.settings_title)`
+- ❌ **Wrong**: `"Settings"`
+
+See [PROJECT_RULES.md](PROJECT_RULES.md) for detailed guidelines and enforcement tools.
+
 ## 🚀 Getting Started
 
 ### Prerequisites

@@ -6,11 +6,12 @@ import com.joffer.organizeplus.features.duty.detail.domain.usecases.SaveDutyDeta
 import com.joffer.organizeplus.features.duty.detail.domain.usecases.implementations.SaveDutyDetailsUseCaseImpl
 import com.joffer.organizeplus.features.duty.detail.presentation.AddDutyDetailsViewModel
 import com.joffer.organizeplus.features.duty.detail.presentation.DutyDetailsListViewModel
+import com.joffer.organizeplus.features.dashboard.domain.repositories.DutyRepository
 import org.koin.dsl.module
 
 val dutyDetailsModule = module {
     single<DutyDetailsRepository> { RoomDutyDetailsRepository(get()) }
     single<SaveDutyDetailsUseCase> { SaveDutyDetailsUseCaseImpl(get()) }
-    factory { (dutyId: String) -> DutyDetailsListViewModel(get(), dutyId) }
+    factory { (dutyId: String) -> DutyDetailsListViewModel(get(), get<DutyRepository>(), dutyId) }
     factory { (dutyId: String) -> AddDutyDetailsViewModel(get(), dutyId) }
 }

@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.joffer.organizeplus.features.duty.detail.domain.entities.DutyDetails
 import com.joffer.organizeplus.features.duty.detail.domain.repositories.DutyDetailsRepository
+import com.joffer.organizeplus.features.dashboard.domain.repositories.DutyRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -13,6 +14,7 @@ import io.github.aakira.napier.Napier
 
 class DutyDetailsListViewModel(
     private val repository: DutyDetailsRepository,
+    private val dutyRepository: DutyRepository,
     private val dutyId: String
 ) : ViewModel() {
     
@@ -39,6 +41,23 @@ class DutyDetailsListViewModel(
         viewModelScope.launch {
             _uiState.value = _uiState.value.copy(isLoading = true, error = null)
             
+            // Load duty title
+            dutyRepository.getDutyById(dutyId)
+                .catch { exception ->
+                    Napier.e("Error loading duty", exception)
+                }
+                .collect { result ->
+                    result.fold(
+                        onSuccess = { duty ->
+                            _uiState.value = _uiState.value.copy(dutyTitle = duty?.title ?: "")
+                        },
+                        onFailure = { exception ->
+                            Napier.e("Failed to load duty", exception)
+                        }
+                    )
+                }
+            
+            // Load records
             repository.getRecordsByDutyId(dutyId)
                 .catch { exception ->
                     Napier.e("Error loading records", exception)
@@ -109,6 +128,7 @@ class DutyDetailsListViewModel(
 data class DutyDetailsListUiState(
     val isLoading: Boolean = false,
     val records: List<DutyDetails> = emptyList(),
+    val dutyTitle: String = "",
     val error: String? = null
 )
 

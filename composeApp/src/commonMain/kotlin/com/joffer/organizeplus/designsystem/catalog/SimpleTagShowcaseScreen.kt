@@ -24,13 +24,9 @@ fun SimpleTagShowcaseScreen(
 ) {
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = { Text("Tag Component") },
-                navigationIcon = {
-                    IconButton(onClick = onNavigateBack) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = "Back")
-                    }
-                }
+            AppTopAppBarWithBackButton(
+                title = "Tag Component",
+                onBackClick = onNavigateBack
             )
         }
     ) { paddingValues ->

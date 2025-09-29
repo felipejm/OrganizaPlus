@@ -25,6 +25,8 @@ import androidx.compose.ui.unit.dp
 import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.Typography
+import org.jetbrains.compose.resources.stringResource
+import organizeplus.composeapp.generated.resources.Res
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -81,9 +83,9 @@ fun AppTopAppBarWithBackButton(
             IconButton(onClick = onBackClick) {
                 Icon(
                     imageVector = backIcon ?: Icons.Default.ArrowBack,
-                    contentDescription = "Voltar",
+                    contentDescription = "Back",
                     tint = navigationIconContentColor,
-                    modifier = Modifier.size(24.dp)
+                    modifier = Modifier.size(Spacing.iconSize)
                 )
             }
         },

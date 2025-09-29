@@ -1,6 +1,8 @@
 package com.joffer.organizeplus.features.duty.list.components
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -21,6 +23,7 @@ import kotlinx.datetime.toLocalDateTime
 fun DutyListItem(
     duty: Duty,
     onViewOccurrences: (String) -> Unit,
+    onDelete: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     OrganizeCard(
@@ -52,13 +55,30 @@ fun DutyListItem(
                             )
                 }
                 
-                StatusChip(
-                    status = when {
-                        duty.isOverdue() -> com.joffer.organizeplus.designsystem.components.ObligationStatus.OVERDUE
-                        duty.status == Duty.Status.PAID -> com.joffer.organizeplus.designsystem.components.ObligationStatus.PAID
-                        else -> com.joffer.organizeplus.designsystem.components.ObligationStatus.PENDING
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(Spacing.xs)
+                ) {
+                    StatusChip(
+                        status = when {
+                            duty.isOverdue() -> com.joffer.organizeplus.designsystem.components.ObligationStatus.OVERDUE
+                            duty.status == Duty.Status.PAID -> com.joffer.organizeplus.designsystem.components.ObligationStatus.PAID
+                            else -> com.joffer.organizeplus.designsystem.components.ObligationStatus.PENDING
+                        }
+                    )
+                    
+                    IconButton(
+                        onClick = { onDelete(duty.id) },
+                        modifier = Modifier.size(24.dp)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Delete,
+                            contentDescription = "Delete Duty",
+                            tint = AppColorScheme.error,
+                            modifier = Modifier.size(20.dp)
+                        )
                     }
-                )
+                }
             }
             
             Spacer(modifier = Modifier.height(Spacing.xs))

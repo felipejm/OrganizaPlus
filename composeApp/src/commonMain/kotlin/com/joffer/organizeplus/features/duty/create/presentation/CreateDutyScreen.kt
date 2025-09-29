@@ -212,8 +212,8 @@ fun CreateDutyScreen(
                     )
                 ) {
                     if (uiState.isLoading) {
-                        CircularProgressIndicator(
-                            modifier = Modifier.size(16.dp),
+                        OrganizeProgressIndicatorInline(
+                            size = 16.dp,
                             color = AppColorScheme.onPrimary
                         )
                     } else {

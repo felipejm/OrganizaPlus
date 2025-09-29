@@ -3,8 +3,6 @@ package com.joffer.organizeplus.features.settings.presentation
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -18,14 +16,9 @@ import com.joffer.organizeplus.designsystem.typography.Typography
 import org.jetbrains.compose.resources.stringResource
 import organizeplus.composeapp.generated.resources.Res
 import organizeplus.composeapp.generated.resources.settings_title
-import organizeplus.composeapp.generated.resources.settings_user_name
-import organizeplus.composeapp.generated.resources.settings_user_name_hint
-import organizeplus.composeapp.generated.resources.settings_save
-import organizeplus.composeapp.generated.resources.settings_saved
-import organizeplus.composeapp.generated.resources.settings_general
-import organizeplus.composeapp.generated.resources.settings_appearance
-import organizeplus.composeapp.generated.resources.settings_notifications
-import organizeplus.composeapp.generated.resources.settings_about
+import organizeplus.composeapp.generated.resources.settings_design_system
+import organizeplus.composeapp.generated.resources.settings_design_system_catalog
+import organizeplus.composeapp.generated.resources.settings_design_system_description
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -36,14 +29,6 @@ fun SettingsScreen(
     modifier: Modifier = Modifier
 ) {
     val uiState by viewModel.uiState.collectAsState()
-    
-    LaunchedEffect(uiState.isSaved) {
-        if (uiState.isSaved) {
-            // Show success message briefly
-            kotlinx.coroutines.delay(2000)
-            viewModel.clearSaveStatus()
-        }
-    }
     
     Column(
         modifier = modifier.fillMaxSize()
@@ -59,105 +44,37 @@ fun SettingsScreen(
                 .verticalScroll(rememberScrollState())
                 .padding(Spacing.md)
         ) {
-            // General Settings
-            SettingsSection(
-                title = stringResource(Res.string.settings_general)
-            ) {
-                FormField(
-                    label = stringResource(Res.string.settings_user_name),
-                    value = uiState.userName,
-                    onValueChange = viewModel::updateUserName,
-                    placeholder = stringResource(Res.string.settings_user_name_hint),
-                    isRequired = true
-                )
-            }
-            
-            Spacer(modifier = Modifier.height(Spacing.lg))
             
             // Design System
-            SettingsSection(
-                title = "Design System"
-            ) {
-                OrganizeCard(
-                    onClick = onNavigateToDesignSystem,
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(Spacing.md),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
+            Column {
+                Text(
+                    text = stringResource(Res.string.settings_design_system),
+                    style = Typography.titleMedium,
+                    color = AppColorScheme.onSurface,
+                    fontWeight = FontWeight.SemiBold
+                )
+                
+                Spacer(modifier = Modifier.height(Spacing.sm))
+                
+                OrganizeCard {
+                    Column(
+                        modifier = Modifier.padding(Spacing.md)
                     ) {
-                        Column {
-                            Text(
-                                text = "Design System Catalog",
-                                style = Typography.title,
-                                color = AppColorScheme.onSurface
-                            )
-                            Text(
-                                text = "Explore components, colors, and typography",
-                                style = Typography.body,
-                                color = AppColorScheme.onSurfaceVariant
-                            )
-                        }
+                        OrganizePrimaryButton(
+                            onClick = onNavigateToDesignSystem,
+                            text = stringResource(Res.string.settings_design_system_catalog),
+                            modifier = Modifier.fillMaxWidth()
+                        )
+                        Spacer(modifier = Modifier.height(Spacing.sm))
                         Text(
-                            text = "→",
-                            style = Typography.title,
-                            color = AppColorScheme.primary
+                            text = stringResource(Res.string.settings_design_system_description),
+                            style = Typography.body,
+                            color = AppColorScheme.onSurfaceVariant
                         )
                     }
                 }
-            }
-            
-            Spacer(modifier = Modifier.height(Spacing.xl))
-            
-            // Success Message
-            if (uiState.isSaved) {
-                SuccessBanner(
-                    message = stringResource(Res.string.settings_saved)
-                )
-                Spacer(modifier = Modifier.height(Spacing.md))
-            }
-            
-            // Save Button
-            Button(
-                onClick = viewModel::saveSettings,
-                modifier = Modifier.fillMaxWidth(),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = AppColorScheme.primary
-                )
-            ) {
-                Text(
-                    text = stringResource(Res.string.settings_save),
-                    color = AppColorScheme.onPrimary
-                )
             }
         }
     }
 }
 
-@Composable
-private fun SettingsSection(
-    title: String,
-    content: @Composable () -> Unit
-) {
-    Column {
-        Text(
-            text = title,
-            style = Typography.titleMedium,
-            color = AppColorScheme.onSurface,
-            fontWeight = FontWeight.SemiBold
-        )
-        
-        Spacer(modifier = Modifier.height(Spacing.sm))
-        
-        OrganizeCard {
-            Column(
-                modifier = Modifier.padding(Spacing.md)
-            ) {
-                content()
-            }
-        }
-    }
-}

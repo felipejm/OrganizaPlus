@@ -5,6 +5,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -165,10 +166,10 @@ private fun InteractiveCardExamples() {
                         color = AppColorScheme.onSurfaceVariant
                     )
                 }
-                Text(
-                    text = "→",
-                    style = Typography.title,
-                    color = AppColorScheme.primary
+                Icon(
+                    imageVector = Icons.Default.ArrowForward,
+                    contentDescription = "Navigate forward",
+                    tint = AppColorScheme.primary
                 )
             }
         }
@@ -230,7 +231,7 @@ private fun ContentCardExamples() {
                         imageVector = Icons.Default.Star,
                         contentDescription = null,
                         tint = AppColorScheme.warning500,
-                        modifier = Modifier.size(24.dp)
+                        modifier = Modifier.size(Spacing.iconSize)
                     )
                     
                     Spacer(modifier = Modifier.width(Spacing.sm))

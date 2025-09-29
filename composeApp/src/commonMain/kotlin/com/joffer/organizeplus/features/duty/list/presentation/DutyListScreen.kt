@@ -7,6 +7,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -93,14 +94,7 @@ fun DutyListScreen(
             Spacer(modifier = Modifier.height(Spacing.sm))
             
             if (uiState.isLoading) {
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    CircularProgressIndicator(
-                        color = AppColorScheme.primary
-                    )
-                }
+                OrganizeProgressIndicatorFullScreen()
             } else if (uiState.error != null) {
                 Box(
                     modifier = Modifier.fillMaxSize(),
@@ -162,7 +156,8 @@ fun DutyListScreen(
                     items(uiState.duties) { duty ->
                         DutyListItem(
                             duty = duty,
-                            onViewOccurrences = onNavigateToOccurrences
+                            onViewOccurrences = onNavigateToOccurrences,
+                            onDelete = { dutyId -> viewModel.onIntent(DutyListIntent.DeleteDuty(dutyId)) }
                         )
                     }
                 }

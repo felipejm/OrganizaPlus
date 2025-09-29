@@ -5,6 +5,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -111,10 +112,11 @@ private fun ComponentCategoryCard(
                 )
             }
             
-            Text(
-                text = "→",
-                style = Typography.title,
-                color = AppColorScheme.primary
+            Icon(
+                imageVector = Icons.Default.ArrowForward,
+                contentDescription = "Navigate forward",
+                tint = AppColorScheme.primary,
+                modifier = Modifier.size(Spacing.iconSize)
             )
         }
     }
@@ -171,14 +173,19 @@ enum class ComponentCategory(
         description = "Empty states, sections, and containers",
         route = "layouts"
     ),
+    PROGRESS(
+        title = "Progress",
+        description = "Loading indicators and progress components",
+        route = "progress"
+    ),
     COLORS(
         title = "Colors",
-        description = "Complete color palette and usage examples",
+        description = "Color palette and theme colors",
         route = "colors"
     ),
     TYPOGRAPHY(
         title = "Typography",
-        description = "Text styles, font weights, and usage examples",
+        description = "Text styles and font families",
         route = "typography"
     )
 }

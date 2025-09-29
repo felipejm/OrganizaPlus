@@ -149,8 +149,8 @@ fun AddDutyOccurrenceBottomSheet(
                 )
             ) {
                 if (uiState.isLoading) {
-                    CircularProgressIndicator(
-                        modifier = Modifier.size(16.dp),
+                    OrganizeProgressIndicatorInline(
+                        size = 16.dp,
                         color = AppColorScheme.onPrimary
                     )
                     Spacer(modifier = Modifier.width(Spacing.sm))

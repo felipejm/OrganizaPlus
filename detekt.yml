@@ -7,6 +7,14 @@ build:
     style: 1
     comments: 1
 
+# Custom rules for project standards
+custom:
+  HardcodedStrings:
+    active: true
+    severity: error
+    message: "Hardcoded strings are not allowed. Use string resources instead."
+    # This is a placeholder - actual implementation would require a custom detekt rule
+
 processors:
   active: true
   exclude:
@@ -30,9 +38,9 @@ output-reports:
 comments:
   active: true
   CommentOverPrivateFunction:
-    active: false
+    active: true
   CommentOverPrivateProperty:
-    active: false
+    active: true
   EndOfSentenceFormat:
     active: false
   UndocumentedPublicClass:

@@ -223,6 +223,7 @@
     
     <!-- Settings -->
     <string name="settings_title">Configurações</string>
+    <string name="settings_button_description">Configurações</string>
     <string name="settings_user_name">Nome do Usuário</string>
     <string name="settings_user_name_hint">Digite seu nome</string>
     <string name="settings_save">Salvar</string>
@@ -231,6 +232,10 @@
     <string name="settings_appearance">Aparência</string>
     <string name="settings_notifications">Notificações</string>
     <string name="settings_about">Sobre</string>
+    <string name="settings_design_system">Sistema de Design</string>
+    <string name="settings_design_system_catalog">Catálogo do Sistema de Design</string>
+    <string name="settings_design_system_description">Explore componentes, cores e tipografia</string>
+    <string name="settings_arrow_forward">Navegar para frente</string>
     
     <!-- Obligation Record -->
     <string name="obligation_record_list_title">Registros de Pagamento</string>
@@ -264,4 +269,13 @@
     <string name="duty_saved_success">Tarefa salva com sucesso!</string>
     <string name="back_arrow">←</string>
     <string name="duty_type_label">Tipo de Tarefa</string>
+    
+    <!-- Content Descriptions -->
+    <string name="back_button_description">Voltar</string>
+    <string name="success_icon_description">Sucesso</string>
+    <string name="new_activity_description">Nova atividade</string>
+    <string name="add_occurrence_description">Adicionar Ocorrência</string>
+    <string name="delete_duty_description">Excluir Tarefa</string>
+    <string name="add_duty_description">Adicionar Tarefa</string>
+    <string name="search_description">Pesquisar</string>
 </resources>

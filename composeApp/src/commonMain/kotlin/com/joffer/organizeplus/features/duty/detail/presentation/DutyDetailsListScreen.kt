@@ -59,7 +59,7 @@ fun DutyDetailsListScreen(
         modifier = modifier.fillMaxSize()
     ) {
         AppTopAppBarWithBackButton(
-            title = stringResource(Res.string.duty_occurrence_list_title),
+            title = uiState.dutyTitle.ifEmpty { stringResource(Res.string.duty_occurrence_list_title) },
             onBackClick = onNavigateBack,
             actions = {
                 IconButton(onClick = { showAddOccurrenceBottomSheet = true }) {
@@ -77,14 +77,7 @@ fun DutyDetailsListScreen(
         ) {
             when {
                 uiState.isLoading -> {
-                    Box(
-                        modifier = Modifier.fillMaxSize(),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        CircularProgressIndicator(
-                            color = AppColorScheme.primary
-                        )
-                    }
+                    OrganizeProgressIndicatorFullScreen()
                 }
                 
                 uiState.error != null -> {

@@ -48,6 +48,9 @@ fun AppNavigation(
                 },
                 onNavigateToEditDuty = { dutyId ->
                     navController.navigate(NavigationRoutes.editDuty(dutyId))
+                },
+                onNavigateToSettings = {
+                    navController.navigate(NavigationRoutes.SETTINGS)
                 }
             )
         }
@@ -209,6 +212,14 @@ fun AppNavigation(
         
         composable("typography") {
             com.joffer.organizeplus.designsystem.catalog.TypographyShowcaseScreen(
+                onNavigateBack = {
+                    navController.popBackStack()
+                }
+            )
+        }
+        
+        composable("progress") {
+            com.joffer.organizeplus.designsystem.catalog.ProgressShowcaseScreen(
                 onNavigateBack = {
                     navController.popBackStack()
                 }

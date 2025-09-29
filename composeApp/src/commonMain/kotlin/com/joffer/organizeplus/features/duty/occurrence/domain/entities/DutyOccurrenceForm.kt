@@ -1,4 +1,4 @@
-package com.joffer.organizeplus.features.dutyOccurrence.domain.entities
+package com.joffer.organizeplus.features.duty.occurrence.domain.entities
 
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant

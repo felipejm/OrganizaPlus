@@ -1,7 +1,7 @@
-package com.joffer.organizeplus.features.dutyOccurrence.domain.validation
+package com.joffer.organizeplus.features.duty.occurrence.domain.validation
 
-import com.joffer.organizeplus.features.dutyOccurrence.domain.entities.DutyOccurrenceForm
-import com.joffer.organizeplus.features.dutyOccurrence.domain.entities.DutyOccurrenceFormField
+import com.joffer.organizeplus.features.duty.occurrence.domain.entities.DutyOccurrenceForm
+import com.joffer.organizeplus.features.duty.occurrence.domain.entities.DutyOccurrenceFormField
 
 class DutyOccurrenceValidator {
     

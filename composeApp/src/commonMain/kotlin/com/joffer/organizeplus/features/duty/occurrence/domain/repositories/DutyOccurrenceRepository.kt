@@ -1,6 +1,6 @@
-package com.joffer.organizeplus.features.dutyOccurrence.domain.repositories
+package com.joffer.organizeplus.features.duty.occurrence.domain.repositories
 
-import com.joffer.organizeplus.features.dutyOccurrence.domain.entities.DutyOccurrence
+import com.joffer.organizeplus.features.duty.occurrence.domain.entities.DutyOccurrence
 
 interface DutyOccurrenceRepository {
     suspend fun saveDutyOccurrence(dutyOccurrence: DutyOccurrence): Result<DutyOccurrence>

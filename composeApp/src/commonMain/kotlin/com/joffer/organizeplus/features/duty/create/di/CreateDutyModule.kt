@@ -1,4 +1,4 @@
-package com.joffer.organizeplus.features.createDuty.di
+package com.joffer.organizeplus.features.duty.create.di
 
 import com.joffer.organizeplus.features.createDuty.domain.usecases.SaveCreateDutyUseCase
 import com.joffer.organizeplus.features.createDuty.domain.usecases.implementations.SaveCreateDutyUseCaseImpl

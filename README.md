@@ -92,10 +92,12 @@ OrganizePlus/
 │   ├── 🎨 commonMain/               # Shared code across platforms
 │   │   ├── 🎯 features/             # Feature modules
 │   │   │   ├── 📊 dashboard/        # Dashboard feature
-│   │   │   ├── 📝 duty/             # Duty management
-│   │   │   ├── 📋 dutyList/         # Duty listing
+│   │   │   ├── 📝 duty/             # Duty management module
+│   │   │   │   ├── ✏️ create/        # Create duty feature
+│   │   │   │   ├── 📋 list/         # Duty listing feature
+│   │   │   │   ├── 📄 detail/       # Duty details feature
+│   │   │   │   └── 📅 occurrence/   # Duty occurrence tracking
 │   │   │   ├── ⚙️ settings/         # Settings
-│   │   │   └── 📄 dutyDetails/      # Duty details
 │   │   ├── 🎨 designsystem/         # Design system components
 │   │   ├── 🗄️ database/             # Database layer
 │   │   ├── 🧭 navigation/           # Navigation logic

@@ -1,4 +1,4 @@
-package com.joffer.organizeplus.features.dutyOccurrence.domain.validation
+package com.joffer.organizeplus.features.duty.occurrence.domain.validation
 
 enum class ValidationError {
     BlankField,

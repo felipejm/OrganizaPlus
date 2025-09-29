@@ -1,4 +1,4 @@
-package com.joffer.organizeplus.features.dutyOccurrence.presentation
+package com.joffer.organizeplus.features.duty.occurrence.presentation
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -12,10 +12,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 import com.joffer.organizeplus.designsystem.components.*
-import com.joffer.organizeplus.features.dutyOccurrence.domain.entities.DutyOccurrenceFormField
-import com.joffer.organizeplus.features.dutyOccurrence.domain.validation.ValidationError
-import com.joffer.organizeplus.features.dutyOccurrence.presentation.AddDutyOccurrenceViewModel
-import com.joffer.organizeplus.features.dutyOccurrence.presentation.AddDutyOccurrenceIntent
+import com.joffer.organizeplus.features.duty.occurrence.domain.entities.DutyOccurrenceFormField
+import com.joffer.organizeplus.features.duty.occurrence.domain.validation.ValidationError
+import com.joffer.organizeplus.features.duty.occurrence.presentation.AddDutyOccurrenceViewModel
+import com.joffer.organizeplus.features.duty.occurrence.presentation.AddDutyOccurrenceIntent
 import androidx.compose.ui.Alignment
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.Typography

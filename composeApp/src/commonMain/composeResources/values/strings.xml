@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App -->
+    <string name="app_name">OrganizePlus</string>
+    
+    <!-- Dashboard -->
+    <string name="dashboard_title">Dashboard</string>
+    <string name="dashboard_greeting">Hello, %s</string>
+    <string name="dashboard_new_duty">+ New Duty</string>
+    <string name="dashboard_today">Today</string>
+    <string name="dashboard_today_subtitle">Your duties for today</string>
+    <string name="dashboard_pending">Pending</string>
+    <string name="dashboard_paid">Paid</string>
+    <string name="dashboard_overdue">Overdue</string>
+    <string name="dashboard_mark_all_paid">Mark all as paid</string>
+    <string name="dashboard_upcoming_7_days">Next 7 days</string>
+    <string name="dashboard_duties_count">%d duties</string>
+    <string name="dashboard_view_all">View all</string>
+    <string name="dashboard_monthly_summary">Monthly Summary</string>
+    <string name="dashboard_personal">Personal</string>
+    <string name="dashboard_business">Business</string>
+    <string name="dashboard_expected">Expected</string>
+    <string name="dashboard_paid_amount">Paid</string>
+    <string name="dashboard_planned">Planned</string>
+    <string name="dashboard_total_expected">Total expected:</string>
+    <string name="dashboard_total_paid">Total paid:</string>
+    <string name="dashboard_empty_title">No duties created yet</string>
+    <string name="dashboard_empty_subtitle">Start organizing your duties and keep everything under control.</string>
+    <string name="dashboard_no_duties_upcoming">No duties in the next 7 days</string>
+    <string name="dashboard_add_now">Add now</string>
+    <string name="dashboard_error_message">Could not load your data. Try again.</string>
+    <string name="dashboard_try_again">Try again</string>
+    <string name="dashboard_close">Close</string>
+    
+    <!-- Duty Status -->
+    <string name="status_pending">Pending</string>
+    <string name="status_paid">Paid</string>
+    <string name="status_overdue">Overdue</string>
+    <string name="status_cancelled">Cancelled</string>
+    
+    <!-- Duty Priority -->
+    <string name="priority_low">Low</string>
+    <string name="priority_medium">Medium</string>
+    <string name="priority_high">High</string>
+    <string name="priority_urgent">Urgent</string>
+    
+    <!-- Duty Type -->
+    <string name="duty_type_payable">Payable</string>
+    <string name="duty_type_actionable">Actionable</string>
+    <string name="duty_type">Type</string>
+    <string name="placeholder_duty_type">Select duty type</string>
+    
+    <!-- Actions -->
+    <string name="action_pay">Pay</string>
+    <string name="action_snooze">Snooze 3 days</string>
+    <string name="action_edit">Edit</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_save">Save</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="action_retry">Retry</string>
+    <string name="action_dismiss">Dismiss</string>
+    
+    <!-- Messages -->
+    <string name="message_paid_successfully">Paid successfully</string>
+    <string name="message_snooze_success">Duty snoozed for 3 days</string>
+    <string name="message_undo">Undo</string>
+    <string name="message_loading">Loading...</string>
+    <string name="message_error_unknown">Unknown error. Please try again.</string>
+    
+    <!-- Error Messages -->
+    <string name="error_no_internet">No internet connection. Check your connection and try again.</string>
+    <string name="error_server_unavailable">Server temporarily unavailable. Try again in a few minutes.</string>
+    <string name="error_timeout">Request timeout. Check your connection and try again.</string>
+    <string name="error_unauthorized">Unauthorized access. Please log in again.</string>
+    <string name="error_forbidden">Access denied. You don't have permission for this action.</string>
+    <string name="error_not_found">Resource not found.</string>
+    <string name="error_server_error">Server error (%d). Please try again later.</string>
+    <string name="error_network_unknown">Network error: %s</string>
+    <string name="error_database_not_initialized">Database not initialized. Please restart the app.</string>
+    <string name="error_record_not_found">Record not found.</string>
+    <string name="error_constraint_violation">Database constraint violation.</string>
+    <string name="error_transaction_failed">Database transaction failed.</string>
+    <string name="error_database_unknown">Database error: %s</string>
+    <string name="error_file_not_found">File not found.</string>
+    <string name="error_permission_denied">Permission denied to access file.</string>
+    <string name="error_insufficient_storage">Insufficient storage space on device.</string>
+    <string name="error_invalid_file_format">Invalid file format.</string>
+    <string name="error_file_unknown">File error: %s</string>
+    <string name="error_no_text_detected">No text was detected in the image.</string>
+    <string name="error_image_processing_failed">Failed to process image.</string>
+    <string name="error_unsupported_image_format">Unsupported image format.</string>
+    <string name="error_ocr_unknown">Text recognition error: %s</string>
+    <string name="error_empty_field">Required field not filled.</string>
+    <string name="error_invalid_format">Invalid format.</string>
+    <string name="error_out_of_range">Value out of allowed range.</string>
+    <string name="error_validation_custom">%s</string>
+    <string name="error_generic_unknown">Unknown error. Please try again.</string>
+    <string name="error_generic_custom">%s</string>
+    
+    <!-- Months -->
+    <string name="month_january">January</string>
+    <string name="month_february">February</string>
+    <string name="month_march">March</string>
+    <string name="month_april">April</string>
+    <string name="month_may">May</string>
+    <string name="month_june">June</string>
+    <string name="month_july">July</string>
+    <string name="month_august">August</string>
+    <string name="month_september">September</string>
+    <string name="month_october">October</string>
+    <string name="month_november">November</string>
+    <string name="month_december">December</string>
+    
+    <!-- Short Months -->
+    <string name="month_jan">Jan</string>
+    <string name="month_feb">Feb</string>
+    <string name="month_mar">Mar</string>
+    <string name="month_apr">Apr</string>
+    <string name="month_may_short">May</string>
+    <string name="month_jun">Jun</string>
+    <string name="month_jul">Jul</string>
+    <string name="month_aug">Aug</string>
+    <string name="month_sep">Sep</string>
+    <string name="month_oct">Oct</string>
+    <string name="month_nov">Nov</string>
+    <string name="month_dec">Dec</string>
+    
+    <!-- Navigation -->
+    <string name="navigation_duties">Duties List Screen</string>
+    
+    <!-- Duty form strings -->
+    <string name="duty_title">Title</string>
+    <string name="duty_start_date">Start Date</string>
+    <string name="duty_due_date">Due Date</string>
+    <string name="duty_type_personal">Personal</string>
+    <string name="duty_type_company">Company</string>
+    <string name="duty_category">Category</string>
+    <string name="duty_recurring">Recurring</string>
+    <string name="duty_reminders">Reminders</string>
+    <string name="duty_save">Save</string>
+    <string name="duty_cancel">Cancel</string>
+    <string name="navigation_create_duty">New Duty</string>
+    <string name="navigation_edit_duty">Edit Duty</string>
+    
+    <!-- Form placeholders -->
+    <string name="placeholder_title">Enter duty title</string>
+    <string name="placeholder_category">Select a category</string>
+    <string name="placeholder_date">MM/DD/YYYY</string>
+    <string name="placeholder_recurring">Select recurring period</string>
+    <string name="placeholder_custom_rule">Ex: FREQ=WEEKLY;BYDAY=MO,WE,FR</string>
+    <string name="placeholder_reminder_days">3</string>
+    <string name="placeholder_reminder_time">09:00</string>
+    
+    <!-- Form labels -->
+    <string name="label_recurring_period">Recurring Period</string>
+    <string name="label_custom_rule">Custom Rule (RRULE)</string>
+    <string name="label_start_date_reminders">Start Date Reminders</string>
+    <string name="label_due_date_reminders">Due Date Reminders</string>
+    <string name="label_days_before">Days Before</string>
+    <string name="label_time">Time</string>
+    <string name="label_currency_symbol">R$</string>
+    
+    <!-- Recurring intervals -->
+    <string name="recurring_once">Once</string>
+    <string name="recurring_monthly">Monthly</string>
+    <string name="recurring_bimonthly">Bimonthly</string>
+    <string name="recurring_quarterly">Quarterly</string>
+    <string name="recurring_semiannual">Semiannual</string>
+    <string name="recurring_annual">Annual</string>
+    <string name="recurring_custom">Custom</string>
+    
+    <!-- Categories -->
+    <string name="category_electricity">Electricity Bill</string>
+    <string name="category_condo">Condo Fee</string>
+    <string name="category_loan">Loan</string>
+    <string name="category_das">DAS Company</string>
+    <string name="category_internet">Internet</string>
+    
+    <!-- Dialog messages -->
+    <string name="dialog_discard_changes">Discard changes?</string>
+    <string name="dialog_unsaved_changes">You have unsaved changes. Do you really want to leave?</string>
+    <string name="dialog_exit">Exit</string>
+    <string name="dialog_cancel">Cancel</string>
+    
+    <!-- Validation errors -->
+    <string name="error_title_required">Title is required</string>
+    <string name="error_start_date_required">Start date is required</string>
+    <string name="error_due_date_required">Due date is required</string>
+    <string name="error_category_required">Category is required</string>
+    <string name="error_invalid_date">Invalid date</string>
+    <string name="error_invalid_time">Invalid time</string>
+    <string name="error_custom_rule_required">Custom rule is required</string>
+    <string name="error_reminder_days_range">Days must be between 1 and 30</string>
+    <string name="error_invalid_reminder_time">Invalid reminder time</string>
+    
+    <!-- Success messages -->
+    <string name="success_duty_saved">Duty saved successfully!</string>
+    
+    <!-- Duties List Screen -->
+    <string name="duty_list_title">All Duties</string>
+    <string name="duty_list_search_hint">Search duties...</string>
+    <string name="duty_list_empty_title">No duties found</string>
+    <string name="duty_list_empty_subtitle">Create your first duty to get started</string>
+    <string name="duty_list_error_title">Error loading duties</string>
+    <string name="duty_list_error_subtitle">Please try again</string>
+    <string name="duty_list_retry">Retry</string>
+    <string name="duty_list_mark_paid">Mark Paid</string>
+    <string name="duty_list_snooze">Snooze</string>
+    <string name="duty_list_edit">Edit</string>
+    <string name="duty_list_delete">Delete</string>
+    <string name="duty_list_occurrences">Occurrences</string>
+    <string name="duty_list_delete_confirmation">Are you sure you want to delete this duty?</string>
+    <string name="duty_list_delete_confirm">Delete</string>
+    <string name="duty_list_delete_cancel">Cancel</string>
+    <string name="error_deleting_duty">Error deleting duty</string>
+    <string name="error_loading_duties">Error loading duties</string>
+    <string name="error_marking_paid">Error marking as paid</string>
+    <string name="error_snoozing">Error snoozing duty</string>
+    <string name="back">Back</string>
+    <string name="filter">Filter</string>
+    
+    <!-- Settings -->
+    <string name="settings_title">Settings</string>
+    <string name="settings_user_name">User Name</string>
+    <string name="settings_user_name_hint">Enter your name</string>
+    <string name="settings_save">Save</string>
+    <string name="settings_saved">Saved!</string>
+    <string name="settings_general">General</string>
+    <string name="settings_appearance">Appearance</string>
+    <string name="settings_notifications">Notifications</string>
+    <string name="settings_about">About</string>
+    
+    <!-- Duty Occurrence -->
+    <string name="duty_occurrence_list_title">Duty Occurrences</string>
+    <string name="duty_occurrence_list_empty_title">No occurrences found</string>
+    <string name="duty_occurrence_list_empty_subtitle">Add an occurrence to track completion</string>
+    <string name="duty_occurrence_list_add_occurrence">Add Occurrence</string>
+    <string name="duty_occurrence_list_delete">Delete</string>
+    <string name="duty_occurrence_list_amount">Amount: $%.2f</string>
+    <string name="duty_occurrence_list_date">Date: %s</string>
+    <string name="duty_occurrence_list_notes">Notes: %s</string>
+    <string name="error_loading_occurrences">Error loading occurrences</string>
+    <string name="error_deleting_occurrence">Error deleting occurrence</string>
+    <string name="add_duty_occurrence_title">Add Duty Occurrence</string>
+    <string name="duty_occurrence_paid_amount">Paid Amount</string>
+    <string name="duty_occurrence_paid_amount_hint">Enter amount</string>
+    <string name="duty_occurrence_completed_date">Completion Date</string>
+    <string name="duty_occurrence_notes">Notes</string>
+    <string name="duty_occurrence_notes_hint">Optional notes</string>
+    <string name="duty_occurrence_save">Save Occurrence</string>
+    <string name="duty_occurrence_saved">Occurrence Saved!</string>
+    <string name="validation_invalid_amount">Invalid amount</string>
+    
+    <!-- Bottom Sheet -->
+    <string name="close">Close</string>
+    <string name="date_placeholder">dd/MM/yyyy</string>
+    <string name="validation_field_required">Field is required</string>
+    <string name="validation_date_required">Date is required</string>
+</resources>

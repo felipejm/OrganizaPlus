@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App -->
+    <string name="app_name">OrganizePlus</string>
+    
+    <!-- Dashboard -->
+    <string name="dashboard_title">Dashboard</string>
+    <string name="dashboard_greeting">Olá, %s</string>
+    <string name="dashboard_new_duty">+ Nova tarefa</string>
+    <string name="dashboard_today">Hoje</string>
+    <string name="dashboard_today_subtitle">Suas tarefas de hoje</string>
+    <string name="dashboard_pending">Pendentes</string>
+    <string name="dashboard_paid">Pagas</string>
+    <string name="dashboard_overdue">Atrasado</string>
+    <string name="dashboard_mark_all_paid">Marcar todas como pagas</string>
+    <string name="dashboard_upcoming_7_days">Próximos 7 dias</string>
+    <string name="dashboard_duties_count">%d tarefas</string>
+    <string name="dashboard_view_all">Ver todas</string>
+    <string name="dashboard_monthly_summary">Resumo do mês</string>
+    <string name="dashboard_personal">Pessoal</string>
+    <string name="dashboard_business">Empresa</string>
+    <string name="dashboard_expected">Previsto</string>
+    <string name="dashboard_paid_amount">Pago</string>
+    <string name="dashboard_planned">Previsto</string>
+    <string name="dashboard_total_expected">Total previsto:</string>
+    <string name="dashboard_total_paid">Total pago:</string>
+    <string name="dashboard_empty_title">Nenhuma tarefa criada ainda</string>
+    <string name="dashboard_empty_subtitle">Comece organizando suas tarefas e mantenha tudo sob controle.</string>
+    <string name="dashboard_no_duties_upcoming">Nenhuma tarefa nos próximos 7 dias</string>
+    <string name="dashboard_add_now">Adicionar agora</string>
+    <string name="dashboard_error_message">Não foi possível carregar seus dados. Tentar novamente.</string>
+    <string name="dashboard_try_again">Tentar novamente</string>
+    <string name="dashboard_close">Fechar</string>
+    
+    <!-- Duty Status -->
+    <string name="status_pending">Pendente</string>
+    <string name="status_paid">Pago</string>
+    <string name="status_overdue">Atrasado</string>
+    <string name="status_cancelled">Cancelado</string>
+    
+    <!-- Duty Priority -->
+    <string name="priority_low">Baixa</string>
+    <string name="priority_medium">Média</string>
+    <string name="priority_high">Alta</string>
+    <string name="priority_urgent">Urgente</string>
+    
+    <!-- Duty Type -->
+    <string name="duty_type_payable">Pagável</string>
+    <string name="duty_type_actionable">Executável</string>
+    <string name="duty_type">Tipo</string>
+    <string name="placeholder_duty_type">Selecione o tipo de tarefa</string>
+    
+    <!-- Actions -->
+    <string name="action_pay">Pagar</string>
+    <string name="action_snooze">Adiar 3 dias</string>
+    <string name="action_edit">Editar</string>
+    <string name="action_delete">Excluir</string>
+    <string name="action_save">Salvar</string>
+    <string name="action_cancel">Cancelar</string>
+    <string name="action_retry">Tentar novamente</string>
+    <string name="action_dismiss">Fechar</string>
+    
+    <!-- Messages -->
+    <string name="message_paid_successfully">Pago com sucesso</string>
+    <string name="message_snooze_success">Obrigação adiada por 3 dias</string>
+    <string name="message_undo">Desfazer</string>
+    <string name="message_loading">Carregando...</string>
+    <string name="message_error_unknown">Erro desconhecido. Tente novamente.</string>
+    
+    <!-- Error Messages -->
+    <string name="error_no_internet">Sem conexão com a internet. Verifique sua conexão e tente novamente.</string>
+    <string name="error_server_unavailable">Servidor temporariamente indisponível. Tente novamente em alguns minutos.</string>
+    <string name="error_timeout">Tempo limite excedido. Verifique sua conexão e tente novamente.</string>
+    <string name="error_unauthorized">Acesso não autorizado. Faça login novamente.</string>
+    <string name="error_forbidden">Acesso negado. Você não tem permissão para esta ação.</string>
+    <string name="error_not_found">Recurso não encontrado.</string>
+    <string name="error_server_error">Erro do servidor (%d). Tente novamente mais tarde.</string>
+    <string name="error_network_unknown">Erro de rede: %s</string>
+    <string name="error_database_not_initialized">Banco de dados não inicializado. Reinicie o aplicativo.</string>
+    <string name="error_record_not_found">Registro não encontrado.</string>
+    <string name="error_constraint_violation">Violação de restrição do banco de dados.</string>
+    <string name="error_transaction_failed">Falha na transação do banco de dados.</string>
+    <string name="error_database_unknown">Erro de banco de dados: %s</string>
+    <string name="error_file_not_found">Arquivo não encontrado.</string>
+    <string name="error_permission_denied">Permissão negada para acessar o arquivo.</string>
+    <string name="error_insufficient_storage">Espaço insuficiente no dispositivo.</string>
+    <string name="error_invalid_file_format">Formato de arquivo inválido.</string>
+    <string name="error_file_unknown">Erro de arquivo: %s</string>
+    <string name="error_no_text_detected">Nenhum texto foi detectado na imagem.</string>
+    <string name="error_image_processing_failed">Falha ao processar a imagem.</string>
+    <string name="error_unsupported_image_format">Formato de imagem não suportado.</string>
+    <string name="error_ocr_unknown">Erro de reconhecimento de texto: %s</string>
+    <string name="error_empty_field">Campo obrigatório não preenchido.</string>
+    <string name="error_invalid_format">Formato inválido.</string>
+    <string name="error_out_of_range">Valor fora do intervalo permitido.</string>
+    <string name="error_validation_custom">%s</string>
+    <string name="error_generic_unknown">Erro desconhecido. Tente novamente.</string>
+    <string name="error_generic_custom">%s</string>
+    
+    <!-- Months -->
+    <string name="month_january">Janeiro</string>
+    <string name="month_february">Fevereiro</string>
+    <string name="month_march">Março</string>
+    <string name="month_april">Abril</string>
+    <string name="month_may">Maio</string>
+    <string name="month_june">Junho</string>
+    <string name="month_july">Julho</string>
+    <string name="month_august">Agosto</string>
+    <string name="month_september">Setembro</string>
+    <string name="month_october">Outubro</string>
+    <string name="month_november">Novembro</string>
+    <string name="month_december">Dezembro</string>
+    
+    <!-- Short Months -->
+    <string name="month_jan">Jan</string>
+    <string name="month_feb">Fev</string>
+    <string name="month_mar">Mar</string>
+    <string name="month_apr">Abr</string>
+    <string name="month_may_short">Mai</string>
+    <string name="month_jun">Jun</string>
+    <string name="month_jul">Jul</string>
+    <string name="month_aug">Ago</string>
+    <string name="month_sep">Set</string>
+    <string name="month_oct">Out</string>
+    <string name="month_nov">Nov</string>
+    <string name="month_dec">Dez</string>
+    
+    <!-- Navigation -->
+    <string name="navigation_duties">Tela de Lista de Tarefas</string>
+    
+    <!-- Duty form strings -->
+    <string name="duty_title">Título</string>
+    <string name="duty_start_date">Data de Início</string>
+    <string name="duty_due_date">Data de Vencimento</string>
+    <string name="duty_type_personal">Pessoal</string>
+    <string name="duty_type_company">Empresa</string>
+    <string name="duty_category">Categoria</string>
+    <string name="duty_recurring">Recorrente</string>
+    <string name="duty_reminders">Lembretes</string>
+    <string name="duty_save">Salvar</string>
+    <string name="duty_cancel">Cancelar</string>
+    <string name="navigation_create_duty">Nova Tarefa</string>
+    <string name="navigation_edit_duty">Editar Tarefa</string>
+    
+    <!-- Form placeholders -->
+    <string name="placeholder_title">Digite o título da tarefa</string>
+    <string name="placeholder_category">Selecione uma categoria</string>
+    <string name="placeholder_date">DD/MM/YYYY</string>
+    <string name="placeholder_recurring">Selecione a periodicidade</string>
+    <string name="placeholder_custom_rule">Ex: FREQ=WEEKLY;BYDAY=MO,WE,FR</string>
+    <string name="placeholder_reminder_days">3</string>
+    <string name="placeholder_reminder_time">09:00</string>
+    
+    <!-- Form labels -->
+    <string name="label_recurring_period">Periodicidade</string>
+    <string name="label_custom_rule">Regra Personalizada (RRULE)</string>
+    <string name="label_start_date_reminders">Lembretes da Data de Início</string>
+    <string name="label_due_date_reminders">Lembretes da Data de Vencimento</string>
+    <string name="label_days_before">Dias Antes</string>
+    <string name="label_time">Horário</string>
+    <string name="label_currency_symbol">R$</string>
+    
+    <!-- Recurring intervals -->
+    <string name="recurring_once">Uma vez</string>
+    <string name="recurring_monthly">Mensal</string>
+    <string name="recurring_bimonthly">Bimestral</string>
+    <string name="recurring_quarterly">Trimestral</string>
+    <string name="recurring_semiannual">Semestral</string>
+    <string name="recurring_annual">Anual</string>
+    <string name="recurring_custom">Personalizada</string>
+    
+    <!-- Categories -->
+    <string name="category_electricity">Conta de Luz</string>
+    <string name="category_condo">Condomínio</string>
+    <string name="category_loan">Financiamento</string>
+    <string name="category_das">DAS Empresa</string>
+    <string name="category_internet">Internet</string>
+    
+    <!-- Dialog messages -->
+    <string name="dialog_discard_changes">Descartar alterações?</string>
+    <string name="dialog_unsaved_changes">Você tem alterações não salvas. Deseja realmente sair?</string>
+    <string name="dialog_exit">Sair</string>
+    <string name="dialog_cancel">Cancelar</string>
+    
+    <!-- Validation errors -->
+    <string name="error_title_required">Título é obrigatório</string>
+    <string name="error_value_required">Valor é obrigatório</string>
+    <string name="error_start_date_required">Data de início é obrigatória</string>
+    <string name="error_due_date_required">Data de vencimento é obrigatória</string>
+    <string name="error_category_required">Categoria é obrigatória</string>
+    <string name="error_invalid_value">Valor inválido</string>
+    <string name="error_invalid_date">Data inválida</string>
+    <string name="error_invalid_time">Horário inválido</string>
+    <string name="error_custom_rule_required">Regra personalizada é obrigatória</string>
+    <string name="error_reminder_days_range">Dias deve estar entre 1 e 30</string>
+    <string name="error_invalid_reminder_time">Horário inválido</string>
+    
+    <!-- Success messages -->
+    <string name="success_duty_saved">Tarefa salva com sucesso!</string>
+    
+    <!-- Duties List Screen -->
+    <string name="duty_list_title">Todas as Tarefas</string>
+    <string name="duty_list_search_hint">Buscar tarefas...</string>
+    <string name="duty_list_empty_title">Nenhuma tarefa encontrada</string>
+    <string name="duty_list_empty_subtitle">Crie sua primeira tarefa para começar</string>
+    <string name="duty_list_error_title">Erro ao carregar tarefas</string>
+    <string name="duty_list_error_subtitle">Tente novamente</string>
+    <string name="duty_list_retry">Tentar Novamente</string>
+    <string name="duty_list_mark_paid">Marcar como Paga</string>
+    <string name="duty_list_snooze">Adiar</string>
+    <string name="duty_list_edit">Editar</string>
+    <string name="duty_list_delete">Excluir</string>
+    <string name="duty_list_records">Registros</string>
+    <string name="duty_list_delete_confirmation">Tem certeza que deseja excluir esta tarefa?</string>
+    <string name="duty_list_delete_confirm">Excluir</string>
+    <string name="duty_list_delete_cancel">Cancelar</string>
+    <string name="error_deleting_duty">Erro ao excluir tarefa</string>
+    <string name="error_loading_duties">Erro ao carregar tarefas</string>
+    <string name="error_marking_paid">Erro ao marcar como paga</string>
+    <string name="error_snoozing">Erro ao adiar obrigação</string>
+    <string name="back">Voltar</string>
+    <string name="filter">Filtrar</string>
+    
+    <!-- Settings -->
+    <string name="settings_title">Configurações</string>
+    <string name="settings_user_name">Nome do Usuário</string>
+    <string name="settings_user_name_hint">Digite seu nome</string>
+    <string name="settings_save">Salvar</string>
+    <string name="settings_saved">Salvo!</string>
+    <string name="settings_general">Geral</string>
+    <string name="settings_appearance">Aparência</string>
+    <string name="settings_notifications">Notificações</string>
+    <string name="settings_about">Sobre</string>
+    
+    <!-- Obligation Record -->
+    <string name="obligation_record_list_title">Registros de Pagamento</string>
+    <string name="obligation_record_list_empty_title">Nenhum registro de pagamento</string>
+    <string name="obligation_record_list_empty_subtitle">Adicione um registro de pagamento para acompanhar os pagamentos</string>
+    <string name="obligation_record_list_add_record">Adicionar Registro</string>
+    <string name="obligation_record_list_delete">Excluir</string>
+    <string name="obligation_record_list_amount">Valor: R$ %.2f</string>
+    <string name="obligation_record_list_date">Data: %s</string>
+    <string name="obligation_record_list_notes">Observações: %s</string>
+    <string name="error_loading_records">Erro ao carregar registros</string>
+    <string name="error_deleting_record">Erro ao excluir registro</string>
+    <string name="add_obligation_record_title">Adicionar Registro de Pagamento</string>
+    <string name="obligation_record_paid_amount">Valor Pago</string>
+    <string name="obligation_record_paid_amount_hint">Digite o valor</string>
+    <string name="obligation_record_paid_date">Data do Pagamento</string>
+    <string name="obligation_record_notes">Observações</string>
+    <string name="obligation_record_notes_hint">Observações opcionais</string>
+    <string name="obligation_record_save">Salvar Registro</string>
+    <string name="obligation_record_saved">Registro Salvo!</string>
+    <string name="validation_invalid_amount">Valor inválido</string>
+    
+    <!-- Bottom Sheet -->
+    <string name="close">Fechar</string>
+    <string name="date_placeholder">dd/MM/aaaa</string>
+    <string name="validation_field_required">Campo obrigatório</string>
+    <string name="validation_date_required">Data obrigatória</string>
+</resources>

@@ -25,21 +25,9 @@ fun CardShowcaseScreen(
 ) {
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = {
-                    Text(
-                        text = "Cards",
-                        style = Typography.h2
-                    )
-                },
-                navigationIcon = {
-                    IconButton(onClick = onNavigateBack) {
-                        Icon(
-                            imageVector = Icons.Default.ArrowBack,
-                            contentDescription = "Back"
-                        )
-                    }
-                }
+            AppTopAppBarWithBackButton(
+                title = "Cards",
+                onBackClick = onNavigateBack
             )
         }
     ) { paddingValues ->

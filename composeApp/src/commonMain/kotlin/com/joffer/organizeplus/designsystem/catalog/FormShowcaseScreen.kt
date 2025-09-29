@@ -23,21 +23,9 @@ fun FormShowcaseScreen(
 ) {
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = {
-                    Text(
-                        text = "Form Components",
-                        style = Typography.h2
-                    )
-                },
-                navigationIcon = {
-                    IconButton(onClick = onNavigateBack) {
-                        Icon(
-                            imageVector = Icons.Default.ArrowBack,
-                            contentDescription = "Back"
-                        )
-                    }
-                }
+            AppTopAppBarWithBackButton(
+                title = "Form Components",
+                onBackClick = onNavigateBack
             )
         }
     ) { paddingValues ->

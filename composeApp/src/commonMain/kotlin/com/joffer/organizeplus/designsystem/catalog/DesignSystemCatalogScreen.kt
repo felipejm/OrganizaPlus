@@ -99,7 +99,9 @@ private fun ComponentCategoryCard(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = androidx.compose.ui.Alignment.CenterVertically
         ) {
-            Column {
+            Column(
+                modifier = Modifier.fillMaxWidth()
+            ) {
                 Text(
                     text = category.title,
                     style = Typography.title,
@@ -177,6 +179,31 @@ enum class ComponentCategory(
         title = "Progress",
         description = "Loading indicators and progress components",
         route = "progress"
+    ),
+    MESSAGE(
+        title = "Message",
+        description = "Toast messages and inline prompts",
+        route = "message"
+    ),
+    SELECT(
+        title = "Select",
+        description = "Dropdown selection components",
+        route = "select"
+    ),
+    RADIO(
+        title = "Radio",
+        description = "Radio button selection components",
+        route = "radio"
+    ),
+    FORM(
+        title = "Form",
+        description = "Form layout and field components",
+        route = "form"
+    ),
+    RESULT(
+        title = "Result",
+        description = "Result and feedback components",
+        route = "result"
     ),
     COLORS(
         title = "Colors",

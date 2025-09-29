@@ -287,4 +287,11 @@
     <string name="delete_duty_description">Delete Duty</string>
     <string name="add_duty_description">Add Duty</string>
     <string name="search_description">Search</string>
+    
+    <!-- New Component Showcase Titles -->
+    <string name="message_showcase_title">Message Components</string>
+    <string name="select_showcase_title">Select Components</string>
+    <string name="radio_showcase_title">Radio Components</string>
+    <string name="form_showcase_title">Form Components</string>
+    <string name="result_showcase_title">Result Components</string>
 </resources>

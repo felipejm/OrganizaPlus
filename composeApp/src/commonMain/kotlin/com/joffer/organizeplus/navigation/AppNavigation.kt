@@ -225,5 +225,40 @@ fun AppNavigation(
                 }
             )
         }
+        composable("message") {
+            com.joffer.organizeplus.designsystem.catalog.MessageShowcaseScreen(
+                onNavigateBack = {
+                    navController.popBackStack()
+                }
+            )
+        }
+        composable("select") {
+            com.joffer.organizeplus.designsystem.catalog.SelectShowcaseScreen(
+                onNavigateBack = {
+                    navController.popBackStack()
+                }
+            )
+        }
+        composable("radio") {
+            com.joffer.organizeplus.designsystem.catalog.RadioShowcaseScreen(
+                onNavigateBack = {
+                    navController.popBackStack()
+                }
+            )
+        }
+        composable("form") {
+            com.joffer.organizeplus.designsystem.catalog.FormShowcaseScreen(
+                onNavigateBack = {
+                    navController.popBackStack()
+                }
+            )
+        }
+        composable("result") {
+            com.joffer.organizeplus.designsystem.catalog.ResultShowcaseScreen(
+                onNavigateBack = {
+                    navController.popBackStack()
+                }
+            )
+        }
     }
 }

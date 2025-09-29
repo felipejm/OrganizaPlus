@@ -278,4 +278,11 @@
     <string name="delete_duty_description">Excluir Tarefa</string>
     <string name="add_duty_description">Adicionar Tarefa</string>
     <string name="search_description">Pesquisar</string>
+    
+    <!-- New Component Showcase Titles -->
+    <string name="message_showcase_title">Componentes de Mensagem</string>
+    <string name="select_showcase_title">Componentes de Seleção</string>
+    <string name="radio_showcase_title">Componentes de Radio</string>
+    <string name="form_showcase_title">Componentes de Formulário</string>
+    <string name="result_showcase_title">Componentes de Resultado</string>
 </resources>

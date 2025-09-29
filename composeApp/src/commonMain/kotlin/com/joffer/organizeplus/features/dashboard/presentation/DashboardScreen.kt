@@ -12,6 +12,9 @@ import com.joffer.organizeplus.features.dashboard.components.UpcomingSection
 import com.joffer.organizeplus.designsystem.components.ErrorBanner
 import com.joffer.organizeplus.features.dashboard.presentation.DashboardViewModel
 import com.joffer.organizeplus.features.dashboard.DashboardIntent
+import org.jetbrains.compose.resources.stringResource
+import organizeplus.composeapp.generated.resources.Res
+import organizeplus.composeapp.generated.resources.app_name
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -28,7 +31,12 @@ fun DashboardScreen(
     }
     
     Scaffold(
-        modifier = modifier
+        modifier = modifier,
+        topBar = {
+            AppTopAppBar(
+                title = stringResource(Res.string.app_name)
+            )
+        }
     ) { paddingValues ->
         LazyColumn(
             modifier = Modifier

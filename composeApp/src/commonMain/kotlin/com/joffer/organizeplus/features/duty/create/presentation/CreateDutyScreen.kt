@@ -3,6 +3,8 @@ package com.joffer.organizeplus.features.duty.create.presentation
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -63,7 +65,9 @@ fun CreateDutyScreen(
         topBar = {
             AppTopAppBarWithBackButton(
                 title = if (formState.id == null) stringResource(Res.string.navigation_create_duty_new) else stringResource(Res.string.navigation_edit_duty_new),
-                onBackClick = { viewModel.onIntent(CreateDutyIntent.CancelForm) }
+                onBackClick = onNavigateBack,
+                backIcon = Icons.Default.ArrowBack,
+                navigationIconContentColor = AppColorScheme.onSurface
             )
         },
         snackbarHost = {
@@ -188,7 +192,7 @@ fun CreateDutyScreen(
                 horizontalArrangement = Arrangement.spacedBy(Spacing.md)
             ) {
                 Button(
-                    onClick = { viewModel.onIntent(CreateDutyIntent.CancelForm) },
+                    onClick = onNavigateBack,
                     modifier = Modifier.weight(1f),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = AppColorScheme.surface,

@@ -29,7 +29,6 @@ class CreateDutyViewModel(
     fun onIntent(intent: CreateDutyIntent) {
         when (intent) {
             CreateDutyIntent.SaveCreateDuty -> saveCreateDuty()
-            CreateDutyIntent.CancelForm -> cancelForm()
             CreateDutyIntent.ClearError -> clearError()
             CreateDutyIntent.ClearSuccess -> clearSuccess()
             CreateDutyIntent.ClearErrorSnackbar -> clearErrorSnackbar()
@@ -103,10 +102,6 @@ class CreateDutyViewModel(
         }
     }
     
-    private fun cancelForm() {
-        // Just clear any unsaved changes, don't set success message
-        _uiState.value = _uiState.value.copy(hasUnsavedChanges = false)
-    }
     
     private fun clearError() {
         _uiState.value = _uiState.value.copy(errorMessage = null)

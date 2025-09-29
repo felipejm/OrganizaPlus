@@ -55,7 +55,8 @@ fun AddDutyOccurrenceBottomSheet(
     
     ModalBottomSheet(
         onDismissRequest = onDismiss,
-        modifier = modifier.fillMaxWidth()
+        modifier = modifier.fillMaxWidth(),
+        containerColor = AppColorScheme.surface
     ) {
         Column(
             modifier = Modifier

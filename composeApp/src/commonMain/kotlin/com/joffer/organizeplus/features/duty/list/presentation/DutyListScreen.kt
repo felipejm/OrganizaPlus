@@ -59,27 +59,11 @@ fun DutyListScreen(
     
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = {
-                    Text(
-                        text = stringResource(Res.string.duty_list_title),
-                        style = Typography.headlineSmall,
-                        color = AppColorScheme.onSurface
-                    )
-                },
-                navigationIcon = {
-                    IconButton(onClick = onNavigateBack) {
-                        Icon(
-                            imageVector = Icons.Default.ArrowBack,
-                            contentDescription = "Voltar",
-                            tint = AppColorScheme.onSurface
-                        )
-                    }
-                },
-                actions = {},
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = AppColorScheme.surface
-                )
+            AppTopAppBarWithBackButton(
+                title = stringResource(Res.string.duty_list_title),
+                onBackClick = onNavigateBack,
+                backIcon = Icons.Default.ArrowBack,
+                navigationIconContentColor = AppColorScheme.onSurface
             )
         },
         floatingActionButton = {

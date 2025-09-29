@@ -5,7 +5,6 @@ import com.joffer.organizeplus.features.duty.create.domain.entities.CreateDutyFo
 
 sealed class CreateDutyIntent {
     object SaveCreateDuty : CreateDutyIntent()
-    object CancelForm : CreateDutyIntent()
     object ClearError : CreateDutyIntent()
     object ClearSuccess : CreateDutyIntent()
     object ClearErrorSnackbar : CreateDutyIntent()

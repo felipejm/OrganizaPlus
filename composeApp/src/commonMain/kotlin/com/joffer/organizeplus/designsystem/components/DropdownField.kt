@@ -1,5 +1,6 @@
 package com.joffer.organizeplus.designsystem.components
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
@@ -72,7 +73,8 @@ fun <T> DropdownField(
             
             ExposedDropdownMenu(
                 expanded = expanded,
-                onDismissRequest = { expanded = false }
+                onDismissRequest = { expanded = false },
+                modifier = Modifier.background(AppColorScheme.surface)
             ) {
                 options.forEach { (option, label) ->
                     DropdownMenuItem(

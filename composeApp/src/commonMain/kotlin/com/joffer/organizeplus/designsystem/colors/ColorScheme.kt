@@ -19,14 +19,14 @@ object ColorScheme {
     val neutral50 = Color(0xFFFCFCFC)
     
     // ===== PRIMARY COLORS =====
-    val primary700 = Color(0xFF01A5A6)
-    val primary600 = Color(0xFF1ECBCF)
-    val primary500 = Color(0xFF42D9E4)
-    val primary400 = Color(0xFF70DFE1)
-    val primary300 = Color(0xFFA7E9EC)
-    val primary200 = Color(0xFFD7F7FC)
-    val primary100 = Color(0xFFEFFCFC)
-    val primary50 = Color(0xFFF5FFFF)
+    val primary700 = Color(0xFFC0392B)  // Darker red
+    val primary600 = Color(0xFFD63031)  // Dark red
+    val primary500 = Color(0xFFE74C3C)  // Main red (#E74C3C)
+    val primary400 = Color(0xFFE67E22)  // Orange-red
+    val primary300 = Color(0xFFF39C12)  // Light orange
+    val primary200 = Color(0xFFFDCB6E)  // Very light orange
+    val primary100 = Color(0xFFFFE0B2)  // Lightest orange
+    val primary50 = Color(0xFFFFF8F0)   // Almost white with orange tint
     
     // ===== AUXILIARY COLORS =====
     val auxiliary700 = Color(0xFFF36C3F)

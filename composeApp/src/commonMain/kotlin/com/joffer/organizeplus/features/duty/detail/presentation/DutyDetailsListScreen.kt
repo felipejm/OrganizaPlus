@@ -58,23 +58,9 @@ fun DutyDetailsListScreen(
     Column(
         modifier = modifier.fillMaxSize()
     ) {
-        TopAppBar(
-            title = {
-                Text(
-                    text = stringResource(Res.string.duty_occurrence_list_title),
-                    style = Typography.titleLarge,
-                    color = AppColorScheme.onSurface
-                )
-            },
-            navigationIcon = {
-                IconButton(onClick = onNavigateBack) {
-                    Icon(
-                        imageVector = Icons.Default.ArrowBack,
-                        contentDescription = "Back",
-                        tint = AppColorScheme.onSurface
-                    )
-                }
-            },
+        AppTopAppBarWithBackButton(
+            title = stringResource(Res.string.duty_occurrence_list_title),
+            onBackClick = onNavigateBack,
             actions = {
                 IconButton(onClick = { showAddOccurrenceBottomSheet = true }) {
                     Icon(
@@ -83,10 +69,7 @@ fun DutyDetailsListScreen(
                         tint = AppColorScheme.primary
                     )
                 }
-            },
-            colors = TopAppBarDefaults.topAppBarColors(
-                containerColor = AppColorScheme.surface
-            )
+            }
         )
         
         Box(

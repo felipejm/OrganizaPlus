@@ -14,6 +14,9 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 import io.github.aakira.napier.Napier
+import kotlinx.datetime.LocalDate
+import kotlinx.datetime.toJavaLocalDate
+import java.time.format.DateTimeFormatter
 
 class CreateDutyViewModel(
     private val saveCreateDutyUseCase: SaveCreateDutyUseCase,
@@ -109,6 +112,39 @@ class CreateDutyViewModel(
     
     private fun clearSuccess() {
         _uiState.value = _uiState.value.copy(showSuccessMessage = false)
+    }
+    
+    fun showStartDatePicker() {
+        _uiState.value = _uiState.value.copy(showStartDatePicker = true)
+    }
+    
+    fun showDueDatePicker() {
+        _uiState.value = _uiState.value.copy(showDueDatePicker = true)
+    }
+    
+    fun onStartDateSelected(date: LocalDate) {
+        val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
+        val formattedDate = date.toJavaLocalDate().format(formatter)
+        updateFormField(CreateDutyFormField.StartDate, formattedDate)
+        _uiState.value = _uiState.value.copy(showStartDatePicker = false)
+    }
+    
+    fun onDueDateSelected(date: LocalDate) {
+        val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
+        val formattedDate = date.toJavaLocalDate().format(formatter)
+        updateFormField(CreateDutyFormField.DueDate, formattedDate)
+        _uiState.value = _uiState.value.copy(showDueDatePicker = false)
+    }
+    
+    private fun parseDateString(dateString: String): LocalDate? {
+        if (dateString.isEmpty()) return null
+        return try {
+            val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
+            val javaDate = java.time.LocalDate.parse(dateString, formatter)
+            LocalDate(javaDate.year, javaDate.monthValue, javaDate.dayOfMonth)
+        } catch (e: Exception) {
+            null
+        }
     }
     
 }

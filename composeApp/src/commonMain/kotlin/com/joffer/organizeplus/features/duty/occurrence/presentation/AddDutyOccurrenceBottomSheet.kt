@@ -133,7 +133,10 @@ fun AddDutyOccurrenceBottomSheet(
                     placeholder = stringResource(Res.string.date_placeholder),
                     isRequired = true,
                     isError = uiState.errors.containsKey(DutyOccurrenceFormField.CompletedDate),
-                    errorMessage = getErrorMessage(viewModel.getFieldError(DutyOccurrenceFormField.CompletedDate))
+                    errorMessage = getErrorMessage(viewModel.getFieldError(DutyOccurrenceFormField.CompletedDate)),
+                    onDatePickerClick = { 
+                        // For now, just do nothing - this is a simple text input
+                    }
                 )
             }
             

@@ -23,6 +23,8 @@ import com.joffer.organizeplus.features.duty.create.domain.entities.CreateDutyVa
 import com.joffer.organizeplus.features.duty.create.presentation.CreateDutyIntent
 import com.joffer.organizeplus.features.dashboard.domain.entities.DutyType
 import com.joffer.organizeplus.utils.DateFormatter
+import com.joffer.organizeplus.utils.showDatePickerDialog
+import kotlinx.datetime.LocalDate
 import org.jetbrains.compose.resources.stringResource
 import organizeplus.composeapp.generated.resources.Res
 import organizeplus.composeapp.generated.resources.create_duty_title
@@ -70,12 +72,12 @@ fun CreateDutyScreen(
     // Handle success snackbar
     LaunchedEffect(uiState.showSuccessSnackbar) {
         if (uiState.showSuccessSnackbar) {
-            onNavigateBack()
             snackbarHostState.showSnackbar(
                 message = successMessage,
                 actionLabel = closeLabel,
                 duration = SnackbarDuration.Short
             )
+            onNavigateBack()
         }
     }
 
@@ -163,11 +165,14 @@ fun CreateDutyScreen(
                 placeholder = stringResource(Res.string.placeholder_date),
                 isRequired = true,
                 isError = uiState.errors.containsKey(CreateDutyFormField.StartDate),
-                errorMessage = getErrorMessage(viewModel.getFieldError(CreateDutyFormField.StartDate))
+                errorMessage = getErrorMessage(viewModel.getFieldError(CreateDutyFormField.StartDate)),
+                onDatePickerClick = { 
+                    viewModel.showStartDatePicker()
+                }
             )
-
+            
             Spacer(modifier = Modifier.height(Spacing.md))
-
+            
             // Due Date Field
             DateInputField(
                 label = stringResource(Res.string.create_duty_due_date),
@@ -176,7 +181,10 @@ fun CreateDutyScreen(
                 placeholder = stringResource(Res.string.placeholder_date),
                 isRequired = true,
                 isError = uiState.errors.containsKey(CreateDutyFormField.DueDate),
-                errorMessage = getErrorMessage(viewModel.getFieldError(CreateDutyFormField.DueDate))
+                errorMessage = getErrorMessage(viewModel.getFieldError(CreateDutyFormField.DueDate)),
+                onDatePickerClick = { 
+                    viewModel.showDueDatePicker()
+                }
             )
 
             Spacer(modifier = Modifier.height(Spacing.xl))
@@ -220,6 +228,32 @@ fun CreateDutyScreen(
                 }
             }
         }
+    }
+    
+    // Date Picker Handlers
+    if (uiState.showStartDatePicker) {
+        val currentDate = parseDateString(formState.startDate)
+        showDatePickerDialog(currentDate) { selectedDate ->
+            viewModel.onStartDateSelected(selectedDate)
+        }
+    }
+
+    if (uiState.showDueDatePicker) {
+        val currentDate = parseDateString(formState.dueDate)
+        showDatePickerDialog(currentDate) { selectedDate ->
+            viewModel.onDueDateSelected(selectedDate)
+        }
+    }
+}
+
+private fun parseDateString(dateString: String): LocalDate? {
+    if (dateString.isEmpty()) return null
+    return try {
+        val formatter = java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy")
+        val javaDate = java.time.LocalDate.parse(dateString, formatter)
+        LocalDate(javaDate.year, javaDate.monthValue, javaDate.dayOfMonth)
+    } catch (e: Exception) {
+        null
     }
 }
 

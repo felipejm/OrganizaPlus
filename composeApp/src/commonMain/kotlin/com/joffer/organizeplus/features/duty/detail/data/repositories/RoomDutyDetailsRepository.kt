@@ -1,11 +1,11 @@
-package com.joffer.organizeplus.features.dutyDetails.data.repositories
+package com.joffer.organizeplus.features.duty.detail.data.repositories
 
 import com.joffer.organizeplus.database.dao.DutyOccurrenceDao
 import com.joffer.organizeplus.database.mappers.toDomainEntity
 import com.joffer.organizeplus.database.mappers.toRoomEntity
-import com.joffer.organizeplus.features.dutyOccurrence.domain.entities.DutyOccurrence
-import com.joffer.organizeplus.features.dutyDetails.domain.entities.DutyDetails
-import com.joffer.organizeplus.features.dutyDetails.domain.repositories.DutyDetailsRepository
+import com.joffer.organizeplus.features.duty.occurrence.domain.entities.DutyOccurrence
+import com.joffer.organizeplus.features.duty.detail.domain.entities.DutyDetails
+import com.joffer.organizeplus.features.duty.detail.domain.repositories.DutyDetailsRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map

@@ -1,4 +1,4 @@
-package com.joffer.organizeplus.features.dutyDetails.domain.entities
+package com.joffer.organizeplus.features.duty.detail.domain.entities
 
 enum class DutyDetailsFormField {
     PaidAmount,

@@ -1,4 +1,4 @@
-package com.joffer.organizeplus.features.dutyList.presentation
+package com.joffer.organizeplus.features.duty.list.presentation
 
 import com.joffer.organizeplus.features.dashboard.domain.entities.Duty
 

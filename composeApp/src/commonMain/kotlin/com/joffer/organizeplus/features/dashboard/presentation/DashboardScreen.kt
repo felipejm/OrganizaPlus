@@ -106,7 +106,6 @@ fun DashboardScreen(
                     UpcomingSection(
                         duties = uiState.upcomingDuties,
                         onMarkPaid = { viewModel.onIntent(DashboardIntent.MarkObligationPaid(it)) },
-                        onSnooze = { viewModel.onIntent(DashboardIntent.SnoozeObligation(it)) },
                         onEdit = onNavigateToEditDuty,
                         onViewAll = onNavigateToDuties
                     )

@@ -1,8 +1,8 @@
-package com.joffer.organizeplus.features.dutyList.di
+package com.joffer.organizeplus.features.duty.list.di
 
 import com.joffer.organizeplus.features.dashboard.domain.usecases.DeleteDutyUseCase
 import com.joffer.organizeplus.features.dashboard.domain.usecases.DeleteDutyUseCaseImpl
-import com.joffer.organizeplus.features.dutyList.presentation.DutyListViewModel
+import com.joffer.organizeplus.features.duty.list.presentation.DutyListViewModel
 import org.koin.dsl.module
 
 val dutyListModule = module {

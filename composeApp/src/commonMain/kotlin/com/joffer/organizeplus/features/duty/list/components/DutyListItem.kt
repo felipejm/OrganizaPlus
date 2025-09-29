@@ -1,4 +1,4 @@
-package com.joffer.organizeplus.features.dutyList.components
+package com.joffer.organizeplus.features.duty.list.components
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*

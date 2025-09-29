@@ -1,9 +1,9 @@
-package com.joffer.organizeplus.features.dutyDetails.domain.usecases.implementations
+package com.joffer.organizeplus.features.duty.detail.domain.usecases.implementations
 
-import com.joffer.organizeplus.features.dutyDetails.domain.entities.DutyDetails
-import com.joffer.organizeplus.features.dutyDetails.domain.entities.DutyDetailsForm
-import com.joffer.organizeplus.features.dutyDetails.domain.repositories.DutyDetailsRepository
-import com.joffer.organizeplus.features.dutyDetails.domain.usecases.SaveDutyDetailsUseCase
+import com.joffer.organizeplus.features.duty.detail.domain.entities.DutyDetails
+import com.joffer.organizeplus.features.duty.detail.domain.entities.DutyDetailsForm
+import com.joffer.organizeplus.features.duty.detail.domain.repositories.DutyDetailsRepository
+import com.joffer.organizeplus.features.duty.detail.domain.usecases.SaveDutyDetailsUseCase
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.runBlocking
 import kotlinx.datetime.Clock

@@ -1,8 +1,8 @@
-package com.joffer.organizeplus.features.dutyDetails.domain.validation
+package com.joffer.organizeplus.features.duty.detail.domain.validation
 
-import com.joffer.organizeplus.features.dutyDetails.domain.entities.DutyDetailsForm
-import com.joffer.organizeplus.features.dutyDetails.domain.entities.DutyDetailsFormField
-import com.joffer.organizeplus.features.dutyDetails.domain.validation.ValidationError
+import com.joffer.organizeplus.features.duty.detail.domain.entities.DutyDetailsForm
+import com.joffer.organizeplus.features.duty.detail.domain.entities.DutyDetailsFormField
+import com.joffer.organizeplus.features.duty.detail.domain.validation.ValidationError
 
 object DutyDetailsValidator {
     

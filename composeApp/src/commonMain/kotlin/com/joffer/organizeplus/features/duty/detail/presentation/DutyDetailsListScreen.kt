@@ -1,4 +1,4 @@
-package com.joffer.organizeplus.features.dutyDetails.presentation
+package com.joffer.organizeplus.features.duty.detail.presentation
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -20,10 +20,10 @@ import com.joffer.organizeplus.designsystem.components.ErrorBanner
 import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.Typography
-import com.joffer.organizeplus.features.dutyDetails.domain.entities.DutyDetails
-import com.joffer.organizeplus.features.dutyOccurrence.presentation.AddDutyOccurrenceBottomSheet
-import com.joffer.organizeplus.features.dutyOccurrence.presentation.AddDutyOccurrenceViewModel
-import com.joffer.organizeplus.features.dutyDetails.presentation.AddDutyDetailsViewModel
+import com.joffer.organizeplus.features.duty.detail.domain.entities.DutyDetails
+import com.joffer.organizeplus.features.duty.occurrence.presentation.AddDutyOccurrenceBottomSheet
+import com.joffer.organizeplus.features.duty.occurrence.presentation.AddDutyOccurrenceViewModel
+import com.joffer.organizeplus.features.duty.detail.presentation.AddDutyDetailsViewModel
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import org.jetbrains.compose.resources.stringResource

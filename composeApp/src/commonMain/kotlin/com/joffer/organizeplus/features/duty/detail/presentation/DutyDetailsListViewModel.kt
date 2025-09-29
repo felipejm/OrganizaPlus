@@ -1,9 +1,9 @@
-package com.joffer.organizeplus.features.dutyDetails.presentation
+package com.joffer.organizeplus.features.duty.detail.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.joffer.organizeplus.features.dutyDetails.domain.entities.DutyDetails
-import com.joffer.organizeplus.features.dutyDetails.domain.repositories.DutyDetailsRepository
+import com.joffer.organizeplus.features.duty.detail.domain.entities.DutyDetails
+import com.joffer.organizeplus.features.duty.detail.domain.repositories.DutyDetailsRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow

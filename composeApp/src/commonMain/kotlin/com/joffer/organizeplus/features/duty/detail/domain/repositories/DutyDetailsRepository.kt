@@ -1,6 +1,6 @@
-package com.joffer.organizeplus.features.dutyDetails.domain.repositories
+package com.joffer.organizeplus.features.duty.detail.domain.repositories
 
-import com.joffer.organizeplus.features.dutyDetails.domain.entities.DutyDetails
+import com.joffer.organizeplus.features.duty.detail.domain.entities.DutyDetails
 import kotlinx.coroutines.flow.Flow
 import kotlinx.datetime.Instant
 

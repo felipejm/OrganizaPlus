@@ -1,8 +1,8 @@
-package com.joffer.organizeplus.features.dutyDetails.domain.usecases
+package com.joffer.organizeplus.features.duty.detail.domain.usecases
 
-import com.joffer.organizeplus.features.dutyDetails.domain.entities.DutyDetails
-import com.joffer.organizeplus.features.dutyDetails.domain.entities.DutyDetailsForm
-import com.joffer.organizeplus.features.dutyDetails.domain.repositories.DutyDetailsRepository
+import com.joffer.organizeplus.features.duty.detail.domain.entities.DutyDetails
+import com.joffer.organizeplus.features.duty.detail.domain.entities.DutyDetailsForm
+import com.joffer.organizeplus.features.duty.detail.domain.repositories.DutyDetailsRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow

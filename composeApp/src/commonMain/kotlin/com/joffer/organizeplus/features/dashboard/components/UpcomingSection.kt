@@ -32,7 +32,6 @@ import kotlinx.datetime.toLocalDateTime
 fun UpcomingSection(
     duties: List<Duty>,
     onMarkPaid: (String) -> Unit,
-    onSnooze: (String) -> Unit,
     onEdit: (String) -> Unit,
     onViewAll: () -> Unit,
     modifier: Modifier = Modifier
@@ -66,7 +65,6 @@ fun UpcomingSection(
                         UpcomingDutyItem(
                             duty = duty,
                             onMarkPaid = { onMarkPaid(duty.id) },
-                            onSnooze = { onSnooze(duty.id) },
                             onEdit = { onEdit(duty.id) }
                         )
                     }
@@ -92,7 +90,6 @@ fun UpcomingSection(
 private fun UpcomingDutyItem(
     duty: Duty,
     onMarkPaid: () -> Unit,
-    onSnooze: () -> Unit,
     onEdit: () -> Unit,
     modifier: Modifier = Modifier
 ) {

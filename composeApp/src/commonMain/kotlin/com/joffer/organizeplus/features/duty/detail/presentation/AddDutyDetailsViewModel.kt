@@ -1,12 +1,12 @@
-package com.joffer.organizeplus.features.dutyDetails.presentation
+package com.joffer.organizeplus.features.duty.detail.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.joffer.organizeplus.features.dutyDetails.domain.entities.DutyDetailsForm
-import com.joffer.organizeplus.features.dutyDetails.domain.entities.DutyDetailsFormField
-import com.joffer.organizeplus.features.dutyDetails.domain.validation.ValidationError
-import com.joffer.organizeplus.features.dutyDetails.domain.usecases.SaveDutyDetailsUseCase
-import com.joffer.organizeplus.features.dutyDetails.domain.validation.DutyDetailsValidator
+import com.joffer.organizeplus.features.duty.detail.domain.entities.DutyDetailsForm
+import com.joffer.organizeplus.features.duty.detail.domain.entities.DutyDetailsFormField
+import com.joffer.organizeplus.features.duty.detail.domain.validation.ValidationError
+import com.joffer.organizeplus.features.duty.detail.domain.usecases.SaveDutyDetailsUseCase
+import com.joffer.organizeplus.features.duty.detail.domain.validation.DutyDetailsValidator
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow

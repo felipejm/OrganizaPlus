@@ -1,8 +1,8 @@
 package com.joffer.organizeplus.features.duty.create.di
 
-import com.joffer.organizeplus.features.createDuty.domain.usecases.SaveCreateDutyUseCase
-import com.joffer.organizeplus.features.createDuty.domain.usecases.implementations.SaveCreateDutyUseCaseImpl
-import com.joffer.organizeplus.features.createDuty.presentation.CreateDutyViewModel
+import com.joffer.organizeplus.features.duty.create.domain.usecases.SaveCreateDutyUseCase
+import com.joffer.organizeplus.features.duty.create.domain.usecases.implementations.SaveCreateDutyUseCaseImpl
+import com.joffer.organizeplus.features.duty.create.presentation.CreateDutyViewModel
 import org.koin.dsl.module
 
 val createDutyModule = module {

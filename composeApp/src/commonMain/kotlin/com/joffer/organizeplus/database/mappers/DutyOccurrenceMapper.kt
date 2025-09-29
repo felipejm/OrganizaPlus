@@ -1,7 +1,7 @@
 package com.joffer.organizeplus.database.mappers
 
 import com.joffer.organizeplus.database.entities.DutyOccurrenceEntity
-import com.joffer.organizeplus.features.dutyOccurrence.domain.entities.DutyOccurrence
+import com.joffer.organizeplus.features.duty.occurrence.domain.entities.DutyOccurrence
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import kotlinx.datetime.TimeZone

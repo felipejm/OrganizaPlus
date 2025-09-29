@@ -1,4 +1,4 @@
-package com.joffer.organizeplus.features.dutyList.presentation
+package com.joffer.organizeplus.features.duty.list.presentation
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -17,7 +17,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.joffer.organizeplus.common.utils.DateUtils
 import com.joffer.organizeplus.designsystem.components.*
-import com.joffer.organizeplus.features.dutyList.components.DutyListItem
+import com.joffer.organizeplus.features.duty.list.components.DutyListItem
 import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.Typography

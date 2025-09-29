@@ -1,8 +1,8 @@
-package com.joffer.organizeplus.features.createDuty.domain.validation
+package com.joffer.organizeplus.features.duty.create.domain.validation
 
-import com.joffer.organizeplus.features.createDuty.domain.entities.CreateDutyForm
-import com.joffer.organizeplus.features.createDuty.domain.entities.CreateDutyFormField
-import com.joffer.organizeplus.features.createDuty.domain.entities.CreateDutyValidationError
+import com.joffer.organizeplus.features.duty.create.domain.entities.CreateDutyForm
+import com.joffer.organizeplus.features.duty.create.domain.entities.CreateDutyFormField
+import com.joffer.organizeplus.features.duty.create.domain.entities.CreateDutyValidationError
 
 class CreateDutyValidator {
     fun validate(form: CreateDutyForm): Map<CreateDutyFormField, CreateDutyValidationError> {

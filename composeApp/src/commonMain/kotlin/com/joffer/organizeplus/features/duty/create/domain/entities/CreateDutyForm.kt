@@ -1,4 +1,4 @@
-package com.joffer.organizeplus.features.createDuty.domain.entities
+package com.joffer.organizeplus.features.duty.create.domain.entities
 
 import com.joffer.organizeplus.features.dashboard.domain.entities.DutyType
 import kotlinx.datetime.Instant

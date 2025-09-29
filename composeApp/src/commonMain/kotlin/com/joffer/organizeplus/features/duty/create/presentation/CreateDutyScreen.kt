@@ -1,4 +1,4 @@
-package com.joffer.organizeplus.features.createDuty.presentation
+package com.joffer.organizeplus.features.duty.create.presentation
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -13,10 +13,10 @@ import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.Typography
-import com.joffer.organizeplus.features.createDuty.domain.entities.CreateCreateDutyForm
-import com.joffer.organizeplus.features.createDuty.domain.entities.CreateCreateCreateDutyFormField
-import com.joffer.organizeplus.features.createDuty.domain.entities.CreateDutyCreateDutyValidationError
-import com.joffer.organizeplus.features.createDuty.presentation.CreateCreateDutyIntent
+import com.joffer.organizeplus.features.duty.create.domain.entities.CreateDutyForm
+import com.joffer.organizeplus.features.duty.create.domain.entities.CreateDutyFormField
+import com.joffer.organizeplus.features.duty.create.domain.entities.CreateDutyValidationError
+import com.joffer.organizeplus.features.duty.create.presentation.CreateDutyIntent
 import com.joffer.organizeplus.features.dashboard.domain.entities.DutyType
 import com.joffer.organizeplus.utils.DateFormatter
 import org.jetbrains.compose.resources.stringResource
@@ -120,13 +120,13 @@ fun CreateDutyScreen(
         ) {
             // Title Field
             FormField(
-                label = stringResource(Res.string.duty_title),
+                label = stringResource(Res.string.create_duty_title),
                 value = formState.title,
-                onValueChange = { viewModel.onIntent(CreateDutyIntent.UpdateFormField(CreateCreateDutyFormField.Title, it)) },
+                onValueChange = { viewModel.onIntent(CreateDutyIntent.UpdateFormField(CreateDutyFormField.Title, it)) },
                 placeholder = stringResource(Res.string.placeholder_title),
                 isRequired = true,
-                isError = uiState.errors.containsKey(CreateCreateDutyFormField.Title),
-                errorMessage = getErrorMessage(viewModel.getFieldError(CreateCreateDutyFormField.Title))
+                isError = uiState.errors.containsKey(CreateDutyFormField.Title),
+                errorMessage = getErrorMessage(viewModel.getFieldError(CreateDutyFormField.Title))
             )
             
             Spacer(modifier = Modifier.height(Spacing.md))
@@ -141,51 +141,51 @@ fun CreateDutyScreen(
                         "ACTIONABLE" -> DutyType.ACTIONABLE
                         else -> DutyType.ACTIONABLE
                     }
-                    viewModel.onIntent(CreateDutyIntent.UpdateFormField(CreateCreateDutyFormField.DutyType, dutyType))
+                    viewModel.onIntent(CreateDutyIntent.UpdateFormField(CreateDutyFormField.DutyType, dutyType))
                 },
                 options = getDutyTypeOptions(),
                 isRequired = true,
-                isError = uiState.errors.containsKey(CreateCreateDutyFormField.DutyType),
-                errorMessage = getErrorMessage(viewModel.getFieldError(CreateCreateDutyFormField.DutyType))
+                isError = uiState.errors.containsKey(CreateDutyFormField.DutyType),
+                errorMessage = getErrorMessage(viewModel.getFieldError(CreateDutyFormField.DutyType))
             )
             
             Spacer(modifier = Modifier.height(Spacing.md))
             
             // Category Field
             DropdownField(
-                label = stringResource(Res.string.duty_category),
+                label = stringResource(Res.string.create_duty_category),
                 value = formState.categoryName,
-                onValueChange = { viewModel.onIntent(CreateDutyIntent.UpdateFormField(CreateCreateDutyFormField.CategoryName, it)) },
+                onValueChange = { viewModel.onIntent(CreateDutyIntent.UpdateFormField(CreateDutyFormField.CategoryName, it)) },
                 options = getCategoryOptions(),
                 isRequired = true,
-                isError = uiState.errors.containsKey(CreateCreateDutyFormField.CategoryName),
-                errorMessage = getErrorMessage(viewModel.getFieldError(CreateCreateDutyFormField.CategoryName))
+                isError = uiState.errors.containsKey(CreateDutyFormField.CategoryName),
+                errorMessage = getErrorMessage(viewModel.getFieldError(CreateDutyFormField.CategoryName))
             )
             
             Spacer(modifier = Modifier.height(Spacing.md))
             
             // Start Date Field
             DateInputField(
-                label = stringResource(Res.string.duty_start_date),
+                label = stringResource(Res.string.create_duty_start_date),
                 value = formState.startDate,
-                onValueChange = { viewModel.onIntent(CreateDutyIntent.UpdateFormField(CreateCreateDutyFormField.StartDate, it)) },
+                onValueChange = { viewModel.onIntent(CreateDutyIntent.UpdateFormField(CreateDutyFormField.StartDate, it)) },
                 placeholder = stringResource(Res.string.placeholder_date),
                 isRequired = true,
-                isError = uiState.errors.containsKey(CreateCreateDutyFormField.StartDate),
-                errorMessage = getErrorMessage(viewModel.getFieldError(CreateCreateDutyFormField.StartDate))
+                isError = uiState.errors.containsKey(CreateDutyFormField.StartDate),
+                errorMessage = getErrorMessage(viewModel.getFieldError(CreateDutyFormField.StartDate))
             )
             
             Spacer(modifier = Modifier.height(Spacing.md))
             
             // Due Date Field
             DateInputField(
-                label = stringResource(Res.string.duty_due_date),
+                label = stringResource(Res.string.create_duty_due_date),
                 value = formState.dueDate,
-                onValueChange = { viewModel.onIntent(CreateDutyIntent.UpdateFormField(CreateCreateDutyFormField.DueDate, it)) },
+                onValueChange = { viewModel.onIntent(CreateDutyIntent.UpdateFormField(CreateDutyFormField.DueDate, it)) },
                 placeholder = stringResource(Res.string.placeholder_date),
                 isRequired = true,
-                isError = uiState.errors.containsKey(CreateCreateDutyFormField.DueDate),
-                errorMessage = getErrorMessage(viewModel.getFieldError(CreateCreateDutyFormField.DueDate))
+                isError = uiState.errors.containsKey(CreateDutyFormField.DueDate),
+                errorMessage = getErrorMessage(viewModel.getFieldError(CreateDutyFormField.DueDate))
             )
             
             Spacer(modifier = Modifier.height(Spacing.md))
@@ -193,7 +193,7 @@ fun CreateDutyScreen(
             
             // Reminders Section
             Text(
-                text = stringResource(Res.string.duty_reminders),
+                text = stringResource(Res.string.create_duty_reminders),
                 style = Typography.titleMedium,
                 color = AppColorScheme.formText,
                 fontWeight = FontWeight.Bold
@@ -208,7 +208,7 @@ fun CreateDutyScreen(
             ) {
                 Checkbox(
                     checked = formState.hasStartDateReminder,
-                    onCheckedChange = { viewModel.onIntent(CreateDutyIntent.UpdateFormField(CreateCreateDutyFormField.HasStartDateReminder, it)) }
+                    onCheckedChange = { viewModel.onIntent(CreateDutyIntent.UpdateFormField(CreateDutyFormField.HasStartDateReminder, it)) }
                 )
                 Spacer(modifier = Modifier.width(Spacing.sm))
                 Text(
@@ -230,23 +230,23 @@ fun CreateDutyScreen(
                         value = formState.startDateReminderDaysBefore.toString(),
                         onValueChange = { 
                             val days = it.toIntOrNull() ?: 0
-                            viewModel.onIntent(CreateDutyIntent.UpdateFormField(CreateCreateDutyFormField.StartDateReminderDays, days))
+                            viewModel.onIntent(CreateDutyIntent.UpdateFormField(CreateDutyFormField.StartDateReminderDays, days))
                         },
                         placeholder = stringResource(Res.string.placeholder_reminder_days),
                         isRequired = true,
-                        isError = uiState.errors.containsKey(CreateCreateDutyFormField.StartDateReminderDays),
-                        errorMessage = getErrorMessage(viewModel.getFieldError(CreateCreateDutyFormField.StartDateReminderDays)),
+                        isError = uiState.errors.containsKey(CreateDutyFormField.StartDateReminderDays),
+                        errorMessage = getErrorMessage(viewModel.getFieldError(CreateDutyFormField.StartDateReminderDays)),
                         modifier = Modifier.weight(1f)
                     )
                     
                     FormField(
                         label = stringResource(Res.string.label_time),
                         value = formState.startDateReminderTime,
-                        onValueChange = { viewModel.onIntent(CreateDutyIntent.UpdateFormField(CreateCreateDutyFormField.StartDateReminderTime, it)) },
+                        onValueChange = { viewModel.onIntent(CreateDutyIntent.UpdateFormField(CreateDutyFormField.StartDateReminderTime, it)) },
                         placeholder = stringResource(Res.string.placeholder_reminder_time),
                         isRequired = true,
-                        isError = uiState.errors.containsKey(CreateCreateDutyFormField.StartDateReminderTime),
-                        errorMessage = getErrorMessage(viewModel.getFieldError(CreateCreateDutyFormField.StartDateReminderTime)),
+                        isError = uiState.errors.containsKey(CreateDutyFormField.StartDateReminderTime),
+                        errorMessage = getErrorMessage(viewModel.getFieldError(CreateDutyFormField.StartDateReminderTime)),
                         modifier = Modifier.weight(1f)
                     )
                 }
@@ -261,7 +261,7 @@ fun CreateDutyScreen(
             ) {
                 Checkbox(
                     checked = formState.hasDueDateReminder,
-                    onCheckedChange = { viewModel.onIntent(CreateDutyIntent.UpdateFormField(CreateCreateDutyFormField.HasDueDateReminder, it)) }
+                    onCheckedChange = { viewModel.onIntent(CreateDutyIntent.UpdateFormField(CreateDutyFormField.HasDueDateReminder, it)) }
                 )
                 Spacer(modifier = Modifier.width(Spacing.sm))
                 Text(
@@ -283,23 +283,23 @@ fun CreateDutyScreen(
                         value = formState.dueDateReminderDaysBefore.toString(),
                         onValueChange = { 
                             val days = it.toIntOrNull() ?: 0
-                            viewModel.onIntent(CreateDutyIntent.UpdateFormField(CreateCreateDutyFormField.DueDateReminderDays, days))
+                            viewModel.onIntent(CreateDutyIntent.UpdateFormField(CreateDutyFormField.DueDateReminderDays, days))
                         },
                         placeholder = stringResource(Res.string.placeholder_reminder_days),
                         isRequired = true,
-                        isError = uiState.errors.containsKey(CreateCreateDutyFormField.DueDateReminderDays),
-                        errorMessage = getErrorMessage(viewModel.getFieldError(CreateCreateDutyFormField.DueDateReminderDays)),
+                        isError = uiState.errors.containsKey(CreateDutyFormField.DueDateReminderDays),
+                        errorMessage = getErrorMessage(viewModel.getFieldError(CreateDutyFormField.DueDateReminderDays)),
                         modifier = Modifier.weight(1f)
                     )
                     
                     FormField(
                         label = stringResource(Res.string.label_time),
                         value = formState.dueDateReminderTime,
-                        onValueChange = { viewModel.onIntent(CreateDutyIntent.UpdateFormField(CreateCreateDutyFormField.DueDateReminderTime, it)) },
+                        onValueChange = { viewModel.onIntent(CreateDutyIntent.UpdateFormField(CreateDutyFormField.DueDateReminderTime, it)) },
                         placeholder = stringResource(Res.string.placeholder_reminder_time),
                         isRequired = true,
-                        isError = uiState.errors.containsKey(CreateCreateDutyFormField.DueDateReminderTime),
-                        errorMessage = getErrorMessage(viewModel.getFieldError(CreateCreateDutyFormField.DueDateReminderTime)),
+                        isError = uiState.errors.containsKey(CreateDutyFormField.DueDateReminderTime),
+                        errorMessage = getErrorMessage(viewModel.getFieldError(CreateDutyFormField.DueDateReminderTime)),
                         modifier = Modifier.weight(1f)
                     )
                 }
@@ -320,7 +320,7 @@ fun CreateDutyScreen(
                         contentColor = AppColorScheme.formText
                     )
                 ) {
-                    Text(stringResource(Res.string.duty_cancel))
+                    Text(stringResource(Res.string.create_duty_cancel))
                 }
                 
                 Button(
@@ -339,7 +339,7 @@ fun CreateDutyScreen(
                         )
                     } else {
                         Text(
-                            text = stringResource(Res.string.duty_save),
+                            text = stringResource(Res.string.create_duty_save),
                             color = AppColorScheme.onPrimary
                         )
                     }
@@ -379,6 +379,6 @@ private fun getErrorMessage(error: CreateDutyValidationError?): String? {
         CreateDutyValidationError.EmptyDueDate -> stringResource(Res.string.error_due_date_required)
         CreateDutyValidationError.EmptyCategory -> stringResource(Res.string.error_category_required)
         CreateDutyValidationError.InvalidReminderDays -> stringResource(Res.string.error_reminder_days_range)
-        null -> null
+        else -> null
     }
 }

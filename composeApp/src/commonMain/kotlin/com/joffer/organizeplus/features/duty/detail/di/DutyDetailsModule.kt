@@ -1,11 +1,11 @@
-package com.joffer.organizeplus.features.dutyDetails.di
+package com.joffer.organizeplus.features.duty.detail.di
 
-import com.joffer.organizeplus.features.dutyDetails.data.repositories.RoomDutyDetailsRepository
-import com.joffer.organizeplus.features.dutyDetails.domain.repositories.DutyDetailsRepository
-import com.joffer.organizeplus.features.dutyDetails.domain.usecases.SaveDutyDetailsUseCase
-import com.joffer.organizeplus.features.dutyDetails.domain.usecases.implementations.SaveDutyDetailsUseCaseImpl
-import com.joffer.organizeplus.features.dutyDetails.presentation.AddDutyDetailsViewModel
-import com.joffer.organizeplus.features.dutyDetails.presentation.DutyDetailsListViewModel
+import com.joffer.organizeplus.features.duty.detail.data.repositories.RoomDutyDetailsRepository
+import com.joffer.organizeplus.features.duty.detail.domain.repositories.DutyDetailsRepository
+import com.joffer.organizeplus.features.duty.detail.domain.usecases.SaveDutyDetailsUseCase
+import com.joffer.organizeplus.features.duty.detail.domain.usecases.implementations.SaveDutyDetailsUseCaseImpl
+import com.joffer.organizeplus.features.duty.detail.presentation.AddDutyDetailsViewModel
+import com.joffer.organizeplus.features.duty.detail.presentation.DutyDetailsListViewModel
 import org.koin.dsl.module
 
 val dutyDetailsModule = module {

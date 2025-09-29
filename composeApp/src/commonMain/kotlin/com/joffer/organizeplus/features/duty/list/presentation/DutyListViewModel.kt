@@ -1,4 +1,4 @@
-package com.joffer.organizeplus.features.dutyList.presentation
+package com.joffer.organizeplus.features.duty.list.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

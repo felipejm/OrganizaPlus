@@ -28,21 +28,9 @@ fun InputShowcaseScreen(
 ) {
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = {
-                    Text(
-                        text = "Input Component",
-                        style = Typography.h2
-                    )
-                },
-                navigationIcon = {
-                    IconButton(onClick = onNavigateBack) {
-                        Icon(
-                            imageVector = Icons.Default.ArrowBack,
-                            contentDescription = "Back"
-                        )
-                    }
-                }
+            AppTopAppBarWithBackButton(
+                title = "Input Component",
+                onBackClick = onNavigateBack
             )
         }
     ) { paddingValues ->

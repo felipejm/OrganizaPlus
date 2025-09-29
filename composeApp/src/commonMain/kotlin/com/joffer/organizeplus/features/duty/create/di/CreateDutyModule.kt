@@ -7,5 +7,5 @@ import org.koin.dsl.module
 
 val createDutyModule = module {
     single<SaveCreateDutyUseCase> { SaveCreateDutyUseCaseImpl(get<com.joffer.organizeplus.features.dashboard.domain.repositories.DutyRepository>()) }
-    factory { CreateDutyViewModel(get()) }
+    factory { (dutyId: String?) -> CreateDutyViewModel(get(), get(), dutyId) }
 }

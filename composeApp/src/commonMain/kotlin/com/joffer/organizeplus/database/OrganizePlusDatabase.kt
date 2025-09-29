@@ -16,7 +16,7 @@ import com.joffer.organizeplus.database.entities.DutyOccurrenceEntity
         DutyEntity::class,
         DutyOccurrenceEntity::class
     ],
-    version = 1,
+    version = 3,
     exportSchema = false
 )
 @TypeConverters(
@@ -34,7 +34,9 @@ abstract class OrganizePlusDatabase : RoomDatabase() {
                 databaseDriverFactory.getContext(),
                 OrganizePlusDatabase::class.java,
                 "organize_plus_database"
-            ).build()
+            )
+            .fallbackToDestructiveMigration()
+            .build()
         }
     }
 }

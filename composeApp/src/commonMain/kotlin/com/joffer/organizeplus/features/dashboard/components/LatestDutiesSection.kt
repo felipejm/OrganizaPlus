@@ -163,9 +163,7 @@ private fun LatestDutyItem(
                     color = AppColorScheme.formText
                 )
                 
-                val dueDate = duty.dueDate.toLocalDateTime(TimeZone.currentSystemDefault()).date
-                val dateText = "${dueDate.dayOfMonth} ${DateUtils.getMonthName(dueDate.monthNumber)}"
-                val subtitle = dateText
+                val subtitle = "Day ${duty.dueDay}"
                 
                 Text(
                     text = subtitle,

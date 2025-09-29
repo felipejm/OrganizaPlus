@@ -14,6 +14,7 @@ import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import kotlinx.datetime.atStartOfDayIn
+import java.time.format.DateTimeFormatter
 
 class SaveCreateDutyUseCaseImpl(
     private val repository: DutyRepository
@@ -22,7 +23,13 @@ class SaveCreateDutyUseCaseImpl(
     override suspend operator fun invoke(form: CreateDutyForm): Flow<Result<Unit>> {
         return try {
             val duty = convertFormToDuty(form)
-            repository.insertDuty(duty)
+            if (form.id == null) {
+                // Creating new duty
+                repository.insertDuty(duty)
+            } else {
+                // Updating existing duty
+                repository.updateDuty(duty)
+            }
         } catch (e: Exception) {
             flowOf(Result.failure(e))
         }
@@ -30,32 +37,19 @@ class SaveCreateDutyUseCaseImpl(
     
     private suspend fun convertFormToDuty(form: CreateDutyForm): Duty {
         val now = Clock.System.now()
-        val startDate = parseDate(form.startDate) ?: now
-        val dueDate = parseDate(form.dueDate) ?: now
-        
-        // Usar o tipo escolhido pelo usuário
-        val dutyType = form.dutyType
         
         return Duty(
             id = form.id ?: generateId(),
             title = form.title,
-            startDate = startDate,
-            dueDate = dueDate,
-            type = dutyType,
+            startDay = form.startDay,
+            dueDay = form.dueDay,
+            type = form.dutyType,
             categoryName = form.categoryName,
             status = Duty.Status.PENDING,
             createdAt = now
         )
     }
     
-    private fun parseDate(dateString: String): Instant? {
-        return try {
-            val localDate = LocalDate.parse(dateString)
-            localDate.atStartOfDayIn(TimeZone.currentSystemDefault())
-        } catch (e: Exception) {
-            null
-        }
-    }
     
     
     

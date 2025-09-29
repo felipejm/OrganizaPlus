@@ -94,6 +94,9 @@ kotlin {
             // Logging library
             implementation(libs.napier)
             
+            // Charts library - will be added when available on Maven Central
+            // implementation("com.github.netguru:compose-multiplatform-charts:latest")
+            
             // Core module
             // implementation(project(":core"))
             

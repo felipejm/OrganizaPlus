@@ -10,6 +10,6 @@ import org.koin.dsl.module
 val dutyOccurrenceModule = module {
     single<DutyOccurrenceRepository> { RoomDutyOccurrenceRepository(get()) }
     single<SaveDutyOccurrenceUseCase> { SaveDutyOccurrenceUseCaseImpl(get()) }
-    factory { (dutyId: String) -> AddDutyOccurrenceViewModel(get(), dutyId) }
+    factory { (dutyId: String) -> AddDutyOccurrenceViewModel(get(), get(), dutyId) }
 }
 

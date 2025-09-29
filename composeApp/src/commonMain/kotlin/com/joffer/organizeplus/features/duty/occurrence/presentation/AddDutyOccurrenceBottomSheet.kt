@@ -21,6 +21,8 @@ import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.Typography
 import com.joffer.organizeplus.utils.formatDateForDisplay
 import com.joffer.organizeplus.utils.parseDateFromString
+import com.joffer.organizeplus.utils.showDatePickerDialog
+import com.joffer.organizeplus.features.dashboard.domain.entities.DutyType
 import kotlinx.datetime.LocalDate
 import org.jetbrains.compose.resources.stringResource
 import organizeplus.composeapp.generated.resources.Res
@@ -45,14 +47,15 @@ fun AddDutyOccurrenceBottomSheet(
 ) {
     val formState by viewModel.formState.collectAsState()
     val uiState by viewModel.uiState.collectAsState()
-    
+    var showDatePicker by remember { mutableStateOf(false) }
+
     LaunchedEffect(uiState.showSuccessMessage) {
         if (uiState.showSuccessMessage) {
             kotlinx.coroutines.delay(2000)
             onDismiss()
         }
     }
-    
+
     ModalBottomSheet(
         onDismissRequest = onDismiss,
         modifier = modifier.fillMaxWidth(),
@@ -83,7 +86,7 @@ fun AddDutyOccurrenceBottomSheet(
                     )
                 }
             }
-            
+
             // Error Banner
             uiState.errorMessage?.let { error ->
                 ErrorBanner(
@@ -93,7 +96,7 @@ fun AddDutyOccurrenceBottomSheet(
                 )
                 Spacer(modifier = Modifier.height(Spacing.md))
             }
-            
+
             // Success Message
             if (uiState.showSuccessMessage) {
                 SuccessBanner(
@@ -101,47 +104,56 @@ fun AddDutyOccurrenceBottomSheet(
                 )
                 Spacer(modifier = Modifier.height(Spacing.md))
             }
-            
+
             // Form Fields
-            FormSection {
+            // Only show paid amount field for payable duties
+            if (formState.dutyType == DutyType.PAYABLE) {
                 FormField(
                     label = stringResource(Res.string.duty_occurrence_paid_amount),
                     value = formState.paidAmount.toString(),
-                    onValueChange = { 
+                    onValueChange = {
                         val amount = it.toDoubleOrNull() ?: 0.0
-                        viewModel.onIntent(AddDutyOccurrenceIntent.UpdateFormField(DutyOccurrenceFormField.PaidAmount, amount))
+                        viewModel.onIntent(
+                            AddDutyOccurrenceIntent.UpdateFormField(
+                                DutyOccurrenceFormField.PaidAmount,
+                                amount
+                            )
+                        )
                     },
                     placeholder = stringResource(Res.string.duty_occurrence_paid_amount_hint),
                     isRequired = true,
                     isError = uiState.errors.containsKey(DutyOccurrenceFormField.PaidAmount),
                     errorMessage = getErrorMessage(viewModel.getFieldError(DutyOccurrenceFormField.PaidAmount))
                 )
+
+                Spacer(modifier = Modifier.height(Spacing.md))
             }
-            
-            Spacer(modifier = Modifier.height(Spacing.md))
-            
-            FormSection {
-                DateInputField(
-                    label = stringResource(Res.string.duty_occurrence_completed_date),
-                    value = formState.completedDate.formatDateForDisplay(),
-                    onValueChange = { dateString ->
-                        val parsedDate = dateString.parseDateFromString()
-                        if (parsedDate != null) {
-                            viewModel.onIntent(AddDutyOccurrenceIntent.UpdateFormField(DutyOccurrenceFormField.CompletedDate, parsedDate))
-                        }
-                    },
-                    placeholder = stringResource(Res.string.date_placeholder),
-                    isRequired = true,
-                    isError = uiState.errors.containsKey(DutyOccurrenceFormField.CompletedDate),
-                    errorMessage = getErrorMessage(viewModel.getFieldError(DutyOccurrenceFormField.CompletedDate)),
-                    onDatePickerClick = { 
-                        // For now, just do nothing - this is a simple text input
+
+            DateInputField(
+                label = stringResource(Res.string.duty_occurrence_completed_date),
+                value = formState.completedDate.formatDateForDisplay(),
+                onValueChange = { dateString ->
+                    val parsedDate = dateString.parseDateFromString()
+                    if (parsedDate != null) {
+                        viewModel.onIntent(
+                            AddDutyOccurrenceIntent.UpdateFormField(
+                                DutyOccurrenceFormField.CompletedDate,
+                                parsedDate
+                            )
+                        )
                     }
-                )
-            }
-            
+                },
+                placeholder = stringResource(Res.string.date_placeholder),
+                isRequired = true,
+                isError = uiState.errors.containsKey(DutyOccurrenceFormField.CompletedDate),
+                errorMessage = getErrorMessage(viewModel.getFieldError(DutyOccurrenceFormField.CompletedDate)),
+                onDatePickerClick = {
+                    showDatePicker = true
+                }
+            )
+
             Spacer(modifier = Modifier.height(Spacing.xl))
-            
+
             // Save Button
             Button(
                 onClick = { viewModel.onIntent(AddDutyOccurrenceIntent.SaveRecord) },
@@ -168,6 +180,22 @@ fun AddDutyOccurrenceBottomSheet(
                 )
             }
         }
+    }
+    
+    // Date Picker Dialog
+    if (showDatePicker) {
+        showDatePickerDialog(
+            initialDate = formState.completedDate,
+            onDateSelected = { selectedDate ->
+                viewModel.onIntent(
+                    AddDutyOccurrenceIntent.UpdateFormField(
+                        DutyOccurrenceFormField.CompletedDate,
+                        selectedDate
+                    )
+                )
+                showDatePicker = false
+            }
+        )
     }
 }
 

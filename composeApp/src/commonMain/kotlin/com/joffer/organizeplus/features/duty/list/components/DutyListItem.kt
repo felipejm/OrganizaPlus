@@ -42,19 +42,19 @@ fun DutyListItem(
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier.weight(1f)
                 ) {
-                            Text(
-                                text = CategoryIconProvider.getIconForCategory(duty.categoryName),
-                                style = Typography.headlineMedium,
-                                modifier = Modifier.padding(end = Spacing.xs)
-                            )
+                    Text(
+                        text = CategoryIconProvider.getIconForCategory(duty.categoryName),
+                        style = Typography.headlineMedium,
+                        modifier = Modifier.padding(end = Spacing.xs)
+                    )
 
-                            Text(
-                                text = duty.title,
-                                style = Typography.listItemTitle,
-                                color = AppColorScheme.formText
-                            )
+                    Text(
+                        text = duty.title,
+                        style = Typography.listItemTitle,
+                        color = AppColorScheme.formText
+                    )
                 }
-                
+
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(Spacing.xs)
@@ -66,7 +66,7 @@ fun DutyListItem(
                             else -> com.joffer.organizeplus.designsystem.components.ObligationStatus.PENDING
                         }
                     )
-                    
+
                     IconButton(
                         onClick = { onDelete(duty.id) },
                         modifier = Modifier.size(24.dp)
@@ -80,12 +80,11 @@ fun DutyListItem(
                     }
                 }
             }
-            
+
             Spacer(modifier = Modifier.height(Spacing.xs))
-            
-            val dueDate = duty.dueDate.toLocalDateTime(TimeZone.currentSystemDefault()).date
-            val dateText = "${dueDate.dayOfMonth} ${DateUtils.getMonthName(dueDate.monthNumber)}"
-            
+
+            val dateText = "Day ${duty.dueDay}"
+
             Text(
                 text = dateText,
                 style = Typography.secondaryText,

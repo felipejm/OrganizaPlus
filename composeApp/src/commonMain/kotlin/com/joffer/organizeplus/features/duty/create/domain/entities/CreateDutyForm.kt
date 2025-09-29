@@ -10,15 +10,15 @@ const val DEFAULT_CATEGORY = "Pessoal"
 data class CreateDutyForm(
     val id: String? = null,
     val title: String = "",
-    val startDate: String = "",
-    val dueDate: String = "",
+    val startDay: Int = 0,
+    val dueDay: Int = 0,
     val dutyType: DutyType = DutyType.ACTIONABLE,
     val categoryName: String = DEFAULT_CATEGORY
 ) {
     fun isValid(): Boolean {
         return title.isNotBlank() && 
-               startDate.isNotBlank() &&
-               dueDate.isNotBlank() && 
+               startDay in 1..31 &&
+               dueDay in 1..31 && 
                categoryName.isNotBlank()
     }
 }

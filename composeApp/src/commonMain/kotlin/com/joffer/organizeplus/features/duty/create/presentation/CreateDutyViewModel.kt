@@ -8,18 +8,17 @@ import com.joffer.organizeplus.features.duty.create.domain.entities.CreateDutyVa
 import com.joffer.organizeplus.features.duty.create.domain.validation.CreateDutyValidator
 import com.joffer.organizeplus.features.duty.create.domain.usecases.SaveCreateDutyUseCase
 import com.joffer.organizeplus.features.dashboard.domain.entities.DutyType
+import com.joffer.organizeplus.features.dashboard.domain.repositories.DutyRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 import io.github.aakira.napier.Napier
-import kotlinx.datetime.LocalDate
-import kotlinx.datetime.toJavaLocalDate
-import java.time.format.DateTimeFormatter
 
 class CreateDutyViewModel(
     private val saveCreateDutyUseCase: SaveCreateDutyUseCase,
+    private val dutyRepository: DutyRepository,
     private val dutyId: String? = null
 ) : ViewModel() {
     
@@ -40,12 +39,12 @@ class CreateDutyViewModel(
     }
     
     private fun updateFormField(field: CreateDutyFormField, value: Any) {
-        _formState.value = when (field) {
-            CreateDutyFormField.Title -> updateTitle(value)
-            CreateDutyFormField.StartDate -> updateStartDate(value)
-            CreateDutyFormField.DueDate -> updateDueDate(value)
-            CreateDutyFormField.DutyType -> updateDutyType(value)
-            CreateDutyFormField.CategoryName -> updateCategoryName(value)
+        when (field) {
+            CreateDutyFormField.Title -> _formState.value = updateTitle(value)
+            CreateDutyFormField.StartDay -> updateStartDay(value)
+            CreateDutyFormField.DueDay -> updateDueDay(value)
+            CreateDutyFormField.DutyType -> _formState.value = updateDutyType(value)
+            CreateDutyFormField.CategoryName -> _formState.value = updateCategoryName(value)
         }
         
         _uiState.value = _uiState.value.copy(hasUnsavedChanges = true)
@@ -54,8 +53,25 @@ class CreateDutyViewModel(
     private fun updateTitle(value: Any) = _formState.value.copy(title = (value as String).trim().split(" ").joinToString(" ") { word -> 
         word.replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() }
     })
-    private fun updateStartDate(value: Any) = _formState.value.copy(startDate = value as String)
-    private fun updateDueDate(value: Any) = _formState.value.copy(dueDate = value as String)
+    private fun updateStartDay(value: Any) {
+        val dayString = value as String
+        val day = dayString.toIntOrNull()
+        if (day != null && day in 1..31) {
+            _formState.value = _formState.value.copy(startDay = day)
+        } else if (dayString.isEmpty()) {
+            _formState.value = _formState.value.copy(startDay = 0)
+        }
+    }
+    
+    private fun updateDueDay(value: Any) {
+        val dayString = value as String
+        val day = dayString.toIntOrNull()
+        if (day != null && day in 1..31) {
+            _formState.value = _formState.value.copy(dueDay = day)
+        } else if (dayString.isEmpty()) {
+            _formState.value = _formState.value.copy(dueDay = 0)
+        }
+    }
     private fun updateDutyType(value: Any) = _formState.value.copy(dutyType = value as DutyType)
     private fun updateCategoryName(value: Any) = _formState.value.copy(categoryName = value as String)
     
@@ -114,36 +130,44 @@ class CreateDutyViewModel(
         _uiState.value = _uiState.value.copy(showSuccessMessage = false)
     }
     
-    fun showStartDatePicker() {
-        _uiState.value = _uiState.value.copy(showStartDatePicker = true)
-    }
-    
-    fun showDueDatePicker() {
-        _uiState.value = _uiState.value.copy(showDueDatePicker = true)
-    }
-    
-    fun onStartDateSelected(date: LocalDate) {
-        val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
-        val formattedDate = date.toJavaLocalDate().format(formatter)
-        updateFormField(CreateDutyFormField.StartDate, formattedDate)
-        _uiState.value = _uiState.value.copy(showStartDatePicker = false)
-    }
-    
-    fun onDueDateSelected(date: LocalDate) {
-        val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
-        val formattedDate = date.toJavaLocalDate().format(formatter)
-        updateFormField(CreateDutyFormField.DueDate, formattedDate)
-        _uiState.value = _uiState.value.copy(showDueDatePicker = false)
-    }
-    
-    private fun parseDateString(dateString: String): LocalDate? {
-        if (dateString.isEmpty()) return null
-        return try {
-            val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
-            val javaDate = java.time.LocalDate.parse(dateString, formatter)
-            LocalDate(javaDate.year, javaDate.monthValue, javaDate.dayOfMonth)
-        } catch (e: Exception) {
-            null
+    fun loadExistingDuty(dutyId: String) {
+        viewModelScope.launch {
+            _uiState.value = _uiState.value.copy(isLoading = true)
+            
+            dutyRepository.getDutyById(dutyId)
+                .catch { exception ->
+                    Napier.e("Error loading duty", exception)
+                    _uiState.value = _uiState.value.copy(
+                        isLoading = false,
+                        errorMessage = exception.message,
+                        showErrorSnackbar = true
+                    )
+                }
+                .collect { result ->
+                    result.fold(
+                        onSuccess = { duty ->
+                            duty?.let { d ->
+                                _formState.value = CreateDutyForm(
+                                    id = d.id,
+                                    title = d.title,
+                                    startDay = d.startDay,
+                                    dueDay = d.dueDay,
+                                    dutyType = d.type,
+                                    categoryName = d.categoryName
+                                )
+                            }
+                            _uiState.value = _uiState.value.copy(isLoading = false)
+                        },
+                        onFailure = { exception ->
+                            Napier.e("Failed to load duty", exception)
+                            _uiState.value = _uiState.value.copy(
+                                isLoading = false,
+                                errorMessage = exception.message,
+                                showErrorSnackbar = true
+                            )
+                        }
+                    )
+                }
         }
     }
     

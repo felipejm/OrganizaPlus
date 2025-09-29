@@ -11,7 +11,5 @@ data class CreateDutyUiState(
     val showSuccessMessage: Boolean = false,
     val errorMessage: String? = null,
     val showErrorSnackbar: Boolean = false,
-    val showSuccessSnackbar: Boolean = false,
-    val showStartDatePicker: Boolean = false,
-    val showDueDatePicker: Boolean = false
+    val showSuccessSnackbar: Boolean = false
 )

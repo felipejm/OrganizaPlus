@@ -59,12 +59,13 @@ fun AppNavigation(
         }
         
         composable(NavigationRoutes.CREATE_DUTY) {
-            val createDutyViewModel: CreateDutyViewModel = koinInject()
+            val createDutyViewModel: CreateDutyViewModel = koinInject { parametersOf(null) }
             CreateDutyScreen(
                 viewModel = createDutyViewModel,
                 onNavigateBack = {
                     navController.popBackStack()
-                }
+                },
+                dutyId = null
             )
         }
         
@@ -87,13 +88,15 @@ fun AppNavigation(
             )
         }
         
-        composable(NavigationRoutes.EDIT_DUTY) {
-            val createDutyViewModel: CreateDutyViewModel = koinInject()
+        composable(NavigationRoutes.EDIT_DUTY) { backStackEntry ->
+            val dutyId = backStackEntry.arguments?.getString("dutyId") ?: ""
+            val createDutyViewModel: CreateDutyViewModel = koinInject { parametersOf(dutyId) }
             CreateDutyScreen(
                 viewModel = createDutyViewModel,
                 onNavigateBack = {
                     navController.popBackStack()
-                }
+                },
+                dutyId = dutyId
             )
         }
         
@@ -104,6 +107,9 @@ fun AppNavigation(
                 viewModel = dutyDetailsListViewModel,
                 onNavigateBack = {
                     navController.popBackStack()
+                },
+                onEditDuty = { editDutyId ->
+                    navController.navigate(NavigationRoutes.editDuty(editDutyId))
                 }
             )
         }

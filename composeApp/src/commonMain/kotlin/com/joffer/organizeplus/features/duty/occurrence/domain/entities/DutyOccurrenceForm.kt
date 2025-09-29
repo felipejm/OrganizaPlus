@@ -5,10 +5,12 @@ import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
+import com.joffer.organizeplus.features.dashboard.domain.entities.DutyType
 
 data class DutyOccurrenceForm(
     val id: String? = null,
     val dutyId: String = "",
+    val dutyType: DutyType = DutyType.ACTIONABLE,
     val paidAmount: Double = 0.0,
     val completedDate: LocalDate = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date
 ) {

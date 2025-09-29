@@ -295,4 +295,30 @@
     <string name="upcoming_7_days">Próximos 7 dias</string>
     <string name="no_duties_next_7_days">Nenhuma tarefa nos próximos 7 dias</string>
     <string name="view_all_obligations">Ver todas as obrigações</string>
+    
+    <!-- Duty Detail Header -->
+    <string name="duty_detail_edit">Editar</string>
+    <string name="duty_detail_start_day">Dia de Início</string>
+    <string name="duty_detail_due_day">Dia de Vencimento</string>
+    <string name="duty_detail_category">Categoria</string>
+    <string name="duty_detail_type">Tipo</string>
+    <string name="duty_detail_status">Status</string>
+    
+    <!-- Duty Occurrence -->
+    <string name="duty_occurrence_list_title">Novas Ocorrências</string>
+    <string name="duty_occurrence_list_empty_title">Nenhuma ocorrência encontrada</string>
+    <string name="duty_occurrence_list_empty_subtitle">Adicione uma ocorrência para acompanhar a conclusão</string>
+    <string name="duty_occurrence_list_add_occurrence">Adicionar Ocorrência</string>
+    <string name="duty_occurrence_list_delete">Excluir</string>
+    <string name="duty_occurrence_list_amount">Valor: R$ %.2f</string>
+    <string name="duty_occurrence_list_date">Data: %s</string>
+    <string name="duty_occurrence_list_notes">Observações: %s</string>
+    <string name="add_duty_occurrence_title">Adicionar Ocorrência de Dever</string>
+    <string name="duty_occurrence_paid_amount">Valor Pago</string>
+    <string name="duty_occurrence_paid_amount_hint">Digite o valor</string>
+    <string name="duty_occurrence_completed_date">Data de Conclusão</string>
+    <string name="duty_occurrence_notes">Observações</string>
+    <string name="duty_occurrence_notes_hint">Observações opcionais</string>
+    <string name="duty_occurrence_save">Salvar Ocorrência</string>
+    <string name="duty_occurrence_saved">Ocorrência Salva!</string>
 </resources>

@@ -7,6 +7,7 @@ import com.joffer.organizeplus.features.duty.occurrence.domain.entities.DutyOccu
 import com.joffer.organizeplus.features.duty.occurrence.domain.validation.ValidationError
 import com.joffer.organizeplus.features.duty.occurrence.domain.usecases.SaveDutyOccurrenceUseCase
 import com.joffer.organizeplus.features.duty.occurrence.domain.validation.DutyOccurrenceValidator
+import com.joffer.organizeplus.features.dashboard.domain.repositories.DutyRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -16,6 +17,7 @@ import io.github.aakira.napier.Napier
 
 class AddDutyOccurrenceViewModel(
     private val saveRecordUseCase: SaveDutyOccurrenceUseCase,
+    private val dutyRepository: DutyRepository,
     private val dutyId: String
 ) : ViewModel() {
     
@@ -24,6 +26,31 @@ class AddDutyOccurrenceViewModel(
     
     private val _uiState = MutableStateFlow(AddDutyOccurrenceUiState())
     val uiState: StateFlow<AddDutyOccurrenceUiState> = _uiState.asStateFlow()
+    
+    init {
+        loadDutyInfo()
+    }
+    
+    private fun loadDutyInfo() {
+        viewModelScope.launch {
+            dutyRepository.getDutyById(dutyId)
+                .catch { exception ->
+                    Napier.e("Error loading duty", exception)
+                }
+                .collect { result ->
+                    result.fold(
+                        onSuccess = { duty ->
+                            duty?.let { d ->
+                                _formState.value = _formState.value.copy(dutyType = d.type)
+                            }
+                        },
+                        onFailure = { exception ->
+                            Napier.e("Failed to load duty", exception)
+                        }
+                    )
+                }
+        }
+    }
     
     fun onIntent(intent: AddDutyOccurrenceIntent) {
         when (intent) {

@@ -1,17 +1,12 @@
 package com.joffer.organizeplus.features.duty.detail.di
 
-import com.joffer.organizeplus.features.duty.detail.data.repositories.RoomDutyDetailsRepository
-import com.joffer.organizeplus.features.duty.detail.domain.repositories.DutyDetailsRepository
-import com.joffer.organizeplus.features.duty.detail.domain.usecases.SaveDutyDetailsUseCase
-import com.joffer.organizeplus.features.duty.detail.domain.usecases.implementations.SaveDutyDetailsUseCaseImpl
-import com.joffer.organizeplus.features.duty.detail.presentation.AddDutyDetailsViewModel
+import com.joffer.organizeplus.features.duty.occurrence.data.repositories.RoomDutyOccurrenceRepository
+import com.joffer.organizeplus.features.duty.occurrence.domain.repositories.DutyOccurrenceRepository
 import com.joffer.organizeplus.features.duty.detail.presentation.DutyDetailsListViewModel
 import com.joffer.organizeplus.features.dashboard.domain.repositories.DutyRepository
 import org.koin.dsl.module
 
 val dutyDetailsModule = module {
-    single<DutyDetailsRepository> { RoomDutyDetailsRepository(get()) }
-    single<SaveDutyDetailsUseCase> { SaveDutyDetailsUseCaseImpl(get()) }
+    single<DutyOccurrenceRepository> { RoomDutyOccurrenceRepository(get()) }
     factory { (dutyId: String) -> DutyDetailsListViewModel(get(), get<DutyRepository>(), dutyId) }
-    factory { (dutyId: String) -> AddDutyDetailsViewModel(get(), dutyId) }
 }

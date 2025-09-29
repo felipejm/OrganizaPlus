@@ -144,8 +144,8 @@
     
     <!-- CreateDuty form strings -->
     <string name="create_duty_title">Title</string>
-    <string name="create_duty_start_date">Start Date</string>
-    <string name="create_duty_due_date">Due Date</string>
+    <string name="create_duty_start_day">Start Day</string>
+    <string name="create_duty_due_day">Due Day</string>
     <string name="create_duty_type_personal">Personal</string>
     <string name="create_duty_type_company">Company</string>
     <string name="create_duty_category">Category</string>
@@ -184,8 +184,8 @@
     <string name="recurring_custom">Custom</string>
     
     <!-- Categories -->
-    <string name="category_personal">Pessoal</string>
-    <string name="category_enterprise">Empresa</string>
+    <string name="category_personal">Personal</string>
+    <string name="category_enterprise">Company</string>
     
     <!-- Dialog messages -->
     <string name="dialog_discard_changes">Discard changes?</string>
@@ -195,8 +195,8 @@
     
     <!-- Validation errors -->
     <string name="error_title_required">Title is required</string>
-    <string name="error_start_date_required">Start date is required</string>
-    <string name="error_due_date_required">Due date is required</string>
+    <string name="error_start_day_invalid">Start day must be between 1 and 31</string>
+    <string name="error_due_day_invalid">Due day must be between 1 and 31</string>
     <string name="error_category_required">Category is required</string>
     <string name="error_invalid_date">Invalid date</string>
     <string name="error_invalid_time">Invalid time</string>
@@ -247,7 +247,7 @@
     <string name="settings_arrow_forward">Navigate forward</string>
     
     <!-- Duty Occurrence -->
-    <string name="duty_occurrence_list_title">Duty Occurrences</string>
+    <string name="duty_occurrence_list_title">New Occurrences</string>
     <string name="duty_occurrence_list_empty_title">No occurrences found</string>
     <string name="duty_occurrence_list_empty_subtitle">Add an occurrence to track completion</string>
     <string name="duty_occurrence_list_add_occurrence">Add Occurrence</string>
@@ -257,6 +257,14 @@
     <string name="duty_occurrence_list_notes">Notes: %s</string>
     <string name="error_loading_occurrences">Error loading occurrences</string>
     <string name="error_deleting_occurrence">Error deleting occurrence</string>
+    
+    <!-- Duty Detail Header -->
+    <string name="duty_detail_edit">Edit</string>
+    <string name="duty_detail_start_day">Start Day</string>
+    <string name="duty_detail_due_day">Due Day</string>
+    <string name="duty_detail_category">Category</string>
+    <string name="duty_detail_type">Type</string>
+    <string name="duty_detail_status">Status</string>
     <string name="add_duty_occurrence_title">Add Duty Occurrence</string>
     <string name="duty_occurrence_paid_amount">Paid Amount</string>
     <string name="duty_occurrence_paid_amount_hint">Enter amount</string>

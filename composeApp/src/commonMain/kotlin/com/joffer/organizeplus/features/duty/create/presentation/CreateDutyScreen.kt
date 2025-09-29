@@ -2,7 +2,9 @@ package com.joffer.organizeplus.features.duty.create.presentation
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
@@ -23,12 +25,10 @@ import com.joffer.organizeplus.features.duty.create.domain.entities.CreateDutyVa
 import com.joffer.organizeplus.features.duty.create.presentation.CreateDutyIntent
 import com.joffer.organizeplus.features.dashboard.domain.entities.DutyType
 import com.joffer.organizeplus.utils.DateFormatter
-import com.joffer.organizeplus.utils.showDatePickerDialog
-import kotlinx.datetime.LocalDate
 import org.jetbrains.compose.resources.stringResource
 import organizeplus.composeapp.generated.resources.Res
 import organizeplus.composeapp.generated.resources.create_duty_title
-import organizeplus.composeapp.generated.resources.create_duty_due_date
+import organizeplus.composeapp.generated.resources.create_duty_due_day
 import organizeplus.composeapp.generated.resources.create_duty_category
 import organizeplus.composeapp.generated.resources.create_duty_save
 import organizeplus.composeapp.generated.resources.create_duty_cancel
@@ -36,12 +36,12 @@ import organizeplus.composeapp.generated.resources.navigation_create_duty_new
 import organizeplus.composeapp.generated.resources.navigation_edit_duty_new
 import organizeplus.composeapp.generated.resources.placeholder_title
 import organizeplus.composeapp.generated.resources.placeholder_category
-import organizeplus.composeapp.generated.resources.create_duty_start_date
+import organizeplus.composeapp.generated.resources.create_duty_start_day
 import organizeplus.composeapp.generated.resources.category_personal
 import organizeplus.composeapp.generated.resources.category_enterprise
 import organizeplus.composeapp.generated.resources.error_title_required
-import organizeplus.composeapp.generated.resources.error_start_date_required
-import organizeplus.composeapp.generated.resources.error_due_date_required
+import organizeplus.composeapp.generated.resources.error_start_day_invalid
+import organizeplus.composeapp.generated.resources.error_due_day_invalid
 import organizeplus.composeapp.generated.resources.error_category_required
 import organizeplus.composeapp.generated.resources.error_reminder_days_range
 import organizeplus.composeapp.generated.resources.duty_type_label
@@ -58,6 +58,7 @@ import organizeplus.composeapp.generated.resources.close
 fun CreateDutyScreen(
     viewModel: CreateDutyViewModel,
     onNavigateBack: () -> Unit,
+    dutyId: String? = null,
     modifier: Modifier = Modifier
 ) {
     val uiState by viewModel.uiState.collectAsState()
@@ -89,6 +90,13 @@ fun CreateDutyScreen(
                 actionLabel = closeLabel,
                 duration = SnackbarDuration.Long
             )
+        }
+    }
+
+    // Load existing duty when dutyId is provided
+    LaunchedEffect(dutyId) {
+        dutyId?.let { id ->
+            viewModel.loadExistingDuty(id)
         }
     }
 
@@ -157,34 +165,38 @@ fun CreateDutyScreen(
 
             Spacer(modifier = Modifier.height(Spacing.md))
 
-            // Start Date Field
-            DateInputField(
-                label = stringResource(Res.string.create_duty_start_date),
-                value = formState.startDate,
-                onValueChange = { viewModel.onIntent(CreateDutyIntent.UpdateFormField(CreateDutyFormField.StartDate, it)) },
-                placeholder = stringResource(Res.string.placeholder_date),
-                isRequired = true,
-                isError = uiState.errors.containsKey(CreateDutyFormField.StartDate),
-                errorMessage = getErrorMessage(viewModel.getFieldError(CreateDutyFormField.StartDate)),
-                onDatePickerClick = { 
-                    viewModel.showStartDatePicker()
-                }
+            // Start Day Field
+            OutlinedTextField(
+                value = if (formState.startDay == 0) "" else formState.startDay.toString(),
+                onValueChange = { value ->
+                    viewModel.onIntent(CreateDutyIntent.UpdateFormField(CreateDutyFormField.StartDay, value))
+                },
+                label = { Text(stringResource(Res.string.create_duty_start_day)) },
+                isError = uiState.errors.containsKey(CreateDutyFormField.StartDay),
+                supportingText = if (uiState.errors.containsKey(CreateDutyFormField.StartDay)) {
+                    { Text(getErrorMessage(viewModel.getFieldError(CreateDutyFormField.StartDay)) ?: "") }
+                } else null,
+                modifier = Modifier.fillMaxWidth(),
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                singleLine = true
             )
             
             Spacer(modifier = Modifier.height(Spacing.md))
             
-            // Due Date Field
-            DateInputField(
-                label = stringResource(Res.string.create_duty_due_date),
-                value = formState.dueDate,
-                onValueChange = { viewModel.onIntent(CreateDutyIntent.UpdateFormField(CreateDutyFormField.DueDate, it)) },
-                placeholder = stringResource(Res.string.placeholder_date),
-                isRequired = true,
-                isError = uiState.errors.containsKey(CreateDutyFormField.DueDate),
-                errorMessage = getErrorMessage(viewModel.getFieldError(CreateDutyFormField.DueDate)),
-                onDatePickerClick = { 
-                    viewModel.showDueDatePicker()
-                }
+            // Due Day Field
+            OutlinedTextField(
+                value = if (formState.dueDay == 0) "" else formState.dueDay.toString(),
+                onValueChange = { value ->
+                    viewModel.onIntent(CreateDutyIntent.UpdateFormField(CreateDutyFormField.DueDay, value))
+                },
+                label = { Text(stringResource(Res.string.create_duty_due_day)) },
+                isError = uiState.errors.containsKey(CreateDutyFormField.DueDay),
+                supportingText = if (uiState.errors.containsKey(CreateDutyFormField.DueDay)) {
+                    { Text(getErrorMessage(viewModel.getFieldError(CreateDutyFormField.DueDay)) ?: "") }
+                } else null,
+                modifier = Modifier.fillMaxWidth(),
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                singleLine = true
             )
 
             Spacer(modifier = Modifier.height(Spacing.xl))
@@ -194,66 +206,20 @@ fun CreateDutyScreen(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(Spacing.md)
             ) {
-                Button(
+                OrganizeSecondaryButton(
+                    text = stringResource(Res.string.create_duty_cancel),
                     onClick = onNavigateBack,
-                    modifier = Modifier.weight(1f),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = AppColorScheme.surface,
-                        contentColor = AppColorScheme.formText
-                    )
-                ) {
-                    Text(stringResource(Res.string.create_duty_cancel))
-                }
+                    modifier = Modifier.weight(1f)
+                )
 
-                Button(
+                OrganizePrimaryButton(
+                    text = stringResource(Res.string.create_duty_save),
                     onClick = { viewModel.onIntent(CreateDutyIntent.SaveCreateDuty) },
                     modifier = Modifier.weight(1f),
-                    enabled = !uiState.isLoading,
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = AppColorScheme.primary,
-                        contentColor = AppColorScheme.onPrimary
-                    )
-                ) {
-                    if (uiState.isLoading) {
-                        OrganizeProgressIndicatorInline(
-                            size = 16.dp,
-                            color = AppColorScheme.onPrimary
-                        )
-                    } else {
-                        Text(
-                            text = stringResource(Res.string.create_duty_save),
-                            color = AppColorScheme.onPrimary
-                        )
-                    }
-                }
+                    enabled = !uiState.isLoading
+                )
             }
         }
-    }
-    
-    // Date Picker Handlers
-    if (uiState.showStartDatePicker) {
-        val currentDate = parseDateString(formState.startDate)
-        showDatePickerDialog(currentDate) { selectedDate ->
-            viewModel.onStartDateSelected(selectedDate)
-        }
-    }
-
-    if (uiState.showDueDatePicker) {
-        val currentDate = parseDateString(formState.dueDate)
-        showDatePickerDialog(currentDate) { selectedDate ->
-            viewModel.onDueDateSelected(selectedDate)
-        }
-    }
-}
-
-private fun parseDateString(dateString: String): LocalDate? {
-    if (dateString.isEmpty()) return null
-    return try {
-        val formatter = java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy")
-        val javaDate = java.time.LocalDate.parse(dateString, formatter)
-        LocalDate(javaDate.year, javaDate.monthValue, javaDate.dayOfMonth)
-    } catch (e: Exception) {
-        null
     }
 }
 
@@ -279,8 +245,8 @@ private fun getDutyTypeOptions(): List<Pair<String, String>> {
 private fun getErrorMessage(error: CreateDutyValidationError?): String? {
     return when (error) {
         CreateDutyValidationError.EmptyTitle -> stringResource(Res.string.error_title_required)
-        CreateDutyValidationError.EmptyStartDate -> stringResource(Res.string.error_start_date_required)
-        CreateDutyValidationError.EmptyDueDate -> stringResource(Res.string.error_due_date_required)
+        CreateDutyValidationError.InvalidStartDay -> stringResource(Res.string.error_start_day_invalid)
+        CreateDutyValidationError.InvalidDueDay -> stringResource(Res.string.error_due_day_invalid)
         CreateDutyValidationError.EmptyCategory -> stringResource(Res.string.error_category_required)
         else -> null
     }

@@ -6,11 +6,13 @@ import com.joffer.organizeplus.features.dashboard.domain.usecases.GetDashboardDa
 import com.joffer.organizeplus.features.dashboard.domain.usecases.MarkObligationPaidUseCase
 import com.joffer.organizeplus.features.dashboard.domain.repositories.DutyRepository
 import com.joffer.organizeplus.features.duty.occurrence.domain.repositories.DutyOccurrenceRepository
+import com.joffer.organizeplus.features.dashboard.domain.entities.Duty
 import com.joffer.organizeplus.features.dashboard.domain.entities.DutyWithLastOccurrence
 import com.joffer.organizeplus.features.dashboard.DashboardUiState
 import com.joffer.organizeplus.features.dashboard.DashboardIntent
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import kotlinx.datetime.toLocalDateTime
 import io.github.aakira.napier.Napier
 class DashboardViewModel(
     private val getDashboardDataUseCase: GetDashboardDataUseCase,
@@ -85,7 +87,7 @@ class DashboardViewModel(
                                 // Filter and sort Personal duties by closest due date
                                 val personalDuties = allDuties
                                     .filter { it.categoryName == "Personal" }
-                                    .sortedBy { duty ->
+                                    .sortedBy { duty: Duty ->
                                         val daysUntil = if (duty.dueDay >= currentDay) {
                                             duty.dueDay - currentDay
                                         } else {
@@ -98,7 +100,7 @@ class DashboardViewModel(
                                 // Filter and sort Company duties by closest due date
                                 val companyDuties = allDuties
                                     .filter { it.categoryName == "Company" }
-                                    .sortedBy { duty ->
+                                    .sortedBy { duty: Duty ->
                                         val daysUntil = if (duty.dueDay >= currentDay) {
                                             duty.dueDay - currentDay
                                         } else {

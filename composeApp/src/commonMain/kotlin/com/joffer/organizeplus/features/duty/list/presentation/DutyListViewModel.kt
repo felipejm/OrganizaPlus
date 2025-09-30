@@ -7,6 +7,7 @@ import com.joffer.organizeplus.features.dashboard.domain.entities.DutyWithLastOc
 import com.joffer.organizeplus.features.dashboard.domain.repositories.DutyRepository
 import com.joffer.organizeplus.features.dashboard.domain.usecases.DeleteDutyUseCase
 import com.joffer.organizeplus.features.duty.occurrence.domain.repositories.DutyOccurrenceRepository
+import com.joffer.organizeplus.features.duty.list.domain.DutyCategoryFilter
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -18,7 +19,8 @@ import io.github.aakira.napier.Napier
 class DutyListViewModel(
     private val repository: DutyRepository,
     private val deleteDutyUseCase: DeleteDutyUseCase,
-    private val dutyOccurrenceRepository: DutyOccurrenceRepository
+    private val dutyOccurrenceRepository: DutyOccurrenceRepository,
+    private val categoryFilter: DutyCategoryFilter
 ) : ViewModel() {
     
     private val _uiState = MutableStateFlow(DutyListUiState())
@@ -56,8 +58,16 @@ class DutyListViewModel(
                 .collect { result ->
                     result.fold(
                         onSuccess = { duties ->
+                            // Filter duties by category
+                            val filteredDuties = when (categoryFilter) {
+                                DutyCategoryFilter.All -> duties
+                                DutyCategoryFilter.Personal -> duties.filter { it.categoryName == "Personal" }
+                                DutyCategoryFilter.Company -> duties.filter { it.categoryName == "Company" }
+                                is DutyCategoryFilter.Custom -> duties.filter { it.categoryName == categoryFilter.name }
+                            }
+                            
                             // Load last occurrence for each duty
-                            val dutiesWithLastOccurrence = duties.map { duty ->
+                            val dutiesWithLastOccurrence = filteredDuties.map { duty ->
                                 DutyWithLastOccurrence(
                                     duty = duty,
                                     lastOccurrence = null // Will be loaded separately
@@ -70,7 +80,7 @@ class DutyListViewModel(
                             )
                             
                             // Load last occurrence for each duty
-                            duties.forEach { duty ->
+                            filteredDuties.forEach { duty ->
                                 launch {
                                     dutyOccurrenceRepository.getLastOccurrenceByDutyId(duty.id)
                                         .fold(

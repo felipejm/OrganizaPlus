@@ -13,6 +13,7 @@ import com.joffer.organizeplus.features.duty.create.presentation.CreateDutyScree
 import com.joffer.organizeplus.features.duty.create.presentation.CreateDutyViewModel
 import com.joffer.organizeplus.features.duty.list.presentation.DutyListScreen
 import com.joffer.organizeplus.features.duty.list.presentation.DutyListViewModel
+import com.joffer.organizeplus.features.duty.list.domain.DutyCategoryFilter
 import com.joffer.organizeplus.features.duty.detail.presentation.DutyDetailsScreen
 import com.joffer.organizeplus.features.duty.detail.presentation.DutyDetailsListViewModel
 import com.joffer.organizeplus.features.settings.presentation.SettingsScreen
@@ -43,8 +44,11 @@ fun AppNavigation(
         composable(NavigationRoutes.DASHBOARD) {
             DashboardScreen(
                 viewModel = dashboardViewModel,
-                onNavigateToDuties = {
-                    navController.navigate(NavigationRoutes.DUTIES)
+                onNavigateToPersonalDuties = {
+                    navController.navigate(NavigationRoutes.duties("Personal"))
+                },
+                onNavigateToCompanyDuties = {
+                    navController.navigate(NavigationRoutes.duties("Company"))
                 },
                 onNavigateToEditDuty = { dutyId ->
                     navController.navigate(NavigationRoutes.editDuty(dutyId))
@@ -69,10 +73,17 @@ fun AppNavigation(
             )
         }
         
-        composable(NavigationRoutes.DUTIES) {
-            val dutyListViewModel: DutyListViewModel = koinInject()
+        composable(NavigationRoutes.DUTIES) { backStackEntry ->
+            val category = backStackEntry.arguments?.getString("category") ?: "All"
+            val categoryFilter = when (category) {
+                "Personal" -> DutyCategoryFilter.Personal
+                "Company" -> DutyCategoryFilter.Company
+                else -> DutyCategoryFilter.All
+            }
+            val dutyListViewModel: DutyListViewModel = koinInject { parametersOf(categoryFilter) }
             DutyListScreen(
                 viewModel = dutyListViewModel,
+                categoryFilter = categoryFilter,
                 onNavigateToCreateDuty = {
                     navController.navigate(NavigationRoutes.CREATE_DUTY)
                 },

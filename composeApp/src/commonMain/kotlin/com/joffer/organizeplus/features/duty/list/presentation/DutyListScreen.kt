@@ -24,6 +24,7 @@ import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.Typography
 import com.joffer.organizeplus.features.dashboard.domain.entities.Duty
+import com.joffer.organizeplus.features.duty.list.domain.DutyCategoryFilter
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import org.jetbrains.compose.resources.stringResource
@@ -45,6 +46,7 @@ import organizeplus.composeapp.generated.resources.add_duty
 @Composable
 fun DutyListScreen(
     viewModel: DutyListViewModel,
+    categoryFilter: DutyCategoryFilter,
     onNavigateToCreateDuty: () -> Unit,
     onNavigateToEditDuty: (String) -> Unit,
     onNavigateBack: () -> Unit,
@@ -62,7 +64,12 @@ fun DutyListScreen(
     Scaffold(
         topBar = {
             AppTopAppBarWithBackButton(
-                title = stringResource(Res.string.duty_list_title),
+                title = when (categoryFilter) {
+                    DutyCategoryFilter.All -> stringResource(Res.string.duty_list_title)
+                    DutyCategoryFilter.Personal -> "Personal Duties"
+                    DutyCategoryFilter.Company -> "Company Duties"
+                    is DutyCategoryFilter.Custom -> "${categoryFilter.name} Duties"
+                },
                 onBackClick = onNavigateBack,
                 backIcon = Icons.Default.ArrowBack,
                 navigationIconContentColor = AppColorScheme.onSurface

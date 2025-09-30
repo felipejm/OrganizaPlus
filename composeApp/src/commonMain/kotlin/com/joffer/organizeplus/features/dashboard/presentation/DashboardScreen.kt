@@ -25,7 +25,8 @@ import organizeplus.composeapp.generated.resources.app_name
 @Composable
 fun DashboardScreen(
     viewModel: DashboardViewModel,
-    onNavigateToDuties: () -> Unit,
+    onNavigateToPersonalDuties: () -> Unit,
+    onNavigateToCompanyDuties: () -> Unit,
     onNavigateToEditDuty: (String) -> Unit,
     onNavigateToCreateDuty: () -> Unit,
     onNavigateToSettings: () -> Unit,
@@ -80,7 +81,7 @@ fun DashboardScreen(
                 item {
                     LatestDutiesSection(
                         duties = uiState.personalDuties,
-                        onViewAll = onNavigateToDuties,
+                        onViewAll = onNavigateToPersonalDuties,
                         onAddDuty = onNavigateToCreateDuty,
                         sectionTitle = "Personal Duties"
                     )
@@ -90,7 +91,7 @@ fun DashboardScreen(
                 item {
                     LatestDutiesSection(
                         duties = uiState.companyDuties,
-                        onViewAll = onNavigateToDuties,
+                        onViewAll = onNavigateToCompanyDuties,
                         onAddDuty = onNavigateToCreateDuty,
                         sectionTitle = "Company Duties"
                     )

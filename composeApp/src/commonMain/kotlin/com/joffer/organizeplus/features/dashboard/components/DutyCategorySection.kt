@@ -34,7 +34,6 @@ import com.joffer.organizeplus.features.dashboard.MonthlySummary
 import com.joffer.organizeplus.common.utils.CurrencyUtils
 import org.jetbrains.compose.resources.stringResource
 import organizeplus.composeapp.generated.resources.Res
-import organizeplus.composeapp.generated.resources.latest_duties_title
 import organizeplus.composeapp.generated.resources.view_all_duties
 import organizeplus.composeapp.generated.resources.add_duty
 import organizeplus.composeapp.generated.resources.no_duties_created_yet

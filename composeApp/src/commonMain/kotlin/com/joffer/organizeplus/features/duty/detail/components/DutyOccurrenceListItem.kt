@@ -15,7 +15,6 @@ import com.joffer.organizeplus.designsystem.typography.Typography
 import com.joffer.organizeplus.features.duty.occurrence.domain.entities.DutyOccurrence
 import org.jetbrains.compose.resources.stringResource
 import organizeplus.composeapp.generated.resources.Res
-import organizeplus.composeapp.generated.resources.duty_occurrence_list_amount
 import organizeplus.composeapp.generated.resources.duty_occurrence_list_delete
 
 @Composable

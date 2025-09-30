@@ -22,7 +22,6 @@ import organizeplus.composeapp.generated.resources.duty_type_payable
 import organizeplus.composeapp.generated.resources.duty_type_actionable
 import organizeplus.composeapp.generated.resources.not_available
 import organizeplus.composeapp.generated.resources.duty_due_every_day
-import organizeplus.composeapp.generated.resources.duty_start_every_day
 
 @Composable
 fun DutyHeaderCard(

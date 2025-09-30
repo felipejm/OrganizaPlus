@@ -40,25 +40,7 @@ import organizeplus.composeapp.generated.resources.duty_occurrence_list_title
 import organizeplus.composeapp.generated.resources.duty_occurrence_list_empty_title
 import organizeplus.composeapp.generated.resources.duty_occurrence_list_empty_subtitle
 import organizeplus.composeapp.generated.resources.duty_occurrence_list_add_occurrence
-import organizeplus.composeapp.generated.resources.duty_occurrence_list_delete
-import organizeplus.composeapp.generated.resources.duty_occurrence_list_amount
-import organizeplus.composeapp.generated.resources.duty_occurrence_list_date
-import organizeplus.composeapp.generated.resources.duty_occurrence_list_notes
 import organizeplus.composeapp.generated.resources.duty_detail_edit
-import organizeplus.composeapp.generated.resources.duty_detail_start_day
-import organizeplus.composeapp.generated.resources.duty_detail_due_day
-import organizeplus.composeapp.generated.resources.duty_detail_category
-import organizeplus.composeapp.generated.resources.duty_detail_type
-import organizeplus.composeapp.generated.resources.duty_detail_status
-import organizeplus.composeapp.generated.resources.duty_type_payable
-import organizeplus.composeapp.generated.resources.duty_type_actionable
-import organizeplus.composeapp.generated.resources.status_pending
-import organizeplus.composeapp.generated.resources.status_paid
-import organizeplus.composeapp.generated.resources.status_overdue
-import organizeplus.composeapp.generated.resources.status_snoozed
-import organizeplus.composeapp.generated.resources.not_available
-import organizeplus.composeapp.generated.resources.duty_due_every_day
-import organizeplus.composeapp.generated.resources.duty_start_every_day
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

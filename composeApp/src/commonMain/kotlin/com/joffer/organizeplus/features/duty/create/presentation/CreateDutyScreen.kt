@@ -35,7 +35,6 @@ import organizeplus.composeapp.generated.resources.create_duty_cancel
 import organizeplus.composeapp.generated.resources.navigation_create_duty_new
 import organizeplus.composeapp.generated.resources.navigation_edit_duty_new
 import organizeplus.composeapp.generated.resources.placeholder_title
-import organizeplus.composeapp.generated.resources.placeholder_category
 import organizeplus.composeapp.generated.resources.create_duty_start_day
 import organizeplus.composeapp.generated.resources.category_personal
 import organizeplus.composeapp.generated.resources.category_enterprise
@@ -43,14 +42,11 @@ import organizeplus.composeapp.generated.resources.error_title_required
 import organizeplus.composeapp.generated.resources.error_start_day_invalid
 import organizeplus.composeapp.generated.resources.error_due_day_invalid
 import organizeplus.composeapp.generated.resources.error_category_required
-import organizeplus.composeapp.generated.resources.error_reminder_days_range
 import organizeplus.composeapp.generated.resources.duty_type_label
 import organizeplus.composeapp.generated.resources.duty_type_payable
 import organizeplus.composeapp.generated.resources.duty_type_actionable
 import organizeplus.composeapp.generated.resources.error_saving
 import organizeplus.composeapp.generated.resources.duty_saved_success
-import organizeplus.composeapp.generated.resources.back_arrow
-import organizeplus.composeapp.generated.resources.placeholder_date
 import organizeplus.composeapp.generated.resources.close
 
 @OptIn(ExperimentalMaterial3Api::class)

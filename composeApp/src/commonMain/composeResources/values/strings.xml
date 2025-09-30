@@ -211,5 +211,27 @@
     <string name="chart_amount_paid_by_month">Amount Paid by Month</string>
 
     <!-- Additional missing strings -->
+    
+    <!-- Temporary strings to fix compilation errors -->
+    <string name="latest_duties_title">Latest Duties</string>
+    <string name="placeholder_category">Select category</string>
+    <string name="placeholder_date">Select date</string>
+    <string name="error_reminder_days_range">Reminder days must be between 1 and 31</string>
+    <string name="back_arrow">Back</string>
+    <string name="chart_occurrences_series_name">Occurrences</string>
+    <string name="chart_amount_series_name">Amount</string>
+    <string name="duty_start_every_day">Starts every day %d of the month</string>
+    <string name="duty_occurrence_list_amount">Amount</string>
+    <string name="duty_occurrence_list_date">Date</string>
+    <string name="duty_occurrence_list_notes">Notes</string>
+    <string name="duty_detail_status">Status</string>
+    <string name="status_snoozed">Snoozed</string>
+    <string name="duty_list_mark_paid">Mark as Paid</string>
+    <string name="duty_list_edit">Edit</string>
+    <string name="duty_list_occurrences">View Occurrences</string>
+    <string name="duty_list_delete">Delete</string>
+    <string name="navigation_create_duty">Create Duty</string>
+    <string name="navigation_duties">Duties</string>
+    <string name="navigation_edit_duty">Edit Duty</string>
 
 </resources>

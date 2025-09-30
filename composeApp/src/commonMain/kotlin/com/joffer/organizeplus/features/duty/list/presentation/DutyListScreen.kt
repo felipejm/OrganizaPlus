@@ -36,10 +36,6 @@ import organizeplus.composeapp.generated.resources.duty_list_empty_subtitle
 import organizeplus.composeapp.generated.resources.duty_list_error_title
 import organizeplus.composeapp.generated.resources.duty_list_error_subtitle
 import organizeplus.composeapp.generated.resources.duty_list_retry
-import organizeplus.composeapp.generated.resources.duty_list_mark_paid
-import organizeplus.composeapp.generated.resources.duty_list_edit
-import organizeplus.composeapp.generated.resources.duty_list_occurrences
-import organizeplus.composeapp.generated.resources.duty_list_delete
 import organizeplus.composeapp.generated.resources.add_duty
 
 @OptIn(ExperimentalMaterial3Api::class)

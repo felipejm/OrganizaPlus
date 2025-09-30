@@ -22,9 +22,6 @@ import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.koinInject
 import org.koin.core.parameter.parametersOf
 import organizeplus.composeapp.generated.resources.Res
-import organizeplus.composeapp.generated.resources.navigation_create_duty
-import organizeplus.composeapp.generated.resources.navigation_duties
-import organizeplus.composeapp.generated.resources.navigation_edit_duty
 
 @Composable
 fun AppNavigation(

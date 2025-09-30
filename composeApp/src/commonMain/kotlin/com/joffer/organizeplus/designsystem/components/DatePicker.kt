@@ -62,7 +62,7 @@ fun DatePickerField(
                 disabledPlaceholderColor = AppColorScheme.formPlaceholder,
                 disabledContainerColor = AppColorScheme.surface
             ),
-            shape = RoundedCornerShape(8.dp),
+            shape = RoundedCornerShape(Spacing.Radius.sm),
             textStyle = Typography.bodyMedium
         )
         
@@ -119,7 +119,7 @@ fun TimePickerField(
                 disabledPlaceholderColor = AppColorScheme.formPlaceholder,
                 disabledContainerColor = AppColorScheme.surface
             ),
-            shape = RoundedCornerShape(8.dp),
+            shape = RoundedCornerShape(Spacing.Radius.sm),
             textStyle = Typography.bodyMedium
         )
         

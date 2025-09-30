@@ -8,27 +8,54 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.Typography
+import network.chaintech.cmpcharts.ui.barchart.BarChart
+import network.chaintech.cmpcharts.ui.barchart.config.BarChartConfig
+import network.chaintech.cmpcharts.ui.barchart.config.BarChartStyle
+import network.chaintech.cmpcharts.ui.barchart.config.SelectionHighlightData
+import network.chaintech.cmpcharts.axis.AxisProperties
+import network.chaintech.cmpcharts.ui.barchart.config.BarData
+import network.chaintech.cmpcharts.common.model.Point
+import androidx.compose.ui.text.font.FontFamily
+import org.jetbrains.compose.resources.stringResource
+import organizeplus.composeapp.generated.resources.Res
+import organizeplus.composeapp.generated.resources.chart_no_data_available
+
+// Chart dimensions - using design system spacing
+private val CHART_HEIGHT = Spacing.Chart.height
+private val EMPTY_STATE_HEIGHT = Spacing.Chart.emptyStateHeight
+
+// Color palette for bars
+private val BAR_COLOR_PALETTE = listOf(
+    AppColorScheme.primary,
+    AppColorScheme.secondary,
+    AppColorScheme.success500,
+    AppColorScheme.warning500,
+    AppColorScheme.error,
+    AppColorScheme.info500,
+    AppColorScheme.tertiary,
+    AppColorScheme.auxiliary500
+)
 
 /**
- * A simple bar chart component placeholder
+ * A vertical bar chart component using CMPCharts library
+ * Each bar uses a different color from the design system color palette
  *
  * @param data List of chart data points with x-axis labels and y-axis values
  * @param title Optional title for the chart
  * @param legend Optional legend text
- * @param barColor Color of the bars (defaults to primary color)
  * @param showValues Whether to show values on the chart
  * @param modifier Modifier for the chart container
  */
 @Composable
-fun BarChart(
+fun AppBarChart(
     data: List<ChartDataPoint>,
     title: String? = null,
     legend: String? = null,
-    barColor: Color = AppColorScheme.primary,
     showValues: Boolean = true,
     modifier: Modifier = Modifier
 ) {
@@ -36,15 +63,15 @@ fun BarChart(
         Box(
             modifier = modifier
                 .fillMaxWidth()
-                .height(200.dp)
+                .height(EMPTY_STATE_HEIGHT)
                 .background(
                     color = AppColorScheme.surfaceVariant,
-                    shape = RoundedCornerShape(Spacing.borderRadius)
+                    shape = RoundedCornerShape(Spacing.Radius.lg)
                 ),
             contentAlignment = Alignment.Center
         ) {
             Text(
-                text = "No data available",
+                text = stringResource(Res.string.chart_no_data_available),
                 style = Typography.bodyMedium,
                 color = AppColorScheme.formSecondaryText
             )
@@ -57,7 +84,7 @@ fun BarChart(
             .fillMaxWidth()
             .background(
                 color = AppColorScheme.surfaceVariant,
-                shape = RoundedCornerShape(Spacing.borderRadius)
+                shape = RoundedCornerShape(Spacing.Radius.lg)
             )
             .padding(Spacing.md)
     ) {
@@ -65,49 +92,86 @@ fun BarChart(
         title?.let {
             Text(
                 text = it,
-                style = Typography.titleMedium,
-                color = AppColorScheme.formText
+                style = Typography.headlineSmall,
+                color = AppColorScheme.onSurface,
+                fontWeight = FontWeight.Bold
             )
             Spacer(modifier = Modifier.height(Spacing.md))
         }
 
-        // Simple chart representation
-        Column(
+        // CMPCharts BarChart
+        Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(200.dp)
+                .height(CHART_HEIGHT)
         ) {
-            data.forEach { dataPoint ->
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(vertical = 4.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text(
-                        text = dataPoint.label,
-                        style = Typography.bodySmall,
-                        color = AppColorScheme.formText,
-                        modifier = Modifier.weight(1f)
-                    )
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Box(
-                        modifier = Modifier
-                            .width((dataPoint.value * 2).dp.coerceAtMost(200.dp))
-                            .height(20.dp)
-                            .background(
-                                color = barColor,
-                                shape = RoundedCornerShape(4.dp)
-                            )
-                    )
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Text(
-                        text = dataPoint.value.toString(),
-                        style = Typography.bodySmall,
-                        color = AppColorScheme.formText
-                    )
-                }
+            val maxValue = data.maxOfOrNull { it.value } ?: 0f
+            val maxRange = if (maxValue > 0) (maxValue * 1.2f).toInt() else 100
+            val yStepSize = 5
+
+            // Convert our data to CMPCharts format with different colors
+            val barData = data.mapIndexed { index, dataPoint ->
+                BarData(
+                    point = Point(
+                        index.toFloat(),
+                        dataPoint.value
+                    ),
+                    label = dataPoint.label,
+                    color = BAR_COLOR_PALETTE[index % BAR_COLOR_PALETTE.size]
+                )
             }
+
+            val xAxisData = AxisProperties(
+                font = FontFamily.Default,
+                stepSize = Spacing.Chart.stepSize,
+                stepCount = barData.size - 1,
+                bottomPadding = Spacing.lg,
+                labelRotationAngle = 0f,
+                initialDrawPadding = Spacing.xl,
+                labelColor = AppColorScheme.formText,
+                lineColor = AppColorScheme.formSecondaryText,
+                labelFormatter = { index: Int -> 
+                    if (index < barData.size) barData[index].label else ""
+                }
+            )
+
+            val yAxisData = AxisProperties(
+                font = FontFamily.Default,
+                stepCount = yStepSize,
+                labelPadding = Spacing.md,
+                offset = Spacing.md,
+                labelColor = AppColorScheme.formText,
+                lineColor = AppColorScheme.formSecondaryText,
+                labelFormatter = { index: Int ->
+                    (index * (maxRange / yStepSize)).toString()
+                }
+            )
+
+            val barChartData = BarChartConfig(
+                chartData = barData,
+                xAxisData = xAxisData,
+                yAxisData = yAxisData,
+                barStyle = BarChartStyle(
+                    cornerRadius = Spacing.Radius.xs,
+                    paddingBetweenBars = Spacing.sm,
+                    barWidth = Spacing.Chart.barWidth,
+                    selectionHighlightData = if (showValues) {
+                        SelectionHighlightData(
+                            highlightBarColor = AppColorScheme.primary.copy(alpha = 0.8f),
+                            highlightTextColor = AppColorScheme.onPrimary,
+                            highlightTextTypeface = FontWeight.Bold,
+                            highlightTextBackgroundColor = AppColorScheme.primary,
+                            popUpLabel = { _, y -> "Value: $y" }
+                        )
+                    } else null
+                ),
+                horizontalExtraSpace = Spacing.xs,
+            )
+
+            BarChart(
+                modifier = Modifier.fillMaxSize(),
+                barChartData = barChartData
+            )
         }
 
         // Legend

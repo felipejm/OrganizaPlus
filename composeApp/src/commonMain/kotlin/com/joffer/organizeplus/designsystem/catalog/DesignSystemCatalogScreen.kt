@@ -200,6 +200,11 @@ enum class ComponentCategory(
         description = "Result and feedback components",
         route = "result"
     ),
+    CHARTS(
+        title = "Charts",
+        description = "Data visualization and chart components",
+        route = "charts"
+    ),
     COLORS(
         title = "Colors",
         description = "Color palette and theme colors",

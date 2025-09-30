@@ -31,7 +31,7 @@ fun OrganizeCard(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(Spacing.cardPadding),
+                .padding(Spacing.Card.padding),
             content = content
         )
     }

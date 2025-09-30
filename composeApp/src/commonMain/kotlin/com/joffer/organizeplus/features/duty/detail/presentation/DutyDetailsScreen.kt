@@ -3,6 +3,9 @@ package com.joffer.organizeplus.features.duty.detail.presentation
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.ui.unit.dp
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Edit
@@ -23,6 +26,8 @@ import com.joffer.organizeplus.features.duty.occurrence.domain.entities.DutyOccu
 import com.joffer.organizeplus.features.duty.occurrence.presentation.AddDutyOccurrenceBottomSheet
 import com.joffer.organizeplus.features.duty.occurrence.presentation.AddDutyOccurrenceViewModel
 import com.joffer.organizeplus.features.duty.detail.components.DutyCMPChart
+import com.joffer.organizeplus.features.duty.detail.components.DutyHeaderCard
+import com.joffer.organizeplus.features.duty.detail.components.DutyOccurrenceListItem
 import com.joffer.organizeplus.features.dashboard.domain.entities.Duty
 import com.joffer.organizeplus.features.dashboard.domain.entities.DutyType
 import kotlinx.datetime.TimeZone
@@ -87,63 +92,62 @@ fun DutyDetailsScreen(
             }
         )
         
-        // Duty Header Information
-        uiState.duty?.let { duty ->
-            DutyHeaderCard(
-                duty = duty,
-                modifier = Modifier.padding(Spacing.md)
-            )
-        }
-        
-        // Chart
-        uiState.chartData?.let { chartData ->
-            DutyCMPChart(
-                chartData = chartData,
-                modifier = Modifier.padding(Spacing.md)
-            )
-        }
-        
-        Box(
-            modifier = Modifier.fillMaxSize()
-        ) {
-            when {
-                uiState.isLoading -> {
-                    OrganizeProgressIndicatorFullScreen()
-                }
-                
-                uiState.error != null -> {
-                    ErrorBanner(
-                        message = uiState.error ?: "",
-                        onRetry = { viewModel.onIntent(DutyDetailsListIntent.Retry) },
-                        onDismiss = { viewModel.onIntent(DutyDetailsListIntent.ClearError) }
-                    )
-                }
-                
-                uiState.records.isEmpty() -> {
-                    Box(
-                        modifier = Modifier.fillMaxSize(),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        OrganizeResult(
-                            type = ResultType.INFO,
-                            title = stringResource(Res.string.duty_occurrence_list_empty_title),
-                            description = stringResource(Res.string.duty_occurrence_list_empty_subtitle),
-                            actions = {
-                                OrganizePrimaryButton(
-                                    text = stringResource(Res.string.duty_occurrence_list_add_occurrence),
-                                    onClick = { showAddOccurrenceBottomSheet = true }
+        when {
+            uiState.isLoading -> {
+                OrganizeProgressIndicatorFullScreen()
+            }
+            
+            uiState.error != null -> {
+                ErrorBanner(
+                    message = uiState.error ?: "",
+                    onRetry = { viewModel.onIntent(DutyDetailsListIntent.Retry) },
+                    onDismiss = { viewModel.onIntent(DutyDetailsListIntent.ClearError) }
+                )
+            }
+            
+            else -> {
+                LazyColumn(
+                    modifier = Modifier.fillMaxSize(),
+                    contentPadding = PaddingValues(Spacing.md),
+                    verticalArrangement = Arrangement.spacedBy(Spacing.md)
+                ) {
+                    // Duty Header Information
+                    uiState.duty?.let { duty ->
+                        item {
+                            DutyHeaderCard(duty = duty)
+                        }
+                    }
+                    
+                    // Chart
+                    uiState.chartData?.let { chartData ->
+                        item {
+                            DutyCMPChart(chartData = chartData)
+                        }
+                    }
+                    
+                    // Records Section
+                    if (uiState.records.isEmpty()) {
+                        item {
+                            Box(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(400.dp),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                OrganizeResult(
+                                    type = ResultType.INFO,
+                                    title = stringResource(Res.string.duty_occurrence_list_empty_title),
+                                    description = stringResource(Res.string.duty_occurrence_list_empty_subtitle),
+                                    actions = {
+                                        OrganizePrimaryButton(
+                                            text = stringResource(Res.string.duty_occurrence_list_add_occurrence),
+                                            onClick = { showAddOccurrenceBottomSheet = true }
+                                        )
+                                    }
                                 )
                             }
-                        )
-                    }
-                }
-                
-                else -> {
-                    LazyColumn(
-                        modifier = Modifier.fillMaxSize(),
-                        contentPadding = PaddingValues(Spacing.md),
-                        verticalArrangement = Arrangement.spacedBy(Spacing.sm)
-                    ) {
+                        }
+                    } else {
                         // Header
                         item {
                             Row(
@@ -197,156 +201,5 @@ fun DutyDetailsScreen(
     }
 }
 
-@Composable
-private fun DutyOccurrenceListItem(
-    occurrence: DutyOccurrence,
-    onDelete: (String) -> Unit,
-    modifier: Modifier = Modifier
-) {
-    OrganizeCard(
-        modifier = modifier.fillMaxWidth()
-    ) {
-        Column(
-            modifier = Modifier.padding(Spacing.md)
-        ) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Column(
-                    modifier = Modifier.weight(1f)
-                ) {
-                    // Show month and year label
-                    val monthYearText = "${DateUtils.getMonthName(occurrence.completedDate.monthNumber)} ${occurrence.completedDate.year}"
-                    
-                    Text(
-                        text = monthYearText,
-                        style = Typography.labelLarge,
-                        color = AppColorScheme.formSecondaryText,
-                        fontWeight = FontWeight.Bold
-                    )
-
-                    // Show paid amount only if it exists (for payable duties)
-                    if (occurrence.paidAmount != null && occurrence.paidAmount > 0) {
-                        Spacer(modifier = Modifier.height(Spacing.xs))
-                        Text(
-                            text = stringResource(Res.string.duty_occurrence_list_amount, occurrence.paidAmount),
-                            style = Typography.labelLarge,
-                            color = AppColorScheme.formSecondaryText,
-                            fontWeight = FontWeight.Medium
-                        )
-                    }
-                }
-                
-                TextButton(
-                    onClick = { onDelete(occurrence.id) },
-                    colors = ButtonDefaults.textButtonColors(
-                        contentColor = AppColorScheme.error
-                    )
-                ) {
-                    Text(stringResource(Res.string.duty_occurrence_list_delete))
-                }
-            }
-        }
-    }
-}
-
-@Composable
-private fun DutyHeaderCard(
-    duty: Duty,
-    modifier: Modifier = Modifier
-) {
-    OrganizeCard(
-        modifier = modifier.fillMaxWidth()
-    ) {
-        Column(
-            modifier = Modifier.padding(Spacing.md)
-        ) {
-            // Title
-            Text(
-                text = duty.title,
-                style = Typography.headlineSmall,
-                color = AppColorScheme.onSurface,
-                fontWeight = FontWeight.Bold
-            )
-            
-            Spacer(modifier = Modifier.height(Spacing.md))
-            
-            // Duty Information Grid
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(Spacing.lg)
-            ) {
-                // Left Column
-                Column(
-                    modifier = Modifier.weight(1f),
-                    verticalArrangement = Arrangement.spacedBy(Spacing.sm)
-                ) {
-                    DutyInfoItem(
-                        label = stringResource(Res.string.duty_detail_start_day),
-                        value = String.format(stringResource(Res.string.duty_start_every_day), duty.startDay)
-                    )
-                    
-                    DutyInfoItem(
-                        label = stringResource(Res.string.duty_detail_due_day),
-                        value = String.format(stringResource(Res.string.duty_due_every_day), duty.dueDay)
-                    )
-                }
-                
-                // Right Column
-                Column(
-                    modifier = Modifier.weight(1f),
-                    verticalArrangement = Arrangement.spacedBy(Spacing.sm)
-                ) {
-                    DutyInfoItem(
-                        label = stringResource(Res.string.duty_detail_category),
-                        value = duty.categoryName.ifEmpty { stringResource(Res.string.not_available) }
-                    )
-                    
-                    DutyInfoItem(
-                        label = stringResource(Res.string.duty_detail_type),
-                        value = when (duty.type) {
-                            DutyType.PAYABLE -> stringResource(Res.string.duty_type_payable)
-                            DutyType.ACTIONABLE -> stringResource(Res.string.duty_type_actionable)
-                        }
-                    )
-                    
-                    DutyInfoItem(
-                        label = stringResource(Res.string.duty_detail_status),
-                        value = when (duty.status) {
-                            Duty.Status.PENDING -> stringResource(Res.string.status_pending)
-                            Duty.Status.PAID -> stringResource(Res.string.status_paid)
-                            Duty.Status.OVERDUE -> stringResource(Res.string.status_overdue)
-                            Duty.Status.SNOOZED -> stringResource(Res.string.status_snoozed)
-                        }
-                    )
-                }
-            }
-        }
-    }
-}
-
-@Composable
-private fun DutyInfoItem(
-    label: String,
-    value: String,
-    modifier: Modifier = Modifier
-) {
-    Column(modifier = modifier) {
-        Text(
-            text = label,
-            style = Typography.labelMedium,
-            color = AppColorScheme.formSecondaryText
-        )
-        Spacer(modifier = Modifier.height(Spacing.xs))
-        Text(
-            text = value,
-            style = Typography.bodyRegular,
-            color = AppColorScheme.onSurface,
-            fontWeight = FontWeight.Medium
-        )
-    }
-}
 
 

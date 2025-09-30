@@ -23,7 +23,7 @@ data class DutyOccurrenceForm(
         return DutyOccurrence(
             id = id ?: "",
             dutyId = dutyId,
-            paidAmount = paidAmount,
+            paidAmount = if (dutyType == DutyType.PAYABLE && paidAmount > 0) paidAmount else null,
             completedDate = completedDate,
             createdAt = now
         )

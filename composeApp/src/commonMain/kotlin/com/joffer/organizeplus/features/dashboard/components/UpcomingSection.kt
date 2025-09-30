@@ -11,6 +11,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.joffer.organizeplus.common.utils.DateUtils
@@ -19,7 +20,6 @@ import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.Typography
 import com.joffer.organizeplus.features.dashboard.domain.entities.Duty
-import com.joffer.organizeplus.utils.CategoryIconProvider
 import org.jetbrains.compose.resources.stringResource
 import organizeplus.composeapp.generated.resources.Res
 import organizeplus.composeapp.generated.resources.upcoming_7_days
@@ -110,33 +110,9 @@ private fun UpcomingDutyItem(
             verticalAlignment = Alignment.CenterVertically
         ) {
             // Circular icon
-            val iconColor = when (duty.categoryName) {
-                "4" -> AppColorScheme.iconOrange
-                else -> AppColorScheme.iconBlue
-            }
-            
-            val iconContainerColor = when (duty.categoryName) {
-                "4" -> AppColorScheme.iconOrangeContainer
-                else -> AppColorScheme.iconBlueContainer
-            }
-            
-            val iconText = CategoryIconProvider.getIconForCategory(duty.categoryName)
-            
-            Box(
-                modifier = Modifier
-                    .size(40.dp)
-                    .background(
-                        color = iconContainerColor,
-                        shape = CircleShape
-                    ),
-                contentAlignment = Alignment.Center
-            ) {
-                Text(
-                    text = iconText,
-                    style = Typography.bodyLarge,
-                    color = iconColor
-                )
-            }
+            CategoryIcon(
+                categoryName = duty.categoryName
+            )
             
             Spacer(modifier = Modifier.width(Spacing.sm))
             

@@ -256,6 +256,14 @@
     <string name="duty_occurrence_list_delete">Delete</string>
     <string name="duty_occurrence_list_amount">Amount: $%.2f</string>
     <string name="duty_occurrence_list_date">Date: %s</string>
+    
+    <!-- Charts -->
+    <string name="chart_no_data_available">No data available</string>
+    <string name="chart_y_axis_label">Value</string>
+    <string name="chart_x_axis_label">Month</string>
+    
+    <!-- Date Utils -->
+    <string name="month_unknown">Unknown</string>
     <string name="duty_occurrence_list_notes">Notes: %s</string>
     <string name="error_loading_occurrences">Error loading occurrences</string>
     <string name="error_deleting_occurrence">Error deleting occurrence</string>
@@ -322,4 +330,36 @@
     <string name="chart_amount_paid_by_month">Amount Paid by Month</string>
     <string name="chart_count_legend">Count of occurrences</string>
     <string name="chart_amount_legend">Total amount paid (R$)</string>
+    
+    <!-- Additional missing strings -->
+    <string name="add_obligation_record_title">Add Payment Record</string>
+    <string name="category_condo">Condo</string>
+    <string name="category_das">DAS Company</string>
+    <string name="category_electricity">Electricity Bill</string>
+    <string name="category_internet">Internet</string>
+    <string name="category_loan">Loan</string>
+    <string name="duty_detail_due_date">Due Date</string>
+    <string name="duty_detail_start_date">Start Date</string>
+    <string name="duty_list_records">Records</string>
+    <string name="error_deleting_record">Error deleting record</string>
+    <string name="error_due_date_required">Due date is required</string>
+    <string name="error_invalid_value">Invalid value</string>
+    <string name="error_loading_records">Error loading records</string>
+    <string name="error_start_date_required">Start date is required</string>
+    <string name="error_value_required">Value is required</string>
+    <string name="obligation_record_list_add_record">Add Record</string>
+    <string name="obligation_record_list_amount">Amount: $%.2f</string>
+    <string name="obligation_record_list_date">Date: %s</string>
+    <string name="obligation_record_list_delete">Delete</string>
+    <string name="obligation_record_list_empty_subtitle">Add a payment record to track payments</string>
+    <string name="obligation_record_list_empty_title">No payment records</string>
+    <string name="obligation_record_list_notes">Notes: %s</string>
+    <string name="obligation_record_list_title">Payment Records</string>
+    <string name="obligation_record_notes">Notes</string>
+    <string name="obligation_record_notes_hint">Optional notes</string>
+    <string name="obligation_record_paid_amount">Paid Amount</string>
+    <string name="obligation_record_paid_amount_hint">Enter amount</string>
+    <string name="obligation_record_paid_date">Payment Date</string>
+    <string name="obligation_record_save">Save Record</string>
+    <string name="obligation_record_saved">Record Saved!</string>
 </resources>

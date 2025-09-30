@@ -49,6 +49,10 @@
     <string name="create_duty_save">Salvar</string>
     <string name="create_duty_start_day">Dia de Início</string>
     <string name="create_duty_title">Título</string>
+    <string name="create_duty_type_personal">Pessoal</string>
+    <string name="create_duty_type_company">Empresa</string>
+    <string name="create_duty_recurring">Recorrente</string>
+    <string name="create_duty_reminders">Lembretes</string>
     <string name="duty_detail_due_date">Data de Vencimento</string>
     <string name="duty_detail_start_date">Data de Início</string>
     <string name="error_deleting_occurrence">Erro ao excluir ocorrência</string>
@@ -323,6 +327,9 @@
     <string name="chart_amount_paid_by_month">Valor Pago por Mês</string>
     <string name="chart_count_legend">Quantidade de ocorrências</string>
     <string name="chart_amount_legend">Valor total pago (R$)</string>
+    <string name="chart_no_data_available">Nenhum dado disponível</string>
+    <string name="chart_y_axis_label">Valor</string>
+    <string name="chart_x_axis_label">Mês</string>
     
     <!-- Duty Detail Header -->
     <string name="duty_detail_edit">Editar</string>
@@ -349,4 +356,8 @@
     <string name="duty_occurrence_notes_hint">Observações opcionais</string>
     <string name="duty_occurrence_save">Salvar Ocorrência</string>
     <string name="duty_occurrence_saved">Ocorrência Salva!</string>
+    
+    <!-- Additional missing strings -->
+    <string name="duty_list_occurrences">Ocorrências</string>
+    <string name="month_unknown">Desconhecido</string>
 </resources>

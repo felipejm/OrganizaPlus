@@ -1,5 +1,7 @@
 ---
-description:
+description: Never use strings hardcoded in the UI
 globs:
 alwaysApply: true
 ---
+
+- Never use strings hardcoded in the composables or screens.

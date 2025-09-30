@@ -5,25 +5,24 @@ import com.joffer.organizeplus.features.duty.occurrence.domain.entities.DutyOccu
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import kotlinx.datetime.TimeZone
+import kotlinx.datetime.atStartOfDayIn
 import kotlinx.datetime.toLocalDateTime
 
 fun DutyOccurrenceEntity.toDomainEntity(): DutyOccurrence {
     return DutyOccurrence(
         id = this.id.toString(),
         dutyId = this.dutyId.toString(),
-        paidAmount = this.paidAmount,
+        paidAmount = if (this.paidAmount < 0) null else this.paidAmount,
         completedDate = Instant.fromEpochMilliseconds(this.completedDateMillis).toLocalDateTime(TimeZone.currentSystemDefault()).date,
         createdAt = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date
     )
 }
 
 fun DutyOccurrence.toRoomEntity(): DutyOccurrenceEntity {
-    // Simplified conversion - use current time for now
-    val now = Clock.System.now()
     return DutyOccurrenceEntity(
         id = this.id.toLongOrNull() ?: 0L,
         dutyId = this.dutyId.toLongOrNull() ?: 0L,
-        paidAmount = this.paidAmount ?: 0.0,
-        completedDateMillis = now.toEpochMilliseconds()
+        paidAmount = this.paidAmount ?: -1.0, // Use -1.0 to represent null
+        completedDateMillis = this.completedDate.atStartOfDayIn(TimeZone.currentSystemDefault()).toEpochMilliseconds()
     )
 }

@@ -7,6 +7,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 import com.joffer.organizeplus.designsystem.components.OrganizeCard
@@ -16,10 +17,11 @@ import com.joffer.organizeplus.designsystem.typography.Typography
 import com.joffer.organizeplus.features.dashboard.domain.entities.Duty
 import com.joffer.organizeplus.features.dashboard.domain.entities.DutyWithLastOccurrence
 import com.joffer.organizeplus.features.dashboard.domain.entities.DutyType
-import com.joffer.organizeplus.utils.CategoryIconProvider
 import com.joffer.organizeplus.common.utils.DateUtils
+import com.joffer.organizeplus.designsystem.components.CategoryIcon
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
+import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import organizeplus.composeapp.generated.resources.Res
 import organizeplus.composeapp.generated.resources.duty_type_payable
@@ -51,10 +53,8 @@ fun DutyListItem(
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier.weight(1f)
                 ) {
-                    Text(
-                        text = CategoryIconProvider.getIconForCategory(duty.categoryName),
-                        style = Typography.headlineMedium,
-                        modifier = Modifier.padding(end = Spacing.xs)
+                    CategoryIcon(
+                        categoryName = duty.categoryName
                     )
 
                     Text(

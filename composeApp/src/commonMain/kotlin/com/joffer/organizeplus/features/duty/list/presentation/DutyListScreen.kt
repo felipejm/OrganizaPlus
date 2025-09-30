@@ -24,7 +24,6 @@ import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.Typography
 import com.joffer.organizeplus.features.dashboard.domain.entities.Duty
-import com.joffer.organizeplus.utils.CategoryIconProvider
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import org.jetbrains.compose.resources.stringResource

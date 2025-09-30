@@ -107,7 +107,7 @@ fun OrganizeFormField(
                         .fillMaxWidth()
                         .background(
                             color = Color(0xFFFAFAFA), // Neutral 100
-                            shape = RoundedCornerShape(4.dp)
+                            shape = RoundedCornerShape(Spacing.Radius.xs)
                         )
                         .padding(Spacing.md)
                 ) {
@@ -244,7 +244,7 @@ fun OrganizeFormValidationBanner(
             .fillMaxWidth()
             .background(
                 color = Color(0xFFFFE7E2), // Danger 100
-                shape = RoundedCornerShape(4.dp)
+                shape = RoundedCornerShape(Spacing.Radius.xs)
             )
             .padding(Spacing.md)
     ) {

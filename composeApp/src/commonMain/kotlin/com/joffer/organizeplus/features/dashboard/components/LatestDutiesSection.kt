@@ -22,7 +22,6 @@ import com.joffer.organizeplus.designsystem.typography.Typography
 import com.joffer.organizeplus.features.dashboard.domain.entities.Duty
 import com.joffer.organizeplus.features.dashboard.domain.entities.DutyWithLastOccurrence
 import com.joffer.organizeplus.features.dashboard.domain.entities.DutyType
-import com.joffer.organizeplus.utils.CategoryIconProvider
 import org.jetbrains.compose.resources.stringResource
 import organizeplus.composeapp.generated.resources.Res
 import organizeplus.composeapp.generated.resources.latest_duties_title
@@ -127,33 +126,9 @@ private fun LatestDutyItem(
             verticalAlignment = Alignment.CenterVertically
         ) {
             // Circular icon
-            val iconColor = when (duty.categoryName) {
-                "4" -> AppColorScheme.iconOrange
-                else -> AppColorScheme.iconBlue
-            }
-            
-            val iconContainerColor = when (duty.categoryName) {
-                "4" -> AppColorScheme.iconOrangeContainer
-                else -> AppColorScheme.iconBlueContainer
-            }
-            
-            val iconText = CategoryIconProvider.getIconForCategory(duty.categoryName)
-            
-            Box(
-                modifier = Modifier
-                    .size(40.dp)
-                    .background(
-                        color = iconContainerColor,
-                        shape = CircleShape
-                    ),
-                contentAlignment = Alignment.Center
-            ) {
-                Text(
-                    text = iconText,
-                    style = Typography.bodyLarge,
-                    color = iconColor
-                )
-            }
+            CategoryIcon(
+                categoryName = duty.categoryName
+            )
             
             Spacer(modifier = Modifier.width(Spacing.sm))
             

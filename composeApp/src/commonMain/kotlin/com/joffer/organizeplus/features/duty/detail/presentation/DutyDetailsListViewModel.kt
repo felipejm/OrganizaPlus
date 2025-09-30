@@ -64,9 +64,12 @@ class DutyDetailsListViewModel(
                 val result = repository.getDutyOccurrencesByDutyId(dutyId)
                 result.fold(
                     onSuccess = { occurrences ->
+                        // Sort occurrences by date (most recent first)
+                        val sortedOccurrences = occurrences.sortedByDescending { it.completedDate }
+                        
                         _uiState.value = _uiState.value.copy(
                             isLoading = false,
-                            records = occurrences,
+                            records = sortedOccurrences,
                             error = null
                         )
                         

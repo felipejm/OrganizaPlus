@@ -110,9 +110,9 @@ fun AddDutyOccurrenceBottomSheet(
             if (formState.dutyType == DutyType.PAYABLE) {
                 FormField(
                     label = stringResource(Res.string.duty_occurrence_paid_amount),
-                    value = formState.paidAmount.toString(),
+                    value = if (formState.paidAmount == 0.0) "" else formState.paidAmount.toString(),
                     onValueChange = {
-                        val amount = it.toDoubleOrNull() ?: 0.0
+                        val amount = if (it.isBlank()) 0.0 else it.toDoubleOrNull() ?: 0.0
                         viewModel.onIntent(
                             AddDutyOccurrenceIntent.UpdateFormField(
                                 DutyOccurrenceFormField.PaidAmount,

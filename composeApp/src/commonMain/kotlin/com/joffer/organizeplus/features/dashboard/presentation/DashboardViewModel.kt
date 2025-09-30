@@ -71,31 +71,63 @@ class DashboardViewModel(
                     }
             }
             
-            // Load latest duties separately with last occurrence data
+            // Load duties with closest due dates separately for Personal and Company
             launch {
-                dutyRepository.getLatestDuties(3)
-                    .catch { /* ignore errors for latest duties */ }
+                dutyRepository.getAllDuties()
+                    .catch { /* ignore errors for duties */ }
                     .collect { result ->
                         result.fold(
-                            onSuccess = { latestDuties ->
-                                // Load last occurrence for each duty
-                                val dutiesWithLastOccurrence = latestDuties.map { duty ->
-                                    DutyWithLastOccurrence(
-                                        duty = duty,
-                                        lastOccurrence = null // Will be loaded separately
-                                    )
+                            onSuccess = { allDuties ->
+                                val currentDay = kotlinx.datetime.Clock.System.now()
+                                    .toLocalDateTime(kotlinx.datetime.TimeZone.currentSystemDefault())
+                                    .date.dayOfMonth
+                                
+                                // Filter and sort Personal duties by closest due date
+                                val personalDuties = allDuties
+                                    .filter { it.categoryName == "Personal" }
+                                    .sortedBy { duty ->
+                                        val daysUntil = if (duty.dueDay >= currentDay) {
+                                            duty.dueDay - currentDay
+                                        } else {
+                                            (31 - currentDay) + duty.dueDay
+                                        }
+                                        daysUntil
+                                    }
+                                    .take(3)
+                                
+                                // Filter and sort Company duties by closest due date
+                                val companyDuties = allDuties
+                                    .filter { it.categoryName == "Company" }
+                                    .sortedBy { duty ->
+                                        val daysUntil = if (duty.dueDay >= currentDay) {
+                                            duty.dueDay - currentDay
+                                        } else {
+                                            (31 - currentDay) + duty.dueDay
+                                        }
+                                        daysUntil
+                                    }
+                                    .take(3)
+                                
+                                // Convert to DutyWithLastOccurrence
+                                val personalDutiesWithOccurrence = personalDuties.map { duty ->
+                                    DutyWithLastOccurrence(duty = duty, lastOccurrence = null)
                                 }
+                                val companyDutiesWithOccurrence = companyDuties.map { duty ->
+                                    DutyWithLastOccurrence(duty = duty, lastOccurrence = null)
+                                }
+                                
                                 _uiState.value = _uiState.value.copy(
-                                    latestDuties = dutiesWithLastOccurrence
+                                    personalDuties = personalDutiesWithOccurrence,
+                                    companyDuties = companyDutiesWithOccurrence
                                 )
                                 
-                                // Load last occurrence for each duty
-                                latestDuties.forEach { duty ->
+                                // Load last occurrence for Personal duties
+                                personalDuties.forEach { duty ->
                                     launch {
                                         dutyOccurrenceRepository.getLastOccurrenceByDutyId(duty.id)
                                             .fold(
                                                 onSuccess = { lastOccurrence ->
-                                                    val updatedDuties = _uiState.value.latestDuties.map { dutyWithOccurrence ->
+                                                    val updatedDuties = _uiState.value.personalDuties.map { dutyWithOccurrence ->
                                                         if (dutyWithOccurrence.duty.id == duty.id) {
                                                             dutyWithOccurrence.copy(lastOccurrence = lastOccurrence)
                                                         } else {
@@ -103,7 +135,29 @@ class DashboardViewModel(
                                                         }
                                                     }
                                                     _uiState.value = _uiState.value.copy(
-                                                        latestDuties = updatedDuties
+                                                        personalDuties = updatedDuties
+                                                    )
+                                                },
+                                                onFailure = { /* ignore */ }
+                                            )
+                                    }
+                                }
+                                
+                                // Load last occurrence for Company duties
+                                companyDuties.forEach { duty ->
+                                    launch {
+                                        dutyOccurrenceRepository.getLastOccurrenceByDutyId(duty.id)
+                                            .fold(
+                                                onSuccess = { lastOccurrence ->
+                                                    val updatedDuties = _uiState.value.companyDuties.map { dutyWithOccurrence ->
+                                                        if (dutyWithOccurrence.duty.id == duty.id) {
+                                                            dutyWithOccurrence.copy(lastOccurrence = lastOccurrence)
+                                                        } else {
+                                                            dutyWithOccurrence
+                                                        }
+                                                    }
+                                                    _uiState.value = _uiState.value.copy(
+                                                        companyDuties = updatedDuties
                                                     )
                                                 },
                                                 onFailure = { /* ignore */ }

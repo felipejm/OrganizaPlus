@@ -43,7 +43,8 @@ fun LatestDutiesSection(
     duties: List<DutyWithLastOccurrence>,
     onViewAll: () -> Unit,
     onAddDuty: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    sectionTitle: String? = null
 ) {
     OrganizeCard(
         modifier = modifier
@@ -52,7 +53,7 @@ fun LatestDutiesSection(
             modifier = Modifier.padding(Spacing.xs)
         ) {
             Text(
-                text = stringResource(Res.string.latest_duties_title),
+                text = sectionTitle ?: stringResource(Res.string.latest_duties_title),
                 style = Typography.cardTitle,
                 color = AppColorScheme.formText
             )

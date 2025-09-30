@@ -76,14 +76,25 @@ fun DashboardScreen(
                     OrganizeProgressIndicatorFullScreen()
                 }
             } else {
+                // Personal Duties Section
                 item {
                     LatestDutiesSection(
-                        duties = uiState.latestDuties,
+                        duties = uiState.personalDuties,
                         onViewAll = onNavigateToDuties,
                         onAddDuty = onNavigateToCreateDuty,
+                        sectionTitle = "Personal Duties"
                     )
                 }
                 
+                // Company Duties Section
+                item {
+                    LatestDutiesSection(
+                        duties = uiState.companyDuties,
+                        onViewAll = onNavigateToDuties,
+                        onAddDuty = onNavigateToCreateDuty,
+                        sectionTitle = "Company Duties"
+                    )
+                }
             }
         }
     }

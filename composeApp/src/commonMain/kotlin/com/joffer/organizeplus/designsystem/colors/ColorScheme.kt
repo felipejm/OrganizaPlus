@@ -179,4 +179,7 @@ object ColorScheme {
     // Background colors
     val backgroundNeutral = neutral100  // #FAFAFA
     val cardBackground = white  // #FFFFFF
+    
+    // Divider colors
+    val divider = neutral300  // #E1E1E1
 }

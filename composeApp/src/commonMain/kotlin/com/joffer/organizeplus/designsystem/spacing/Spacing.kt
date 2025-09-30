@@ -35,6 +35,32 @@ object Spacing {
     val buttonHeight: Dp = 40.dp
     val iconSize: Dp = 32.dp
     val listItemHeight: Dp = 64.dp
+    
+    // Icon sizes
+    object Icon {
+        val xs: Dp = 16.dp
+        val sm: Dp = 20.dp
+        val md: Dp = 24.dp
+        val lg: Dp = 32.dp
+        val xl: Dp = 40.dp
+    }
+    
+    // Elevation
+    object Elevation {
+        val xs: Dp = 2.dp
+        val sm: Dp = 4.dp
+        val md: Dp = 8.dp
+        val lg: Dp = 12.dp
+        val xl: Dp = 16.dp
+    }
+    
+    // Divider thickness
+    object Divider {
+        val thin: Dp = 1.dp
+        val medium: Dp = 2.dp
+        val thick: Dp = 4.dp
+    }
+    
 
     // Chart dimensions
     object Chart {

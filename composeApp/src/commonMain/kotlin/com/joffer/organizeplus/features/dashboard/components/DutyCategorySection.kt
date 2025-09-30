@@ -1,16 +1,17 @@
 package com.joffer.organizeplus.features.dashboard.components
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.ui.graphics.vector.ImageVector
+import org.jetbrains.compose.resources.StringResource
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -20,13 +21,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.joffer.organizeplus.common.constants.CategoryConstants
 import com.joffer.organizeplus.common.utils.DateUtils
 import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.components.ResultType
 import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.Typography
-import com.joffer.organizeplus.features.dashboard.domain.entities.Duty
 import com.joffer.organizeplus.features.dashboard.domain.entities.DutyWithLastOccurrence
 import com.joffer.organizeplus.features.dashboard.domain.entities.DutyType
 import com.joffer.organizeplus.features.dashboard.MonthlySummary
@@ -40,41 +41,82 @@ import organizeplus.composeapp.generated.resources.no_duties_created_yet
 import organizeplus.composeapp.generated.resources.start_creating_first_duty
 import organizeplus.composeapp.generated.resources.duty_type_payable
 import organizeplus.composeapp.generated.resources.duty_type_actionable
-import organizeplus.composeapp.generated.resources.duty_due_every_day
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.toLocalDateTime
+import organizeplus.composeapp.generated.resources.dashboard_personal_duties
+import organizeplus.composeapp.generated.resources.dashboard_company_duties
+import organizeplus.composeapp.generated.resources.dashboard_monthly_summary
+import organizeplus.composeapp.generated.resources.dashboard_amount_paid
+import organizeplus.composeapp.generated.resources.dashboard_tasks_done
+import organizeplus.composeapp.generated.resources.dashboard_last_occurrence
+
+// Component-specific constants
+private val ACCENT_BAR_WIDTH = 4.dp
+private val ACCENT_BAR_HEIGHT = 24.dp
 
 /**
- * Latest duties section showing the 3 most recently created duties
+ * Configuration data for category-specific styling and content
+ */
+private data class CategoryConfig(
+    val accentColor: Color,
+    val accentLight: Color,
+    val backgroundColor: Color,
+    val sectionIcon: ImageVector,
+    val titleResource: StringResource
+)
+
+/**
+ * Gets the configuration for a specific category
+ */
+private fun getCategoryConfig(categoryName: String): CategoryConfig {
+    return when (categoryName) {
+        CategoryConstants.COMPANY -> CategoryConfig(
+            accentColor = AppColorScheme.companyAccent,
+            accentLight = AppColorScheme.companyAccentLight,
+            backgroundColor = AppColorScheme.background,
+            sectionIcon = Icons.Default.Home,
+            titleResource = Res.string.dashboard_company_duties
+        )
+
+        else -> CategoryConfig(
+            accentColor = AppColorScheme.personalAccent,
+            accentLight = AppColorScheme.personalAccentLight,
+            backgroundColor = AppColorScheme.background,
+            sectionIcon = Icons.Default.Person,
+            titleResource = Res.string.dashboard_personal_duties
+        ) // Default fallback
+    }
+}
+
+/**
+ * Duty category section showing duties for a specific category (Personal or Company)
+ * with monthly summary and latest duties
  */
 @Composable
-fun LatestDutiesSection(
+fun DutyCategorySection(
     duties: List<DutyWithLastOccurrence>,
     onViewAll: () -> Unit,
     onAddDuty: () -> Unit,
-    onDeleteDuty: (String) -> Unit,
+    onDutyClick: (String) -> Unit,
+    categoryName: String,
     modifier: Modifier = Modifier,
     sectionTitle: String? = null,
-    monthlySummary: MonthlySummary? = null,
-    categoryType: String = "Personal" // "Personal" or "Company"
+    monthlySummary: MonthlySummary? = null
 ) {
-    // Determine colors based on category type
-    val accentColor = if (categoryType == "Personal") AppColorScheme.personalAccent else AppColorScheme.companyAccent
-    val accentLight = if (categoryType == "Personal") AppColorScheme.personalAccentLight else AppColorScheme.companyAccentLight
-    val backgroundColor = if (categoryType == "Personal") AppColorScheme.personalBackground else AppColorScheme.companyBackground
-    val sectionIcon = if (categoryType == "Personal") Icons.Default.Person else Icons.Default.Home
-    
+    // Get category configuration
+    val config = getCategoryConfig(categoryName)
+
     Card(
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier
+            .fillMaxWidth()
+            .clickable { onViewAll() },
         colors = CardDefaults.cardColors(
-            containerColor = AppColorScheme.background
+            containerColor = config.backgroundColor
         ),
-        elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
+        elevation = CardDefaults.cardElevation(defaultElevation = Spacing.Elevation.md)
     ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(12.dp)
+                .padding(Spacing.Card.padding)
         ) {
             // Section Header with colored accent bar
             Row(
@@ -84,42 +126,39 @@ fun LatestDutiesSection(
                 // Colored accent bar
                 Box(
                     modifier = Modifier
-                        .width(4.dp)
-                        .height(24.dp)
-                        .background(accentColor, RoundedCornerShape(2.dp))
+                        .width(ACCENT_BAR_WIDTH)
+                        .height(ACCENT_BAR_HEIGHT)
+                        .background(config.accentColor, RoundedCornerShape(Spacing.Radius.xs))
                 )
-                
-                Spacer(modifier = Modifier.width(12.dp))
-                
+
+                Spacer(modifier = Modifier.width(Spacing.md))
+
                 // Section icon
                 Icon(
-                    imageVector = sectionIcon,
+                    imageVector = config.sectionIcon,
                     contentDescription = null,
-                    tint = accentColor,
-                    modifier = Modifier.size(20.dp)
+                    tint = config.accentColor,
+                    modifier = Modifier.size(Spacing.Icon.sm)
                 )
-                
-                Spacer(modifier = Modifier.width(8.dp))
-                
+
+                Spacer(modifier = Modifier.width(Spacing.sm))
+
                 // Section title
                 Text(
-                    text = sectionTitle ?: stringResource(Res.string.latest_duties_title),
-                    style = Typography.titleMedium.copy(
-                        fontSize = 18.sp,
-                        fontWeight = FontWeight.Medium
-                    ),
+                    text = sectionTitle ?: stringResource(config.titleResource),
+                    style = Typography.title,
                     color = AppColorScheme.sectionHeader
                 )
             }
-            
-            Spacer(modifier = Modifier.height(16.dp))
-            
+
+            Spacer(modifier = Modifier.height(Spacing.lg))
+
             // Monthly Summary
             monthlySummary?.let { summary ->
                 MonthlySummaryCard(summary = summary)
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(Spacing.lg))
             }
-            
+
             if (duties.isEmpty()) {
                 // Empty state with add duty button
                 Box(
@@ -141,34 +180,42 @@ fun LatestDutiesSection(
                 }
             } else {
                 Column(
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                    verticalArrangement = Arrangement.spacedBy(Spacing.sm)
                 ) {
-                    duties.forEach { dutyWithOccurrence ->
-                        LatestDutyItem(
+                    duties.forEachIndexed { index, dutyWithOccurrence ->
+                        DutyCategoryItem(
                             dutyWithOccurrence = dutyWithOccurrence,
-                            onDelete = { onDeleteDuty(dutyWithOccurrence.duty.id) },
-                            accentColor = accentColor,
-                            accentLight = accentLight
+                            onDutyClick = { onDutyClick(dutyWithOccurrence.duty.id) },
+                            accentColor = config.accentColor,
+                            accentLight = config.accentLight
                         )
+
+                        // Add divider between items (except for the last one)
+                        if (index < duties.size - 1) {
+                            HorizontalDivider(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(horizontal = Spacing.lg),
+                                color = AppColorScheme.divider,
+                                thickness = Spacing.Divider.thin
+                            )
+                        }
                     }
                 }
-                
-                Spacer(modifier = Modifier.height(12.dp))
-                
+
+                Spacer(modifier = Modifier.height(Spacing.md))
+
                 // View All button with new styling
                 TextButton(
                     onClick = onViewAll,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(48.dp)
+                        .height(Spacing.buttonHeight + Spacing.sm)
                 ) {
                     Text(
                         text = stringResource(Res.string.view_all_duties),
-                        style = Typography.bodyMedium.copy(
-                            fontSize = 15.sp,
-                            fontWeight = FontWeight.Medium
-                        ),
-                        color = accentColor
+                        style = Typography.bodyMedium,
+                        color = config.accentColor
                     )
                 }
             }
@@ -177,47 +224,53 @@ fun LatestDutiesSection(
 }
 
 @Composable
-private fun LatestDutyItem(
+private fun DutyCategoryItem(
     dutyWithOccurrence: DutyWithLastOccurrence,
-    onDelete: () -> Unit,
+    onDutyClick: () -> Unit,
     accentColor: Color,
     accentLight: Color,
     modifier: Modifier = Modifier
 ) {
     val duty = dutyWithOccurrence.duty
     val lastOccurrence = dutyWithOccurrence.lastOccurrence
-    
+
     Card(
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier
+            .fillMaxWidth()
+            .clickable { onDutyClick() },
         colors = CardDefaults.cardColors(
             containerColor = AppColorScheme.cardBackground
         ),
-        shape = RoundedCornerShape(12.dp)
+        shape = RoundedCornerShape(Spacing.Radius.md)
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(12.dp),
+                .padding(Spacing.md),
             verticalAlignment = Alignment.CenterVertically
         ) {
             // Circular icon with accent background
             Box(
                 modifier = Modifier
-                    .size(40.dp)
+                    .size(Spacing.Icon.xl)
                     .background(accentLight, CircleShape)
                     .clip(CircleShape),
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
-                    imageVector = if (duty.categoryName == "Personal") Icons.Default.Person else Icons.Default.Home,
+                    imageVector = if (duty.categoryName == CategoryConstants.PERSONAL) {
+                        Icons.Default.Person
+                    } else {
+                        Icons.Default.Home
+                    },
                     contentDescription = null,
                     tint = accentColor,
-                    modifier = Modifier.size(24.dp)
+                    modifier = Modifier.size(Spacing.Icon.md)
                 )
             }
-            
-            Spacer(modifier = Modifier.width(12.dp))
-            
+
+            Spacer(modifier = Modifier.width(Spacing.md))
+
             // Content
             Column(
                 modifier = Modifier.weight(1f)
@@ -225,58 +278,37 @@ private fun LatestDutyItem(
                 // Duty title
                 Text(
                     text = duty.title,
-                    style = Typography.titleSmall.copy(
-                        fontSize = 16.sp,
-                        fontWeight = FontWeight.Medium
-                    ),
+                    style = Typography.subtitle,
                     color = AppColorScheme.dutyTitle
                 )
-                
-                Spacer(modifier = Modifier.height(4.dp))
-                
+
+                Spacer(modifier = Modifier.height(Spacing.xs))
+
                 // Meta info (category and type)
                 Text(
-                    text = "${duty.categoryName} • ${when (duty.type) {
-                        DutyType.PAYABLE -> stringResource(Res.string.duty_type_payable)
-                        DutyType.ACTIONABLE -> stringResource(Res.string.duty_type_actionable)
-                    }}",
-                    style = Typography.bodyMedium.copy(
-                        fontSize = 14.sp,
-                        fontWeight = FontWeight.Normal
-                    ),
+                    text = "${duty.categoryName} • ${
+                        when (duty.type) {
+                            DutyType.PAYABLE -> stringResource(Res.string.duty_type_payable)
+                            DutyType.ACTIONABLE -> stringResource(Res.string.duty_type_actionable)
+                        }
+                    }",
+                    style = Typography.body,
                     color = AppColorScheme.dutyMeta
                 )
-                
+
                 // Last occurrence info
                 lastOccurrence?.let { occurrence ->
-                    Spacer(modifier = Modifier.height(4.dp))
+                    Spacer(modifier = Modifier.height(Spacing.xs))
                     Text(
-                        text = "Last: ${DateUtils.getMonthName(occurrence.completedDate.monthNumber)} ${occurrence.completedDate.year}",
-                        style = Typography.bodySmall.copy(
-                            fontSize = 13.sp,
-                            fontWeight = FontWeight.Medium
+                        text = stringResource(
+                            Res.string.dashboard_last_occurrence,
+                            DateUtils.getMonthName(occurrence.completedDate.monthNumber),
+                            occurrence.completedDate.year
                         ),
+                        style = Typography.captionMedium,
                         color = AppColorScheme.lastOccurrence
                     )
                 }
-            }
-            
-            // Delete button
-            IconButton(
-                onClick = onDelete,
-                modifier = Modifier
-                    .size(48.dp) // Minimum tap area
-                    .background(
-                        color = Color.Transparent,
-                        shape = CircleShape
-                    )
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Delete,
-                    contentDescription = "Delete duty ${duty.title}",
-                    tint = AppColorScheme.overdueText,
-                    modifier = Modifier.size(24.dp)
-                )
             }
         }
     }
@@ -290,25 +322,26 @@ private fun MonthlySummaryCard(
     Card(
         modifier = modifier.fillMaxWidth(),
         colors = CardDefaults.cardColors(
-            containerColor = AppColorScheme.background
+            containerColor = AppColorScheme.summaryBackground
         ),
-        shape = RoundedCornerShape(12.dp)
+        shape = RoundedCornerShape(Spacing.Radius.md)
     ) {
         Column(
-            modifier = Modifier.padding(12.dp)
+            modifier = Modifier.padding(Spacing.md)
         ) {
             // Month/Year label
             Text(
-                text = "${summary.month} ${summary.year} Summary",
-                style = Typography.bodyMedium.copy(
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.Medium
+                text = stringResource(
+                    Res.string.dashboard_monthly_summary,
+                    summary.month,
+                    summary.year
                 ),
-                color = AppColorScheme.sectionHeader
+                style = Typography.bodyMedium,
+                color = AppColorScheme.summaryMonthLabel
             )
-            
-            Spacer(modifier = Modifier.height(8.dp))
-            
+
+            Spacer(modifier = Modifier.height(Spacing.md))
+
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -320,40 +353,28 @@ private fun MonthlySummaryCard(
                 ) {
                     Text(
                         text = CurrencyUtils.formatCurrency(summary.totalAmountPaid),
-                        style = Typography.titleMedium.copy(
-                            fontSize = 18.sp,
-                            fontWeight = FontWeight.Bold
-                        ),
+                        style = Typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
                         color = if (summary.totalAmountPaid > 0) AppColorScheme.amountPaid else AppColorScheme.dutyMeta
                     )
                     Text(
-                        text = "Amount Paid",
-                        style = Typography.bodySmall.copy(
-                            fontSize = 16.sp,
-                            fontWeight = FontWeight.Normal
-                        ),
+                        text = stringResource(Res.string.dashboard_amount_paid),
+                        style = Typography.caption,
                         color = AppColorScheme.dutyMeta
                     )
                 }
-                
+
                 // Tasks Done (right aligned)
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
                         text = summary.totalActionableCompleted.toString(),
-                        style = Typography.titleMedium.copy(
-                            fontSize = 18.sp,
-                            fontWeight = FontWeight.Medium
-                        ),
+                        style = Typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
                         color = AppColorScheme.dutyMeta
                     )
                     Text(
-                        text = "Tasks Done",
-                        style = Typography.bodySmall.copy(
-                            fontSize = 16.sp,
-                            fontWeight = FontWeight.Normal
-                        ),
+                        text = stringResource(Res.string.dashboard_tasks_done),
+                        style = Typography.caption,
                         color = AppColorScheme.dutyMeta
                     )
                 }
@@ -361,3 +382,12 @@ private fun MonthlySummaryCard(
         }
     }
 }
+
+// Helper data class for multiple return values
+private data class Tuple5<A, B, C, D, E>(
+    val first: A,
+    val second: B,
+    val third: C,
+    val fourth: D,
+    val fifth: E
+)

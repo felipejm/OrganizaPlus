@@ -12,7 +12,8 @@ import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 import com.joffer.organizeplus.features.dashboard.components.UpcomingSection
-import com.joffer.organizeplus.features.dashboard.components.LatestDutiesSection
+import com.joffer.organizeplus.features.dashboard.components.DutyCategorySection
+import com.joffer.organizeplus.common.constants.CategoryConstants
 import com.joffer.organizeplus.designsystem.components.ErrorBanner
 import com.joffer.organizeplus.features.dashboard.presentation.DashboardViewModel
 import com.joffer.organizeplus.features.dashboard.DashboardIntent
@@ -79,31 +80,25 @@ fun DashboardScreen(
             } else {
                 // Personal Duties Section
                 item {
-                    LatestDutiesSection(
+                    DutyCategorySection(
                         duties = uiState.personalDuties,
                         onViewAll = onNavigateToPersonalDuties,
                         onAddDuty = onNavigateToCreateDuty,
-                        onDeleteDuty = { dutyId -> 
-                            // TODO: Implement delete functionality
-                        },
-                        sectionTitle = "Personal Duties",
-                        monthlySummary = uiState.personalSummary,
-                        categoryType = "Personal"
+                        onDutyClick = onNavigateToEditDuty,
+                        categoryName = CategoryConstants.PERSONAL,
+                        monthlySummary = uiState.personalSummary
                     )
                 }
                 
                 // Company Duties Section
                 item {
-                    LatestDutiesSection(
+                    DutyCategorySection(
                         duties = uiState.companyDuties,
                         onViewAll = onNavigateToCompanyDuties,
                         onAddDuty = onNavigateToCreateDuty,
-                        onDeleteDuty = { dutyId -> 
-                            // TODO: Implement delete functionality
-                        },
-                        sectionTitle = "Company Duties",
-                        monthlySummary = uiState.companySummary,
-                        categoryType = "Company"
+                        onDutyClick = onNavigateToEditDuty,
+                        categoryName = CategoryConstants.COMPANY,
+                        monthlySummary = uiState.companySummary
                     )
                 }
             }

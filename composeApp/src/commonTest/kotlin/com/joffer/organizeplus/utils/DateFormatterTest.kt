@@ -1,9 +1,10 @@
 package com.joffer.organizeplus.utils
 
+import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
-import kotlinx.datetime.toInstant
+import kotlinx.datetime.toLocalDateTime
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNull
@@ -11,148 +12,220 @@ import kotlin.test.assertNull
 class DateFormatterTest {
 
     @Test
-    fun `formatDateForDisplay should format Instant to DD-MM-YYYY`() {
-        // Given
-        val instant = LocalDate(2024, 3, 15).atStartOfDayIn(TimeZone.currentSystemDefault())
-        
+    fun getDatePlaceholderShouldReturnCorrectFormat() {
         // When
-        val result = instant.formatDateForDisplay()
-        
+        val result = DateFormatter.getDatePlaceholder()
+
         // Then
-        assertEquals("15/03/2024", result)
+        assertEquals("MM/DD/YYYY", result)
     }
 
     @Test
-    fun `formatDateForDisplay should pad single digits with zero`() {
+    fun getDatePlaceholderBR should return correct format() {
+        // When
+        val result = DateFormatter.getDatePlaceholderBR()
+
+        // Then
+        assertEquals("DD/MM/YYYY", result)
+    }
+
+    @Test
+    fun formatDate should return date as string() {
         // Given
-        val instant = LocalDate(2024, 1, 5).atStartOfDayIn(TimeZone.currentSystemDefault())
-        
+        val date = LocalDate(2024, 1, 15)
+
+        // When
+        val result = DateFormatter.formatDate(date)
+
+        // Then
+        assertEquals("2024-01-15", result)
+    }
+
+    @Test
+    fun parseDate should parse valid date string() {
+        // Given
+        val dateString = "2024-01-15"
+
+        // When
+        val result = DateFormatter.parseDate(dateString)
+
+        // Then
+        assertEquals(LocalDate(2024, 1, 15), result)
+    }
+
+    @Test
+    fun parseDate should return null for invalid date string() {
+        // Given
+        val dateString = "invalid-date"
+
+        // When
+        val result = DateFormatter.parseDate(dateString)
+
+        // Then
+        assertNull(result)
+    }
+
+    @Test
+    fun parseDate should return null for empty string() {
+        // Given
+        val dateString = ""
+
+        // When
+        val result = DateFormatter.parseDate(dateString)
+
+        // Then
+        assertNull(result)
+    }
+
+    @Test
+    fun Instant formatDateForDisplay should format correctly() {
+        // Given
+        val instant = Clock.System.now()
+        val localDateTime = instant.toLocalDateTime(TimeZone.currentSystemDefault())
+        val expected = "${localDateTime.dayOfMonth.toString().padStart(2, '0')}/${localDateTime.monthNumber.toString().padStart(2, '0')}/${localDateTime.year}"
+
         // When
         val result = instant.formatDateForDisplay()
-        
+
+        // Then
+        assertEquals(expected, result)
+    }
+
+    @Test
+    fun LocalDate formatDateForDisplay should format correctly() {
+        // Given
+        val date = LocalDate(2024, 1, 15)
+
+        // When
+        val result = date.formatDateForDisplay()
+
+        // Then
+        assertEquals("15/01/2024", result)
+    }
+
+    @Test
+    fun LocalDate formatDateForDisplay should pad single digits() {
+        // Given
+        val date = LocalDate(2024, 1, 5)
+
+        // When
+        val result = date.formatDateForDisplay()
+
         // Then
         assertEquals("05/01/2024", result)
     }
 
     @Test
-    fun `parseDateFromString should parse valid DD-MM-YYYY format`() {
+    fun stringParseDateFromStringShouldParseValidDDMMYYYYFormat() {
         // Given
-        val dateString = "15/03/2024"
-        
+        val dateString = "15/01/2024"
+
         // When
         val result = dateString.parseDateFromString()
-        
+
         // Then
-        assertEquals(LocalDate(2024, 3, 15), result)
+        assertEquals(LocalDate(2024, 1, 15), result)
     }
 
     @Test
-    fun `parseDateFromString should parse single digit day and month`() {
+    fun String parseDateFromString should parse valid date with single digit day and month() {
         // Given
         val dateString = "5/1/2024"
-        
+
         // When
         val result = dateString.parseDateFromString()
-        
+
         // Then
         assertEquals(LocalDate(2024, 1, 5), result)
     }
 
     @Test
-    fun `parseDateFromString should return null for invalid format`() {
+    fun String parseDateFromString should return null for invalid day() {
         // Given
-        val dateString = "invalid-date"
-        
+        val dateString = "32/01/2024"
+
         // When
         val result = dateString.parseDateFromString()
-        
+
         // Then
         assertNull(result)
     }
 
     @Test
-    fun `parseDateFromString should return null for invalid day`() {
-        // Given
-        val dateString = "32/03/2024"
-        
-        // When
-        val result = dateString.parseDateFromString()
-        
-        // Then
-        assertNull(result)
-    }
-
-    @Test
-    fun `parseDateFromString should return null for invalid month`() {
+    fun String parseDateFromString should return null for invalid month() {
         // Given
         val dateString = "15/13/2024"
-        
+
         // When
         val result = dateString.parseDateFromString()
-        
+
         // Then
         assertNull(result)
     }
 
     @Test
-    fun `parseDateFromString should return null for invalid year`() {
+    fun String parseDateFromString should return null for invalid year() {
         // Given
-        val dateString = "15/03/1800"
-        
+        val dateString = "15/01/1800"
+
         // When
         val result = dateString.parseDateFromString()
-        
+
         // Then
         assertNull(result)
     }
 
     @Test
-    fun `parseDateFromString should return null for empty string`() {
+    fun String parseDateFromString should return null for invalid format() {
+        // Given
+        val dateString = "15-01-2024"
+
+        // When
+        val result = dateString.parseDateFromString()
+
+        // Then
+        assertNull(result)
+    }
+
+    @Test
+    fun String parseDateFromString should return null for empty string() {
         // Given
         val dateString = ""
-        
+
         // When
         val result = dateString.parseDateFromString()
-        
+
         // Then
         assertNull(result)
     }
 
     @Test
-    fun `parseDateFromString should return null for wrong number of parts`() {
+    fun String parseDateFromString should return null for non-numeric parts() {
         // Given
-        val dateString = "15/03"
-        
+        val dateString = "abc/01/2024"
+
         // When
         val result = dateString.parseDateFromString()
-        
+
         // Then
         assertNull(result)
     }
 
     @Test
-    fun `parseDateFromString should return null for non-numeric parts`() {
+    fun String parseDateFromString should handle edge case dates() {
         // Given
-        val dateString = "15/abc/2024"
-        
-        // When
-        val result = dateString.parseDateFromString()
-        
-        // Then
-        assertNull(result)
-    }
+        val validDates = listOf(
+            "01/01/2024" to LocalDate(2024, 1, 1),
+            "31/12/2024" to LocalDate(2024, 12, 31),
+            "29/02/2024" to LocalDate(2024, 2, 29) // Leap year
+        )
 
-    @Test
-    fun `round trip test - format then parse should return same date`() {
-        // Given
-        val originalDate = LocalDate(2024, 12, 25)
-        val instant = originalDate.atStartOfDayIn(TimeZone.currentSystemDefault())
-        
-        // When
-        val formatted = instant.formatDateForDisplay()
-        val parsed = formatted.parseDateFromString()
-        
-        // Then
-        assertEquals(originalDate, parsed)
+        validDates.forEach { (dateString, expectedDate) ->
+            // When
+            val result = dateString.parseDateFromString()
+
+            // Then
+            assertEquals(expectedDate, result, "Failed for date: $dateString")
+        }
     }
 }

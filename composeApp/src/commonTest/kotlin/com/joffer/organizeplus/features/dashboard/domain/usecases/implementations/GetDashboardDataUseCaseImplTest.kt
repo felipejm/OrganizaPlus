@@ -3,7 +3,7 @@ package com.joffer.organizeplus.features.dashboard.domain.usecases.implementatio
 import com.joffer.organizeplus.features.dashboard.domain.entities.DashboardData
 import com.joffer.organizeplus.features.dashboard.domain.entities.Duty
 import com.joffer.organizeplus.features.dashboard.domain.entities.DutyType
-import com.joffer.organizeplus.features.dashboard.domain.entities.Status
+import com.joffer.organizeplus.features.dashboard.domain.entities.Duty.Status
 import com.joffer.organizeplus.features.dashboard.domain.repositories.DutyRepository
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
@@ -77,7 +77,7 @@ class GetDashboardDataUseCaseImplTest {
             dueDay = 15,
             type = DutyType.ACTIONABLE,
             categoryName = "Personal",
-            status = Status.PENDING,
+            status = Duty.Status.PENDING,
             snoozeUntil = null,
             createdAt = Clock.System.now()
         )

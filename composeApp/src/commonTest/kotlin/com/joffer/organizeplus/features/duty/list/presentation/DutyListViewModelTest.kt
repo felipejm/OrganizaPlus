@@ -2,7 +2,7 @@ package com.joffer.organizeplus.features.duty.list.presentation
 
 import com.joffer.organizeplus.features.dashboard.domain.entities.Duty
 import com.joffer.organizeplus.features.dashboard.domain.entities.DutyType
-import com.joffer.organizeplus.features.dashboard.domain.entities.Status
+import com.joffer.organizeplus.features.dashboard.domain.entities.Duty.Status
 import com.joffer.organizeplus.features.dashboard.domain.repositories.DutyRepository
 import com.joffer.organizeplus.features.dashboard.domain.usecases.DeleteDutyUseCase
 import com.joffer.organizeplus.features.duty.occurrence.domain.entities.DutyOccurrence
@@ -263,7 +263,7 @@ class DutyListViewModelTest {
             dueDay = 15,
             type = DutyType.ACTIONABLE,
             categoryName = "Personal",
-            status = Status.PENDING,
+            status = Duty.Status.PENDING,
             snoozeUntil = null,
             createdAt = Clock.System.now()
         )

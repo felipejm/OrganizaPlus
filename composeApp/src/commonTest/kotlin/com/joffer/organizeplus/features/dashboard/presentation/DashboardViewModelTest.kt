@@ -5,7 +5,7 @@ import com.joffer.organizeplus.features.dashboard.DashboardUiState
 import com.joffer.organizeplus.features.dashboard.domain.entities.DashboardData
 import com.joffer.organizeplus.features.dashboard.domain.entities.Duty
 import com.joffer.organizeplus.features.dashboard.domain.entities.DutyType
-import com.joffer.organizeplus.features.dashboard.domain.entities.Status
+import com.joffer.organizeplus.features.dashboard.domain.entities.Duty.Status
 import com.joffer.organizeplus.features.dashboard.domain.repositories.DutyRepository
 import com.joffer.organizeplus.features.dashboard.domain.usecases.GetDashboardDataUseCase
 import com.joffer.organizeplus.features.dashboard.domain.usecases.MarkObligationPaidUseCase
@@ -245,7 +245,7 @@ class DashboardViewModelTest {
             dueDay = 15,
             type = DutyType.ACTIONABLE,
             categoryName = "Personal",
-            status = Status.PENDING,
+            status = Duty.Status.PENDING,
             snoozeUntil = null,
             createdAt = Clock.System.now()
         )
@@ -259,11 +259,13 @@ class FakeGetDashboardDataUseCase : GetDashboardDataUseCase {
     var shouldFail = false
     var errorMessage = "Error"
 
-    override suspend fun invoke() = flowOf {
-        invokeCalled = true
-        if (shouldFail) Result.failure(RuntimeException(errorMessage))
-        else Result.success(dashboardData)
-    }
+    override suspend fun invoke() = flowOf(
+        run {
+            invokeCalled = true
+            if (shouldFail) Result.failure(RuntimeException(errorMessage))
+            else Result.success(dashboardData)
+        }
+    )
 }
 
 class FakeMarkObligationPaidUseCase : MarkObligationPaidUseCase {
@@ -271,12 +273,14 @@ class FakeMarkObligationPaidUseCase : MarkObligationPaidUseCase {
     var lastObligationId: String? = null
     var shouldFail = false
 
-    override suspend fun invoke(obligationId: String) = flowOf {
-        invokeCalled = true
-        lastObligationId = obligationId
-        if (shouldFail) Result.failure(RuntimeException("Error"))
-        else Result.success(Unit)
-    }
+    override suspend fun invoke(obligationId: String) = flowOf(
+        run {
+            invokeCalled = true
+            lastObligationId = obligationId
+            if (shouldFail) Result.failure(RuntimeException("Error"))
+            else Result.success(Unit)
+        }
+    )
 }
 
 class FakeDutyRepository : DutyRepository {
@@ -296,10 +300,12 @@ class FakeDutyRepository : DutyRepository {
 
     override suspend fun getUpcomingDuties(days: Int) = flowOf(Result.success(emptyList()))
 
-    override suspend fun getLatestDuties(limit: Int) = flowOf {
-        getLatestDutiesCalled = true
-        Result.success(emptyList())
-    }
+    override suspend fun getLatestDuties(limit: Int) = flowOf(
+        run {
+            getLatestDutiesCalled = true
+            Result.success(emptyList())
+        }
+    )
 }
 
 class FakeDutyOccurrenceRepository : DutyOccurrenceRepository {
@@ -316,7 +322,11 @@ class FakeDutyOccurrenceRepository : DutyOccurrenceRepository {
     }
 
     override suspend fun getMonthlyChartData(dutyId: String, dutyType: com.joffer.organizeplus.features.dashboard.domain.entities.DutyType): Result<com.joffer.organizeplus.features.duty.detail.domain.entities.ChartData> {
-        return Result.success(com.joffer.organizeplus.features.duty.detail.domain.entities.ChartData(emptyList(), dutyType))
+        return Result.success(com.joffer.organizeplus.features.duty.detail.domain.entities.ChartData(emptyList(), 0.0))
+    }
+
+    override suspend fun getMonthlyOccurrences(categoryName: String, month: Int, year: Int): Result<List<DutyOccurrence>> {
+        return Result.success(emptyList())
     }
 
     override suspend fun deleteDutyOccurrence(id: String): Result<Unit> {

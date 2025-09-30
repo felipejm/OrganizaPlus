@@ -2,7 +2,7 @@ package com.joffer.organizeplus.features.duty.create.domain.usecases.implementat
 
 import com.joffer.organizeplus.features.dashboard.domain.entities.Duty
 import com.joffer.organizeplus.features.dashboard.domain.entities.DutyType
-import com.joffer.organizeplus.features.dashboard.domain.entities.Status
+import com.joffer.organizeplus.features.dashboard.domain.entities.Duty.Status
 import com.joffer.organizeplus.features.dashboard.domain.repositories.DutyRepository
 import com.joffer.organizeplus.features.duty.create.domain.entities.CreateDutyForm
 import kotlinx.coroutines.flow.first
@@ -37,7 +37,7 @@ class SaveCreateDutyUseCaseImplTest {
         assertTrue(fakeRepository.insertDutyCalled)
         assertFalse(fakeRepository.updateDutyCalled)
         assertEquals("New Duty", fakeRepository.lastInsertedDuty?.title)
-        assertEquals(Status.PENDING, fakeRepository.lastInsertedDuty?.status)
+        assertEquals(Duty.Status.PENDING, fakeRepository.lastInsertedDuty?.status)
     }
 
     @Test
@@ -112,7 +112,7 @@ class SaveCreateDutyUseCaseImplTest {
         assertEquals(20, duty.dueDay)
         assertEquals(DutyType.PAYABLE, duty.type)
         assertEquals("Business", duty.categoryName)
-        assertEquals(Status.PENDING, duty.status)
+        assertEquals(Duty.Status.PENDING, duty.status)
         assertTrue(duty.createdAt != null)
     }
 
@@ -180,21 +180,25 @@ class FakeDutyRepository : DutyRepository {
         else Result.success(null)
     )
 
-    override suspend fun insertDuty(duty: Duty) = kotlinx.coroutines.flow.flowOf {
-        insertDutyCalled = true
-        lastInsertedDuty = duty
-        
-        if (shouldFail) Result.failure(RuntimeException("Repository error"))
-        else Result.success(Unit)
-    }
+    override suspend fun insertDuty(duty: Duty) = kotlinx.coroutines.flow.flowOf(
+        run {
+            insertDutyCalled = true
+            lastInsertedDuty = duty
+            
+            if (shouldFail) Result.failure(RuntimeException("Repository error"))
+            else Result.success(Unit)
+        }
+    )
 
-    override suspend fun updateDuty(duty: Duty) = kotlinx.coroutines.flow.flowOf {
-        updateDutyCalled = true
-        lastUpdatedDuty = duty
-        
-        if (shouldFail) Result.failure(RuntimeException("Repository error"))
-        else Result.success(Unit)
-    }
+    override suspend fun updateDuty(duty: Duty) = kotlinx.coroutines.flow.flowOf(
+        run {
+            updateDutyCalled = true
+            lastUpdatedDuty = duty
+            
+            if (shouldFail) Result.failure(RuntimeException("Repository error"))
+            else Result.success(Unit)
+        }
+    )
 
     override suspend fun deleteDuty(id: String) = kotlinx.coroutines.flow.flowOf(
         if (shouldFail) Result.failure(RuntimeException("Repository error"))

@@ -5,6 +5,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import kotlinx.datetime.Clock
 import kotlin.test.Test
+import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
@@ -94,14 +95,16 @@ class FakeDutyRepository : DutyRepository {
         else Result.success(Unit)
     )
 
-    override suspend fun markDutyPaid(id: String, paidAt: kotlinx.datetime.Instant) = kotlinx.coroutines.flow.flowOf {
-        markDutyPaidCalled = true
-        lastMarkDutyPaidId = id
-        lastMarkDutyPaidTime = paidAt
-        
-        if (shouldFail) Result.failure(RuntimeException("Repository error"))
-        else Result.success(Unit)
-    }
+    override suspend fun markDutyPaid(id: String, paidAt: kotlinx.datetime.Instant) = kotlinx.coroutines.flow.flowOf(
+        run {
+            markDutyPaidCalled = true
+            lastMarkDutyPaidId = id
+            lastMarkDutyPaidTime = paidAt
+            
+            if (shouldFail) Result.failure(RuntimeException("Repository error"))
+            else Result.success(Unit)
+        }
+    )
 
     override suspend fun getUpcomingDuties(days: Int) = kotlinx.coroutines.flow.flowOf(
         if (shouldFail) Result.failure(RuntimeException("Repository error"))

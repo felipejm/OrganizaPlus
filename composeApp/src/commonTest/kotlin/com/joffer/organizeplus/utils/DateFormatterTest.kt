@@ -21,7 +21,7 @@ class DateFormatterTest {
     }
 
     @Test
-    fun getDatePlaceholderBR should return correct format() {
+    fun `getDatePlaceholderBR should return correct format`() {
         // When
         val result = DateFormatter.getDatePlaceholderBR()
 
@@ -30,7 +30,7 @@ class DateFormatterTest {
     }
 
     @Test
-    fun formatDate should return date as string() {
+    fun `formatDate should return date as string`() {
         // Given
         val date = LocalDate(2024, 1, 15)
 
@@ -42,7 +42,7 @@ class DateFormatterTest {
     }
 
     @Test
-    fun parseDate should parse valid date string() {
+    fun `parseDate should parse valid date string`() {
         // Given
         val dateString = "2024-01-15"
 
@@ -54,7 +54,7 @@ class DateFormatterTest {
     }
 
     @Test
-    fun parseDate should return null for invalid date string() {
+    fun `parseDate should return null for invalid date string`() {
         // Given
         val dateString = "invalid-date"
 
@@ -66,7 +66,7 @@ class DateFormatterTest {
     }
 
     @Test
-    fun parseDate should return null for empty string() {
+    fun `parseDate should return null for empty string`() {
         // Given
         val dateString = ""
 
@@ -78,7 +78,7 @@ class DateFormatterTest {
     }
 
     @Test
-    fun Instant formatDateForDisplay should format correctly() {
+    fun `Instant formatDateForDisplay should format correctly`() {
         // Given
         val instant = Clock.System.now()
         val localDateTime = instant.toLocalDateTime(TimeZone.currentSystemDefault())
@@ -92,7 +92,7 @@ class DateFormatterTest {
     }
 
     @Test
-    fun LocalDate formatDateForDisplay should format correctly() {
+    fun `LocalDate formatDateForDisplay should format correctly`() {
         // Given
         val date = LocalDate(2024, 1, 15)
 
@@ -104,7 +104,7 @@ class DateFormatterTest {
     }
 
     @Test
-    fun LocalDate formatDateForDisplay should pad single digits() {
+    fun `LocalDate formatDateForDisplay should pad single digits`() {
         // Given
         val date = LocalDate(2024, 1, 5)
 
@@ -128,7 +128,7 @@ class DateFormatterTest {
     }
 
     @Test
-    fun String parseDateFromString should parse valid date with single digit day and month() {
+    fun `String parseDateFromString should parse valid date with single digit day and month`() {
         // Given
         val dateString = "5/1/2024"
 
@@ -140,7 +140,7 @@ class DateFormatterTest {
     }
 
     @Test
-    fun String parseDateFromString should return null for invalid day() {
+    fun `String parseDateFromString should return null for invalid day`() {
         // Given
         val dateString = "32/01/2024"
 
@@ -152,7 +152,7 @@ class DateFormatterTest {
     }
 
     @Test
-    fun String parseDateFromString should return null for invalid month() {
+    fun `String parseDateFromString should return null for invalid month`() {
         // Given
         val dateString = "15/13/2024"
 
@@ -164,7 +164,7 @@ class DateFormatterTest {
     }
 
     @Test
-    fun String parseDateFromString should return null for invalid year() {
+    fun `String parseDateFromString should return null for invalid year`() {
         // Given
         val dateString = "15/01/1800"
 
@@ -176,7 +176,7 @@ class DateFormatterTest {
     }
 
     @Test
-    fun String parseDateFromString should return null for invalid format() {
+    fun `String parseDateFromString should return null for invalid format`() {
         // Given
         val dateString = "15-01-2024"
 
@@ -188,7 +188,7 @@ class DateFormatterTest {
     }
 
     @Test
-    fun String parseDateFromString should return null for empty string() {
+    fun `String parseDateFromString should return null for empty string`() {
         // Given
         val dateString = ""
 
@@ -200,7 +200,7 @@ class DateFormatterTest {
     }
 
     @Test
-    fun String parseDateFromString should return null for non-numeric parts() {
+    fun `String parseDateFromString should return null for non-numeric parts`() {
         // Given
         val dateString = "abc/01/2024"
 
@@ -212,7 +212,7 @@ class DateFormatterTest {
     }
 
     @Test
-    fun String parseDateFromString should handle edge case dates() {
+    fun `String parseDateFromString should handle edge case dates`() {
         // Given
         val validDates = listOf(
             "01/01/2024" to LocalDate(2024, 1, 1),

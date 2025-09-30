@@ -4,7 +4,7 @@ import com.joffer.organizeplus.database.dao.DutyDao
 import com.joffer.organizeplus.database.entities.DutyEntity
 import com.joffer.organizeplus.features.dashboard.domain.entities.Duty
 import com.joffer.organizeplus.features.dashboard.domain.entities.DutyType
-import com.joffer.organizeplus.features.dashboard.domain.entities.Status
+import com.joffer.organizeplus.features.dashboard.domain.entities.Duty.Status
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
@@ -250,7 +250,7 @@ class RoomDutyRepositoryTest {
             dueDay = 15,
             type = DutyType.ACTIONABLE.name,
             categoryName = "Personal",
-            status = Status.PENDING.name,
+            status = Duty.Status.PENDING.name,
             snoozeUntil = null,
             createdAt = Clock.System.now()
         )
@@ -264,7 +264,7 @@ class RoomDutyRepositoryTest {
             dueDay = 15,
             type = DutyType.ACTIONABLE,
             categoryName = "Personal",
-            status = Status.PENDING,
+            status = Duty.Status.PENDING,
             snoozeUntil = null,
             createdAt = Clock.System.now()
         )
@@ -276,13 +276,18 @@ class FakeDutyDao : DutyDao {
     var duties = mutableListOf<DutyEntity>()
     var shouldThrowException = false
 
-    override suspend fun getAllDuties() = flowOf(duties.toList())
+    override fun getAllDuties() = flowOf(duties.toList())
 
     override suspend fun getDutyById(id: Long) = duties.find { it.id == id }
 
-    override suspend fun insertDuty(duty: DutyEntity) {
+    override fun getDutiesByCompletionStatus(isCompleted: Boolean) = flowOf(
+        duties.filter { it.isCompleted == isCompleted }
+    )
+
+    override suspend fun insertDuty(duty: DutyEntity): Long {
         if (shouldThrowException) throw RuntimeException("Database error")
         duties.add(duty)
+        return duty.id
     }
 
     override suspend fun updateDuty(duty: DutyEntity) {
@@ -291,6 +296,11 @@ class FakeDutyDao : DutyDao {
         if (index != -1) {
             duties[index] = duty
         }
+    }
+
+    override suspend fun deleteDuty(duty: DutyEntity) {
+        if (shouldThrowException) throw RuntimeException("Database error")
+        duties.removeAll { it.id == duty.id }
     }
 
     override suspend fun deleteDutyById(id: Long) {

@@ -4,39 +4,12 @@
     <string name="app_name">Organize+</string>
     
     <!-- Dashboard -->
-    <string name="dashboard_title">Dashboard</string>
-    <string name="dashboard_greeting">Hello, %s</string>
-    <string name="dashboard_new_duty">+ New Duty</string>
-    <string name="dashboard_today">Today</string>
-    <string name="dashboard_today_subtitle">Your duties for today</string>
-    <string name="dashboard_pending">Pending</string>
-    <string name="dashboard_paid">Paid</string>
-    <string name="dashboard_overdue">Overdue</string>
-    <string name="dashboard_mark_all_paid">Mark all as paid</string>
-    <string name="dashboard_upcoming_7_days">Next 7 days</string>
-    <string name="dashboard_duties_count">%d duties</string>
-    <string name="dashboard_view_all">View all</string>
-    <string name="dashboard_personal">Personal</string>
-    <string name="dashboard_business">Business</string>
-    <string name="dashboard_expected">Expected</string>
-    <string name="dashboard_paid_amount">Paid</string>
-    <string name="dashboard_planned">Planned</string>
-    <string name="dashboard_total_expected">Total expected:</string>
-    <string name="dashboard_total_paid">Total paid:</string>
-    <string name="dashboard_empty_title">No duties created yet</string>
-    <string name="dashboard_empty_subtitle">Start organizing your duties and keep everything under control.</string>
-    <string name="dashboard_no_duties_upcoming">No duties in the next 7 days</string>
-    <string name="dashboard_add_now">Add now</string>
-    <string name="dashboard_error_message">Could not load your data. Try again.</string>
-    <string name="dashboard_try_again">Try again</string>
-    <string name="dashboard_close">Close</string>
-    
+
     <!-- Duty Status -->
     <string name="status_pending">Pending</string>
     <string name="status_paid">Paid</string>
     <string name="status_overdue">Overdue</string>
-    <string name="status_snoozed">Snoozed</string>
-    <string name="status_cancelled">Cancelled</string>
+
     <string name="not_available">N/A</string>
     
     <!-- Duty Priority -->
@@ -48,26 +21,11 @@
     <!-- Duty Type -->
     <string name="duty_type_payable">Payable</string>
     <string name="duty_type_actionable">Actionable</string>
-    <string name="duty_type">Type</string>
-    <string name="placeholder_duty_type">Select duty type</string>
-    
+
     <!-- Actions -->
-    <string name="action_pay">Pay</string>
-    <string name="action_snooze">Snooze 3 days</string>
-    <string name="action_edit">Edit</string>
-    <string name="action_delete">Delete</string>
-    <string name="action_save">Save</string>
-    <string name="action_cancel">Cancel</string>
-    <string name="action_retry">Retry</string>
-    <string name="action_dismiss">Dismiss</string>
-    
+
     <!-- Messages -->
-    <string name="message_paid_successfully">Paid successfully</string>
-    <string name="message_snooze_success">Duty snoozed for 3 days</string>
-    <string name="message_undo">Undo</string>
-    <string name="message_loading">Loading...</string>
-    <string name="message_error_unknown">Unknown error. Please try again.</string>
-    
+
     <!-- Error Messages -->
     <string name="error_no_internet">No internet connection. Check your connection and try again.</string>
     <string name="error_server_unavailable">Server temporarily unavailable. Try again in a few minutes.</string>
@@ -91,7 +49,7 @@
     <string name="error_image_processing_failed">Failed to process image.</string>
     <string name="error_unsupported_image_format">Unsupported image format.</string>
     <string name="error_ocr_unknown">Text recognition error: %s</string>
-    <string name="error_empty_field">Required field not filled.</string>
+    
     <string name="error_invalid_format">Invalid format.</string>
     <string name="error_out_of_range">Value out of allowed range.</string>
     <string name="error_validation_custom">%s</string>
@@ -127,31 +85,16 @@
     <string name="month_dec">Dec</string>
     
     <!-- Navigation -->
-    <string name="navigation_duties">Duties List Screen</string>
-    
+
     <!-- Duty form strings -->
-    <string name="duty_title">Title</string>
-    <string name="duty_start_date">Start Date</string>
-    <string name="duty_due_date">Due Date</string>
-    <string name="duty_type_personal">Personal</string>
-    <string name="duty_type_company">Company</string>
-    <string name="duty_category">Category</string>
-    <string name="duty_recurring">Recurring</string>
-    <string name="duty_reminders">Reminders</string>
-    <string name="duty_save">Save</string>
-    <string name="duty_cancel">Cancel</string>
-    <string name="navigation_create_duty">New Duty</string>
-    <string name="navigation_edit_duty">Edit Duty</string>
-    
+
     <!-- CreateDuty form strings -->
     <string name="create_duty_title">Title</string>
     <string name="create_duty_start_day">Start Day</string>
     <string name="create_duty_due_day">Due Day</string>
-    <string name="create_duty_type_personal">Personal</string>
-    <string name="create_duty_type_company">Company</string>
+
     <string name="create_duty_category">Category</string>
-    <string name="create_duty_recurring">Recurring</string>
-    <string name="create_duty_reminders">Reminders</string>
+
     <string name="create_duty_save">Save</string>
     <string name="create_duty_cancel">Cancel</string>
     <string name="navigation_create_duty_new">Create Duty</string>
@@ -159,31 +102,11 @@
     
     <!-- Form placeholders -->
     <string name="placeholder_title">Enter duty title</string>
-    <string name="placeholder_category">Select a category</string>
-    <string name="placeholder_date">MM/DD/YYYY</string>
-    <string name="placeholder_recurring">Select recurring period</string>
-    <string name="placeholder_custom_rule">Ex: FREQ=WEEKLY;BYDAY=MO,WE,FR</string>
-    <string name="placeholder_reminder_days">3</string>
-    <string name="placeholder_reminder_time">09:00</string>
-    
+
     <!-- Form labels -->
-    <string name="label_recurring_period">Recurring Period</string>
-    <string name="label_custom_rule">Custom Rule (RRULE)</string>
-    <string name="label_start_date_reminders">Start Date Reminders</string>
-    <string name="label_due_date_reminders">Due Date Reminders</string>
-    <string name="label_days_before">Days Before</string>
-    <string name="label_time">Time</string>
-    <string name="label_currency_symbol">R$</string>
-    
+
     <!-- Recurring intervals -->
-    <string name="recurring_once">Once</string>
-    <string name="recurring_monthly">Monthly</string>
-    <string name="recurring_bimonthly">Bimonthly</string>
-    <string name="recurring_quarterly">Quarterly</string>
-    <string name="recurring_semiannual">Semiannual</string>
-    <string name="recurring_annual">Annual</string>
-    <string name="recurring_custom">Custom</string>
-    
+
     <!-- Categories -->
     <string name="category_personal">Personal</string>
     <string name="category_enterprise">Company</string>
@@ -197,25 +120,15 @@
     <string name="dashboard_last_occurrence">Last: %1$s %2$d</string>
     
     <!-- Dialog messages -->
-    <string name="dialog_discard_changes">Discard changes?</string>
-    <string name="dialog_unsaved_changes">You have unsaved changes. Do you really want to leave?</string>
-    <string name="dialog_exit">Exit</string>
-    <string name="dialog_cancel">Cancel</string>
-    
+
     <!-- Validation errors -->
     <string name="error_title_required">Title is required</string>
     <string name="error_start_day_invalid">Start day must be between 1 and 31</string>
     <string name="error_due_day_invalid">Due day must be between 1 and 31</string>
     <string name="error_category_required">Category is required</string>
-    <string name="error_invalid_date">Invalid date</string>
-    <string name="error_invalid_time">Invalid time</string>
-    <string name="error_custom_rule_required">Custom rule is required</string>
-    <string name="error_reminder_days_range">Days must be between 1 and 30</string>
-    <string name="error_invalid_reminder_time">Invalid reminder time</string>
-    
+
     <!-- Success messages -->
-    <string name="success_duty_saved">Duty saved successfully!</string>
-    
+
     <!-- Duties List Screen -->
     <string name="duty_list_title">Duties</string>
     <string name="duty_list_search_hint">Search duties...</string>
@@ -224,70 +137,39 @@
     <string name="duty_list_error_title">Error loading duties</string>
     <string name="duty_list_error_subtitle">Please try again</string>
     <string name="duty_list_retry">Retry</string>
-    <string name="duty_list_mark_paid">Mark Paid</string>
-    <string name="duty_list_snooze">Snooze</string>
-    <string name="duty_list_edit">Edit</string>
-    <string name="duty_list_delete">Delete</string>
-    <string name="duty_list_occurrences">Occurrences</string>
-    <string name="duty_list_delete_confirmation">Are you sure you want to delete this duty?</string>
-    <string name="duty_list_delete_confirm">Delete</string>
-    <string name="duty_list_delete_cancel">Cancel</string>
-    <string name="error_deleting_duty">Error deleting duty</string>
-    <string name="error_loading_duties">Error loading duties</string>
-    <string name="error_marking_paid">Error marking as paid</string>
-    <string name="error_snoozing">Error snoozing duty</string>
-    <string name="back">Back</string>
-    <string name="filter">Filter</string>
-    
+
     <!-- Settings -->
     <string name="settings_title">Settings</string>
     <string name="settings_button_description">Settings</string>
-    <string name="settings_user_name">User Name</string>
-    <string name="settings_user_name_hint">Enter your name</string>
-    <string name="settings_save">Save</string>
-    <string name="settings_saved">Saved!</string>
-    <string name="settings_general">General</string>
-    <string name="settings_appearance">Appearance</string>
-    <string name="settings_notifications">Notifications</string>
-    <string name="settings_about">About</string>
+
     <string name="settings_design_system">Design System</string>
     <string name="settings_design_system_catalog">Design System Catalog</string>
     <string name="settings_design_system_description">Explore components, colors, and typography</string>
-    <string name="settings_arrow_forward">Navigate forward</string>
-    
+
     <!-- Duty Occurrence -->
     <string name="duty_occurrence_list_title">Occurrences</string>
     <string name="duty_occurrence_list_empty_title">No occurrences found</string>
     <string name="duty_occurrence_list_empty_subtitle">Add an occurrence to track completion</string>
     <string name="duty_occurrence_list_add_occurrence">Add Occurrence</string>
     <string name="duty_occurrence_list_delete">Delete</string>
-    <string name="duty_occurrence_list_amount">Amount: $%.2f</string>
-    <string name="duty_occurrence_list_date">Date: %s</string>
-    
+
     <!-- Charts -->
-    <string name="chart_no_data_available">No data available</string>
-    <string name="chart_y_axis_label">Value</string>
-    <string name="chart_x_axis_label">Month</string>
-    
+
     <!-- Date Utils -->
     <string name="month_unknown">Unknown</string>
-    <string name="duty_occurrence_list_notes">Notes: %s</string>
-    <string name="error_loading_occurrences">Error loading occurrences</string>
-    <string name="error_deleting_occurrence">Error deleting occurrence</string>
-    
+
     <!-- Duty Detail Header -->
     <string name="duty_detail_edit">Edit</string>
     <string name="duty_detail_start_day">Start Day</string>
     <string name="duty_detail_due_day">Due Day</string>
     <string name="duty_detail_category">Category</string>
     <string name="duty_detail_type">Type</string>
-    <string name="duty_detail_status">Status</string>
+    
     <string name="add_duty_occurrence_title">Add Duty Occurrence</string>
     <string name="duty_occurrence_paid_amount">Paid Amount</string>
     <string name="duty_occurrence_paid_amount_hint">Enter amount</string>
     <string name="duty_occurrence_completed_date">Completion Date</string>
-    <string name="duty_occurrence_notes">Notes</string>
-    <string name="duty_occurrence_notes_hint">Optional notes</string>
+
     <string name="duty_occurrence_save">Save Occurrence</string>
     <string name="duty_occurrence_saved">Occurrence Saved!</string>
     <string name="validation_invalid_amount">Invalid amount</string>
@@ -301,18 +183,11 @@
     <!-- Additional strings for DutyScreen -->
     <string name="error_saving">Error saving</string>
     <string name="duty_saved_success">Duty saved successfully!</string>
-    <string name="back_arrow">←</string>
+    
     <string name="duty_type_label">Duty Type</string>
     
     <!-- Content Descriptions -->
-    <string name="back_button_description">Back</string>
-    <string name="success_icon_description">Success</string>
-    <string name="new_activity_description">New activity</string>
-    <string name="add_occurrence_description">Add Occurrence</string>
-    <string name="delete_duty_description">Delete Duty</string>
-    <string name="add_duty_description">Add Duty</string>
-    <string name="search_description">Search</string>
-    
+
     <!-- New Component Showcase Titles -->
     <string name="message_showcase_title">Message Components</string>
     <string name="select_showcase_title">Select Components</string>
@@ -321,7 +196,7 @@
     <string name="result_showcase_title">Result Components</string>
     
     <!-- Dashboard -->
-    <string name="latest_duties_title">Latest Duties</string>
+    
     <string name="view_all_duties">View All Duties</string>
     <string name="add_duty">Add Duty</string>
     <string name="no_duties_created_yet">No duties created yet</string>
@@ -330,45 +205,11 @@
     <string name="no_duties_next_7_days">No duties in the next 7 days</string>
     <string name="view_all_obligations">View all obligations</string>
     <string name="duty_due_every_day">Due every day %d of the month</string>
-    <string name="duty_start_every_day">Starts every day %d of the month</string>
-    
+
     <!-- Chart strings -->
     <string name="chart_occurrences_by_month">Occurrences by Month</string>
     <string name="chart_amount_paid_by_month">Amount Paid by Month</string>
-    <string name="chart_count_legend">Count of occurrences</string>
-    <string name="chart_amount_legend">Total amount paid (R$)</string>
-    <string name="chart_occurrences_series_name">Occurrences</string>
-    <string name="chart_amount_series_name">Amount</string>
-    
+
     <!-- Additional missing strings -->
-    <string name="add_obligation_record_title">Add Payment Record</string>
-    <string name="category_condo">Condo</string>
-    <string name="category_das">DAS Company</string>
-    <string name="category_electricity">Electricity Bill</string>
-    <string name="category_internet">Internet</string>
-    <string name="category_loan">Loan</string>
-    <string name="duty_detail_due_date">Due Date</string>
-    <string name="duty_detail_start_date">Start Date</string>
-    <string name="duty_list_records">Records</string>
-    <string name="error_deleting_record">Error deleting record</string>
-    <string name="error_due_date_required">Due date is required</string>
-    <string name="error_invalid_value">Invalid value</string>
-    <string name="error_loading_records">Error loading records</string>
-    <string name="error_start_date_required">Start date is required</string>
-    <string name="error_value_required">Value is required</string>
-    <string name="obligation_record_list_add_record">Add Record</string>
-    <string name="obligation_record_list_amount">Amount: $%.2f</string>
-    <string name="obligation_record_list_date">Date: %s</string>
-    <string name="obligation_record_list_delete">Delete</string>
-    <string name="obligation_record_list_empty_subtitle">Add a payment record to track payments</string>
-    <string name="obligation_record_list_empty_title">No payment records</string>
-    <string name="obligation_record_list_notes">Notes: %s</string>
-    <string name="obligation_record_list_title">Payment Records</string>
-    <string name="obligation_record_notes">Notes</string>
-    <string name="obligation_record_notes_hint">Optional notes</string>
-    <string name="obligation_record_paid_amount">Paid Amount</string>
-    <string name="obligation_record_paid_amount_hint">Enter amount</string>
-    <string name="obligation_record_paid_date">Payment Date</string>
-    <string name="obligation_record_save">Save Record</string>
-    <string name="obligation_record_saved">Record Saved!</string>
+
 </resources>

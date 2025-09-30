@@ -4,39 +4,12 @@
     <string name="app_name">OrganizePlus</string>
     
     <!-- Dashboard -->
-    <string name="dashboard_title">Dashboard</string>
-    <string name="dashboard_greeting">Olá, %s</string>
-    <string name="dashboard_new_duty">+ Nova tarefa</string>
-    <string name="dashboard_today">Hoje</string>
-    <string name="dashboard_today_subtitle">Suas tarefas de hoje</string>
-    <string name="dashboard_pending">Pendentes</string>
-    <string name="dashboard_paid">Pagas</string>
-    <string name="dashboard_overdue">Atrasado</string>
-    <string name="dashboard_mark_all_paid">Marcar todas como pagas</string>
-    <string name="dashboard_upcoming_7_days">Próximos 7 dias</string>
-    <string name="dashboard_duties_count">%d tarefas</string>
-    <string name="dashboard_view_all">Ver todas</string>
-    <string name="dashboard_personal">Pessoal</string>
-    <string name="dashboard_business">Empresa</string>
-    <string name="dashboard_expected">Previsto</string>
-    <string name="dashboard_paid_amount">Pago</string>
-    <string name="dashboard_planned">Previsto</string>
-    <string name="dashboard_total_expected">Total previsto:</string>
-    <string name="dashboard_total_paid">Total pago:</string>
-    <string name="dashboard_empty_title">Nenhuma tarefa criada ainda</string>
-    <string name="dashboard_empty_subtitle">Comece organizando suas tarefas e mantenha tudo sob controle.</string>
-    <string name="dashboard_no_duties_upcoming">Nenhuma tarefa nos próximos 7 dias</string>
-    <string name="dashboard_add_now">Adicionar agora</string>
-    <string name="dashboard_error_message">Não foi possível carregar seus dados. Tentar novamente.</string>
-    <string name="dashboard_try_again">Tentar novamente</string>
-    <string name="dashboard_close">Fechar</string>
-    
+
     <!-- Duty Status -->
     <string name="status_pending">Pendente</string>
     <string name="status_paid">Pago</string>
     <string name="status_overdue">Atrasado</string>
-    <string name="status_snoozed">Adiado</string>
-    <string name="status_cancelled">Cancelado</string>
+
     <string name="not_available">N/A</string>
     
     <!-- Missing strings that are used in code -->
@@ -46,15 +19,9 @@
     <string name="create_duty_save">Salvar</string>
     <string name="create_duty_start_day">Dia de Início</string>
     <string name="create_duty_title">Título</string>
-    <string name="create_duty_type_personal">Pessoal</string>
-    <string name="create_duty_type_company">Empresa</string>
-    <string name="create_duty_recurring">Recorrente</string>
-    <string name="create_duty_reminders">Lembretes</string>
-    <string name="duty_detail_due_date">Data de Vencimento</string>
-    <string name="duty_detail_start_date">Data de Início</string>
-    <string name="error_deleting_occurrence">Erro ao excluir ocorrência</string>
+
     <string name="error_due_day_invalid">Dia de vencimento inválido</string>
-    <string name="error_loading_occurrences">Erro ao carregar ocorrências</string>
+    
     <string name="error_start_day_invalid">Dia de início inválido</string>
     <string name="navigation_create_duty_new">Novo Dever</string>
     <string name="navigation_edit_duty_new">Editar Dever</string>
@@ -68,26 +35,11 @@
     <!-- Duty Type -->
     <string name="duty_type_payable">Pagável</string>
     <string name="duty_type_actionable">Executável</string>
-    <string name="duty_type">Tipo</string>
-    <string name="placeholder_duty_type">Selecione o tipo de tarefa</string>
-    
+
     <!-- Actions -->
-    <string name="action_pay">Pagar</string>
-    <string name="action_snooze">Adiar 3 dias</string>
-    <string name="action_edit">Editar</string>
-    <string name="action_delete">Excluir</string>
-    <string name="action_save">Salvar</string>
-    <string name="action_cancel">Cancelar</string>
-    <string name="action_retry">Tentar novamente</string>
-    <string name="action_dismiss">Fechar</string>
-    
+
     <!-- Messages -->
-    <string name="message_paid_successfully">Pago com sucesso</string>
-    <string name="message_snooze_success">Obrigação adiada por 3 dias</string>
-    <string name="message_undo">Desfazer</string>
-    <string name="message_loading">Carregando...</string>
-    <string name="message_error_unknown">Erro desconhecido. Tente novamente.</string>
-    
+
     <!-- Error Messages -->
     <string name="error_no_internet">Sem conexão com a internet. Verifique sua conexão e tente novamente.</string>
     <string name="error_server_unavailable">Servidor temporariamente indisponível. Tente novamente em alguns minutos.</string>
@@ -111,7 +63,7 @@
     <string name="error_image_processing_failed">Falha ao processar a imagem.</string>
     <string name="error_unsupported_image_format">Formato de imagem não suportado.</string>
     <string name="error_ocr_unknown">Erro de reconhecimento de texto: %s</string>
-    <string name="error_empty_field">Campo obrigatório não preenchido.</string>
+    
     <string name="error_invalid_format">Formato inválido.</string>
     <string name="error_out_of_range">Valor fora do intervalo permitido.</string>
     <string name="error_validation_custom">%s</string>
@@ -147,58 +99,20 @@
     <string name="month_dec">Dez</string>
     
     <!-- Navigation -->
-    <string name="navigation_duties">Tela de Lista de Tarefas</string>
-    
+
     <!-- Duty form strings -->
-    <string name="duty_title">Título</string>
-    <string name="duty_start_date">Data de Início</string>
-    <string name="duty_due_date">Data de Vencimento</string>
-    <string name="duty_type_personal">Pessoal</string>
-    <string name="duty_type_company">Empresa</string>
-    <string name="duty_category">Categoria</string>
-    <string name="duty_recurring">Recorrente</string>
-    <string name="duty_reminders">Lembretes</string>
-    <string name="duty_save">Salvar</string>
-    <string name="duty_cancel">Cancelar</string>
-    <string name="navigation_create_duty">Nova Tarefa</string>
-    <string name="navigation_edit_duty">Editar Tarefa</string>
-    
+
     <!-- Form placeholders -->
     <string name="placeholder_title">Digite o título da tarefa</string>
-    <string name="placeholder_category">Selecione uma categoria</string>
-    <string name="placeholder_date">DD/MM/YYYY</string>
-    <string name="placeholder_recurring">Selecione a periodicidade</string>
-    <string name="placeholder_custom_rule">Ex: FREQ=WEEKLY;BYDAY=MO,WE,FR</string>
-    <string name="placeholder_reminder_days">3</string>
-    <string name="placeholder_reminder_time">09:00</string>
-    
+
     <!-- Form labels -->
-    <string name="label_recurring_period">Periodicidade</string>
-    <string name="label_custom_rule">Regra Personalizada (RRULE)</string>
-    <string name="label_start_date_reminders">Lembretes da Data de Início</string>
-    <string name="label_due_date_reminders">Lembretes da Data de Vencimento</string>
-    <string name="label_days_before">Dias Antes</string>
-    <string name="label_time">Horário</string>
-    <string name="label_currency_symbol">R$</string>
-    
+
     <!-- Recurring intervals -->
-    <string name="recurring_once">Uma vez</string>
-    <string name="recurring_monthly">Mensal</string>
-    <string name="recurring_bimonthly">Bimestral</string>
-    <string name="recurring_quarterly">Trimestral</string>
-    <string name="recurring_semiannual">Semestral</string>
-    <string name="recurring_annual">Anual</string>
-    <string name="recurring_custom">Personalizada</string>
-    
+
     <!-- Categories -->
     <string name="category_personal">Pessoal</string>
     <string name="category_enterprise">Empresa</string>
-    <string name="category_electricity">Conta de Luz</string>
-    <string name="category_condo">Condomínio</string>
-    <string name="category_loan">Financiamento</string>
-    <string name="category_das">DAS Empresa</string>
-    <string name="category_internet">Internet</string>
-    
+
     <!-- Dashboard Section -->
     <string name="dashboard_personal_duties">Tarefas Pessoais</string>
     <string name="dashboard_company_duties">Tarefas da Empresa</string>
@@ -208,27 +122,14 @@
     <string name="dashboard_last_occurrence">Último: %1$s %2$d</string>
     
     <!-- Dialog messages -->
-    <string name="dialog_discard_changes">Descartar alterações?</string>
-    <string name="dialog_unsaved_changes">Você tem alterações não salvas. Deseja realmente sair?</string>
-    <string name="dialog_exit">Sair</string>
-    <string name="dialog_cancel">Cancelar</string>
-    
+
     <!-- Validation errors -->
     <string name="error_title_required">Título é obrigatório</string>
-    <string name="error_value_required">Valor é obrigatório</string>
-    <string name="error_start_date_required">Data de início é obrigatória</string>
-    <string name="error_due_date_required">Data de vencimento é obrigatória</string>
+
     <string name="error_category_required">Categoria é obrigatória</string>
-    <string name="error_invalid_value">Valor inválido</string>
-    <string name="error_invalid_date">Data inválida</string>
-    <string name="error_invalid_time">Horário inválido</string>
-    <string name="error_custom_rule_required">Regra personalizada é obrigatória</string>
-    <string name="error_reminder_days_range">Dias deve estar entre 1 e 30</string>
-    <string name="error_invalid_reminder_time">Horário inválido</string>
-    
+
     <!-- Success messages -->
-    <string name="success_duty_saved">Tarefa salva com sucesso!</string>
-    
+
     <!-- Duties List Screen -->
     <string name="duty_list_title">Todas as Tarefas</string>
     <string name="duty_list_search_hint">Buscar tarefas...</string>
@@ -237,56 +138,17 @@
     <string name="duty_list_error_title">Erro ao carregar tarefas</string>
     <string name="duty_list_error_subtitle">Tente novamente</string>
     <string name="duty_list_retry">Tentar Novamente</string>
-    <string name="duty_list_mark_paid">Marcar como Paga</string>
-    <string name="duty_list_snooze">Adiar</string>
-    <string name="duty_list_edit">Editar</string>
-    <string name="duty_list_delete">Excluir</string>
-    <string name="duty_list_records">Registros</string>
-    <string name="duty_list_delete_confirmation">Tem certeza que deseja excluir esta tarefa?</string>
-    <string name="duty_list_delete_confirm">Excluir</string>
-    <string name="duty_list_delete_cancel">Cancelar</string>
-    <string name="error_deleting_duty">Erro ao excluir tarefa</string>
-    <string name="error_loading_duties">Erro ao carregar tarefas</string>
-    <string name="error_marking_paid">Erro ao marcar como paga</string>
-    <string name="error_snoozing">Erro ao adiar obrigação</string>
-    <string name="back">Voltar</string>
-    <string name="filter">Filtrar</string>
-    
+
     <!-- Settings -->
     <string name="settings_title">Configurações</string>
     <string name="settings_button_description">Configurações</string>
-    <string name="settings_user_name">Nome do Usuário</string>
-    <string name="settings_user_name_hint">Digite seu nome</string>
-    <string name="settings_save">Salvar</string>
-    <string name="settings_saved">Salvo!</string>
-    <string name="settings_general">Geral</string>
-    <string name="settings_appearance">Aparência</string>
-    <string name="settings_notifications">Notificações</string>
-    <string name="settings_about">Sobre</string>
+
     <string name="settings_design_system">Sistema de Design</string>
     <string name="settings_design_system_catalog">Catálogo do Sistema de Design</string>
     <string name="settings_design_system_description">Explore componentes, cores e tipografia</string>
-    <string name="settings_arrow_forward">Navegar para frente</string>
-    
+
     <!-- Obligation Record -->
-    <string name="obligation_record_list_title">Registros de Pagamento</string>
-    <string name="obligation_record_list_empty_title">Nenhum registro de pagamento</string>
-    <string name="obligation_record_list_empty_subtitle">Adicione um registro de pagamento para acompanhar os pagamentos</string>
-    <string name="obligation_record_list_add_record">Adicionar Registro</string>
-    <string name="obligation_record_list_delete">Excluir</string>
-    <string name="obligation_record_list_amount">Valor: R$ %.2f</string>
-    <string name="obligation_record_list_date">Data: %s</string>
-    <string name="obligation_record_list_notes">Observações: %s</string>
-    <string name="error_loading_records">Erro ao carregar registros</string>
-    <string name="error_deleting_record">Erro ao excluir registro</string>
-    <string name="add_obligation_record_title">Adicionar Registro de Pagamento</string>
-    <string name="obligation_record_paid_amount">Valor Pago</string>
-    <string name="obligation_record_paid_amount_hint">Digite o valor</string>
-    <string name="obligation_record_paid_date">Data do Pagamento</string>
-    <string name="obligation_record_notes">Observações</string>
-    <string name="obligation_record_notes_hint">Observações opcionais</string>
-    <string name="obligation_record_save">Salvar Registro</string>
-    <string name="obligation_record_saved">Registro Salvo!</string>
+
     <string name="validation_invalid_amount">Valor inválido</string>
     
     <!-- Bottom Sheet -->
@@ -298,18 +160,11 @@
     <!-- Additional strings for DutyScreen -->
     <string name="error_saving">Erro ao salvar</string>
     <string name="duty_saved_success">Tarefa salva com sucesso!</string>
-    <string name="back_arrow">←</string>
+    
     <string name="duty_type_label">Tipo de Tarefa</string>
     
     <!-- Content Descriptions -->
-    <string name="back_button_description">Voltar</string>
-    <string name="success_icon_description">Sucesso</string>
-    <string name="new_activity_description">Nova atividade</string>
-    <string name="add_occurrence_description">Adicionar Ocorrência</string>
-    <string name="delete_duty_description">Excluir Tarefa</string>
-    <string name="add_duty_description">Adicionar Tarefa</string>
-    <string name="search_description">Pesquisar</string>
-    
+
     <!-- New Component Showcase Titles -->
     <string name="message_showcase_title">Componentes de Mensagem</string>
     <string name="select_showcase_title">Componentes de Seleção</string>
@@ -318,7 +173,7 @@
     <string name="result_showcase_title">Componentes de Resultado</string>
     
     <!-- Dashboard -->
-    <string name="latest_duties_title">Últimas Tarefas</string>
+    
     <string name="view_all_duties">Ver Todas as Tarefas</string>
     <string name="add_duty">Adicionar Tarefa</string>
     <string name="no_duties_created_yet">Nenhuma tarefa criada ainda</string>
@@ -327,46 +182,34 @@
     <string name="no_duties_next_7_days">Nenhuma tarefa nos próximos 7 dias</string>
     <string name="view_all_obligations">Ver todas as obrigações</string>
     <string name="duty_due_every_day">Vence todo dia %d do mês</string>
-    <string name="duty_start_every_day">Inicia todo dia %d do mês</string>
-    
+
     <!-- Chart strings -->
     <string name="chart_occurrences_by_month">Ocorrências por Mês</string>
     <string name="chart_amount_paid_by_month">Valor Pago por Mês</string>
-    <string name="chart_count_legend">Quantidade de ocorrências</string>
-    <string name="chart_amount_legend">Valor total pago (R$)</string>
-    <string name="chart_occurrences_series_name">Ocorrências</string>
-    <string name="chart_amount_series_name">Valor</string>
-    <string name="chart_no_data_available">Nenhum dado disponível</string>
-    <string name="chart_y_axis_label">Valor</string>
-    <string name="chart_x_axis_label">Mês</string>
-    
+
     <!-- Duty Detail Header -->
     <string name="duty_detail_edit">Editar</string>
     <string name="duty_detail_start_day">Dia de Início</string>
     <string name="duty_detail_due_day">Dia de Vencimento</string>
     <string name="duty_detail_category">Categoria</string>
     <string name="duty_detail_type">Tipo</string>
-    <string name="duty_detail_status">Status</string>
-    
+
     <!-- Duty Occurrence -->
     <string name="duty_occurrence_list_title">Ocorrências</string>
     <string name="duty_occurrence_list_empty_title">Nenhuma ocorrência encontrada</string>
     <string name="duty_occurrence_list_empty_subtitle">Adicione uma ocorrência para acompanhar a conclusão</string>
     <string name="duty_occurrence_list_add_occurrence">Adicionar Ocorrência</string>
     <string name="duty_occurrence_list_delete">Excluir</string>
-    <string name="duty_occurrence_list_amount">Valor: R$ %.2f</string>
-    <string name="duty_occurrence_list_date">Data: %s</string>
-    <string name="duty_occurrence_list_notes">Observações: %s</string>
+
     <string name="add_duty_occurrence_title">Adicionar Ocorrência de Dever</string>
     <string name="duty_occurrence_paid_amount">Valor Pago</string>
     <string name="duty_occurrence_paid_amount_hint">Digite o valor</string>
     <string name="duty_occurrence_completed_date">Data de Conclusão</string>
-    <string name="duty_occurrence_notes">Observações</string>
-    <string name="duty_occurrence_notes_hint">Observações opcionais</string>
+
     <string name="duty_occurrence_save">Salvar Ocorrência</string>
     <string name="duty_occurrence_saved">Ocorrência Salva!</string>
     
     <!-- Additional missing strings -->
-    <string name="duty_list_occurrences">Ocorrências</string>
+    
     <string name="month_unknown">Desconhecido</string>
 </resources>

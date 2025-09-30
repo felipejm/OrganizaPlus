@@ -123,10 +123,6 @@ fun AppBarChart(
 
             val xAxisData = AxisProperties(
                 font = FontFamily.Default,
-                stepSize = Spacing.Chart.stepSize,
-                stepCount = barData.size - 1,
-                bottomPadding = Spacing.lg,
-                labelRotationAngle = 0f,
                 initialDrawPadding = Spacing.xl,
                 labelColor = AppColorScheme.formText,
                 lineColor = AppColorScheme.formSecondaryText,
@@ -137,8 +133,6 @@ fun AppBarChart(
 
             val yAxisData = AxisProperties(
                 font = FontFamily.Default,
-                stepCount = yStepSize,
-                labelPadding = Spacing.md,
                 offset = Spacing.md,
                 labelColor = AppColorScheme.formText,
                 lineColor = AppColorScheme.formSecondaryText,
@@ -152,8 +146,6 @@ fun AppBarChart(
                 xAxisData = xAxisData,
                 yAxisData = yAxisData,
                 barStyle = BarChartStyle(
-                    cornerRadius = Spacing.Radius.xs,
-                    paddingBetweenBars = Spacing.sm,
                     barWidth = Spacing.Chart.barWidth,
                     selectionHighlightData = if (showValues) {
                         SelectionHighlightData(

@@ -113,7 +113,7 @@ private fun UpcomingDutyItem(
             CategoryIcon(
                 categoryName = duty.categoryName
             )
-            
+
             Spacer(modifier = Modifier.width(Spacing.sm))
             
             // Content

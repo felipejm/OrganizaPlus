@@ -58,7 +58,7 @@ fun CategoryIcon(
             .background(
                 color = iconContainerColor,
                 shape = CircleShape
-            ).padding(Spacing.md),
+            ),
         contentAlignment = Alignment.Center
     ) {
         Icon(

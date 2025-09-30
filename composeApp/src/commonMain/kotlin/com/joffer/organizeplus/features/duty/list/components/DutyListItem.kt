@@ -56,7 +56,7 @@ fun DutyListItem(
                     CategoryIcon(
                         categoryName = duty.categoryName
                     )
-
+                    Spacer(modifier = Modifier.width(Spacing.sm))
                     Text(
                         text = duty.title,
                         style = Typography.listItemTitle,

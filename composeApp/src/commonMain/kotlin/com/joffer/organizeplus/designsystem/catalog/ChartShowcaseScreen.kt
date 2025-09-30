@@ -149,20 +149,10 @@ private fun ChartExample(
             )
             Spacer(modifier = Modifier.height(Spacing.sm))
             
-            // Convert single data series to new format
-            val xAxisLabels = data.map { it.label }
-            val dataSeries = listOf(
-                ChartDataSeries(
-                    name = "Data",
-                    values = data.map { it.value.toDouble() }
-                )
-            )
-            
             AppBarChart(
-                dataSeries = dataSeries,
-                xAxisLabels = xAxisLabels,
-                legend = legend,
-                showValues = showValues
+                data = data,
+                title = title,
+                emptyStateText = "No chart data available"
             )
         }
     }

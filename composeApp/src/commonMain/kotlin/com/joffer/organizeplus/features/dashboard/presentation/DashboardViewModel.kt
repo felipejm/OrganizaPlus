@@ -9,10 +9,15 @@ import com.joffer.organizeplus.features.duty.occurrence.domain.repositories.Duty
 import com.joffer.organizeplus.features.dashboard.domain.entities.Duty
 import com.joffer.organizeplus.features.dashboard.domain.entities.DutyWithLastOccurrence
 import com.joffer.organizeplus.features.dashboard.DashboardUiState
+import com.joffer.organizeplus.features.dashboard.MonthlySummary
 import com.joffer.organizeplus.features.dashboard.DashboardIntent
+import com.joffer.organizeplus.features.dashboard.domain.entities.DutyType
+import com.joffer.organizeplus.common.utils.DateUtils
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import kotlinx.datetime.toLocalDateTime
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.Clock
 import io.github.aakira.napier.Napier
 class DashboardViewModel(
     private val getDashboardDataUseCase: GetDashboardDataUseCase,
@@ -123,6 +128,9 @@ class DashboardViewModel(
                                     companyDuties = companyDutiesWithOccurrence
                                 )
                                 
+                                // Load monthly summaries
+                                loadMonthlySummaries()
+                                
                                 // Load last occurrence for Personal duties
                                 personalDuties.forEach { duty ->
                                     launch {
@@ -208,5 +216,99 @@ class DashboardViewModel(
     
     fun setUserName(name: String) {
         _userName.value = name
+    }
+    
+    private fun getMonthName(monthNumber: Int): String {
+        return when (monthNumber) {
+            1 -> "January"
+            2 -> "February"
+            3 -> "March"
+            4 -> "April"
+            5 -> "May"
+            6 -> "June"
+            7 -> "July"
+            8 -> "August"
+            9 -> "September"
+            10 -> "October"
+            11 -> "November"
+            12 -> "December"
+            else -> "Unknown"
+        }
+    }
+    
+    private fun loadMonthlySummaries() {
+        viewModelScope.launch {
+            val currentDate = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
+            val currentMonth = currentDate.monthNumber
+            val currentYear = currentDate.year
+            
+            // Load Personal summary
+            launch {
+                dutyOccurrenceRepository.getMonthlyOccurrences("Personal", currentMonth, currentYear)
+                    .fold(
+                        onSuccess = { occurrences ->
+                            Napier.d("Personal occurrences found: ${occurrences.size}")
+                            occurrences.forEach { occurrence ->
+                                Napier.d("Personal occurrence: amount=${occurrence.paidAmount}, date=${occurrence.completedDate}")
+                            }
+                            
+                            val totalAmountPaid = occurrences
+                                .sumOf { it.paidAmount ?: 0.0 }
+                            
+                            val totalActionableCompleted = occurrences.size
+                            
+                            Napier.d("Personal summary: amount=$totalAmountPaid, tasks=$totalActionableCompleted")
+                            
+                            val personalSummary = MonthlySummary(
+                                totalAmountPaid = totalAmountPaid,
+                                totalActionableCompleted = totalActionableCompleted,
+                                month = getMonthName(currentMonth),
+                                year = currentYear
+                            )
+                            
+                            _uiState.value = _uiState.value.copy(
+                                personalSummary = personalSummary
+                            )
+                        },
+                        onFailure = { error ->
+                            Napier.e("Failed to load personal occurrences: ${error.message}")
+                        }
+                    )
+            }
+            
+            // Load Company summary
+            launch {
+                dutyOccurrenceRepository.getMonthlyOccurrences("Company", currentMonth, currentYear)
+                    .fold(
+                        onSuccess = { occurrences ->
+                            Napier.d("Company occurrences found: ${occurrences.size}")
+                            occurrences.forEach { occurrence ->
+                                Napier.d("Company occurrence: amount=${occurrence.paidAmount}, date=${occurrence.completedDate}")
+                            }
+                            
+                            val totalAmountPaid = occurrences
+                                .sumOf { it.paidAmount ?: 0.0 }
+                            
+                            val totalActionableCompleted = occurrences.size
+                            
+                            Napier.d("Company summary: amount=$totalAmountPaid, tasks=$totalActionableCompleted")
+                            
+                            val companySummary = MonthlySummary(
+                                totalAmountPaid = totalAmountPaid,
+                                totalActionableCompleted = totalActionableCompleted,
+                                month = getMonthName(currentMonth),
+                                year = currentYear
+                            )
+                            
+                            _uiState.value = _uiState.value.copy(
+                                companySummary = companySummary
+                            )
+                        },
+                        onFailure = { error ->
+                            Napier.e("Failed to load company occurrences: ${error.message}")
+                        }
+                    )
+            }
+        }
     }
 }

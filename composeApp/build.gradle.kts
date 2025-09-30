@@ -94,8 +94,6 @@ kotlin {
             // Logging library
             implementation(libs.napier)
             
-            // Charts library - AAY-chart
-            implementation(libs.aay.chart)
             
             // Core module
             // implementation(project(":core"))

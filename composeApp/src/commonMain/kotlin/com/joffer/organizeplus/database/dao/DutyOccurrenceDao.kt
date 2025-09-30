@@ -33,4 +33,14 @@ interface DutyOccurrenceDao {
     
     @Query("DELETE FROM duty_occurrences WHERE dutyId = :dutyId")
     suspend fun deleteDutyOccurrencesByDutyId(dutyId: Long)
+    
+    @Query("""
+        SELECT duty_occurrences.* FROM duty_occurrences 
+        INNER JOIN duties ON duty_occurrences.dutyId = duties.id
+        WHERE duties.categoryName = :categoryName 
+        AND strftime('%m', duty_occurrences.completedDateMillis/1000, 'unixepoch') = :monthStr
+        AND strftime('%Y', duty_occurrences.completedDateMillis/1000, 'unixepoch') = :yearStr
+        ORDER BY duty_occurrences.completedDateMillis DESC
+    """)
+    suspend fun getMonthlyOccurrencesByCategory(categoryName: String, monthStr: String, yearStr: String): List<DutyOccurrenceEntity>
 }

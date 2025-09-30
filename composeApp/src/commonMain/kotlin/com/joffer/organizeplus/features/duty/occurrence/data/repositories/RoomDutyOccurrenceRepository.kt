@@ -83,6 +83,18 @@ class RoomDutyOccurrenceRepository(
         }
     }
     
+    override suspend fun getMonthlyOccurrences(categoryName: String, month: Int, year: Int): Result<List<DutyOccurrence>> {
+        return try {
+            val monthStr = month.toString().padStart(2, '0')
+            val yearStr = year.toString()
+            val entities = dutyOccurrenceDao.getMonthlyOccurrencesByCategory(categoryName, monthStr, yearStr)
+            val dutyOccurrences = entities.map { it.toDomainEntity() }
+            Result.success(dutyOccurrences)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+    
     override suspend fun deleteDutyOccurrence(id: String): Result<Unit> {
         return try {
             dutyOccurrenceDao.deleteDutyOccurrenceById(id.toLongOrNull() ?: return Result.failure(IllegalArgumentException("Invalid ID")))

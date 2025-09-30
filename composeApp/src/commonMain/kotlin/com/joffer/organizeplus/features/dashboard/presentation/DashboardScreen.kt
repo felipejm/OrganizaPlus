@@ -83,7 +83,12 @@ fun DashboardScreen(
                         duties = uiState.personalDuties,
                         onViewAll = onNavigateToPersonalDuties,
                         onAddDuty = onNavigateToCreateDuty,
-                        sectionTitle = "Personal Duties"
+                        onDeleteDuty = { dutyId -> 
+                            // TODO: Implement delete functionality
+                        },
+                        sectionTitle = "Personal Duties",
+                        monthlySummary = uiState.personalSummary,
+                        categoryType = "Personal"
                     )
                 }
                 
@@ -93,7 +98,12 @@ fun DashboardScreen(
                         duties = uiState.companyDuties,
                         onViewAll = onNavigateToCompanyDuties,
                         onAddDuty = onNavigateToCreateDuty,
-                        sectionTitle = "Company Duties"
+                        onDeleteDuty = { dutyId -> 
+                            // TODO: Implement delete functionality
+                        },
+                        sectionTitle = "Company Duties",
+                        monthlySummary = uiState.companySummary,
+                        categoryType = "Company"
                     )
                 }
             }

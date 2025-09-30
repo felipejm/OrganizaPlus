@@ -151,4 +151,32 @@ object ColorScheme {
     // HTML colors (keeping for compatibility)
     val htmlPrimary = info500
     val htmlAmber = warning500
+    
+    // ===== DASHBOARD SPECIFIC COLORS =====
+    // Personal accent colors
+    val personalAccent = Color(0xFF42D9E4)  // Teal
+    val personalAccentLight = Color(0xFFE6F4FF)  // Light teal
+    val personalBackground = Color(0xFFF0FAFA)  // Very light teal tint
+    
+    // Company accent colors
+    val companyAccent = Color(0xFFFF9800)  // Amber
+    val companyAccentLight = Color(0xFFFFF3E0)  // Light amber
+    val companyBackground = Color(0xFFFFF8F0)  // Very light amber tint
+    
+    // Dashboard specific colors
+    val overdueText = Color(0xFFE53935)  // Red for overdue
+    val amountPaid = Color(0xFF2E7D32)  // Green for amount paid
+    val taskDoneCount = personalAccent  // Teal for task count
+    val summaryMonthLabel = overdueText  // Red for month label
+    val summaryBackground = Color(0xFFFDECEC)  // Soft tinted background for summary
+    
+    // Text colors
+    val sectionHeader = neutral700  // #1F1F1F
+    val dutyTitle = neutral700  // #1F1F1F
+    val dutyMeta = neutral600  // #6B6B6B
+    val lastOccurrence = overdueText  // #E53935 for overdue
+    
+    // Background colors
+    val backgroundNeutral = neutral100  // #FAFAFA
+    val cardBackground = white  // #FFFFFF
 }

@@ -36,3 +36,9 @@ fun Double?.toCurrencyFormat(
 ): String {
     return this?.toCurrencyFormat(symbol, decimalPlaces) ?: ""
 }
+
+object CurrencyUtils {
+    fun formatCurrency(amount: Double): String {
+        return amount.toCurrencyFormat()
+    }
+}

@@ -9,6 +9,15 @@ data class DashboardUiState(
     val upcomingDuties: List<Duty> = emptyList(),
     val personalDuties: List<DutyWithLastOccurrence> = emptyList(),
     val companyDuties: List<DutyWithLastOccurrence> = emptyList(),
+    val personalSummary: MonthlySummary? = null,
+    val companySummary: MonthlySummary? = null,
     val showSnoozeSnackbar: Boolean = false,
     val snoozedDutyId: String? = null
+)
+
+data class MonthlySummary(
+    val totalAmountPaid: Double = 0.0,
+    val totalActionableCompleted: Int = 0,
+    val month: String = "",
+    val year: Int = 0
 )

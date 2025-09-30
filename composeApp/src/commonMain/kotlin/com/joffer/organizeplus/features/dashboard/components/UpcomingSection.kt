@@ -135,20 +135,6 @@ private fun UpcomingDutyItem(
                 )
             }
             
-            // Status and attachment
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(Spacing.xs)
-            ) {
-                val status = when {
-                    duty.isOverdue() -> ObligationStatus.OVERDUE
-                    duty.status == Duty.Status.PAID -> ObligationStatus.PAID
-                    else -> ObligationStatus.PENDING
-                }
-                
-                StatusChip(status = status)
-                
-            }
         }
     }
 }

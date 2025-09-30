@@ -327,6 +327,8 @@
     <string name="chart_amount_paid_by_month">Valor Pago por Mês</string>
     <string name="chart_count_legend">Quantidade de ocorrências</string>
     <string name="chart_amount_legend">Valor total pago (R$)</string>
+    <string name="chart_occurrences_series_name">Ocorrências</string>
+    <string name="chart_amount_series_name">Valor</string>
     <string name="chart_no_data_available">Nenhum dado disponível</string>
     <string name="chart_y_axis_label">Valor</string>
     <string name="chart_x_axis_label">Mês</string>

@@ -330,6 +330,8 @@
     <string name="chart_amount_paid_by_month">Amount Paid by Month</string>
     <string name="chart_count_legend">Count of occurrences</string>
     <string name="chart_amount_legend">Total amount paid (R$)</string>
+    <string name="chart_occurrences_series_name">Occurrences</string>
+    <string name="chart_amount_series_name">Amount</string>
     
     <!-- Additional missing strings -->
     <string name="add_obligation_record_title">Add Payment Record</string>

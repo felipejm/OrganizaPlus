@@ -212,7 +212,7 @@ enum class ComponentCategory(
     ),
     TYPOGRAPHY(
         title = "Typography",
-        description = "Text styles and font families",
+        description = "Text styles and font specifications",
         route = "typography"
     )
 }

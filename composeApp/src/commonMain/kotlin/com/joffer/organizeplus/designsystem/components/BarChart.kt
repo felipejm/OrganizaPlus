@@ -8,19 +8,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.aay.compose.barChart.BarChart
+import com.aay.compose.barChart.model.BarParameters
 import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.Typography
-import network.chaintech.cmpcharts.ui.barchart.BarChart
-import network.chaintech.cmpcharts.ui.barchart.config.BarChartConfig
-import network.chaintech.cmpcharts.ui.barchart.config.BarChartStyle
-import network.chaintech.cmpcharts.ui.barchart.config.SelectionHighlightData
-import network.chaintech.cmpcharts.axis.AxisProperties
-import network.chaintech.cmpcharts.ui.barchart.config.BarData
-import network.chaintech.cmpcharts.common.model.Point
-import androidx.compose.ui.text.font.FontFamily
 import org.jetbrains.compose.resources.stringResource
 import organizeplus.composeapp.generated.resources.Res
 import organizeplus.composeapp.generated.resources.chart_no_data_available
@@ -42,10 +38,11 @@ private val BAR_COLOR_PALETTE = listOf(
 )
 
 /**
- * A vertical bar chart component using CMPCharts library
- * Each bar uses a different color from the design system color palette
+ * A bar chart component using AAY-chart library
+ * Supports multiple data series with different colors
  *
- * @param data List of chart data points with x-axis labels and y-axis values
+ * @param dataSeries List of data series, each containing multiple data points
+ * @param xAxisLabels Labels for the x-axis (e.g., months)
  * @param title Optional title for the chart
  * @param legend Optional legend text
  * @param showValues Whether to show values on the chart
@@ -53,13 +50,14 @@ private val BAR_COLOR_PALETTE = listOf(
  */
 @Composable
 fun AppBarChart(
-    data: List<ChartDataPoint>,
+    dataSeries: List<ChartDataSeries>,
+    xAxisLabels: List<String>,
     title: String? = null,
     legend: String? = null,
     showValues: Boolean = true,
     modifier: Modifier = Modifier
 ) {
-    if (data.isEmpty()) {
+    if (dataSeries.isEmpty() || xAxisLabels.isEmpty()) {
         Box(
             modifier = modifier
                 .fillMaxWidth()
@@ -99,70 +97,41 @@ fun AppBarChart(
             Spacer(modifier = Modifier.height(Spacing.md))
         }
 
-        // CMPCharts BarChart
+        // AAY-chart BarChart
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(CHART_HEIGHT)
         ) {
-            val maxValue = data.maxOfOrNull { it.value } ?: 0f
-            val maxRange = if (maxValue > 0) (maxValue * 1.2f).toInt() else 100
-            val yStepSize = 5
-
-            // Convert our data to CMPCharts format with different colors
-            val barData = data.mapIndexed { index, dataPoint ->
-                BarData(
-                    point = Point(
-                        index.toFloat(),
-                        dataPoint.value
-                    ),
-                    label = dataPoint.label,
-                    color = BAR_COLOR_PALETTE[index % BAR_COLOR_PALETTE.size]
+            val testBarParameters: List<BarParameters> = dataSeries.mapIndexed { index, series ->
+                BarParameters(
+                    dataName = series.name,
+                    data = series.values,
+                    barColor = BAR_COLOR_PALETTE[index % BAR_COLOR_PALETTE.size]
                 )
             }
 
-            val xAxisData = AxisProperties(
-                font = FontFamily.Default,
-                initialDrawPadding = Spacing.xl,
-                labelColor = AppColorScheme.formText,
-                lineColor = AppColorScheme.formSecondaryText,
-                labelFormatter = { index: Int -> 
-                    if (index < barData.size) barData[index].label else ""
-                }
-            )
-
-            val yAxisData = AxisProperties(
-                font = FontFamily.Default,
-                offset = Spacing.md,
-                labelColor = AppColorScheme.formText,
-                lineColor = AppColorScheme.formSecondaryText,
-                labelFormatter = { index: Int ->
-                    (index * (maxRange / yStepSize)).toString()
-                }
-            )
-
-            val barChartData = BarChartConfig(
-                chartData = barData,
-                xAxisData = xAxisData,
-                yAxisData = yAxisData,
-                barStyle = BarChartStyle(
-                    barWidth = Spacing.Chart.barWidth,
-                    selectionHighlightData = if (showValues) {
-                        SelectionHighlightData(
-                            highlightBarColor = AppColorScheme.primary.copy(alpha = 0.8f),
-                            highlightTextColor = AppColorScheme.onPrimary,
-                            highlightTextTypeface = FontWeight.Bold,
-                            highlightTextBackgroundColor = AppColorScheme.primary,
-                            popUpLabel = { _, y -> "Value: $y" }
-                        )
-                    } else null
-                ),
-                horizontalExtraSpace = Spacing.xs,
-            )
+            val maxValue = dataSeries.maxOfOrNull { series -> series.values.maxOrNull() ?: 0.0 } ?: 0.0
 
             BarChart(
-                modifier = Modifier.fillMaxSize(),
-                barChartData = barChartData
+                chartParameters = testBarParameters,
+                gridColor = AppColorScheme.formSecondaryText.copy(alpha = 0.3f),
+                xAxisData = xAxisLabels,
+                isShowGrid = true,
+                animateChart = true,
+                showGridWithSpacer = true,
+                yAxisStyle = TextStyle(
+                    fontSize = 12.sp,
+                    color = AppColorScheme.formText,
+                    fontWeight = FontWeight.Normal
+                ),
+                xAxisStyle = TextStyle(
+                    fontSize = 12.sp,
+                    color = AppColorScheme.formText,
+                    fontWeight = FontWeight.W400
+                ),
+                yAxisRange = (maxValue * 1.2).toInt().coerceAtLeast(50),
+                barWidth = 20.dp
             )
         }
 
@@ -184,7 +153,18 @@ fun AppBarChart(
 }
 
 /**
- * Data class representing a single point in the chart
+ * Data class representing a series of data points in the chart
+ *
+ * @param name The name of the data series
+ * @param values The values for each data point in the series
+ */
+data class ChartDataSeries(
+    val name: String,
+    val values: List<Double>
+)
+
+/**
+ * Data class representing a single point in the chart (for backward compatibility)
  *
  * @param label The label for the x-axis
  * @param value The value for the y-axis

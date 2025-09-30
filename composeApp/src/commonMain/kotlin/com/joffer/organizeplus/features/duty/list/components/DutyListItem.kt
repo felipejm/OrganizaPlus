@@ -11,7 +11,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 import com.joffer.organizeplus.designsystem.components.OrganizeCard
-import com.joffer.organizeplus.designsystem.components.StatusChip
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.Typography
 import com.joffer.organizeplus.features.dashboard.domain.entities.Duty
@@ -64,29 +63,16 @@ fun DutyListItem(
                     )
                 }
 
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(Spacing.xs)
+                IconButton(
+                    onClick = { onDelete(duty.id) },
+                    modifier = Modifier.size(24.dp)
                 ) {
-                    StatusChip(
-                        status = when {
-                            duty.isOverdue() -> com.joffer.organizeplus.designsystem.components.ObligationStatus.OVERDUE
-                            duty.status == Duty.Status.PAID -> com.joffer.organizeplus.designsystem.components.ObligationStatus.PAID
-                            else -> com.joffer.organizeplus.designsystem.components.ObligationStatus.PENDING
-                        }
+                    Icon(
+                        imageVector = Icons.Default.Delete,
+                        contentDescription = "Delete Duty",
+                        tint = AppColorScheme.error,
+                        modifier = Modifier.size(20.dp)
                     )
-
-                    IconButton(
-                        onClick = { onDelete(duty.id) },
-                        modifier = Modifier.size(24.dp)
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.Delete,
-                            contentDescription = "Delete Duty",
-                            tint = AppColorScheme.error,
-                            modifier = Modifier.size(20.dp)
-                        )
-                    }
                 }
             }
 

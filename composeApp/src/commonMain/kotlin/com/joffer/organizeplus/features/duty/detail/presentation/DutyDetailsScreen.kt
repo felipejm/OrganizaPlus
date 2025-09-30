@@ -25,7 +25,7 @@ import com.joffer.organizeplus.designsystem.typography.Typography
 import com.joffer.organizeplus.features.duty.occurrence.domain.entities.DutyOccurrence
 import com.joffer.organizeplus.features.duty.occurrence.presentation.AddDutyOccurrenceBottomSheet
 import com.joffer.organizeplus.features.duty.occurrence.presentation.AddDutyOccurrenceViewModel
-import com.joffer.organizeplus.features.duty.detail.components.DutyCMPChart
+import com.joffer.organizeplus.features.duty.detail.components.DutyBarChart
 import com.joffer.organizeplus.features.duty.detail.components.DutyHeaderCard
 import com.joffer.organizeplus.features.duty.detail.components.DutyOccurrenceListItem
 import com.joffer.organizeplus.features.dashboard.domain.entities.Duty
@@ -121,7 +121,7 @@ fun DutyDetailsScreen(
                     // Chart
                     uiState.chartData?.let { chartData ->
                         item {
-                            DutyCMPChart(chartData = chartData)
+                            DutyBarChart(chartData = chartData)
                         }
                     }
                     

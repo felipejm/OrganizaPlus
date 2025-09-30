@@ -3,6 +3,7 @@ package com.joffer.organizeplus.features.duty.detail.components
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
@@ -17,13 +18,8 @@ import organizeplus.composeapp.generated.resources.duty_detail_start_day
 import organizeplus.composeapp.generated.resources.duty_detail_due_day
 import organizeplus.composeapp.generated.resources.duty_detail_category
 import organizeplus.composeapp.generated.resources.duty_detail_type
-import organizeplus.composeapp.generated.resources.duty_detail_status
 import organizeplus.composeapp.generated.resources.duty_type_payable
 import organizeplus.composeapp.generated.resources.duty_type_actionable
-import organizeplus.composeapp.generated.resources.status_pending
-import organizeplus.composeapp.generated.resources.status_paid
-import organizeplus.composeapp.generated.resources.status_overdue
-import organizeplus.composeapp.generated.resources.status_snoozed
 import organizeplus.composeapp.generated.resources.not_available
 import organizeplus.composeapp.generated.resources.duty_due_every_day
 import organizeplus.composeapp.generated.resources.duty_start_every_day
@@ -37,68 +33,33 @@ fun DutyHeaderCard(
         modifier = modifier.fillMaxWidth()
     ) {
         Column(
-            modifier = Modifier.padding(Spacing.md)
+            modifier = Modifier.padding(Spacing.md),
+            verticalArrangement = Arrangement.spacedBy(Spacing.sm)
         ) {
-            // Title
-            Text(
-                text = duty.title,
-                style = Typography.headlineSmall,
-                color = AppColorScheme.onSurface,
-                fontWeight = FontWeight.Bold
+            // Duty Information - Horizontal Layout
+            DutyInfoItem(
+                label = stringResource(Res.string.duty_detail_start_day),
+                value = duty.startDay.toString()
             )
             
-            Spacer(modifier = Modifier.height(Spacing.md))
+            DutyInfoItem(
+                label = stringResource(Res.string.duty_detail_due_day),
+                value = duty.dueDay.toString()
+            )
             
-            // Duty Information Grid
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(Spacing.lg)
-            ) {
-                // Left Column
-                Column(
-                    modifier = Modifier.weight(1f),
-                    verticalArrangement = Arrangement.spacedBy(Spacing.sm)
-                ) {
-                    DutyInfoItem(
-                        label = stringResource(Res.string.duty_detail_start_day),
-                        value = duty.startDay.toString()
-                    )
-                    
-                    DutyInfoItem(
-                        label = stringResource(Res.string.duty_detail_due_day),
-                        value = duty.dueDay.toString()
-                    )
+            DutyInfoItem(
+                label = stringResource(Res.string.duty_detail_category),
+                value = duty.categoryName.ifEmpty { stringResource(Res.string.not_available) }
+            )
+            
+            DutyInfoItem(
+                label = stringResource(Res.string.duty_detail_type),
+                value = when (duty.type) {
+                    DutyType.PAYABLE -> stringResource(Res.string.duty_type_payable)
+                    DutyType.ACTIONABLE -> stringResource(Res.string.duty_type_actionable)
                 }
-                
-                // Right Column
-                Column(
-                    modifier = Modifier.weight(1f),
-                    verticalArrangement = Arrangement.spacedBy(Spacing.sm)
-                ) {
-                    DutyInfoItem(
-                        label = stringResource(Res.string.duty_detail_category),
-                        value = duty.categoryName.ifEmpty { stringResource(Res.string.not_available) }
-                    )
-                    
-                    DutyInfoItem(
-                        label = stringResource(Res.string.duty_detail_type),
-                        value = when (duty.type) {
-                            DutyType.PAYABLE -> stringResource(Res.string.duty_type_payable)
-                            DutyType.ACTIONABLE -> stringResource(Res.string.duty_type_actionable)
-                        }
-                    )
-                    
-                    DutyInfoItem(
-                        label = stringResource(Res.string.duty_detail_status),
-                        value = when (duty.status) {
-                            Duty.Status.PENDING -> stringResource(Res.string.status_pending)
-                            Duty.Status.PAID -> stringResource(Res.string.status_paid)
-                            Duty.Status.OVERDUE -> stringResource(Res.string.status_overdue)
-                            Duty.Status.SNOOZED -> stringResource(Res.string.status_snoozed)
-                        }
-                    )
-                }
-            }
+            )
+            
         }
     }
 }
@@ -109,19 +70,22 @@ fun DutyInfoItem(
     value: String,
     modifier: Modifier = Modifier
 ) {
-    Column(modifier = modifier) {
+    Row(
+        modifier = modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
         Text(
             text = label,
             style = Typography.labelLarge,
             color = AppColorScheme.formSecondaryText,
-            fontWeight = FontWeight.Bold
+            fontWeight = FontWeight.Light
         )
-        Spacer(modifier = Modifier.height(Spacing.xs))
         Text(
             text = value,
             style = Typography.bodyLarge,
             color = AppColorScheme.onSurface,
-            fontWeight = FontWeight.Medium
+            fontWeight = FontWeight.Bold
         )
     }
 }

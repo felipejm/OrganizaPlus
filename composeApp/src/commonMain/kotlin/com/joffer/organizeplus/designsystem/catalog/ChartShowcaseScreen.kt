@@ -40,7 +40,7 @@ fun ChartShowcaseScreen(
                 )
                 Spacer(modifier = Modifier.height(Spacing.sm))
                 Text(
-                    text = "Vertical bar charts with different colors for each bar, using design system color palette",
+                    text = "Vertical bar charts using AAY-chart library with design system color palette",
                     style = Typography.body,
                     color = AppColorScheme.onSurfaceVariant
                 )
@@ -108,46 +108,21 @@ fun ChartShowcaseScreen(
             }
 
             item {
-                Spacer(modifier = Modifier.height(Spacing.lg))
-                Text(
-                    text = "Gauge Chart",
-                    style = Typography.h3,
-                    color = AppColorScheme.onSurface
-                )
-                Spacer(modifier = Modifier.height(Spacing.sm))
-                Text(
-                    text = "Circular gauge for displaying single values with progress indication",
-                    style = Typography.body,
-                    color = AppColorScheme.onSurfaceVariant
-                )
-            }
-
-            item {
-                GaugeExample(
-                    title = "Progress Gauge",
-                    value = 75f,
-                    maxValue = 100f,
-                    subtitle = "Task completion progress"
-                )
-            }
-
-            item {
-                GaugeExample(
-                    title = "Performance Score",
-                    value = 8.5f,
-                    maxValue = 10f,
-                    subtitle = "Overall performance rating",
-                    gaugeColor = AppColorScheme.success500
-                )
-            }
-
-            item {
-                GaugeExample(
-                    title = "Budget Usage",
-                    value = 2500f,
-                    maxValue = 5000f,
-                    subtitle = "Monthly budget consumption",
-                    gaugeColor = AppColorScheme.warning500
+                ChartExample(
+                    title = "Large Dataset",
+                    data = listOf(
+                        ChartDataPoint("Week 1", 45f),
+                        ChartDataPoint("Week 2", 52f),
+                        ChartDataPoint("Week 3", 38f),
+                        ChartDataPoint("Week 4", 61f),
+                        ChartDataPoint("Week 5", 47f),
+                        ChartDataPoint("Week 6", 55f),
+                        ChartDataPoint("Week 7", 42f),
+                        ChartDataPoint("Week 8", 58f),
+                        ChartDataPoint("Week 9", 49f),
+                        ChartDataPoint("Week 10", 63f)
+                    ),
+                    legend = "Weekly performance over 10 weeks"
                 )
             }
         }
@@ -174,41 +149,20 @@ private fun ChartExample(
             )
             Spacer(modifier = Modifier.height(Spacing.sm))
             
+            // Convert single data series to new format
+            val xAxisLabels = data.map { it.label }
+            val dataSeries = listOf(
+                ChartDataSeries(
+                    name = "Data",
+                    values = data.map { it.value.toDouble() }
+                )
+            )
+            
             AppBarChart(
-                data = data,
+                dataSeries = dataSeries,
+                xAxisLabels = xAxisLabels,
                 legend = legend,
                 showValues = showValues
-            )
-        }
-    }
-}
-
-@Composable
-private fun GaugeExample(
-    title: String,
-    value: Float,
-    maxValue: Float,
-    subtitle: String?,
-    gaugeColor: Color = AppColorScheme.primary
-) {
-    OrganizeCard(
-        modifier = Modifier.fillMaxWidth()
-    ) {
-        Column(
-            modifier = Modifier.padding(Spacing.md)
-        ) {
-            Text(
-                text = title,
-                style = Typography.titleMedium,
-                color = AppColorScheme.onSurface
-            )
-            Spacer(modifier = Modifier.height(Spacing.sm))
-            
-            AppGaugeChart(
-                value = value,
-                maxValue = maxValue,
-                subtitle = subtitle,
-                gaugeColor = gaugeColor
             )
         }
     }

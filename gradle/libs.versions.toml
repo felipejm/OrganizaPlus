@@ -40,6 +40,9 @@ multiplatform-settings = "1.3.0"
 # Logging library
 napier = "2.7.1"
 
+# Charts library
+cmpcharts = "2.0.6"
+
 # Notification library
 # alarmee = "2.4.2"
 
@@ -111,6 +114,9 @@ multiplatform-settings-no-arg = { module = "com.russhwolf:multiplatform-settings
 
 # Logging library
 napier = { module = "io.github.aakira:napier", version.ref = "napier" }
+
+# Charts library
+cmpcharts = { module = "network.chaintech:cmpcharts", version.ref = "cmpcharts" }
 
 # Notification library
 # alarmee = { module = "com.tweener.alarmee:alarmee", version.ref = "alarmee" }

@@ -14,18 +14,27 @@ import com.joffer.organizeplus.designsystem.components.StatusChip
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.Typography
 import com.joffer.organizeplus.features.dashboard.domain.entities.Duty
+import com.joffer.organizeplus.features.dashboard.domain.entities.DutyWithLastOccurrence
+import com.joffer.organizeplus.features.dashboard.domain.entities.DutyType
 import com.joffer.organizeplus.utils.CategoryIconProvider
 import com.joffer.organizeplus.common.utils.DateUtils
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
+import org.jetbrains.compose.resources.stringResource
+import organizeplus.composeapp.generated.resources.Res
+import organizeplus.composeapp.generated.resources.duty_type_payable
+import organizeplus.composeapp.generated.resources.duty_type_actionable
+import organizeplus.composeapp.generated.resources.duty_due_every_day
 
 @Composable
 fun DutyListItem(
-    duty: Duty,
+    dutyWithOccurrence: DutyWithLastOccurrence,
     onViewOccurrences: (String) -> Unit,
     onDelete: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val duty = dutyWithOccurrence.duty
+    val lastOccurrence = dutyWithOccurrence.lastOccurrence
     OrganizeCard(
         modifier = modifier.fillMaxWidth(),
         onClick = { onViewOccurrences(duty.id) }
@@ -83,13 +92,50 @@ fun DutyListItem(
 
             Spacer(modifier = Modifier.height(Spacing.xs))
 
-            val dateText = "Day ${duty.dueDay}"
+            // Category and Type
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(Spacing.sm)
+            ) {
+                Text(
+                    text = duty.categoryName,
+                    style = Typography.labelSmall,
+                    color = AppColorScheme.formSecondaryText
+                )
+                
+                Text(
+                    text = "•",
+                    style = Typography.labelSmall,
+                    color = AppColorScheme.formSecondaryText
+                )
+                
+                Text(
+                    text = when (duty.type) {
+                        DutyType.PAYABLE -> stringResource(Res.string.duty_type_payable)
+                        DutyType.ACTIONABLE -> stringResource(Res.string.duty_type_actionable)
+                    },
+                    style = Typography.labelSmall,
+                    color = AppColorScheme.formSecondaryText
+                )
+            }
 
+            Spacer(modifier = Modifier.height(Spacing.xs))
+
+            // Due day
             Text(
-                text = dateText,
+                text = String.format(stringResource(Res.string.duty_due_every_day), duty.dueDay),
                 style = Typography.secondaryText,
                 color = AppColorScheme.formSecondaryText
             )
+            
+            // Last occurrence info
+            lastOccurrence?.let { occurrence ->
+                Spacer(modifier = Modifier.height(Spacing.xs))
+                Text(
+                    text = "Last: ${DateUtils.getMonthName(occurrence.completedDate.monthNumber)} ${occurrence.completedDate.year}",
+                    style = Typography.labelSmall,
+                    color = AppColorScheme.primary
+                )
+            }
         }
     }
 }

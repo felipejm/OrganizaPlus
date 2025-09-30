@@ -16,6 +16,9 @@ interface DutyOccurrenceDao {
     @Query("SELECT * FROM duty_occurrences WHERE dutyId = :dutyId ORDER BY completedDateMillis DESC")
     fun getDutyOccurrencesByDutyId(dutyId: Long): Flow<List<DutyOccurrenceEntity>>
     
+    @Query("SELECT * FROM duty_occurrences WHERE dutyId = :dutyId ORDER BY completedDateMillis DESC LIMIT 1")
+    suspend fun getLastOccurrenceByDutyId(dutyId: Long): DutyOccurrenceEntity?
+    
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertDutyOccurrence(dutyOccurrence: DutyOccurrenceEntity): Long
     

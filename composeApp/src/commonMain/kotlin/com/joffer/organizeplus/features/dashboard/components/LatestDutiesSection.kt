@@ -20,6 +20,8 @@ import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.Typography
 import com.joffer.organizeplus.features.dashboard.domain.entities.Duty
+import com.joffer.organizeplus.features.dashboard.domain.entities.DutyWithLastOccurrence
+import com.joffer.organizeplus.features.dashboard.domain.entities.DutyType
 import com.joffer.organizeplus.utils.CategoryIconProvider
 import org.jetbrains.compose.resources.stringResource
 import organizeplus.composeapp.generated.resources.Res
@@ -28,6 +30,9 @@ import organizeplus.composeapp.generated.resources.view_all_duties
 import organizeplus.composeapp.generated.resources.add_duty
 import organizeplus.composeapp.generated.resources.no_duties_created_yet
 import organizeplus.composeapp.generated.resources.start_creating_first_duty
+import organizeplus.composeapp.generated.resources.duty_type_payable
+import organizeplus.composeapp.generated.resources.duty_type_actionable
+import organizeplus.composeapp.generated.resources.duty_due_every_day
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 
@@ -36,17 +41,16 @@ import kotlinx.datetime.toLocalDateTime
  */
 @Composable
 fun LatestDutiesSection(
-    duties: List<Duty>,
+    duties: List<DutyWithLastOccurrence>,
     onViewAll: () -> Unit,
     onAddDuty: () -> Unit,
-    onEdit: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     OrganizeCard(
         modifier = modifier
     ) {
         Column(
-            modifier = Modifier.padding(Spacing.md)
+            modifier = Modifier.padding(Spacing.xs)
         ) {
             Text(
                 text = stringResource(Res.string.latest_duties_title),
@@ -79,10 +83,9 @@ fun LatestDutiesSection(
                 Column(
                     verticalArrangement = Arrangement.spacedBy(Spacing.sm)
                 ) {
-                    duties.forEach { duty ->
+                    duties.forEach { dutyWithOccurrence ->
                         LatestDutyItem(
-                            duty = duty,
-                            onEdit = { onEdit(duty.id) }
+                            dutyWithOccurrence = dutyWithOccurrence,
                         )
                     }
                 }
@@ -105,10 +108,11 @@ fun LatestDutiesSection(
 
 @Composable
 private fun LatestDutyItem(
-    duty: Duty,
-    onEdit: () -> Unit,
+    dutyWithOccurrence: DutyWithLastOccurrence,
     modifier: Modifier = Modifier
 ) {
+    val duty = dutyWithOccurrence.duty
+    val lastOccurrence = dutyWithOccurrence.lastOccurrence
     Card(
         modifier = modifier.fillMaxWidth(),
         colors = CardDefaults.cardColors(
@@ -163,13 +167,45 @@ private fun LatestDutyItem(
                     color = AppColorScheme.formText
                 )
                 
-                val subtitle = "Day ${duty.dueDay}"
+                Spacer(modifier = Modifier.height(Spacing.xs))
                 
-                Text(
-                    text = subtitle,
-                    style = Typography.secondaryText,
-                    color = AppColorScheme.formSecondaryText
-                )
+                // Category and Type
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(Spacing.sm)
+                ) {
+                    Text(
+                        text = duty.categoryName,
+                        style = Typography.labelSmall,
+                        color = AppColorScheme.formSecondaryText
+                    )
+                    
+                    Text(
+                        text = "•",
+                        style = Typography.labelSmall,
+                        color = AppColorScheme.formSecondaryText
+                    )
+                    
+                    Text(
+                        text = when (duty.type) {
+                            DutyType.PAYABLE -> stringResource(Res.string.duty_type_payable)
+                            DutyType.ACTIONABLE -> stringResource(Res.string.duty_type_actionable)
+                        },
+                        style = Typography.labelSmall,
+                        color = AppColorScheme.formSecondaryText
+                    )
+                }
+                
+                Spacer(modifier = Modifier.height(Spacing.xs))
+                
+                // Last occurrence info
+                lastOccurrence?.let { occurrence ->
+                    Spacer(modifier = Modifier.height(Spacing.xs))
+                    Text(
+                        text = "Last: ${DateUtils.getMonthName(occurrence.completedDate.monthNumber)} ${occurrence.completedDate.year}",
+                        style = Typography.labelSmall,
+                        color = AppColorScheme.primary
+                    )
+                }
             }
             
             // Status

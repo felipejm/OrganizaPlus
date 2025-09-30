@@ -22,6 +22,7 @@ import com.joffer.organizeplus.designsystem.typography.Typography
 import com.joffer.organizeplus.features.duty.occurrence.domain.entities.DutyOccurrence
 import com.joffer.organizeplus.features.duty.occurrence.presentation.AddDutyOccurrenceBottomSheet
 import com.joffer.organizeplus.features.duty.occurrence.presentation.AddDutyOccurrenceViewModel
+import com.joffer.organizeplus.features.duty.detail.components.DutyCMPChart
 import com.joffer.organizeplus.features.dashboard.domain.entities.Duty
 import com.joffer.organizeplus.features.dashboard.domain.entities.DutyType
 import kotlinx.datetime.TimeZone
@@ -49,10 +50,14 @@ import organizeplus.composeapp.generated.resources.duty_type_actionable
 import organizeplus.composeapp.generated.resources.status_pending
 import organizeplus.composeapp.generated.resources.status_paid
 import organizeplus.composeapp.generated.resources.status_overdue
+import organizeplus.composeapp.generated.resources.status_snoozed
+import organizeplus.composeapp.generated.resources.not_available
+import organizeplus.composeapp.generated.resources.duty_due_every_day
+import organizeplus.composeapp.generated.resources.duty_start_every_day
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DutyDetailsListScreen(
+fun DutyDetailsScreen(
     viewModel: DutyDetailsListViewModel,
     onNavigateBack: () -> Unit,
     onEditDuty: (String) -> Unit,
@@ -86,6 +91,14 @@ fun DutyDetailsListScreen(
         uiState.duty?.let { duty ->
             DutyHeaderCard(
                 duty = duty,
+                modifier = Modifier.padding(Spacing.md)
+            )
+        }
+        
+        // Chart
+        uiState.chartData?.let { chartData ->
+            DutyCMPChart(
+                chartData = chartData,
                 modifier = Modifier.padding(Spacing.md)
             )
         }
@@ -218,8 +231,8 @@ private fun DutyOccurrenceListItem(
                     if (occurrence.paidAmount != null && occurrence.paidAmount > 0) {
                         Spacer(modifier = Modifier.height(Spacing.xs))
                         Text(
-                            text = "Amount: R$ ${String.format("%.2f", occurrence.paidAmount)}",
-                            style = Typography.bodyLarge,
+                            text = stringResource(Res.string.duty_occurrence_list_amount, occurrence.paidAmount),
+                            style = Typography.labelLarge,
                             color = AppColorScheme.formSecondaryText,
                             fontWeight = FontWeight.Medium
                         )
@@ -272,12 +285,12 @@ private fun DutyHeaderCard(
                 ) {
                     DutyInfoItem(
                         label = stringResource(Res.string.duty_detail_start_day),
-                        value = duty.startDay.toString()
+                        value = String.format(stringResource(Res.string.duty_start_every_day), duty.startDay)
                     )
                     
                     DutyInfoItem(
                         label = stringResource(Res.string.duty_detail_due_day),
-                        value = duty.dueDay.toString()
+                        value = String.format(stringResource(Res.string.duty_due_every_day), duty.dueDay)
                     )
                 }
                 
@@ -288,7 +301,7 @@ private fun DutyHeaderCard(
                 ) {
                     DutyInfoItem(
                         label = stringResource(Res.string.duty_detail_category),
-                        value = duty.categoryName.ifEmpty { "N/A" }
+                        value = duty.categoryName.ifEmpty { stringResource(Res.string.not_available) }
                     )
                     
                     DutyInfoItem(
@@ -305,7 +318,7 @@ private fun DutyHeaderCard(
                             Duty.Status.PENDING -> stringResource(Res.string.status_pending)
                             Duty.Status.PAID -> stringResource(Res.string.status_paid)
                             Duty.Status.OVERDUE -> stringResource(Res.string.status_overdue)
-                            Duty.Status.SNOOZED -> "Snoozed"
+                            Duty.Status.SNOOZED -> stringResource(Res.string.status_snoozed)
                         }
                     )
                 }

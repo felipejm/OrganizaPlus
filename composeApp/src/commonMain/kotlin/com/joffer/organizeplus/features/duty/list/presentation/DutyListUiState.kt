@@ -1,10 +1,11 @@
 package com.joffer.organizeplus.features.duty.list.presentation
 
 import com.joffer.organizeplus.features.dashboard.domain.entities.Duty
+import com.joffer.organizeplus.features.dashboard.domain.entities.DutyWithLastOccurrence
 
 data class DutyListUiState(
     val isLoading: Boolean = false,
     val error: String? = null,
-    val duties: List<Duty> = emptyList(),
+    val duties: List<DutyWithLastOccurrence> = emptyList(),
     val searchQuery: String = ""
 )

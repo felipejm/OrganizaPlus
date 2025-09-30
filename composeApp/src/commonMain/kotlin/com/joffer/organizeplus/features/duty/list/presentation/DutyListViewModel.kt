@@ -3,8 +3,10 @@ package com.joffer.organizeplus.features.duty.list.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.joffer.organizeplus.features.dashboard.domain.entities.Duty
+import com.joffer.organizeplus.features.dashboard.domain.entities.DutyWithLastOccurrence
 import com.joffer.organizeplus.features.dashboard.domain.repositories.DutyRepository
 import com.joffer.organizeplus.features.dashboard.domain.usecases.DeleteDutyUseCase
+import com.joffer.organizeplus.features.duty.occurrence.domain.repositories.DutyOccurrenceRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -15,7 +17,8 @@ import io.github.aakira.napier.Napier
 
 class DutyListViewModel(
     private val repository: DutyRepository,
-    private val deleteDutyUseCase: DeleteDutyUseCase
+    private val deleteDutyUseCase: DeleteDutyUseCase,
+    private val dutyOccurrenceRepository: DutyOccurrenceRepository
 ) : ViewModel() {
     
     private val _uiState = MutableStateFlow(DutyListUiState())
@@ -53,11 +56,40 @@ class DutyListViewModel(
                 .collect { result ->
                     result.fold(
                         onSuccess = { duties ->
+                            // Load last occurrence for each duty
+                            val dutiesWithLastOccurrence = duties.map { duty ->
+                                DutyWithLastOccurrence(
+                                    duty = duty,
+                                    lastOccurrence = null // Will be loaded separately
+                                )
+                            }
                             _uiState.value = _uiState.value.copy(
                                 isLoading = false,
-                                duties = duties,
+                                duties = dutiesWithLastOccurrence,
                                 error = null
                             )
+                            
+                            // Load last occurrence for each duty
+                            duties.forEach { duty ->
+                                launch {
+                                    dutyOccurrenceRepository.getLastOccurrenceByDutyId(duty.id)
+                                        .fold(
+                                            onSuccess = { lastOccurrence ->
+                                                val updatedDuties = _uiState.value.duties.map { dutyWithOccurrence ->
+                                                    if (dutyWithOccurrence.duty.id == duty.id) {
+                                                        dutyWithOccurrence.copy(lastOccurrence = lastOccurrence)
+                                                    } else {
+                                                        dutyWithOccurrence
+                                                    }
+                                                }
+                                                _uiState.value = _uiState.value.copy(
+                                                    duties = updatedDuties
+                                                )
+                                            },
+                                            onFailure = { /* ignore */ }
+                                        )
+                                }
+                            }
                         },
                         onFailure = { exception ->
                             Napier.e("Failed to load duties", exception)
@@ -84,9 +116,9 @@ class DutyListViewModel(
         val currentState = _uiState.value
         val allDuties = currentState.duties
         
-        val filteredDuties = allDuties.filter { duty ->
+        val filteredDuties = allDuties.filter { dutyWithOccurrence ->
             currentState.searchQuery.isEmpty() || 
-                duty.title.contains(currentState.searchQuery, ignoreCase = true)
+                dutyWithOccurrence.duty.title.contains(currentState.searchQuery, ignoreCase = true)
         }
         
         _uiState.value = currentState.copy(duties = filteredDuties)

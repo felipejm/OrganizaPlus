@@ -7,13 +7,16 @@ import com.joffer.organizeplus.features.dashboard.domain.usecases.MarkObligation
 import com.joffer.organizeplus.features.dashboard.domain.usecases.implementations.GetDashboardDataUseCaseImpl
 import com.joffer.organizeplus.features.dashboard.domain.usecases.implementations.MarkObligationPaidUseCaseImpl
 import com.joffer.organizeplus.features.dashboard.presentation.DashboardViewModel
+import com.joffer.organizeplus.features.duty.occurrence.data.repositories.RoomDutyOccurrenceRepository
+import com.joffer.organizeplus.features.duty.occurrence.domain.repositories.DutyOccurrenceRepository
 import org.koin.dsl.module
 
 val dashboardModule = module {
     single<DutyRepository> { RoomDutyRepository(get()) }
+    single<DutyOccurrenceRepository> { RoomDutyOccurrenceRepository(get()) }
     
     single<GetDashboardDataUseCase> { GetDashboardDataUseCaseImpl(get()) }
     single<MarkObligationPaidUseCase> { MarkObligationPaidUseCaseImpl(get()) }
     
-    single { DashboardViewModel(get(), get(), get()) }
+    single { DashboardViewModel(get(), get(), get(), get()) }
 }

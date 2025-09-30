@@ -5,6 +5,8 @@ import androidx.lifecycle.viewModelScope
 import com.joffer.organizeplus.features.dashboard.domain.usecases.GetDashboardDataUseCase
 import com.joffer.organizeplus.features.dashboard.domain.usecases.MarkObligationPaidUseCase
 import com.joffer.organizeplus.features.dashboard.domain.repositories.DutyRepository
+import com.joffer.organizeplus.features.duty.occurrence.domain.repositories.DutyOccurrenceRepository
+import com.joffer.organizeplus.features.dashboard.domain.entities.DutyWithLastOccurrence
 import com.joffer.organizeplus.features.dashboard.DashboardUiState
 import com.joffer.organizeplus.features.dashboard.DashboardIntent
 import kotlinx.coroutines.flow.*
@@ -13,7 +15,8 @@ import io.github.aakira.napier.Napier
 class DashboardViewModel(
     private val getDashboardDataUseCase: GetDashboardDataUseCase,
     private val markObligationPaidUseCase: MarkObligationPaidUseCase,
-    private val dutyRepository: DutyRepository
+    private val dutyRepository: DutyRepository,
+    private val dutyOccurrenceRepository: DutyOccurrenceRepository
 ) : ViewModel() {
     
     private val _uiState = MutableStateFlow(DashboardUiState())
@@ -68,16 +71,45 @@ class DashboardViewModel(
                     }
             }
             
-            // Load latest duties separately
+            // Load latest duties separately with last occurrence data
             launch {
                 dutyRepository.getLatestDuties(3)
                     .catch { /* ignore errors for latest duties */ }
                     .collect { result ->
                         result.fold(
                             onSuccess = { latestDuties ->
+                                // Load last occurrence for each duty
+                                val dutiesWithLastOccurrence = latestDuties.map { duty ->
+                                    DutyWithLastOccurrence(
+                                        duty = duty,
+                                        lastOccurrence = null // Will be loaded separately
+                                    )
+                                }
                                 _uiState.value = _uiState.value.copy(
-                                    latestDuties = latestDuties
+                                    latestDuties = dutiesWithLastOccurrence
                                 )
+                                
+                                // Load last occurrence for each duty
+                                latestDuties.forEach { duty ->
+                                    launch {
+                                        dutyOccurrenceRepository.getLastOccurrenceByDutyId(duty.id)
+                                            .fold(
+                                                onSuccess = { lastOccurrence ->
+                                                    val updatedDuties = _uiState.value.latestDuties.map { dutyWithOccurrence ->
+                                                        if (dutyWithOccurrence.duty.id == duty.id) {
+                                                            dutyWithOccurrence.copy(lastOccurrence = lastOccurrence)
+                                                        } else {
+                                                            dutyWithOccurrence
+                                                        }
+                                                    }
+                                                    _uiState.value = _uiState.value.copy(
+                                                        latestDuties = updatedDuties
+                                                    )
+                                                },
+                                                onFailure = { /* ignore */ }
+                                            )
+                                    }
+                                }
                             },
                             onFailure = { /* ignore */ }
                         )

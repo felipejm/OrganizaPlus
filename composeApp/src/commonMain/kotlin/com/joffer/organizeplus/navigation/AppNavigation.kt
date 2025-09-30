@@ -13,7 +13,7 @@ import com.joffer.organizeplus.features.duty.create.presentation.CreateDutyScree
 import com.joffer.organizeplus.features.duty.create.presentation.CreateDutyViewModel
 import com.joffer.organizeplus.features.duty.list.presentation.DutyListScreen
 import com.joffer.organizeplus.features.duty.list.presentation.DutyListViewModel
-import com.joffer.organizeplus.features.duty.detail.presentation.DutyDetailsListScreen
+import com.joffer.organizeplus.features.duty.detail.presentation.DutyDetailsScreen
 import com.joffer.organizeplus.features.duty.detail.presentation.DutyDetailsListViewModel
 import com.joffer.organizeplus.features.settings.presentation.SettingsScreen
 import com.joffer.organizeplus.features.settings.presentation.SettingsViewModel
@@ -103,12 +103,12 @@ fun AppNavigation(
         composable(NavigationRoutes.DUTY_OCCURRENCES) { backStackEntry ->
             val dutyId = backStackEntry.arguments?.getString("dutyId") ?: ""
             val dutyDetailsListViewModel: DutyDetailsListViewModel = koinInject { parametersOf(dutyId) }
-            DutyDetailsListScreen(
+            DutyDetailsScreen(
                 viewModel = dutyDetailsListViewModel,
                 onNavigateBack = {
                     navController.popBackStack()
                 },
-                onEditDuty = { editDutyId ->
+                onEditDuty = { editDutyId: String ->
                     navController.navigate(NavigationRoutes.editDuty(editDutyId))
                 }
             )

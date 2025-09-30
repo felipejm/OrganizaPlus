@@ -81,7 +81,6 @@ fun DashboardScreen(
                         duties = uiState.latestDuties,
                         onViewAll = onNavigateToDuties,
                         onAddDuty = onNavigateToCreateDuty,
-                        onEdit = onNavigateToEditDuty
                     )
                 }
                 

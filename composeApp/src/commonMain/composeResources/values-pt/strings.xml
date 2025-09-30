@@ -36,7 +36,27 @@
     <string name="status_pending">Pendente</string>
     <string name="status_paid">Pago</string>
     <string name="status_overdue">Atrasado</string>
+    <string name="status_snoozed">Adiado</string>
     <string name="status_cancelled">Cancelado</string>
+    <string name="not_available">N/A</string>
+    
+    <!-- Missing strings that are used in code -->
+    <string name="category_enterprise">Empresarial</string>
+    <string name="category_personal">Pessoal</string>
+    <string name="create_duty_cancel">Cancelar</string>
+    <string name="create_duty_category">Categoria</string>
+    <string name="create_duty_due_day">Dia de Vencimento</string>
+    <string name="create_duty_save">Salvar</string>
+    <string name="create_duty_start_day">Dia de Início</string>
+    <string name="create_duty_title">Título</string>
+    <string name="duty_detail_due_date">Data de Vencimento</string>
+    <string name="duty_detail_start_date">Data de Início</string>
+    <string name="error_deleting_occurrence">Erro ao excluir ocorrência</string>
+    <string name="error_due_day_invalid">Dia de vencimento inválido</string>
+    <string name="error_loading_occurrences">Erro ao carregar ocorrências</string>
+    <string name="error_start_day_invalid">Dia de início inválido</string>
+    <string name="navigation_create_duty_new">Novo Dever</string>
+    <string name="navigation_edit_duty_new">Editar Dever</string>
     
     <!-- Duty Priority -->
     <string name="priority_low">Baixa</string>
@@ -295,6 +315,14 @@
     <string name="upcoming_7_days">Próximos 7 dias</string>
     <string name="no_duties_next_7_days">Nenhuma tarefa nos próximos 7 dias</string>
     <string name="view_all_obligations">Ver todas as obrigações</string>
+    <string name="duty_due_every_day">Vence todo dia %d do mês</string>
+    <string name="duty_start_every_day">Inicia todo dia %d do mês</string>
+    
+    <!-- Chart strings -->
+    <string name="chart_occurrences_by_month">Ocorrências por Mês</string>
+    <string name="chart_amount_paid_by_month">Valor Pago por Mês</string>
+    <string name="chart_count_legend">Quantidade de ocorrências</string>
+    <string name="chart_amount_legend">Valor total pago (R$)</string>
     
     <!-- Duty Detail Header -->
     <string name="duty_detail_edit">Editar</string>
@@ -305,7 +333,7 @@
     <string name="duty_detail_status">Status</string>
     
     <!-- Duty Occurrence -->
-    <string name="duty_occurrence_list_title">Novas Ocorrências</string>
+    <string name="duty_occurrence_list_title">Ocorrências</string>
     <string name="duty_occurrence_list_empty_title">Nenhuma ocorrência encontrada</string>
     <string name="duty_occurrence_list_empty_subtitle">Adicione uma ocorrência para acompanhar a conclusão</string>
     <string name="duty_occurrence_list_add_occurrence">Adicionar Ocorrência</string>

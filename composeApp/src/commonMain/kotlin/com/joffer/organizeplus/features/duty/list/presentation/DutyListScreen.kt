@@ -148,9 +148,9 @@ fun DutyListScreen(
                     contentPadding = PaddingValues(Spacing.md),
                     verticalArrangement = Arrangement.spacedBy(Spacing.sm)
                 ) {
-                    items(uiState.duties) { duty ->
+                    items(uiState.duties) { dutyWithOccurrence ->
                         DutyListItem(
-                            duty = duty,
+                            dutyWithOccurrence = dutyWithOccurrence,
                             onViewOccurrences = onNavigateToOccurrences,
                             onDelete = { dutyId -> viewModel.onIntent(DutyListIntent.DeleteDuty(dutyId)) }
                         )

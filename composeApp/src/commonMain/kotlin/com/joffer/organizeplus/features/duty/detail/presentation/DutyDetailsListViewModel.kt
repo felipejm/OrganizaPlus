@@ -6,6 +6,7 @@ import com.joffer.organizeplus.features.duty.occurrence.domain.entities.DutyOccu
 import com.joffer.organizeplus.features.duty.occurrence.domain.repositories.DutyOccurrenceRepository
 import com.joffer.organizeplus.features.dashboard.domain.repositories.DutyRepository
 import com.joffer.organizeplus.features.dashboard.domain.entities.Duty
+import com.joffer.organizeplus.features.duty.detail.domain.entities.ChartData
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -68,6 +69,21 @@ class DutyDetailsListViewModel(
                             records = occurrences,
                             error = null
                         )
+                        
+                        // Load chart data if duty is available
+                        _uiState.value.duty?.let { dutyInfo ->
+                            launch {
+                                repository.getMonthlyChartData(dutyId, dutyInfo.type)
+                                    .fold(
+                                        onSuccess = { chartData ->
+                                            _uiState.value = _uiState.value.copy(chartData = chartData)
+                                        },
+                                        onFailure = { exception ->
+                                            Napier.e("Failed to load chart data", exception)
+                                        }
+                                    )
+                            }
+                        }
                     },
                     onFailure = { exception ->
                         Napier.e("Failed to load occurrences", exception)
@@ -128,6 +144,7 @@ data class DutyDetailsListUiState(
     val isLoading: Boolean = false,
     val records: List<DutyOccurrence> = emptyList(),
     val duty: Duty? = null,
+    val chartData: ChartData? = null,
     val error: String? = null
 )
 

@@ -36,7 +36,9 @@
     <string name="status_pending">Pending</string>
     <string name="status_paid">Paid</string>
     <string name="status_overdue">Overdue</string>
+    <string name="status_snoozed">Snoozed</string>
     <string name="status_cancelled">Cancelled</string>
+    <string name="not_available">N/A</string>
     
     <!-- Duty Priority -->
     <string name="priority_low">Low</string>
@@ -247,7 +249,7 @@
     <string name="settings_arrow_forward">Navigate forward</string>
     
     <!-- Duty Occurrence -->
-    <string name="duty_occurrence_list_title">New Occurrences</string>
+    <string name="duty_occurrence_list_title">Occurrences</string>
     <string name="duty_occurrence_list_empty_title">No occurrences found</string>
     <string name="duty_occurrence_list_empty_subtitle">Add an occurrence to track completion</string>
     <string name="duty_occurrence_list_add_occurrence">Add Occurrence</string>
@@ -312,4 +314,12 @@
     <string name="upcoming_7_days">Upcoming 7 days</string>
     <string name="no_duties_next_7_days">No duties in the next 7 days</string>
     <string name="view_all_obligations">View all obligations</string>
+    <string name="duty_due_every_day">Due every day %d of the month</string>
+    <string name="duty_start_every_day">Starts every day %d of the month</string>
+    
+    <!-- Chart strings -->
+    <string name="chart_occurrences_by_month">Occurrences by Month</string>
+    <string name="chart_amount_paid_by_month">Amount Paid by Month</string>
+    <string name="chart_count_legend">Count of occurrences</string>
+    <string name="chart_amount_legend">Total amount paid (R$)</string>
 </resources>

@@ -5,7 +5,6 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.unit.dp
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 
 @Composable
@@ -30,7 +29,7 @@ fun OrganizePrimaryButton(
             Icon(
                 imageVector = icon,
                 contentDescription = null,
-                modifier = Modifier.size(18.dp)
+                modifier = Modifier.size(Spacing.Icon.sm)
             )
             Spacer(modifier = Modifier.width(Spacing.Button.iconSpacing))
         }
@@ -65,7 +64,7 @@ fun OrganizeSecondaryButton(
             Icon(
                 imageVector = icon,
                 contentDescription = null,
-                modifier = Modifier.size(18.dp)
+                modifier = Modifier.size(Spacing.Icon.sm)
             )
             Spacer(modifier = Modifier.width(Spacing.Button.iconSpacing))
         }

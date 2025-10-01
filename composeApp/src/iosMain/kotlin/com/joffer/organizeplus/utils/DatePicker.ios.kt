@@ -2,7 +2,9 @@ package com.joffer.organizeplus.utils
 
 import androidx.compose.runtime.Composable
 import kotlinx.datetime.LocalDate
-import kotlinx.datetime.toNSDate
+import platform.Foundation.NSDate
+import platform.Foundation.NSTimeInterval
+import platform.Foundation.timeIntervalSince1970
 import platform.UIKit.*
 
 @Composable
@@ -15,7 +17,10 @@ actual fun showDatePickerDialog(
         preferredDatePickerStyle = UIDatePickerStyle.UIDatePickerStyleWheels
         translatesAutoresizingMaskIntoConstraints = false
         initialDate?.let {
-            date = it.toNSDate()
+            // Convert LocalDate to NSDate
+            val epochDays = it.toEpochDays()
+            val timeInterval: NSTimeInterval = epochDays * 24.0 * 60.0 * 60.0
+            date = NSDate(timeIntervalSinceReferenceDate = timeInterval - 978307200.0) // NSDate epoch is Jan 1, 2001
         }
     }
 
@@ -40,8 +45,9 @@ actual fun showDatePickerDialog(
             style = UIAlertActionStyleDefault
         ) { _ ->
             val selectedNSDate = datePicker.date
-            val timeInterval = selectedNSDate.timeIntervalSince1970
-            val daysSinceEpoch = (timeInterval / (24 * 60 * 60)).toLong()
+            // Access the property directly - timeIntervalSince1970 is a Double property
+            val timeIntervalSeconds = selectedNSDate.timeIntervalSince1970
+            val daysSinceEpoch = (timeIntervalSeconds / (24.0 * 60.0 * 60.0)).toInt()
             val localDate = LocalDate.fromEpochDays(daysSinceEpoch)
             onDateSelected(localDate)
         }

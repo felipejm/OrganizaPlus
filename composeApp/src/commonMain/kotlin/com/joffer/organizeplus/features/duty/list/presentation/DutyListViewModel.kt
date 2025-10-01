@@ -2,6 +2,7 @@ package com.joffer.organizeplus.features.duty.list.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.joffer.organizeplus.common.constants.CategoryConstants
 import com.joffer.organizeplus.features.dashboard.domain.entities.DutyWithLastOccurrence
 import com.joffer.organizeplus.features.dashboard.domain.repositories.DutyRepository
 import com.joffer.organizeplus.features.dashboard.domain.usecases.DeleteDutyUseCase
@@ -58,8 +59,8 @@ class DutyListViewModel(
                             // Filter duties by category
                             val filteredDuties = when (categoryFilter) {
                                 DutyCategoryFilter.All -> duties
-                                DutyCategoryFilter.Personal -> duties.filter { it.categoryName == "Personal" }
-                                DutyCategoryFilter.Company -> duties.filter { it.categoryName == "Company" }
+                                DutyCategoryFilter.Personal -> duties.filter { it.categoryName == CategoryConstants.PERSONAL }
+                                DutyCategoryFilter.Company -> duties.filter { it.categoryName == CategoryConstants.COMPANY }
                                 is DutyCategoryFilter.Custom -> duties.filter { it.categoryName == categoryFilter.name }
                             }
 

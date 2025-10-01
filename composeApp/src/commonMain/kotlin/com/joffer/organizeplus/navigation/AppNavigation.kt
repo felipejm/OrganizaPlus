@@ -7,6 +7,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
+import com.joffer.organizeplus.common.constants.CategoryConstants
 import com.joffer.organizeplus.features.dashboard.presentation.DashboardScreen
 import com.joffer.organizeplus.features.dashboard.presentation.DashboardViewModel
 import com.joffer.organizeplus.features.duty.create.presentation.CreateDutyScreen
@@ -34,30 +36,30 @@ fun AppNavigation(
 
     NavHost(
         navController = navController,
-        startDestination = NavigationRoutes.DASHBOARD
+        startDestination = Dashboard
     ) {
-        composable(NavigationRoutes.DASHBOARD) {
+        composable<Dashboard> {
             DashboardScreen(
                 viewModel = dashboardViewModel,
                 onNavigateToPersonalDuties = {
-                    navController.navigate(NavigationRoutes.duties("Personal"))
+                    navController.navigate(Duties(CategoryConstants.PERSONAL))
                 },
                 onNavigateToCompanyDuties = {
-                    navController.navigate(NavigationRoutes.duties("Company"))
+                    navController.navigate(Duties(CategoryConstants.COMPANY))
                 },
                 onNavigateToEditDuty = { dutyId ->
-                    navController.navigate(NavigationRoutes.editDuty(dutyId))
+                    navController.navigate(EditDuty(dutyId))
                 },
                 onNavigateToCreateDuty = {
-                    navController.navigate(NavigationRoutes.CREATE_DUTY)
+                    navController.navigate(CreateDuty)
                 },
                 onNavigateToSettings = {
-                    navController.navigate(NavigationRoutes.SETTINGS)
+                    navController.navigate(Settings)
                 }
             )
         }
 
-        composable(NavigationRoutes.CREATE_DUTY) {
+        composable<CreateDuty> {
             val createDutyViewModel: CreateDutyViewModel = koinInject { parametersOf(null) }
             CreateDutyScreen(
                 viewModel = createDutyViewModel,
@@ -68,11 +70,12 @@ fun AppNavigation(
             )
         }
 
-        composable(NavigationRoutes.DUTIES) { backStackEntry ->
-            val category = backStackEntry.arguments?.getString("category") ?: "All"
-            val categoryFilter = when (category) {
-                "Personal" -> DutyCategoryFilter.Personal
-                "Company" -> DutyCategoryFilter.Company
+        composable<Duties> { backStackEntry ->
+            // Type-safe route extraction using toRoute()
+            val duties = backStackEntry.toRoute<Duties>()
+            val categoryFilter = when (duties.category) {
+                CategoryConstants.PERSONAL -> DutyCategoryFilter.Personal
+                CategoryConstants.COMPANY -> DutyCategoryFilter.Company
                 else -> DutyCategoryFilter.All
             }
             val dutyListViewModel: DutyListViewModel = koinInject { parametersOf(categoryFilter) }
@@ -80,44 +83,46 @@ fun AppNavigation(
                 viewModel = dutyListViewModel,
                 categoryFilter = categoryFilter,
                 onNavigateToCreateDuty = {
-                    navController.navigate(NavigationRoutes.CREATE_DUTY)
+                    navController.navigate(CreateDuty)
                 },
                 onNavigateBack = {
                     navController.popBackStack()
                 },
                 onNavigateToOccurrences = { dutyId ->
-                    navController.navigate(NavigationRoutes.dutyOccurrences(dutyId))
+                    navController.navigate(DutyOccurrences(dutyId))
                 }
             )
         }
 
-        composable(NavigationRoutes.EDIT_DUTY) { backStackEntry ->
-            val dutyId = backStackEntry.arguments?.getString("dutyId") ?: ""
-            val createDutyViewModel: CreateDutyViewModel = koinInject { parametersOf(dutyId) }
+        composable<EditDuty> { backStackEntry ->
+            // Type-safe route extraction using toRoute()
+            val editDuty = backStackEntry.toRoute<EditDuty>()
+            val createDutyViewModel: CreateDutyViewModel = koinInject { parametersOf(editDuty.dutyId) }
             CreateDutyScreen(
                 viewModel = createDutyViewModel,
                 onNavigateBack = {
                     navController.popBackStack()
                 },
-                dutyId = dutyId
+                dutyId = editDuty.dutyId
             )
         }
 
-        composable(NavigationRoutes.DUTY_OCCURRENCES) { backStackEntry ->
-            val dutyId = backStackEntry.arguments?.getString("dutyId") ?: ""
-            val dutyDetailsListViewModel: DutyDetailsListViewModel = koinInject { parametersOf(dutyId) }
+        composable<DutyOccurrences> { backStackEntry ->
+            // Type-safe route extraction using toRoute()
+            val dutyOccurrences = backStackEntry.toRoute<DutyOccurrences>()
+            val dutyDetailsListViewModel: DutyDetailsListViewModel = koinInject { parametersOf(dutyOccurrences.dutyId) }
             DutyDetailsScreen(
                 viewModel = dutyDetailsListViewModel,
                 onNavigateBack = {
                     navController.popBackStack()
                 },
                 onEditDuty = { editDutyId: String ->
-                    navController.navigate(NavigationRoutes.editDuty(editDutyId))
+                    navController.navigate(EditDuty(editDutyId))
                 }
             )
         }
 
-        composable(NavigationRoutes.SETTINGS) {
+        composable<Settings> {
             val settingsViewModel: SettingsViewModel = koinInject()
             SettingsScreen(
                 viewModel = settingsViewModel,
@@ -125,12 +130,12 @@ fun AppNavigation(
                     navController.popBackStack()
                 },
                 onNavigateToDesignSystem = {
-                    navController.navigate("design_system_catalog")
+                    navController.navigate(DesignSystemCatalog)
                 }
             )
         }
 
-        composable("design_system_catalog") {
+        composable<DesignSystemCatalog> {
             com.joffer.organizeplus.designsystem.catalog.DesignSystemCatalogScreen(
                 onNavigateBack = {
                     navController.popBackStack()

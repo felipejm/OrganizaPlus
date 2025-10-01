@@ -18,8 +18,6 @@ object DutyMapper {
                 else -> DutyType.ACTIONABLE
             },
             categoryName = entity.categoryName ?: "",
-            status = if (entity.isCompleted) Duty.Status.PAID else Duty.Status.PENDING,
-            snoozeUntil = null,
             createdAt = entity.createdAt
         )
     }
@@ -32,7 +30,7 @@ object DutyMapper {
             type = domain.type.name,
             startDay = domain.startDay,
             dueDay = domain.dueDay,
-            isCompleted = domain.status == Duty.Status.PAID,
+            isCompleted = false,
             categoryName = domain.categoryName,
             createdAt = domain.createdAt
         )

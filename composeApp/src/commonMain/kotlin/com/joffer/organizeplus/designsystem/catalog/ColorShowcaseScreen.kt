@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.joffer.organizeplus.common.utils.formatString
 import com.joffer.organizeplus.designsystem.components.AppTopAppBarWithBackButton
 import com.joffer.organizeplus.designsystem.components.OrganizeCard
 import com.joffer.organizeplus.designsystem.spacing.Spacing
@@ -280,9 +281,9 @@ private fun Color.toHexString(): String {
     val blue = (blue * 255).toInt()
 
     return if (alpha == 255) {
-        String.format("#%02X%02X%02X", red, green, blue)
+        formatString("#%02X%02X%02X", red, green, blue)
     } else {
-        String.format("#%02X%02X%02X%02X", alpha, red, green, blue)
+        formatString("#%02X%02X%02X%02X", alpha, red, green, blue)
     }
 }
 

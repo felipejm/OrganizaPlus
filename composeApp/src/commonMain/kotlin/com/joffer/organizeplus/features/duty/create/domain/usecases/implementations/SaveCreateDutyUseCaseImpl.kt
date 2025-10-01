@@ -1,5 +1,6 @@
 package com.joffer.organizeplus.features.duty.create.domain.usecases.implementations
 
+import com.joffer.organizeplus.common.utils.currentTimeMillis
 import com.joffer.organizeplus.features.dashboard.domain.entities.Duty
 import com.joffer.organizeplus.features.dashboard.domain.repositories.DutyRepository
 import com.joffer.organizeplus.features.duty.create.domain.entities.CreateDutyForm
@@ -37,12 +38,11 @@ class SaveCreateDutyUseCaseImpl(
             dueDay = form.dueDay,
             type = form.dutyType,
             categoryName = form.categoryName,
-            status = Duty.Status.PENDING,
             createdAt = now
         )
     }
 
     private fun generateId(): String {
-        return "obligation_${System.currentTimeMillis()}"
+        return "obligation_${currentTimeMillis()}"
     }
 }

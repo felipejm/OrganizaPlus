@@ -1,5 +1,33 @@
 package com.joffer.organizeplus.navigation
 
+import kotlinx.serialization.Serializable
+
+// Type-safe navigation routes using @Serializable
+@Serializable
+object Dashboard
+
+@Serializable
+object CreateDuty
+
+@Serializable
+data class Duties(val category: String)
+
+@Serializable
+data class EditDuty(val dutyId: String)
+
+@Serializable
+data class DutyOccurrences(val dutyId: String)
+
+@Serializable
+data class AddDutyOccurrence(val dutyId: String)
+
+@Serializable
+object Settings
+
+@Serializable
+object DesignSystemCatalog
+
+// Legacy string routes for compatibility
 object NavigationRoutes {
     const val DASHBOARD = "dashboard"
     const val CREATE_DUTY = "create_duty"

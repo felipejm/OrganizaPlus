@@ -14,7 +14,7 @@ fun Double.toCurrencyFormat(
     decimalPlaces: Int = 2
 ): String {
     val absValue = abs(this)
-    val formattedValue = String.format(java.util.Locale.US, "%.${decimalPlaces}f", absValue)
+    val formattedValue = formatString("%.${decimalPlaces}f", absValue)
 
     return if (this < 0) {
         "-$symbol $formattedValue"

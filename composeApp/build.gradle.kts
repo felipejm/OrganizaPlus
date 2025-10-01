@@ -71,6 +71,7 @@ kotlin {
             // Navigation library
             implementation("org.jetbrains.androidx.navigation:navigation-compose:2.9.0")
             implementation(libs.kamel)
+            implementation(libs.material.icons.extended)
             
             // DI library
             implementation(libs.koin.core)
@@ -180,6 +181,8 @@ tasks.withType<com.google.devtools.ksp.gradle.KspAATask> {
     // iOS-specific resource generation tasks
     dependsOn("generateResourceAccessorsForIosArm64Main")
     dependsOn("generateActualResourceCollectorsForIosArm64Main")
+    dependsOn("generateResourceAccessorsForIosSimulatorArm64Main")
+    dependsOn("generateActualResourceCollectorsForIosSimulatorArm64Main")
     dependsOn("generateResourceAccessorsForIosMain")
     dependsOn("generateResourceAccessorsForAppleMain")
     dependsOn("generateResourceAccessorsForNativeMain")

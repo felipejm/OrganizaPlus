@@ -8,6 +8,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.joffer.organizeplus.common.utils.DateUtils
+import com.joffer.organizeplus.common.utils.formatString
 import com.joffer.organizeplus.designsystem.components.CategoryIcon
 import com.joffer.organizeplus.designsystem.components.OrganizeCard
 import com.joffer.organizeplus.designsystem.spacing.Spacing
@@ -102,7 +103,7 @@ fun DutyListItem(
 
             // Due day
             Text(
-                text = String.format(stringResource(Res.string.duty_due_every_day), duty.dueDay),
+                text = formatString(stringResource(Res.string.duty_due_every_day), duty.dueDay),
                 style = Typography.secondaryText,
                 color = AppColorScheme.formSecondaryText
             )

@@ -1,5 +1,6 @@
 package com.joffer.organizeplus.features.duty.detail.domain.usecases
 
+import com.joffer.organizeplus.common.utils.currentTimeMillis
 import com.joffer.organizeplus.features.duty.detail.domain.entities.DutyDetails
 import com.joffer.organizeplus.features.duty.detail.domain.entities.DutyDetailsForm
 import com.joffer.organizeplus.features.duty.detail.domain.repositories.DutyDetailsRepository
@@ -41,6 +42,6 @@ class SaveDutyDetailsUseCaseImpl(
     }
 
     private fun generateId(): String {
-        return "record_${System.currentTimeMillis()}"
+        return "record_${currentTimeMillis()}"
     }
 }

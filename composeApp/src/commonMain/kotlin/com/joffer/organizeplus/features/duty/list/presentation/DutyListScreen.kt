@@ -21,6 +21,8 @@ import com.joffer.organizeplus.features.duty.list.domain.DutyCategoryFilter
 import org.jetbrains.compose.resources.stringResource
 import organizeplus.composeapp.generated.resources.Res
 import organizeplus.composeapp.generated.resources.add_duty
+import organizeplus.composeapp.generated.resources.dashboard_company_duties
+import organizeplus.composeapp.generated.resources.dashboard_personal_duties
 import organizeplus.composeapp.generated.resources.duty_list_empty_subtitle
 import organizeplus.composeapp.generated.resources.duty_list_empty_title
 import organizeplus.composeapp.generated.resources.duty_list_error_subtitle
@@ -52,8 +54,8 @@ fun DutyListScreen(
             AppTopAppBarWithBackButton(
                 title = when (categoryFilter) {
                     DutyCategoryFilter.All -> stringResource(Res.string.duty_list_title)
-                    DutyCategoryFilter.Personal -> "Personal Duties"
-                    DutyCategoryFilter.Company -> "Company Duties"
+                    DutyCategoryFilter.Personal -> stringResource(Res.string.dashboard_personal_duties)
+                    DutyCategoryFilter.Company -> stringResource(Res.string.dashboard_company_duties)
                     is DutyCategoryFilter.Custom -> "${categoryFilter.name} Duties"
                 },
                 onBackClick = onNavigateBack,

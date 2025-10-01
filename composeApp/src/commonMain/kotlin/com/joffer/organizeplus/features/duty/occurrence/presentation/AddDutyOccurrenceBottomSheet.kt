@@ -2,6 +2,7 @@ package com.joffer.organizeplus.features.duty.occurrence.presentation
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
@@ -10,6 +11,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.text.input.KeyboardType
 import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.Typography
@@ -109,6 +111,7 @@ fun AddDutyOccurrenceBottomSheet(
                 FormField(
                     label = stringResource(Res.string.duty_occurrence_paid_amount),
                     value = formState.paidAmount ?: "",
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     onValueChange = {
                         viewModel.onIntent(
                             AddDutyOccurrenceIntent.UpdateFormField(

@@ -1,5 +1,6 @@
 package com.joffer.organizeplus.features.duty.occurrence.domain.entities
 
+import com.joffer.organizeplus.common.utils.safeToDouble
 import com.joffer.organizeplus.features.dashboard.domain.entities.DutyType
 import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDate
@@ -16,7 +17,7 @@ data class DutyOccurrenceForm(
 ) {
     fun toDutyOccurrence(): DutyOccurrence {
         val now = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date
-        val amount = paidAmount?.toDoubleOrNull()
+        val amount = paidAmount?.safeToDouble()
 
         return DutyOccurrence(
             id = id,

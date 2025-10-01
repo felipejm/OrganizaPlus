@@ -2,6 +2,7 @@ package com.joffer.organizeplus.designsystem.components
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -21,6 +22,7 @@ fun FormField(
     isError: Boolean = false,
     errorMessage: String? = null,
     modifier: Modifier = Modifier,
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     trailingIcon: @Composable (() -> Unit)? = null
 ) {
     Column(modifier = modifier) {
@@ -36,6 +38,7 @@ fun FormField(
         OutlinedTextField(
             value = value,
             onValueChange = onValueChange,
+            keyboardOptions = keyboardOptions,
             placeholder = {
                 Text(
                     text = placeholder,

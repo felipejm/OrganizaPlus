@@ -116,7 +116,7 @@ fun OrganizeInput(
                 ),
                 color = colors.label
             )
-            Spacer(modifier = Modifier.height(4.dp))
+            Spacer(modifier = Modifier.height(Spacing.xs))
         }
 
         // Input Container
@@ -124,12 +124,12 @@ fun OrganizeInput(
             modifier = Modifier
                 .height(size.height.dp)
                 .fillMaxWidth()
-                .clip(RoundedCornerShape(4.dp))
+                .clip(RoundedCornerShape(Spacing.Radius.xs))
                 .background(colors.background)
                 .border(
                     width = 1.dp,
                     color = colors.border,
-                    shape = RoundedCornerShape(4.dp)
+                    shape = RoundedCornerShape(Spacing.Radius.xs)
                 )
                 .clickable(
                     enabled = enabled,
@@ -154,9 +154,9 @@ fun OrganizeInput(
                         imageVector = leadingIcon,
                         contentDescription = null,
                         tint = colors.icon,
-                        modifier = Modifier.size(20.dp)
+                        modifier = Modifier.size(Spacing.Icon.sm)
                     )
-                    Spacer(modifier = Modifier.width(8.dp))
+                    Spacer(modifier = Modifier.width(Spacing.sm))
                 }
 
                 // Text Field
@@ -193,7 +193,7 @@ fun OrganizeInput(
 
                 // Trailing Icon
                 if (trailingIcon != null) {
-                    Spacer(modifier = Modifier.width(8.dp))
+                    Spacer(modifier = Modifier.width(Spacing.sm))
                     Icon(
                         imageVector = trailingIcon,
                         contentDescription = null,
@@ -214,7 +214,7 @@ fun OrganizeInput(
 
         // Helper/Error Text
         if (errorText != null || helperText != null) {
-            Spacer(modifier = Modifier.height(4.dp))
+            Spacer(modifier = Modifier.height(Spacing.xs))
             Text(
                 text = errorText ?: helperText ?: "",
                 style = TextStyle(

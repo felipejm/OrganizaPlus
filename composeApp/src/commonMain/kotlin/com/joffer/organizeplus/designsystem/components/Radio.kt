@@ -89,7 +89,7 @@ private fun OrganizeRadioItem(
         // Custom radio button
         Box(
             modifier = Modifier
-                .size(32.dp)
+                .size(Spacing.iconSize)
                 .clickable(enabled = enabled) { onSelect() }
                 .semantics {
                     role = androidx.compose.ui.semantics.Role.RadioButton
@@ -100,7 +100,7 @@ private fun OrganizeRadioItem(
             // Outer ring
             Box(
                 modifier = Modifier
-                    .size(16.dp)
+                    .size(Spacing.Icon.xs)
                     .clip(CircleShape)
                     .background(Color.White)
                     .border(

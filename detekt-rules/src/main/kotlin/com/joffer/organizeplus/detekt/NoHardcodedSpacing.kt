@@ -33,6 +33,14 @@ class NoHardcodedSpacing(config: Config = Config.empty) : Rule(config) {
     override fun visitDotQualifiedExpression(expression: KtDotQualifiedExpression) {
         super.visitDotQualifiedExpression(expression)
         
+        // Skip if we're in the Spacing.kt file itself or in catalog/showcase files
+        val filePath = expression.containingKtFile.virtualFilePath
+        if (filePath.contains("designsystem/spacing/Spacing.kt") ||
+            filePath.contains("/catalog/") ||
+            filePath.contains("/showcase/")) {
+            return
+        }
+        
         // Check for patterns like: 16.dp, 8.dp, etc.
         val receiver = expression.receiverExpression.text
         val selector = expression.selectorExpression?.text

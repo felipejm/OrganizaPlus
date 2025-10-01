@@ -27,6 +27,14 @@ class NoHardcodedColors(config: Config = Config.empty) : Rule(config) {
     override fun visitCallExpression(expression: KtCallExpression) {
         super.visitCallExpression(expression)
         
+        // Skip if we're in the ColorScheme.kt file itself or in catalog/showcase files
+        val filePath = expression.containingKtFile.virtualFilePath
+        if (filePath.contains("designsystem/colors/ColorScheme.kt") ||
+            filePath.contains("/catalog/") ||
+            filePath.contains("/showcase/")) {
+            return
+        }
+        
         val calleeText = expression.calleeExpression?.text
         
         // Detect Color(...) constructor calls with hex values
@@ -36,18 +44,14 @@ class NoHardcodedColors(config: Config = Config.empty) : Rule(config) {
                 val firstArg = arguments[0].getArgumentExpression()?.text
                 // Check if it's a hex color value (0xFF...)
                 if (firstArg != null && firstArg.startsWith("0x")) {
-                    // Allow Color.White, Color.Black, Color.Transparent, etc.
-                    val parent = expression.parent?.text
-                    if (parent?.contains("ColorScheme") == false) {
-                        report(
-                            CodeSmell(
-                                issue,
-                                Entity.from(expression),
-                                "Hardcoded color value $firstArg detected. " +
-                                    "Use AppColorScheme from the design system instead."
-                            )
+                    report(
+                        CodeSmell(
+                            issue,
+                            Entity.from(expression),
+                            "Hardcoded color value $firstArg detected. " +
+                                "Use AppColorScheme from the design system instead."
                         )
-                    }
+                    )
                 }
             }
         }

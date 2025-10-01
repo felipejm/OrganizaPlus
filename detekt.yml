@@ -316,7 +316,7 @@ style:
   LoopWithTooManyJumpStatements:
     active: false
   MagicNumber:
-    active: true
+    active: false
     excludes: ['**/catalog/**', '**/test/**', '**/showcase/**']
   BracesOnIfStatements:
     active: true

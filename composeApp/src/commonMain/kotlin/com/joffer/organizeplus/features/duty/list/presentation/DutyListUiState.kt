@@ -6,5 +6,4 @@ data class DutyListUiState(
     val isLoading: Boolean = false,
     val error: String? = null,
     val duties: List<DutyWithLastOccurrence> = emptyList(),
-    val searchQuery: String = ""
 )

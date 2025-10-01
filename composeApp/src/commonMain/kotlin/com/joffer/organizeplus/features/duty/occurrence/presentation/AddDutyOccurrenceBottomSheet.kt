@@ -10,7 +10,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
-import androidx.compose.ui.text.input.KeyboardType
 import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.Typography
@@ -109,13 +108,12 @@ fun AddDutyOccurrenceBottomSheet(
             if (formState.dutyType == DutyType.PAYABLE) {
                 FormField(
                     label = stringResource(Res.string.duty_occurrence_paid_amount),
-                    value = if (formState.paidAmount == 0.0) "" else formState.paidAmount.toString(),
+                    value = formState.paidAmount ?: "",
                     onValueChange = {
-                        val amount = if (it.isBlank()) 0.0 else it.toDoubleOrNull() ?: 0.0
                         viewModel.onIntent(
                             AddDutyOccurrenceIntent.UpdateFormField(
                                 DutyOccurrenceFormField.PaidAmount,
-                                amount
+                                it
                             )
                         )
                     },

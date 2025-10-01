@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
+import kotlinx.datetime.LocalDate
 
 class AddDutyOccurrenceViewModel(
     private val saveRecordUseCase: SaveDutyOccurrenceUseCase,
@@ -40,8 +41,8 @@ class AddDutyOccurrenceViewModel(
                 .collect { result ->
                     result.fold(
                         onSuccess = { duty ->
-                            duty?.let { d ->
-                                _formState.value = _formState.value.copy(dutyType = d.type)
+                            duty?.let {
+                                _formState.value = _formState.value.copy(dutyType = it.type)
                             }
                         },
                         onFailure = { exception ->
@@ -54,7 +55,11 @@ class AddDutyOccurrenceViewModel(
 
     fun onIntent(intent: AddDutyOccurrenceIntent) {
         when (intent) {
-            is AddDutyOccurrenceIntent.UpdateFormField -> updateFormField(intent.field, intent.value)
+            is AddDutyOccurrenceIntent.UpdateFormField -> updateFormField(
+                field = intent.field,
+                value = intent.value
+            )
+
             AddDutyOccurrenceIntent.SaveRecord -> saveRecord()
             AddDutyOccurrenceIntent.ClearError -> clearError()
             AddDutyOccurrenceIntent.Retry -> saveRecord()
@@ -63,17 +68,16 @@ class AddDutyOccurrenceViewModel(
 
     private fun updateFormField(field: DutyOccurrenceFormField, value: Any) {
         _formState.value = when (field) {
-            DutyOccurrenceFormField.PaidAmount -> updatePaidAmount(value)
-            DutyOccurrenceFormField.CompletedDate -> updateCompletedDate(value)
+            DutyOccurrenceFormField.PaidAmount -> {
+                _formState.value.copy(paidAmount = value as String?)
+            }
+            DutyOccurrenceFormField.CompletedDate -> {
+                _formState.value.copy(completedDate = value as LocalDate)
+            }
         }
 
         _uiState.value = _uiState.value.copy(hasUnsavedChanges = true)
     }
-
-    private fun updatePaidAmount(value: Any) = _formState.value.copy(paidAmount = value as Double)
-    private fun updateCompletedDate(
-        value: Any
-    ) = _formState.value.copy(completedDate = value as kotlinx.datetime.LocalDate)
 
     private fun saveRecord() {
         val form = _formState.value
@@ -146,7 +150,9 @@ data class AddDutyOccurrenceUiState(
 )
 
 sealed class AddDutyOccurrenceIntent {
-    data class UpdateFormField(val field: DutyOccurrenceFormField, val value: Any) : AddDutyOccurrenceIntent()
+    data class UpdateFormField(val field: DutyOccurrenceFormField, val value: Any) :
+        AddDutyOccurrenceIntent()
+
     object SaveRecord : AddDutyOccurrenceIntent()
     object ClearError : AddDutyOccurrenceIntent()
     object Retry : AddDutyOccurrenceIntent()

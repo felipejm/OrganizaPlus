@@ -28,4 +28,3 @@ object Settings
 
 @Serializable
 object DesignSystemCatalog
-

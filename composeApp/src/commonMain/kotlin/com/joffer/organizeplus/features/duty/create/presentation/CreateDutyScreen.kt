@@ -1,7 +1,6 @@
 package com.joffer.organizeplus.features.duty.create.presentation
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
@@ -9,8 +8,6 @@ import androidx.compose.material3.SnackbarDuration
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
-import androidx.compose.ui.text.input.KeyboardType
-import com.joffer.organizeplus.common.constants.CategoryConstants
 import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.features.dashboard.domain.entities.DutyType
@@ -26,7 +23,6 @@ import organizeplus.composeapp.generated.resources.duty_saved_success
 import organizeplus.composeapp.generated.resources.duty_type_actionable
 import organizeplus.composeapp.generated.resources.duty_type_label
 import organizeplus.composeapp.generated.resources.duty_type_payable
-import organizeplus.composeapp.generated.resources.error_category_required
 import organizeplus.composeapp.generated.resources.error_saving
 import organizeplus.composeapp.generated.resources.error_title_required
 import organizeplus.composeapp.generated.resources.navigation_create_duty_new

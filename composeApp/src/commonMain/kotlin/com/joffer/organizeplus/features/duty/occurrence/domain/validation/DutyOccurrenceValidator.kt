@@ -9,8 +9,8 @@ class DutyOccurrenceValidator {
     fun validate(form: DutyOccurrenceForm): Map<DutyOccurrenceFormField, ValidationError> {
         val errors = mutableMapOf<DutyOccurrenceFormField, ValidationError>()
 
-        // Only validate paid amount for payable duties
-        if (form.dutyType == DutyType.PAYABLE && form.paidAmount <= 0) {
+        val amount = form.paidAmount?.toDoubleOrNull()
+        if (form.dutyType == DutyType.PAYABLE && amount != null && amount <= 0) {
             errors[DutyOccurrenceFormField.PaidAmount] = ValidationError.InvalidAmount
         }
 

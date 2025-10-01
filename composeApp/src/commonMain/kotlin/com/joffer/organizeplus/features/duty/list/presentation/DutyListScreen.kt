@@ -7,7 +7,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -28,7 +27,6 @@ import organizeplus.composeapp.generated.resources.duty_list_empty_title
 import organizeplus.composeapp.generated.resources.duty_list_error_subtitle
 import organizeplus.composeapp.generated.resources.duty_list_error_title
 import organizeplus.composeapp.generated.resources.duty_list_retry
-import organizeplus.composeapp.generated.resources.duty_list_search_hint
 import organizeplus.composeapp.generated.resources.duty_list_title
 import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
@@ -81,14 +79,6 @@ fun DutyListScreen(
                 .fillMaxSize()
                 .padding(paddingValues)
         ) {
-            SearchBar(
-                query = uiState.searchQuery,
-                onQueryChange = { viewModel.onIntent(DutyListIntent.SearchDuties(it)) },
-                modifier = Modifier.padding(Spacing.md)
-            )
-
-            Spacer(modifier = Modifier.height(Spacing.sm))
-
             if (uiState.isLoading) {
                 OrganizeProgressIndicatorFullScreen()
             } else if (uiState.error != null) {
@@ -153,37 +143,4 @@ fun DutyListScreen(
             }
         }
     }
-}
-
-@Composable
-private fun SearchBar(
-    query: String,
-    onQueryChange: (String) -> Unit,
-    modifier: Modifier = Modifier
-) {
-    OutlinedTextField(
-        value = query,
-        onValueChange = onQueryChange,
-        placeholder = {
-            Text(
-                text = stringResource(Res.string.duty_list_search_hint),
-                color = AppColorScheme.formPlaceholder
-            )
-        },
-        leadingIcon = {
-            Icon(
-                imageVector = Icons.Default.Search,
-                contentDescription = "Search",
-                tint = AppColorScheme.formPlaceholder
-            )
-        },
-        modifier = modifier.fillMaxWidth(),
-        colors = OutlinedTextFieldDefaults.colors(
-            focusedBorderColor = AppColorScheme.primary,
-            unfocusedBorderColor = AppColorScheme.formBorder,
-            focusedTextColor = AppColorScheme.formText,
-            unfocusedTextColor = AppColorScheme.formText
-        ),
-        shape = RoundedCornerShape(Spacing.borderRadius)
-    )
 }

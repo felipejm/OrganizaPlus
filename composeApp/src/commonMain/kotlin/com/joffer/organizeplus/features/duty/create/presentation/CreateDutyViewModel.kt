@@ -61,10 +61,7 @@ class CreateDutyViewModel(
         title = (value as String).capitalize(Locale.current)
     )
 
-
     private fun updateDutyType(value: Any) = _formState.value.copy(dutyType = value as DutyType)
-    private fun updateCategoryName(value: Any) =
-        _formState.value.copy(categoryName = value as String)
 
     fun getFieldError(field: CreateDutyFormField): CreateDutyValidationError? {
         return _uiState.value.errors[field]

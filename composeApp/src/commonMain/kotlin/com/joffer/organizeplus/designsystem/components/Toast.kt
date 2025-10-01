@@ -27,7 +27,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.Typography
 import kotlinx.coroutines.delay
@@ -84,7 +83,7 @@ fun AppToast(
                     tint = Color.White,
                     modifier = Modifier.padding(vertical = Spacing.xs)
                 )
-                
+
                 Text(
                     text = message,
                     style = Typography.bodyMedium,

@@ -5,7 +5,6 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.RoomDatabaseConstructor
 import androidx.room.TypeConverters
-import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import com.joffer.organizeplus.database.converters.InstantConverter
 import com.joffer.organizeplus.database.converters.LocalDateConverter
 import com.joffer.organizeplus.database.dao.DutyDao

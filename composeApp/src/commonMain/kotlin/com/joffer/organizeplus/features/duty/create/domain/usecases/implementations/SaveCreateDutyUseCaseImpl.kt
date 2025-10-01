@@ -1,6 +1,5 @@
 package com.joffer.organizeplus.features.duty.create.domain.usecases.implementations
 
-import com.joffer.organizeplus.common.utils.currentTimeMillis
 import com.joffer.organizeplus.features.dashboard.domain.entities.Duty
 import com.joffer.organizeplus.features.dashboard.domain.repositories.DutyRepository
 import com.joffer.organizeplus.features.duty.create.domain.entities.CreateDutyForm

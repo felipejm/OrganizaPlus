@@ -33,7 +33,6 @@ class DutyListViewModel(
         when (intent) {
             DutyListIntent.LoadDuties -> loadDuties()
             DutyListIntent.RefreshDuties -> refreshDuties()
-            is DutyListIntent.SearchDuties -> searchDuties(intent.query)
             is DutyListIntent.DeleteDuty -> deleteDuty(intent.dutyId)
             DutyListIntent.ClearError -> clearError()
             DutyListIntent.Retry -> retry()
@@ -116,23 +115,6 @@ class DutyListViewModel(
 
     private fun refreshDuties() {
         loadDuties()
-    }
-
-    private fun searchDuties(query: String) {
-        _uiState.value = _uiState.value.copy(searchQuery = query)
-        applySearch()
-    }
-
-    private fun applySearch() {
-        val currentState = _uiState.value
-        val allDuties = currentState.duties
-
-        val filteredDuties = allDuties.filter { dutyWithOccurrence ->
-            currentState.searchQuery.isEmpty() ||
-                dutyWithOccurrence.duty.title.contains(currentState.searchQuery, ignoreCase = true)
-        }
-
-        _uiState.value = currentState.copy(duties = filteredDuties)
     }
 
     private fun deleteDuty(dutyId: Long) {

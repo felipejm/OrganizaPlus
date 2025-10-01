@@ -70,7 +70,7 @@ class AddDutyOccurrenceViewModel(
         _uiState.value = _uiState.value.copy(hasUnsavedChanges = true)
     }
 
-    private fun updatePaidAmount(value: Any) = _formState.value.copy(paidAmount = value as Double)
+    private fun updatePaidAmount(value: Any) = _formState.value.copy(paidAmountText = value as String)
     private fun updateCompletedDate(
         value: Any
     ) = _formState.value.copy(completedDate = value as kotlinx.datetime.LocalDate)

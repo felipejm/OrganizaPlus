@@ -11,18 +11,24 @@ data class DutyOccurrenceForm(
     val dutyId: String = "",
     val dutyType: DutyType = DutyType.ACTIONABLE,
     val paidAmount: Double = 0.0,
+    val paidAmountText: String = "",
     val completedDate: LocalDate = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date
 ) {
     fun isValid(): Boolean {
-        return dutyId.isNotBlank() && paidAmount > 0
+        return dutyId.isNotBlank() && (dutyType != DutyType.PAYABLE || paidAmountText.isNotBlank())
     }
 
     fun toDutyOccurrence(): DutyOccurrence {
         val now = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date
+        val parsedAmount = if (dutyType == DutyType.PAYABLE && paidAmountText.isNotBlank()) {
+            paidAmountText.toDoubleOrNull() ?: 0.0
+        } else {
+            0.0
+        }
         return DutyOccurrence(
             id = id ?: "",
             dutyId = dutyId,
-            paidAmount = if (dutyType == DutyType.PAYABLE && paidAmount > 0) paidAmount else null,
+            paidAmount = if (parsedAmount > 0) parsedAmount else null,
             completedDate = completedDate,
             createdAt = now
         )

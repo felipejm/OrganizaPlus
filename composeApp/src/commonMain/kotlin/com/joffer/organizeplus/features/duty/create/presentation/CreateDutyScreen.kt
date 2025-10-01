@@ -51,14 +51,9 @@ fun CreateDutyScreen(
     val closeLabel = stringResource(Res.string.close)
     val errorMessage = stringResource(Res.string.error_saving)
 
-    // Handle success snackbar
+    // Handle success toast
     LaunchedEffect(uiState.showSuccessSnackbar) {
         if (uiState.showSuccessSnackbar) {
-            snackbarHostState.showSnackbar(
-                message = successMessage,
-                actionLabel = closeLabel,
-                duration = SnackbarDuration.Short
-            )
             onNavigateBack()
         }
     }
@@ -157,6 +152,13 @@ fun CreateDutyScreen(
             }
         }
     }
+
+    // Success Toast
+    AppToast(
+        message = successMessage,
+        isVisible = uiState.showSuccessSnackbar,
+        onDismiss = { /* Toast auto-dismisses */ }
+    )
 }
 
 @Composable

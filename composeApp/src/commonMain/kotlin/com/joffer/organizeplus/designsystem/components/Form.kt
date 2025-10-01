@@ -57,13 +57,13 @@ fun OrganizeFormField(
                 FormLabel(
                     text = label,
                     required = required,
-                    modifier = Modifier.padding(bottom = 4.dp)
+                    modifier = Modifier.padding(bottom = Spacing.xs)
                 )
                 content()
                 FormHelperOrError(
                     helper = helper,
                     error = error,
-                    modifier = Modifier.padding(top = 4.dp)
+                    modifier = Modifier.padding(top = Spacing.xs)
                 )
             }
         }
@@ -88,7 +88,7 @@ fun OrganizeFormField(
                     FormHelperOrError(
                         helper = helper,
                         error = error,
-                        modifier = Modifier.padding(top = 4.dp)
+                        modifier = Modifier.padding(top = Spacing.xs)
                     )
                 }
             }
@@ -98,7 +98,7 @@ fun OrganizeFormField(
                 FormLabel(
                     text = label,
                     required = required,
-                    modifier = Modifier.padding(bottom = 4.dp)
+                    modifier = Modifier.padding(bottom = Spacing.xs)
                 )
                 Box(
                     modifier = Modifier
@@ -132,7 +132,7 @@ fun OrganizeFormSection(
         )
 
         if (description != null) {
-            Spacer(modifier = Modifier.height(4.dp))
+            Spacer(modifier = Modifier.height(Spacing.xs))
             Text(
                 text = description,
                 style = Typography.body,
@@ -205,7 +205,7 @@ private fun FormLabel(
             fontWeight = FontWeight.Normal
         )
         if (required) {
-            Spacer(modifier = Modifier.width(4.dp))
+            Spacer(modifier = Modifier.width(Spacing.xs))
             Text(
                 text = "*",
                 style = Typography.body,

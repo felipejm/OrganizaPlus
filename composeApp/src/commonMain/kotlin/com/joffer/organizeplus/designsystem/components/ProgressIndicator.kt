@@ -7,7 +7,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
+import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 /**
@@ -16,8 +16,8 @@ import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 @Composable
 fun OrganizeProgressIndicator(
     modifier: Modifier = Modifier,
-    size: androidx.compose.ui.unit.Dp = 40.dp,
-    strokeWidth: androidx.compose.ui.unit.Dp = 4.dp,
+    size: androidx.compose.ui.unit.Dp = Spacing.Icon.xl,
+    strokeWidth: androidx.compose.ui.unit.Dp = Spacing.xs,
     color: androidx.compose.ui.graphics.Color = AppColorScheme.primary
 ) {
     CircularProgressIndicator(
@@ -33,8 +33,8 @@ fun OrganizeProgressIndicator(
 @Composable
 fun OrganizeProgressIndicatorFullScreen(
     modifier: Modifier = Modifier,
-    size: androidx.compose.ui.unit.Dp = 40.dp,
-    strokeWidth: androidx.compose.ui.unit.Dp = 4.dp,
+    size: androidx.compose.ui.unit.Dp = Spacing.Icon.xl,
+    strokeWidth: androidx.compose.ui.unit.Dp = Spacing.xs,
     color: androidx.compose.ui.graphics.Color = AppColorScheme.primary
 ) {
     Box(
@@ -55,8 +55,8 @@ fun OrganizeProgressIndicatorFullScreen(
 @Composable
 fun OrganizeProgressIndicatorInline(
     modifier: Modifier = Modifier,
-    size: androidx.compose.ui.unit.Dp = 20.dp,
-    strokeWidth: androidx.compose.ui.unit.Dp = 2.dp,
+    size: androidx.compose.ui.unit.Dp = Spacing.Icon.sm,
+    strokeWidth: androidx.compose.ui.unit.Dp = Spacing.Divider.medium,
     color: androidx.compose.ui.graphics.Color = AppColorScheme.primary
 ) {
     OrganizeProgressIndicator(

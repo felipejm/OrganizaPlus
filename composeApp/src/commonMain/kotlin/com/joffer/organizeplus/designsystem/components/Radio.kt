@@ -26,7 +26,6 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.Typography
 import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
@@ -104,7 +103,7 @@ private fun OrganizeRadioItem(
                     .clip(CircleShape)
                     .background(Color.White)
                     .border(
-                        width = 2.dp,
+                        width = Spacing.Divider.medium,
                         color = when {
                             !enabled -> AppColorScheme.neutral200
                             isSelected -> AppColorScheme.personalAccent
@@ -118,7 +117,7 @@ private fun OrganizeRadioItem(
                 if (isSelected) {
                     Box(
                         modifier = Modifier
-                            .size(8.dp)
+                            .size(Spacing.sm)
                             .clip(CircleShape)
                             .background(
                                 color = if (enabled) AppColorScheme.personalAccent else AppColorScheme.neutral500
@@ -163,7 +162,7 @@ fun OrganizeRadioGroup(
                 style = Typography.body,
                 color = AppColorScheme.neutral600,
                 fontWeight = FontWeight.Normal,
-                modifier = Modifier.padding(bottom = 4.dp)
+                modifier = Modifier.padding(bottom = Spacing.xs)
             )
         }
 

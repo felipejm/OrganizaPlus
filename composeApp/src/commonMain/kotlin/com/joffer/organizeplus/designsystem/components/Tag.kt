@@ -17,6 +17,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 @Composable
@@ -68,7 +69,7 @@ fun OrganizeTag(
                     tint = colors.icon,
                     modifier = Modifier.size(size.iconSize.dp)
                 )
-                Spacer(modifier = Modifier.width(4.dp))
+                Spacer(modifier = Modifier.width(Spacing.xs))
             }
 
             // Text
@@ -84,7 +85,7 @@ fun OrganizeTag(
 
             // Trailing icon
             trailingIcon?.let { icon ->
-                Spacer(modifier = Modifier.width(4.dp))
+                Spacer(modifier = Modifier.width(Spacing.xs))
                 Icon(
                     imageVector = icon,
                     contentDescription = null,

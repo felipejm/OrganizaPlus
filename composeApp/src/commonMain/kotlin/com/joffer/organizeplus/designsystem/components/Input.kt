@@ -27,6 +27,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 enum class InputSize(
@@ -199,7 +200,7 @@ fun OrganizeInput(
                         contentDescription = null,
                         tint = colors.icon,
                         modifier = Modifier
-                            .size(20.dp)
+                            .size(Spacing.Icon.sm)
                             .clickable(
                                 enabled = enabled && onTrailingIconClick != null,
                                 interactionSource = remember { MutableInteractionSource() },

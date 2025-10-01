@@ -163,23 +163,23 @@ fun OrganizeResultCard(
 
 // Color schemes for each result type
 private val SuccessColors = ResultColors(
-    icon = Color(0xFF44B76C), // Success 500
-    ring = Color(0xFFE0F7EB) // Success 200
+    icon = AppColorScheme.success600,
+    ring = AppColorScheme.success100
 )
 
 private val ErrorColors = ResultColors(
-    icon = Color(0xFFF54A2C), // Danger 500
-    ring = Color(0xFFFFE7E2) // Danger 200
+    icon = AppColorScheme.danger600,
+    ring = AppColorScheme.danger100
 )
 
 private val WarningColors = ResultColors(
-    icon = Color(0xFFF5B42C), // Warning 500
-    ring = Color(0xFFFFF6D2) // Warning 200
+    icon = AppColorScheme.warning600,
+    ring = AppColorScheme.warning100
 )
 
 private val InfoColors = ResultColors(
-    icon = Color(0xFF2E8CF0), // Info 500
-    ring = Color(0xFFE4F3FF) // Info 200
+    icon = AppColorScheme.info600,
+    ring = AppColorScheme.info100
 )
 
 private data class ResultColors(

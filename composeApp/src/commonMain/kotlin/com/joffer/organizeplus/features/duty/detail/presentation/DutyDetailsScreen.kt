@@ -33,6 +33,8 @@ import organizeplus.composeapp.generated.resources.duty_occurrence_list_empty_ti
 import organizeplus.composeapp.generated.resources.duty_occurrence_list_title
 import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
+private val EMPTY_STATE_HEIGHT = 400.dp
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DutyDetailsScreen(
@@ -104,7 +106,7 @@ fun DutyDetailsScreen(
                             Box(
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .height(400.dp),
+                                    .height(EMPTY_STATE_HEIGHT),
                                 contentAlignment = Alignment.Center
                             ) {
                                 OrganizeResult(

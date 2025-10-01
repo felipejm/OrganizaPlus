@@ -9,7 +9,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.Typography
 
@@ -28,7 +27,7 @@ fun EmptyState(
             // Icon placeholder - can be replaced with actual icon later
             Box(
                 modifier = Modifier
-                    .size(64.dp)
+                    .size(Spacing.listItemHeight)
                     .background(
                         MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.3f),
                         CircleShape

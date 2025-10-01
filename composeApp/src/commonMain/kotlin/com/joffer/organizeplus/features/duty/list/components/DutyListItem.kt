@@ -7,7 +7,6 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import com.joffer.organizeplus.common.utils.DateUtils
 import com.joffer.organizeplus.designsystem.components.CategoryIcon
 import com.joffer.organizeplus.designsystem.components.OrganizeCard
@@ -60,13 +59,13 @@ fun DutyListItem(
 
                 IconButton(
                     onClick = { onDelete(duty.id) },
-                    modifier = Modifier.size(24.dp)
+                    modifier = Modifier.size(Spacing.xxl)
                 ) {
                     Icon(
                         imageVector = Icons.Default.Delete,
                         contentDescription = "Delete Duty",
                         tint = AppColorScheme.error,
-                        modifier = Modifier.size(20.dp)
+                        modifier = Modifier.size(Spacing.Icon.sm)
                     )
                 }
             }

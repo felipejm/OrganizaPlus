@@ -40,6 +40,7 @@ import androidx.compose.ui.unit.dp
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.Typography
 import kotlinx.coroutines.delay
+import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 private const val MESSAGE_ENTER_ANIMATION_DURATION = 200
 private const val MESSAGE_EXIT_ANIMATION_DURATION = 150
@@ -162,27 +163,27 @@ data class MessageData(
 
 // Color schemes for each message type
 private val InfoColors = MessageColors(
-    background = Color(0xFFE4F3FF), // Info 100
-    text = Color(0xFF1A70D2), // Info 700
-    icon = Color(0xFF2E8CF0) // Info 600
+    background = AppColorScheme.info100,
+    text = AppColorScheme.info700,
+    icon = AppColorScheme.info600
 )
 
 private val WarningColors = MessageColors(
-    background = Color(0xFFFFF6D2), // Warning 100
-    text = Color(0xFFF29D0E), // Warning 700
-    icon = Color(0xFFF5B42C) // Warning 600
+    background = AppColorScheme.warning100,
+    text = AppColorScheme.warning700,
+    icon = AppColorScheme.warning600
 )
 
 private val ErrorColors = MessageColors(
-    background = Color(0xFFFFE7E2), // Danger 100
-    text = Color(0xFFE42312), // Danger 700
-    icon = Color(0xFFF54A2C) // Danger 600
+    background = AppColorScheme.danger100,
+    text = AppColorScheme.danger700,
+    icon = AppColorScheme.danger600
 )
 
 private val SuccessColors = MessageColors(
-    background = Color(0xFFE0F7EB), // Success 100
-    text = Color(0xFF1E9E4B), // Success 700
-    icon = Color(0xFF44B76C) // Success 600
+    background = AppColorScheme.success100,
+    text = AppColorScheme.success700,
+    icon = AppColorScheme.success600
 )
 
 private data class MessageColors(

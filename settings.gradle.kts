@@ -35,3 +35,9 @@ plugins {
 
 include(":composeApp")
 include(":core")
+include(":dashboard")
+include(":database")
+include(":design-system")
+include(":duty")
+include(":platform")
+include(":detekt-rules")

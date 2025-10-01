@@ -146,8 +146,8 @@ android {
 dependencies {
     debugImplementation(compose.uiTooling)
     detektPlugins(libs.detekt.formatting)
+    detektPlugins(project(":detekt-rules"))
 }
-
 
 sqldelight {
     databases {

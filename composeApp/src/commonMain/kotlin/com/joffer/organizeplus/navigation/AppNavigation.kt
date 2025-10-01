@@ -11,17 +11,15 @@ import com.joffer.organizeplus.features.dashboard.presentation.DashboardScreen
 import com.joffer.organizeplus.features.dashboard.presentation.DashboardViewModel
 import com.joffer.organizeplus.features.duty.create.presentation.CreateDutyScreen
 import com.joffer.organizeplus.features.duty.create.presentation.CreateDutyViewModel
+import com.joffer.organizeplus.features.duty.detail.presentation.DutyDetailsListViewModel
+import com.joffer.organizeplus.features.duty.detail.presentation.DutyDetailsScreen
+import com.joffer.organizeplus.features.duty.list.domain.DutyCategoryFilter
 import com.joffer.organizeplus.features.duty.list.presentation.DutyListScreen
 import com.joffer.organizeplus.features.duty.list.presentation.DutyListViewModel
-import com.joffer.organizeplus.features.duty.list.domain.DutyCategoryFilter
-import com.joffer.organizeplus.features.duty.detail.presentation.DutyDetailsScreen
-import com.joffer.organizeplus.features.duty.detail.presentation.DutyDetailsListViewModel
 import com.joffer.organizeplus.features.settings.presentation.SettingsScreen
 import com.joffer.organizeplus.features.settings.presentation.SettingsViewModel
-import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.koinInject
 import org.koin.core.parameter.parametersOf
-import organizeplus.composeapp.generated.resources.Res
 
 @Composable
 fun AppNavigation(
@@ -29,11 +27,11 @@ fun AppNavigation(
     onNavHostReady: suspend (NavController) -> Unit = {}
 ) {
     val dashboardViewModel: DashboardViewModel = koinInject()
-    
+
     LaunchedEffect(navController) {
         onNavHostReady(navController)
     }
-    
+
     NavHost(
         navController = navController,
         startDestination = NavigationRoutes.DASHBOARD
@@ -58,7 +56,7 @@ fun AppNavigation(
                 }
             )
         }
-        
+
         composable(NavigationRoutes.CREATE_DUTY) {
             val createDutyViewModel: CreateDutyViewModel = koinInject { parametersOf(null) }
             CreateDutyScreen(
@@ -69,7 +67,7 @@ fun AppNavigation(
                 dutyId = null
             )
         }
-        
+
         composable(NavigationRoutes.DUTIES) { backStackEntry ->
             val category = backStackEntry.arguments?.getString("category") ?: "All"
             val categoryFilter = when (category) {
@@ -84,9 +82,6 @@ fun AppNavigation(
                 onNavigateToCreateDuty = {
                     navController.navigate(NavigationRoutes.CREATE_DUTY)
                 },
-                onNavigateToEditDuty = { dutyId ->
-                    navController.navigate(NavigationRoutes.editDuty(dutyId))
-                },
                 onNavigateBack = {
                     navController.popBackStack()
                 },
@@ -95,7 +90,7 @@ fun AppNavigation(
                 }
             )
         }
-        
+
         composable(NavigationRoutes.EDIT_DUTY) { backStackEntry ->
             val dutyId = backStackEntry.arguments?.getString("dutyId") ?: ""
             val createDutyViewModel: CreateDutyViewModel = koinInject { parametersOf(dutyId) }
@@ -107,7 +102,7 @@ fun AppNavigation(
                 dutyId = dutyId
             )
         }
-        
+
         composable(NavigationRoutes.DUTY_OCCURRENCES) { backStackEntry ->
             val dutyId = backStackEntry.arguments?.getString("dutyId") ?: ""
             val dutyDetailsListViewModel: DutyDetailsListViewModel = koinInject { parametersOf(dutyId) }
@@ -121,7 +116,7 @@ fun AppNavigation(
                 }
             )
         }
-        
+
         composable(NavigationRoutes.SETTINGS) {
             val settingsViewModel: SettingsViewModel = koinInject()
             SettingsScreen(
@@ -134,7 +129,7 @@ fun AppNavigation(
                 }
             )
         }
-        
+
         composable("design_system_catalog") {
             com.joffer.organizeplus.designsystem.catalog.DesignSystemCatalogScreen(
                 onNavigateBack = {
@@ -145,7 +140,7 @@ fun AppNavigation(
                 }
             )
         }
-        
+
         // Design System Component Showcases
         composable("buttons") {
             com.joffer.organizeplus.designsystem.catalog.ButtonShowcaseScreen(
@@ -154,7 +149,7 @@ fun AppNavigation(
                 }
             )
         }
-        
+
         composable("cards") {
             com.joffer.organizeplus.designsystem.catalog.CardShowcaseScreen(
                 onNavigateBack = {
@@ -162,8 +157,7 @@ fun AppNavigation(
                 }
             )
         }
-        
-        
+
         composable("inputs") {
             com.joffer.organizeplus.designsystem.catalog.InputShowcaseScreen(
                 onNavigateBack = {
@@ -171,7 +165,7 @@ fun AppNavigation(
                 }
             )
         }
-        
+
         composable("chips") {
             com.joffer.organizeplus.designsystem.catalog.ChipShowcaseScreen(
                 onNavigateBack = {
@@ -179,7 +173,7 @@ fun AppNavigation(
                 }
             )
         }
-        
+
         composable("badges") {
             com.joffer.organizeplus.designsystem.catalog.BadgeShowcaseScreen(
                 onNavigateBack = {
@@ -187,7 +181,7 @@ fun AppNavigation(
                 }
             )
         }
-        
+
         composable("simple_tags") {
             com.joffer.organizeplus.designsystem.catalog.SimpleTagShowcaseScreen(
                 onNavigateBack = {
@@ -195,7 +189,7 @@ fun AppNavigation(
                 }
             )
         }
-        
+
         composable("banners") {
             com.joffer.organizeplus.designsystem.catalog.BannerShowcaseScreen(
                 onNavigateBack = {
@@ -203,7 +197,7 @@ fun AppNavigation(
                 }
             )
         }
-        
+
         composable("layouts") {
             com.joffer.organizeplus.designsystem.catalog.LayoutShowcaseScreen(
                 onNavigateBack = {
@@ -211,7 +205,7 @@ fun AppNavigation(
                 }
             )
         }
-        
+
         composable("colors") {
             com.joffer.organizeplus.designsystem.catalog.ColorShowcaseScreen(
                 onNavigateBack = {
@@ -219,7 +213,7 @@ fun AppNavigation(
                 }
             )
         }
-        
+
         composable("typography") {
             com.joffer.organizeplus.designsystem.catalog.TypographyShowcaseScreen(
                 onNavigateBack = {
@@ -227,7 +221,7 @@ fun AppNavigation(
                 }
             )
         }
-        
+
         composable("progress") {
             com.joffer.organizeplus.designsystem.catalog.ProgressShowcaseScreen(
                 onNavigateBack = {
@@ -270,7 +264,7 @@ fun AppNavigation(
                 }
             )
         }
-        
+
         composable("charts") {
             com.joffer.organizeplus.designsystem.catalog.ChartShowcaseScreen(
                 onNavigateBack = {

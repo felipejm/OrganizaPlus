@@ -4,21 +4,17 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.unit.dp
-import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
-import com.joffer.organizeplus.designsystem.components.OrganizeCard
 import com.joffer.organizeplus.designsystem.components.AppTopAppBarWithBackButton
+import com.joffer.organizeplus.designsystem.components.OrganizeCard
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.Typography
+import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 @OptIn(ExperimentalMaterial3Api::class)
-
 @Composable
 fun DesignSystemCatalogScreen(
     onNavigateBack: () -> Unit,
@@ -48,14 +44,14 @@ fun DesignSystemCatalogScreen(
                 )
                 Spacer(modifier = Modifier.height(Spacing.sm))
             }
-            
+
             items(ComponentCategory.values()) { category ->
                 ComponentCategoryCard(
                     category = category,
                     onNavigateToComponent = onNavigateToComponent
                 )
             }
-            
+
             item {
                 Spacer(modifier = Modifier.height(Spacing.lg))
                 Text(
@@ -65,14 +61,14 @@ fun DesignSystemCatalogScreen(
                 )
                 Spacer(modifier = Modifier.height(Spacing.sm))
             }
-            
+
             item {
                 ComponentCategoryCard(
                     category = ComponentCategory.COLORS,
                     onNavigateToComponent = onNavigateToComponent
                 )
             }
-            
+
             item {
                 ComponentCategoryCard(
                     category = ComponentCategory.TYPOGRAPHY,
@@ -113,7 +109,7 @@ private fun ComponentCategoryCard(
                     color = AppColorScheme.onSurfaceVariant
                 )
             }
-            
+
             Icon(
                 imageVector = Icons.Default.ArrowForward,
                 contentDescription = "Navigate forward",
@@ -123,7 +119,6 @@ private fun ComponentCategoryCard(
         }
     }
 }
-
 
 enum class ComponentCategory(
     val title: String,

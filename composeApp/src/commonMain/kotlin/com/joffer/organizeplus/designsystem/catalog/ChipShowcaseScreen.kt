@@ -3,20 +3,15 @@ package com.joffer.organizeplus.designsystem.catalog
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
-import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.Typography
+import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 @OptIn(ExperimentalMaterial3Api::class)
-
 @Composable
 fun ChipShowcaseScreen(
     onNavigateBack: () -> Unit,
@@ -44,7 +39,7 @@ fun ChipShowcaseScreen(
                     color = AppColorScheme.onSurface
                 )
             }
-            
+
             items(ChipShowcaseItem.values()) { item ->
                 ChipShowcaseItem(item = item)
             }
@@ -68,15 +63,15 @@ private fun ChipShowcaseItem(
                 style = Typography.title,
                 color = AppColorScheme.onSurface
             )
-            
+
             Text(
                 text = item.description,
                 style = Typography.body,
                 color = AppColorScheme.onSurfaceVariant
             )
-            
+
             Spacer(modifier = Modifier.height(Spacing.md))
-            
+
             when (item) {
                 ChipShowcaseItem.PRIORITY -> {
                     PriorityChipExamples()
@@ -102,7 +97,7 @@ private fun PriorityChipExamples() {
             style = Typography.subtitle,
             color = AppColorScheme.onSurface
         )
-        
+
         Row(
             horizontalArrangement = Arrangement.spacedBy(Spacing.sm),
             verticalAlignment = androidx.compose.ui.Alignment.CenterVertically
@@ -125,7 +120,7 @@ private fun CategoryChipExamples() {
             style = Typography.subtitle,
             color = AppColorScheme.onSurface
         )
-        
+
         Row(
             horizontalArrangement = Arrangement.spacedBy(Spacing.sm),
             verticalAlignment = androidx.compose.ui.Alignment.CenterVertically
@@ -160,7 +155,7 @@ private fun StatusChipExamples() {
             style = Typography.subtitle,
             color = AppColorScheme.onSurface
         )
-        
+
         Row(
             horizontalArrangement = Arrangement.spacedBy(Spacing.sm),
             verticalAlignment = androidx.compose.ui.Alignment.CenterVertically
@@ -192,7 +187,7 @@ private fun StatusChip(
         ObligationStatus.PAID -> AppColorScheme.success100 to AppColorScheme.success700
         ObligationStatus.OVERDUE -> AppColorScheme.danger100 to AppColorScheme.danger700
     }
-    
+
     AssistChip(
         onClick = { },
         label = {

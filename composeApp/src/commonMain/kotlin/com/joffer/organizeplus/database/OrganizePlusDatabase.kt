@@ -1,8 +1,9 @@
 package com.joffer.organizeplus.database
 
+import androidx.room.ConstructedBy
 import androidx.room.Database
-import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.RoomDatabaseConstructor
 import androidx.room.TypeConverters
 import com.joffer.organizeplus.database.converters.InstantConverter
 import com.joffer.organizeplus.database.converters.LocalDateConverter
@@ -10,6 +11,8 @@ import com.joffer.organizeplus.database.dao.DutyDao
 import com.joffer.organizeplus.database.dao.DutyOccurrenceDao
 import com.joffer.organizeplus.database.entities.DutyEntity
 import com.joffer.organizeplus.database.entities.DutyOccurrenceEntity
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 
 @Database(
     entities = [
@@ -23,20 +26,24 @@ import com.joffer.organizeplus.database.entities.DutyOccurrenceEntity
     InstantConverter::class,
     LocalDateConverter::class
 )
+@ConstructedBy(AppDatabaseConstructor::class)
 abstract class OrganizePlusDatabase : RoomDatabase() {
-    
+
     abstract fun dutyDao(): DutyDao
     abstract fun dutyOccurrenceDao(): DutyOccurrenceDao
-    
+
     companion object {
-        fun create(databaseDriverFactory: DatabaseDriverFactory): OrganizePlusDatabase {
-            return Room.databaseBuilder(
-                databaseDriverFactory.getContext(),
-                OrganizePlusDatabase::class.java,
-                "organize_plus_database"
-            )
-            .fallbackToDestructiveMigration()
-            .build()
+        fun create(builder: Builder<OrganizePlusDatabase>): OrganizePlusDatabase {
+            return builder
+                .addMigrations()
+                .fallbackToDestructiveMigrationOnDowngrade(true)
+                .setQueryCoroutineContext(Dispatchers.IO)
+                .build()
         }
     }
+}
+
+@Suppress("NO_ACTUAL_FOR_EXPECT")
+expect object AppDatabaseConstructor : RoomDatabaseConstructor<OrganizePlusDatabase> {
+    override fun initialize(): OrganizePlusDatabase
 }

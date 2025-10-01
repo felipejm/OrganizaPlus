@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.map
 class GetDashboardDataUseCaseImpl(
     private val repository: DutyRepository
 ) : GetDashboardDataUseCase {
-    
+
     override suspend operator fun invoke(): Flow<Result<DashboardData>> {
         return repository.getUpcomingDuties(7).map { result ->
             result.map { upcomingDuties ->

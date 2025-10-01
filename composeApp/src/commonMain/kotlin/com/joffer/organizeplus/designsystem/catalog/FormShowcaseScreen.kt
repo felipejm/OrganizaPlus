@@ -9,7 +9,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import com.joffer.organizeplus.designsystem.components.AppTopAppBarWithBackButton
 import com.joffer.organizeplus.designsystem.components.OrganizeCard
 import com.joffer.organizeplus.designsystem.components.OrganizeFormValidationBanner
@@ -30,7 +29,7 @@ fun FormShowcaseScreen(
             title = stringResource(Res.string.form_showcase_title),
             onBackClick = onNavigateBack
         )
-        
+
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
@@ -49,15 +48,16 @@ fun FormShowcaseScreen(
                             text = "Form Components",
                             style = Typography.titleMedium
                         )
-                        
+
                         Text(
-                            text = "Form components are available for building structured forms with validation, sections, and actions.",
+                            text = "Form components are available for building structured " +
+                                "forms with validation, sections, and actions.",
                             style = Typography.body
                         )
                     }
                 }
             }
-            
+
             item {
                 OrganizeCard(
                     modifier = Modifier.fillMaxWidth()
@@ -70,7 +70,7 @@ fun FormShowcaseScreen(
                             text = "Form Validation Banner",
                             style = Typography.titleMedium
                         )
-                        
+
                         OrganizeFormValidationBanner(
                             message = "Please fix the errors below before submitting the form"
                         )

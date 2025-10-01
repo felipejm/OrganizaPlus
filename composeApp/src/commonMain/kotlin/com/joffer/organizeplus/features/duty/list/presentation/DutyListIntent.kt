@@ -5,10 +5,7 @@ sealed class DutyListIntent {
     object RefreshDuties : DutyListIntent()
     data class SearchDuties(val query: String) : DutyListIntent()
     data class MarkDutyPaid(val dutyId: String) : DutyListIntent()
-    data class EditDuty(val dutyId: String) : DutyListIntent()
     data class DeleteDuty(val dutyId: String) : DutyListIntent()
     object ClearError : DutyListIntent()
     object Retry : DutyListIntent()
 }
-
-

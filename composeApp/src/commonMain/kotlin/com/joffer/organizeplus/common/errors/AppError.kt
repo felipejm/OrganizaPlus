@@ -4,7 +4,7 @@ package com.joffer.organizeplus.common.errors
  * Sealed class representing all possible errors in the application
  */
 sealed class AppError : Throwable() {
-    
+
     // Network errors
     sealed class Network : AppError() {
         object NoInternetConnection : Network()
@@ -16,7 +16,7 @@ sealed class AppError : Throwable() {
         data class ServerError(val code: Int, override val message: String) : Network()
         data class Unknown(override val message: String) : Network()
     }
-    
+
     // Database errors
     sealed class Database : AppError() {
         object DatabaseNotInitialized : Database()
@@ -25,7 +25,7 @@ sealed class AppError : Throwable() {
         object TransactionFailed : Database()
         data class Unknown(override val message: String) : Database()
     }
-    
+
     // File system errors
     sealed class FileSystem : AppError() {
         object FileNotFound : FileSystem()
@@ -34,7 +34,7 @@ sealed class AppError : Throwable() {
         object InvalidFileFormat : FileSystem()
         data class Unknown(override val message: String) : FileSystem()
     }
-    
+
     // OCR errors
     sealed class OCR : AppError() {
         object NoTextDetected : OCR()
@@ -42,7 +42,7 @@ sealed class AppError : Throwable() {
         object UnsupportedImageFormat : OCR()
         data class Unknown(override val message: String) : OCR()
     }
-    
+
     // Validation errors
     sealed class Validation : AppError() {
         object EmptyField : Validation()
@@ -50,7 +50,7 @@ sealed class AppError : Throwable() {
         object OutOfRange : Validation()
         data class Custom(override val message: String) : Validation()
     }
-    
+
     // Generic errors
     sealed class Generic : AppError() {
         object Unknown : Generic()

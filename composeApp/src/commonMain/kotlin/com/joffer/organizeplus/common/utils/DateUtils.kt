@@ -3,30 +3,30 @@ package com.joffer.organizeplus.common.utils
 import androidx.compose.runtime.Composable
 import org.jetbrains.compose.resources.stringResource
 import organizeplus.composeapp.generated.resources.Res
-import organizeplus.composeapp.generated.resources.month_january
-import organizeplus.composeapp.generated.resources.month_february
-import organizeplus.composeapp.generated.resources.month_march
-import organizeplus.composeapp.generated.resources.month_april
-import organizeplus.composeapp.generated.resources.month_may
-import organizeplus.composeapp.generated.resources.month_june
-import organizeplus.composeapp.generated.resources.month_july
-import organizeplus.composeapp.generated.resources.month_august
-import organizeplus.composeapp.generated.resources.month_september
-import organizeplus.composeapp.generated.resources.month_october
-import organizeplus.composeapp.generated.resources.month_november
-import organizeplus.composeapp.generated.resources.month_december
-import organizeplus.composeapp.generated.resources.month_jan
-import organizeplus.composeapp.generated.resources.month_feb
-import organizeplus.composeapp.generated.resources.month_mar
 import organizeplus.composeapp.generated.resources.month_apr
-import organizeplus.composeapp.generated.resources.month_may_short
-import organizeplus.composeapp.generated.resources.month_jun
-import organizeplus.composeapp.generated.resources.month_jul
+import organizeplus.composeapp.generated.resources.month_april
 import organizeplus.composeapp.generated.resources.month_aug
-import organizeplus.composeapp.generated.resources.month_sep
-import organizeplus.composeapp.generated.resources.month_oct
-import organizeplus.composeapp.generated.resources.month_nov
+import organizeplus.composeapp.generated.resources.month_august
 import organizeplus.composeapp.generated.resources.month_dec
+import organizeplus.composeapp.generated.resources.month_december
+import organizeplus.composeapp.generated.resources.month_feb
+import organizeplus.composeapp.generated.resources.month_february
+import organizeplus.composeapp.generated.resources.month_jan
+import organizeplus.composeapp.generated.resources.month_january
+import organizeplus.composeapp.generated.resources.month_jul
+import organizeplus.composeapp.generated.resources.month_july
+import organizeplus.composeapp.generated.resources.month_jun
+import organizeplus.composeapp.generated.resources.month_june
+import organizeplus.composeapp.generated.resources.month_mar
+import organizeplus.composeapp.generated.resources.month_march
+import organizeplus.composeapp.generated.resources.month_may
+import organizeplus.composeapp.generated.resources.month_may_short
+import organizeplus.composeapp.generated.resources.month_nov
+import organizeplus.composeapp.generated.resources.month_november
+import organizeplus.composeapp.generated.resources.month_oct
+import organizeplus.composeapp.generated.resources.month_october
+import organizeplus.composeapp.generated.resources.month_sep
+import organizeplus.composeapp.generated.resources.month_september
 import organizeplus.composeapp.generated.resources.month_unknown
 
 object DateUtils {
@@ -48,7 +48,7 @@ object DateUtils {
             else -> stringResource(Res.string.month_unknown)
         }
     }
-    
+
     @Composable
     fun getShortMonthName(month: Int): String {
         return when (month) {

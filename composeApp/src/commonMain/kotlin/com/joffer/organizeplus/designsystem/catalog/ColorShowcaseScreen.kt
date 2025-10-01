@@ -5,8 +5,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -14,14 +12,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 import com.joffer.organizeplus.designsystem.components.AppTopAppBarWithBackButton
 import com.joffer.organizeplus.designsystem.components.OrganizeCard
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.Typography
+import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 @OptIn(ExperimentalMaterial3Api::class)
-
 @Composable
 fun ColorShowcaseScreen(
     onNavigateBack: () -> Unit,
@@ -65,15 +62,15 @@ private fun ColorPaletteSection(
                 style = Typography.h3,
                 color = AppColorScheme.onSurface
             )
-            
+
             Text(
                 text = palette.description,
                 style = Typography.body,
                 color = AppColorScheme.onSurfaceVariant
             )
-            
+
             Spacer(modifier = Modifier.height(Spacing.md))
-            
+
             when (palette) {
                 ColorPalette.NEUTRAL -> {
                     NeutralColorGrid()
@@ -106,7 +103,7 @@ private fun NeutralColorGrid() {
         "Neutral 50" to AppColorScheme.neutral50,
         "White" to AppColorScheme.white
     )
-    
+
     ColorGrid(colors = neutralColors)
 }
 
@@ -122,7 +119,7 @@ private fun PrimaryColorGrid() {
         "Primary 100" to AppColorScheme.primary100,
         "Primary 50" to AppColorScheme.primary50
     )
-    
+
     ColorGrid(colors = primaryColors)
 }
 
@@ -138,7 +135,7 @@ private fun AuxiliaryColorGrid() {
         "Auxiliary 100" to AppColorScheme.auxiliary100,
         "Auxiliary 50" to AppColorScheme.auxiliary50
     )
-    
+
     ColorGrid(colors = auxiliaryColors)
 }
 
@@ -160,9 +157,9 @@ private fun SemanticColorGrid() {
             "Danger 100" to AppColorScheme.danger100
         )
         ColorGrid(colors = dangerColors)
-        
+
         Spacer(modifier = Modifier.height(Spacing.sm))
-        
+
         // Warning Colors
         Text(
             text = "Warning",
@@ -176,9 +173,9 @@ private fun SemanticColorGrid() {
             "Warning 100" to AppColorScheme.warning100
         )
         ColorGrid(colors = warningColors)
-        
+
         Spacer(modifier = Modifier.height(Spacing.sm))
-        
+
         // Success Colors
         Text(
             text = "Success",
@@ -192,9 +189,9 @@ private fun SemanticColorGrid() {
             "Success 100" to AppColorScheme.success100
         )
         ColorGrid(colors = successColors)
-        
+
         Spacer(modifier = Modifier.height(Spacing.sm))
-        
+
         // Info Colors
         Text(
             text = "Info",
@@ -258,16 +255,16 @@ private fun ColorSwatch(
                     shape = RoundedCornerShape(8.dp)
                 )
         )
-        
+
         Spacer(modifier = Modifier.height(Spacing.xs))
-        
+
         Text(
             text = name,
             style = Typography.caption,
             color = AppColorScheme.onSurfaceVariant,
             fontWeight = FontWeight.Medium
         )
-        
+
         Text(
             text = color.toHexString(),
             style = Typography.caption,
@@ -281,7 +278,7 @@ private fun Color.toHexString(): String {
     val red = (red * 255).toInt()
     val green = (green * 255).toInt()
     val blue = (blue * 255).toInt()
-    
+
     return if (alpha == 255) {
         String.format("#%02X%02X%02X", red, green, blue)
     } else {

@@ -8,7 +8,7 @@ import kotlinx.datetime.Clock
 class MarkObligationPaidUseCaseImpl(
     private val repository: DutyRepository
 ) : MarkObligationPaidUseCase {
-    
+
     override suspend operator fun invoke(obligationId: String): Flow<Result<Unit>> {
         val paidAt = Clock.System.now()
         return repository.markDutyPaid(obligationId, paidAt)

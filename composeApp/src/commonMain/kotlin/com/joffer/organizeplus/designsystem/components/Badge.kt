@@ -28,9 +28,9 @@ import androidx.compose.ui.unit.sp
 import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 enum class BadgeVariant {
-    SINGLE_DIGIT,    // 1-9
-    DOUBLE_DIGIT,    // 10-99
-    DOT             // No number, just a dot
+    SINGLE_DIGIT, // 1-9
+    DOUBLE_DIGIT, // 10-99
+    DOT // No number, just a dot
 }
 
 enum class BadgeState {
@@ -49,38 +49,52 @@ fun OrganizeBadge(
 ) {
     val interactionSource = remember { MutableInteractionSource() }
     val isPressed by interactionSource.collectIsPressedAsState()
-    
+
     val currentState = when {
         !enabled -> BadgeState.DISABLED
         isPressed -> BadgeState.PRESSED
         else -> state
     }
-    
+
     val colors = getBadgeColors(currentState)
     val scale = animateFloatAsState(
         targetValue = if (isPressed) 0.95f else 1f,
         animationSpec = tween(100),
         label = "badge_scale"
     )
-    
+
     val displayText = when (variant) {
         BadgeVariant.SINGLE_DIGIT -> {
             when {
-                count == null || count <= 0 -> null
-                count <= 9 -> count.toString()
-                else -> "9+"
+                count == null || count <= 0 -> {
+                    null
+                }
+                count <= 9 -> {
+                    count.toString()
+                }
+                else -> {
+                    "9+"
+                }
             }
         }
         BadgeVariant.DOUBLE_DIGIT -> {
             when {
-                count == null || count <= 0 -> null
-                count <= 99 -> count.toString()
-                else -> "99+"
+                count == null || count <= 0 -> {
+                    null
+                }
+                count <= 99 -> {
+                    count.toString()
+                }
+                else -> {
+                    "99+"
+                }
             }
         }
-        BadgeVariant.DOT -> null
+        BadgeVariant.DOT -> {
+            null
+        }
     }
-    
+
     val badgeModifier = modifier
         .scale(scale.value)
         .then(
@@ -101,7 +115,7 @@ fun OrganizeBadge(
                 }
             }
         )
-    
+
     when (variant) {
         BadgeVariant.SINGLE_DIGIT -> {
             SingleDigitBadge(
@@ -238,14 +252,14 @@ fun NotificationBadge(
         count <= 99 -> BadgeVariant.DOUBLE_DIGIT
         else -> BadgeVariant.DOUBLE_DIGIT
     }
-    
+
     val contentDescription = when {
         count <= 0 -> null
         count == 1 -> "1 notification"
         count <= 99 -> "$count notifications"
         else -> "99+ notifications"
     }
-    
+
     OrganizeBadge(
         count = count,
         variant = variant,
@@ -283,14 +297,14 @@ fun CounterBadge(
         count <= 99 -> BadgeVariant.DOUBLE_DIGIT
         else -> BadgeVariant.DOUBLE_DIGIT
     }
-    
+
     val contentDescription = when {
         count <= 0 -> null
         count == 1 -> "1 item"
         count <= 99 -> "$count items"
         else -> "99+ items"
     }
-    
+
     OrganizeBadge(
         count = count,
         variant = variant,

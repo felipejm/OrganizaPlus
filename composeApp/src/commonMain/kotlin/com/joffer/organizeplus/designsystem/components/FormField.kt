@@ -7,9 +7,9 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.Typography
+import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 @Composable
 fun FormField(
@@ -30,9 +30,9 @@ fun FormField(
             color = AppColorScheme.formLabel,
             fontWeight = FontWeight.Medium
         )
-        
+
         Spacer(modifier = Modifier.height(Spacing.xs))
-        
+
         OutlinedTextField(
             value = value,
             onValueChange = onValueChange,
@@ -54,7 +54,7 @@ fun FormField(
             trailingIcon = trailingIcon,
             isError = isError
         )
-        
+
         if (isError && errorMessage != null) {
             Spacer(modifier = Modifier.height(Spacing.xs))
             Text(
@@ -82,9 +82,9 @@ fun FormTextArea(
             color = AppColorScheme.formLabel,
             fontWeight = FontWeight.Medium
         )
-        
+
         Spacer(modifier = Modifier.height(Spacing.xs))
-        
+
         OutlinedTextField(
             value = value,
             onValueChange = onValueChange,
@@ -107,9 +107,3 @@ fun FormTextArea(
         )
     }
 }
-
-
-
-
-
-

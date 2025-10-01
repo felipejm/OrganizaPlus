@@ -9,12 +9,11 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import com.joffer.organizeplus.designsystem.components.AppTopAppBarWithBackButton
 import com.joffer.organizeplus.designsystem.components.OrganizeCard
+import com.joffer.organizeplus.designsystem.components.OrganizePrimaryButton
 import com.joffer.organizeplus.designsystem.components.OrganizeResult
 import com.joffer.organizeplus.designsystem.components.OrganizeResultCard
-import com.joffer.organizeplus.designsystem.components.OrganizePrimaryButton
 import com.joffer.organizeplus.designsystem.components.OrganizeSecondaryButton
 import com.joffer.organizeplus.designsystem.components.ResultType
 import com.joffer.organizeplus.designsystem.spacing.Spacing
@@ -34,7 +33,7 @@ fun ResultShowcaseScreen(
             title = stringResource(Res.string.result_showcase_title),
             onBackClick = onNavigateBack
         )
-        
+
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
@@ -53,7 +52,7 @@ fun ResultShowcaseScreen(
                             text = "Success Result",
                             style = Typography.titleMedium
                         )
-                        
+
                         OrganizeResult(
                             type = ResultType.SUCCESS,
                             title = "Success!",
@@ -68,7 +67,7 @@ fun ResultShowcaseScreen(
                     }
                 }
             }
-            
+
             item {
                 OrganizeCard(
                     modifier = Modifier.fillMaxWidth()
@@ -81,7 +80,7 @@ fun ResultShowcaseScreen(
                             text = "Error Result",
                             style = Typography.titleMedium
                         )
-                        
+
                         OrganizeResult(
                             type = ResultType.ERROR,
                             title = "Error!",
@@ -100,7 +99,7 @@ fun ResultShowcaseScreen(
                     }
                 }
             }
-            
+
             item {
                 OrganizeCard(
                     modifier = Modifier.fillMaxWidth()
@@ -113,7 +112,7 @@ fun ResultShowcaseScreen(
                             text = "Warning Result",
                             style = Typography.titleMedium
                         )
-                        
+
                         OrganizeResult(
                             type = ResultType.WARNING,
                             title = "Warning!",
@@ -122,7 +121,7 @@ fun ResultShowcaseScreen(
                     }
                 }
             }
-            
+
             item {
                 OrganizeCard(
                     modifier = Modifier.fillMaxWidth()
@@ -135,7 +134,7 @@ fun ResultShowcaseScreen(
                             text = "Info Result",
                             style = Typography.titleMedium
                         )
-                        
+
                         OrganizeResult(
                             type = ResultType.INFO,
                             title = "Information",
@@ -144,7 +143,7 @@ fun ResultShowcaseScreen(
                     }
                 }
             }
-            
+
             item {
                 OrganizeCard(
                     modifier = Modifier.fillMaxWidth()
@@ -157,7 +156,7 @@ fun ResultShowcaseScreen(
                             text = "Result Card",
                             style = Typography.titleMedium
                         )
-                        
+
                         OrganizeResultCard(
                             type = ResultType.SUCCESS,
                             title = "Card Result",

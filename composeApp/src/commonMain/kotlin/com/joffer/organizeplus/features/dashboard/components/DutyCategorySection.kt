@@ -3,49 +3,46 @@ package com.joffer.organizeplus.features.dashboard.components
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.ui.graphics.vector.ImageVector
-import org.jetbrains.compose.resources.StringResource
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.joffer.organizeplus.common.constants.CategoryConstants
+import com.joffer.organizeplus.common.utils.CurrencyUtils
 import com.joffer.organizeplus.common.utils.DateUtils
 import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.components.ResultType
-import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.Typography
-import com.joffer.organizeplus.features.dashboard.domain.entities.DutyWithLastOccurrence
-import com.joffer.organizeplus.features.dashboard.domain.entities.DutyType
 import com.joffer.organizeplus.features.dashboard.MonthlySummary
-import com.joffer.organizeplus.common.utils.CurrencyUtils
+import com.joffer.organizeplus.features.dashboard.domain.entities.DutyType
+import com.joffer.organizeplus.features.dashboard.domain.entities.DutyWithLastOccurrence
+import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
 import organizeplus.composeapp.generated.resources.Res
-import organizeplus.composeapp.generated.resources.view_all_duties
 import organizeplus.composeapp.generated.resources.add_duty
+import organizeplus.composeapp.generated.resources.dashboard_amount_paid
+import organizeplus.composeapp.generated.resources.dashboard_company_duties
+import organizeplus.composeapp.generated.resources.dashboard_last_occurrence
+import organizeplus.composeapp.generated.resources.dashboard_monthly_summary
+import organizeplus.composeapp.generated.resources.dashboard_personal_duties
+import organizeplus.composeapp.generated.resources.dashboard_tasks_done
+import organizeplus.composeapp.generated.resources.duty_type_actionable
+import organizeplus.composeapp.generated.resources.duty_type_payable
 import organizeplus.composeapp.generated.resources.no_duties_created_yet
 import organizeplus.composeapp.generated.resources.start_creating_first_duty
-import organizeplus.composeapp.generated.resources.duty_type_payable
-import organizeplus.composeapp.generated.resources.duty_type_actionable
-import organizeplus.composeapp.generated.resources.dashboard_personal_duties
-import organizeplus.composeapp.generated.resources.dashboard_company_duties
-import organizeplus.composeapp.generated.resources.dashboard_monthly_summary
-import organizeplus.composeapp.generated.resources.dashboard_amount_paid
-import organizeplus.composeapp.generated.resources.dashboard_tasks_done
-import organizeplus.composeapp.generated.resources.dashboard_last_occurrence
+import organizeplus.composeapp.generated.resources.view_all_duties
+import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 // Component-specific constants
 private val ACCENT_BAR_WIDTH = 4.dp
@@ -62,9 +59,6 @@ private data class CategoryConfig(
     val titleResource: StringResource
 )
 
-/**
- * Gets the configuration for a specific category
- */
 private fun getCategoryConfig(categoryName: String): CategoryConfig {
     return when (categoryName) {
         CategoryConstants.COMPANY -> CategoryConfig(
@@ -381,12 +375,3 @@ private fun MonthlySummaryCard(
         }
     }
 }
-
-// Helper data class for multiple return values
-private data class Tuple5<A, B, C, D, E>(
-    val first: A,
-    val second: B,
-    val third: C,
-    val fourth: D,
-    val fifth: E
-)

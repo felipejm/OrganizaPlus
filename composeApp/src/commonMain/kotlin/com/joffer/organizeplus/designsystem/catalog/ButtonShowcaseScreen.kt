@@ -6,19 +6,17 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.Typography
+import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 @OptIn(ExperimentalMaterial3Api::class)
-
 @Composable
 fun ButtonShowcaseScreen(
     onNavigateBack: () -> Unit,
@@ -46,7 +44,7 @@ fun ButtonShowcaseScreen(
                     color = AppColorScheme.onSurface
                 )
             }
-            
+
             items(ButtonShowcaseItem.values()) { item ->
                 ButtonShowcaseItem(item = item)
             }
@@ -70,15 +68,15 @@ private fun ButtonShowcaseItem(
                 style = Typography.title,
                 color = AppColorScheme.onSurface
             )
-            
+
             Text(
                 text = item.description,
                 style = Typography.body,
                 color = AppColorScheme.onSurfaceVariant
             )
-            
+
             Spacer(modifier = Modifier.height(Spacing.md))
-            
+
             Row(
                 horizontalArrangement = Arrangement.spacedBy(Spacing.sm),
                 verticalAlignment = androidx.compose.ui.Alignment.CenterVertically

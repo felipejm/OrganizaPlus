@@ -6,7 +6,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
-import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 import com.joffer.organizeplus.designsystem.components.OrganizeCard
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.Typography
@@ -14,14 +13,14 @@ import com.joffer.organizeplus.features.dashboard.domain.entities.Duty
 import com.joffer.organizeplus.features.dashboard.domain.entities.DutyType
 import org.jetbrains.compose.resources.stringResource
 import organizeplus.composeapp.generated.resources.Res
-import organizeplus.composeapp.generated.resources.duty_detail_start_day
-import organizeplus.composeapp.generated.resources.duty_detail_due_day
 import organizeplus.composeapp.generated.resources.duty_detail_category
+import organizeplus.composeapp.generated.resources.duty_detail_due_day
+import organizeplus.composeapp.generated.resources.duty_detail_start_day
 import organizeplus.composeapp.generated.resources.duty_detail_type
-import organizeplus.composeapp.generated.resources.duty_type_payable
 import organizeplus.composeapp.generated.resources.duty_type_actionable
+import organizeplus.composeapp.generated.resources.duty_type_payable
 import organizeplus.composeapp.generated.resources.not_available
-import organizeplus.composeapp.generated.resources.duty_due_every_day
+import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 @Composable
 fun DutyHeaderCard(
@@ -40,17 +39,17 @@ fun DutyHeaderCard(
                 label = stringResource(Res.string.duty_detail_start_day),
                 value = duty.startDay.toString()
             )
-            
+
             DutyInfoItem(
                 label = stringResource(Res.string.duty_detail_due_day),
                 value = duty.dueDay.toString()
             )
-            
+
             DutyInfoItem(
                 label = stringResource(Res.string.duty_detail_category),
                 value = duty.categoryName.ifEmpty { stringResource(Res.string.not_available) }
             )
-            
+
             DutyInfoItem(
                 label = stringResource(Res.string.duty_detail_type),
                 value = when (duty.type) {
@@ -58,7 +57,6 @@ fun DutyHeaderCard(
                     DutyType.ACTIONABLE -> stringResource(Res.string.duty_type_actionable)
                 }
             )
-            
         }
     }
 }
@@ -88,4 +86,3 @@ fun DutyInfoItem(
         )
     }
 }
-

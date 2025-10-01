@@ -5,12 +5,12 @@ import androidx.compose.ui.Modifier
 import com.joffer.organizeplus.common.utils.DateUtils
 import com.joffer.organizeplus.designsystem.components.AppBarChart
 import com.joffer.organizeplus.designsystem.components.ChartDataPoint
-import com.joffer.organizeplus.features.duty.detail.domain.entities.ChartData
 import com.joffer.organizeplus.features.dashboard.domain.entities.DutyType
+import com.joffer.organizeplus.features.duty.detail.domain.entities.ChartData
 import org.jetbrains.compose.resources.stringResource
 import organizeplus.composeapp.generated.resources.Res
-import organizeplus.composeapp.generated.resources.chart_occurrences_by_month
 import organizeplus.composeapp.generated.resources.chart_amount_paid_by_month
+import organizeplus.composeapp.generated.resources.chart_occurrences_by_month
 
 @Composable
 fun DutyBarChart(

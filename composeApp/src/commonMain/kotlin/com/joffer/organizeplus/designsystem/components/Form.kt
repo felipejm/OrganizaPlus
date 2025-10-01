@@ -19,7 +19,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.Typography
 
@@ -32,7 +31,6 @@ enum class FormLayout {
 @Composable
 fun OrganizeForm(
     modifier: Modifier = Modifier,
-    layout: FormLayout = FormLayout.LEFT_ALIGNED,
     content: @Composable () -> Unit
 ) {
     Column(
@@ -132,7 +130,7 @@ fun OrganizeFormSection(
             color = Color(0xFF1F1F1F), // Neutral 700
             fontWeight = FontWeight.Medium
         )
-        
+
         if (description != null) {
             Spacer(modifier = Modifier.height(4.dp))
             Text(
@@ -141,13 +139,13 @@ fun OrganizeFormSection(
                 color = Color(0xFF8F8F8F) // Neutral 500
             )
         }
-        
+
         Spacer(modifier = Modifier.height(Spacing.md))
-        
+
         content()
-        
+
         Spacer(modifier = Modifier.height(Spacing.lg))
-        
+
         Divider(
             color = Color(0xFFF5F5F5), // Neutral 200
             thickness = 1.dp

@@ -2,33 +2,33 @@ package com.joffer.organizeplus.features.duty.detail.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.joffer.organizeplus.features.dashboard.domain.entities.Duty
+import com.joffer.organizeplus.features.dashboard.domain.repositories.DutyRepository
+import com.joffer.organizeplus.features.duty.detail.domain.entities.ChartData
 import com.joffer.organizeplus.features.duty.occurrence.domain.entities.DutyOccurrence
 import com.joffer.organizeplus.features.duty.occurrence.domain.repositories.DutyOccurrenceRepository
-import com.joffer.organizeplus.features.dashboard.domain.repositories.DutyRepository
-import com.joffer.organizeplus.features.dashboard.domain.entities.Duty
-import com.joffer.organizeplus.features.duty.detail.domain.entities.ChartData
+import io.github.aakira.napier.Napier
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
-import io.github.aakira.napier.Napier
 
 class DutyDetailsListViewModel(
     private val repository: DutyOccurrenceRepository,
     private val dutyRepository: DutyRepository,
     private val dutyId: String
 ) : ViewModel() {
-    
+
     private val _uiState = MutableStateFlow(DutyDetailsListUiState())
     val uiState: StateFlow<DutyDetailsListUiState> = _uiState.asStateFlow()
-    
-    fun getDutyId(): String = dutyId
-    
+
     init {
         loadRecords()
     }
-    
+
+    fun getDutyId(): String = dutyId
+
     fun onIntent(intent: DutyDetailsListIntent) {
         when (intent) {
             DutyDetailsListIntent.LoadRecords -> loadRecords()
@@ -38,11 +38,11 @@ class DutyDetailsListViewModel(
             DutyDetailsListIntent.Retry -> retry()
         }
     }
-    
+
     private fun loadRecords() {
         viewModelScope.launch {
             _uiState.value = _uiState.value.copy(isLoading = true, error = null)
-            
+
             // Load duty information
             dutyRepository.getDutyById(dutyId)
                 .catch { exception ->
@@ -58,7 +58,7 @@ class DutyDetailsListViewModel(
                         }
                     )
                 }
-            
+
             // Load occurrences
             try {
                 val result = repository.getDutyOccurrencesByDutyId(dutyId)
@@ -66,13 +66,13 @@ class DutyDetailsListViewModel(
                     onSuccess = { occurrences ->
                         // Sort occurrences by date (most recent first)
                         val sortedOccurrences = occurrences.sortedByDescending { it.completedDate }
-                        
+
                         _uiState.value = _uiState.value.copy(
                             isLoading = false,
                             records = sortedOccurrences,
                             error = null
                         )
-                        
+
                         // Load chart data if duty is available
                         _uiState.value.duty?.let { dutyInfo ->
                             launch {
@@ -105,11 +105,11 @@ class DutyDetailsListViewModel(
             }
         }
     }
-    
+
     private fun refreshRecords() {
         loadRecords()
     }
-    
+
     private fun deleteRecord(recordId: String) {
         viewModelScope.launch {
             try {
@@ -133,11 +133,11 @@ class DutyDetailsListViewModel(
             }
         }
     }
-    
+
     private fun clearError() {
         _uiState.value = _uiState.value.copy(error = null)
     }
-    
+
     private fun retry() {
         loadRecords()
     }

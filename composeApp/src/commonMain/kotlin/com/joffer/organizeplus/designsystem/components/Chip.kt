@@ -5,7 +5,6 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.Typography
 import org.jetbrains.compose.resources.stringResource
 import organizeplus.composeapp.generated.resources.Res
@@ -39,7 +38,7 @@ fun StatusChip(
             MaterialTheme.colorScheme.onErrorContainer
         )
     }
-    
+
     AssistChip(
         onClick = { },
         label = {
@@ -84,7 +83,7 @@ fun PriorityChip(
             MaterialTheme.colorScheme.onErrorContainer
         )
     }
-    
+
     AssistChip(
         onClick = { },
         label = {

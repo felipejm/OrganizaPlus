@@ -2,19 +2,17 @@ package com.joffer.organizeplus.features.duty.list.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.joffer.organizeplus.features.dashboard.domain.entities.Duty
 import com.joffer.organizeplus.features.dashboard.domain.entities.DutyWithLastOccurrence
 import com.joffer.organizeplus.features.dashboard.domain.repositories.DutyRepository
 import com.joffer.organizeplus.features.dashboard.domain.usecases.DeleteDutyUseCase
-import com.joffer.organizeplus.features.duty.occurrence.domain.repositories.DutyOccurrenceRepository
 import com.joffer.organizeplus.features.duty.list.domain.DutyCategoryFilter
+import com.joffer.organizeplus.features.duty.occurrence.domain.repositories.DutyOccurrenceRepository
+import io.github.aakira.napier.Napier
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
-import kotlin.time.Duration.Companion.days
-import io.github.aakira.napier.Napier
 
 class DutyListViewModel(
     private val repository: DutyRepository,
@@ -22,31 +20,30 @@ class DutyListViewModel(
     private val dutyOccurrenceRepository: DutyOccurrenceRepository,
     private val categoryFilter: DutyCategoryFilter
 ) : ViewModel() {
-    
+
     private val _uiState = MutableStateFlow(DutyListUiState())
     val uiState: StateFlow<DutyListUiState> = _uiState.asStateFlow()
-    
+
     init {
         loadDuties()
     }
-    
+
     fun onIntent(intent: DutyListIntent) {
         when (intent) {
             DutyListIntent.LoadDuties -> loadDuties()
             DutyListIntent.RefreshDuties -> refreshDuties()
             is DutyListIntent.SearchDuties -> searchDuties(intent.query)
             is DutyListIntent.MarkDutyPaid -> markDutyPaid(intent.dutyId)
-            is DutyListIntent.EditDuty -> editDuty(intent.dutyId)
             is DutyListIntent.DeleteDuty -> deleteDuty(intent.dutyId)
             DutyListIntent.ClearError -> clearError()
             DutyListIntent.Retry -> retry()
         }
     }
-    
+
     private fun loadDuties() {
         viewModelScope.launch {
             _uiState.value = _uiState.value.copy(isLoading = true, error = null)
-            
+
             repository.getAllDuties()
                 .catch { exception ->
                     Napier.e("Error loading duties", exception)
@@ -65,7 +62,7 @@ class DutyListViewModel(
                                 DutyCategoryFilter.Company -> duties.filter { it.categoryName == "Company" }
                                 is DutyCategoryFilter.Custom -> duties.filter { it.categoryName == categoryFilter.name }
                             }
-                            
+
                             // Load last occurrence for each duty
                             val dutiesWithLastOccurrence = filteredDuties.map { duty ->
                                 DutyWithLastOccurrence(
@@ -78,7 +75,7 @@ class DutyListViewModel(
                                 duties = dutiesWithLastOccurrence,
                                 error = null
                             )
-                            
+
                             // Load last occurrence for each duty
                             filteredDuties.forEach { duty ->
                                 launch {
@@ -112,28 +109,28 @@ class DutyListViewModel(
                 }
         }
     }
-    
+
     private fun refreshDuties() {
         loadDuties()
     }
-    
+
     private fun searchDuties(query: String) {
         _uiState.value = _uiState.value.copy(searchQuery = query)
         applySearch()
     }
-    
+
     private fun applySearch() {
         val currentState = _uiState.value
         val allDuties = currentState.duties
-        
+
         val filteredDuties = allDuties.filter { dutyWithOccurrence ->
-            currentState.searchQuery.isEmpty() || 
+            currentState.searchQuery.isEmpty() ||
                 dutyWithOccurrence.duty.title.contains(currentState.searchQuery, ignoreCase = true)
         }
-        
+
         _uiState.value = currentState.copy(duties = filteredDuties)
     }
-    
+
     private fun markDutyPaid(dutyId: String) {
         viewModelScope.launch {
             repository.markDutyPaid(dutyId, kotlinx.datetime.Clock.System.now())
@@ -158,12 +155,7 @@ class DutyListViewModel(
                 }
         }
     }
-    
-    
-    private fun editDuty(dutyId: String) {
-        // Navigation will be handled by the UI layer through onNavigateToEditDuty callback
-    }
-    
+
     private fun deleteDuty(dutyId: String) {
         viewModelScope.launch {
             try {
@@ -187,11 +179,11 @@ class DutyListViewModel(
             }
         }
     }
-    
+
     private fun clearError() {
         _uiState.value = _uiState.value.copy(error = null)
     }
-    
+
     private fun retry() {
         loadDuties()
     }

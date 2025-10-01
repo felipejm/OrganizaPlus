@@ -1,6 +1,5 @@
 package com.joffer.organizeplus.features.dashboard.domain.usecases
 
-import com.joffer.organizeplus.features.dashboard.domain.entities.Duty
 import com.joffer.organizeplus.features.dashboard.domain.repositories.DutyRepository
 
 interface DeleteDutyUseCase {

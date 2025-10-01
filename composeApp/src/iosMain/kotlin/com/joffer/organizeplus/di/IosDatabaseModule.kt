@@ -5,10 +5,10 @@ import com.joffer.organizeplus.database.OrganizePlusDatabase
 import com.joffer.organizeplus.database.getDatabaseBuilder
 import org.koin.dsl.module
 
-val androidDatabaseModule = module {
+val iosDatabaseModule = module {
     single<RoomDatabase.Builder<OrganizePlusDatabase>> {
-        getDatabaseBuilder(get())
+        getDatabaseBuilder()
     }
 }
 
-actual val platformDatabaseModule = androidDatabaseModule
+actual val platformDatabaseModule = iosDatabaseModule

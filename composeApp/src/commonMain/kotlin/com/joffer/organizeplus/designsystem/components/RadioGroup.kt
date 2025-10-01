@@ -7,12 +7,11 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
-import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.Typography
+import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 @Composable
 fun <T> RadioGroup(
@@ -39,7 +38,7 @@ fun <T> RadioGroup(
                 modifier = Modifier
                     .fillMaxWidth()
                     .selectable(
-                        selected = (option == selectedOption),
+                        selected = option == selectedOption,
                         onClick = { onOptionSelected(option) },
                         role = Role.RadioButton
                     )
@@ -47,16 +46,16 @@ fun <T> RadioGroup(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 RadioButton(
-                    selected = (option == selectedOption),
+                    selected = option == selectedOption,
                     onClick = null,
                     colors = RadioButtonDefaults.colors(
                         selectedColor = AppColorScheme.primary,
                         unselectedColor = AppColorScheme.formBorder
                     )
                 )
-                
+
                 Spacer(modifier = Modifier.width(Spacing.sm))
-                
+
                 Text(
                     text = label,
                     style = Typography.bodyMedium,

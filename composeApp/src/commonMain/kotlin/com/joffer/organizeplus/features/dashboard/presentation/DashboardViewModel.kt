@@ -2,40 +2,38 @@ package com.joffer.organizeplus.features.dashboard.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.joffer.organizeplus.features.dashboard.domain.usecases.GetDashboardDataUseCase
-import com.joffer.organizeplus.features.dashboard.domain.usecases.MarkObligationPaidUseCase
-import com.joffer.organizeplus.features.dashboard.domain.repositories.DutyRepository
-import com.joffer.organizeplus.features.duty.occurrence.domain.repositories.DutyOccurrenceRepository
-import com.joffer.organizeplus.features.dashboard.domain.entities.Duty
-import com.joffer.organizeplus.features.dashboard.domain.entities.DutyWithLastOccurrence
+import com.joffer.organizeplus.features.dashboard.DashboardIntent
 import com.joffer.organizeplus.features.dashboard.DashboardUiState
 import com.joffer.organizeplus.features.dashboard.MonthlySummary
-import com.joffer.organizeplus.features.dashboard.DashboardIntent
-import com.joffer.organizeplus.features.dashboard.domain.entities.DutyType
-import com.joffer.organizeplus.common.utils.DateUtils
+import com.joffer.organizeplus.features.dashboard.domain.entities.Duty
+import com.joffer.organizeplus.features.dashboard.domain.entities.DutyWithLastOccurrence
+import com.joffer.organizeplus.features.dashboard.domain.repositories.DutyRepository
+import com.joffer.organizeplus.features.dashboard.domain.usecases.GetDashboardDataUseCase
+import com.joffer.organizeplus.features.dashboard.domain.usecases.MarkObligationPaidUseCase
+import com.joffer.organizeplus.features.duty.occurrence.domain.repositories.DutyOccurrenceRepository
+import io.github.aakira.napier.Napier
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import kotlinx.datetime.toLocalDateTime
-import kotlinx.datetime.TimeZone
 import kotlinx.datetime.Clock
-import io.github.aakira.napier.Napier
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
 class DashboardViewModel(
     private val getDashboardDataUseCase: GetDashboardDataUseCase,
     private val markObligationPaidUseCase: MarkObligationPaidUseCase,
     private val dutyRepository: DutyRepository,
     private val dutyOccurrenceRepository: DutyOccurrenceRepository
 ) : ViewModel() {
-    
+
     private val _uiState = MutableStateFlow(DashboardUiState())
     val uiState: StateFlow<DashboardUiState> = _uiState.asStateFlow()
-    
+
     private val _userName = MutableStateFlow("Usuário")
     val userName: StateFlow<String> = _userName.asStateFlow()
-    
+
     init {
         loadDashboardData()
     }
-    
+
     fun onIntent(intent: DashboardIntent) {
         when (intent) {
             is DashboardIntent.LoadDashboard -> loadDashboardData()
@@ -45,11 +43,11 @@ class DashboardViewModel(
             is DashboardIntent.Retry -> retry()
         }
     }
-    
+
     private fun loadDashboardData() {
         viewModelScope.launch {
             _uiState.value = _uiState.value.copy(isLoading = true, error = null)
-            
+
             // Load both upcoming and latest duties
             launch {
                 getDashboardDataUseCase()
@@ -77,7 +75,7 @@ class DashboardViewModel(
                         )
                     }
             }
-            
+
             // Load duties with closest due dates separately for Personal and Company
             launch {
                 dutyRepository.getAllDuties()
@@ -88,7 +86,7 @@ class DashboardViewModel(
                                 val currentDay = kotlinx.datetime.Clock.System.now()
                                     .toLocalDateTime(kotlinx.datetime.TimeZone.currentSystemDefault())
                                     .date.dayOfMonth
-                                
+
                                 // Filter and sort Personal duties by closest due date
                                 val personalDuties = allDuties
                                     .filter { it.categoryName == "Personal" }
@@ -96,12 +94,12 @@ class DashboardViewModel(
                                         val daysUntil = if (duty.dueDay >= currentDay) {
                                             duty.dueDay - currentDay
                                         } else {
-                                            (31 - currentDay) + duty.dueDay
+                                            31 - currentDay + duty.dueDay
                                         }
                                         daysUntil
                                     }
                                     .take(3)
-                                
+
                                 // Filter and sort Company duties by closest due date
                                 val companyDuties = allDuties
                                     .filter { it.categoryName == "Company" }
@@ -109,12 +107,12 @@ class DashboardViewModel(
                                         val daysUntil = if (duty.dueDay >= currentDay) {
                                             duty.dueDay - currentDay
                                         } else {
-                                            (31 - currentDay) + duty.dueDay
+                                            31 - currentDay + duty.dueDay
                                         }
                                         daysUntil
                                     }
                                     .take(3)
-                                
+
                                 // Convert to DutyWithLastOccurrence
                                 val personalDutiesWithOccurrence = personalDuties.map { duty ->
                                     DutyWithLastOccurrence(duty = duty, lastOccurrence = null)
@@ -122,28 +120,29 @@ class DashboardViewModel(
                                 val companyDutiesWithOccurrence = companyDuties.map { duty ->
                                     DutyWithLastOccurrence(duty = duty, lastOccurrence = null)
                                 }
-                                
+
                                 _uiState.value = _uiState.value.copy(
                                     personalDuties = personalDutiesWithOccurrence,
                                     companyDuties = companyDutiesWithOccurrence
                                 )
-                                
+
                                 // Load monthly summaries
                                 loadMonthlySummaries()
-                                
+
                                 // Load last occurrence for Personal duties
                                 personalDuties.forEach { duty ->
                                     launch {
                                         dutyOccurrenceRepository.getLastOccurrenceByDutyId(duty.id)
                                             .fold(
                                                 onSuccess = { lastOccurrence ->
-                                                    val updatedDuties = _uiState.value.personalDuties.map { dutyWithOccurrence ->
-                                                        if (dutyWithOccurrence.duty.id == duty.id) {
-                                                            dutyWithOccurrence.copy(lastOccurrence = lastOccurrence)
-                                                        } else {
-                                                            dutyWithOccurrence
+                                                    val updatedDuties =
+                                                        _uiState.value.personalDuties.map { dutyWithOccurrence ->
+                                                            if (dutyWithOccurrence.duty.id == duty.id) {
+                                                                dutyWithOccurrence.copy(lastOccurrence = lastOccurrence)
+                                                            } else {
+                                                                dutyWithOccurrence
+                                                            }
                                                         }
-                                                    }
                                                     _uiState.value = _uiState.value.copy(
                                                         personalDuties = updatedDuties
                                                     )
@@ -152,20 +151,21 @@ class DashboardViewModel(
                                             )
                                     }
                                 }
-                                
+
                                 // Load last occurrence for Company duties
                                 companyDuties.forEach { duty ->
                                     launch {
                                         dutyOccurrenceRepository.getLastOccurrenceByDutyId(duty.id)
                                             .fold(
                                                 onSuccess = { lastOccurrence ->
-                                                    val updatedDuties = _uiState.value.companyDuties.map { dutyWithOccurrence ->
-                                                        if (dutyWithOccurrence.duty.id == duty.id) {
-                                                            dutyWithOccurrence.copy(lastOccurrence = lastOccurrence)
-                                                        } else {
-                                                            dutyWithOccurrence
+                                                    val updatedDuties =
+                                                        _uiState.value.companyDuties.map { dutyWithOccurrence ->
+                                                            if (dutyWithOccurrence.duty.id == duty.id) {
+                                                                dutyWithOccurrence.copy(lastOccurrence = lastOccurrence)
+                                                            } else {
+                                                                dutyWithOccurrence
+                                                            }
                                                         }
-                                                    }
                                                     _uiState.value = _uiState.value.copy(
                                                         companyDuties = updatedDuties
                                                     )
@@ -181,11 +181,11 @@ class DashboardViewModel(
             }
         }
     }
-    
+
     private fun refreshDashboard() {
         loadDashboardData()
     }
-    
+
     private fun markObligationPaid(obligationId: String) {
         viewModelScope.launch {
             markObligationPaidUseCase(obligationId)
@@ -204,20 +204,19 @@ class DashboardViewModel(
                 }
         }
     }
-    
-    
+
     private fun clearError() {
         _uiState.value = _uiState.value.copy(error = null)
     }
-    
+
     private fun retry() {
         loadDashboardData()
     }
-    
+
     fun setUserName(name: String) {
         _userName.value = name
     }
-    
+
     private fun getMonthName(monthNumber: Int): String {
         return when (monthNumber) {
             1 -> "January"
@@ -235,13 +234,13 @@ class DashboardViewModel(
             else -> "Unknown"
         }
     }
-    
+
     private fun loadMonthlySummaries() {
         viewModelScope.launch {
             val currentDate = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
             val currentMonth = currentDate.monthNumber
             val currentYear = currentDate.year
-            
+
             // Load Personal summary
             launch {
                 dutyOccurrenceRepository.getMonthlyOccurrences("Personal", currentMonth, currentYear)
@@ -249,23 +248,26 @@ class DashboardViewModel(
                         onSuccess = { occurrences ->
                             Napier.d("Personal occurrences found: ${occurrences.size}")
                             occurrences.forEach { occurrence ->
-                                Napier.d("Personal occurrence: amount=${occurrence.paidAmount}, date=${occurrence.completedDate}")
+                                Napier.d(
+                                    "Personal occurrence: amount=${occurrence.paidAmount}, " +
+                                        "date=${occurrence.completedDate}"
+                                )
                             }
-                            
+
                             val totalAmountPaid = occurrences
                                 .sumOf { it.paidAmount ?: 0.0 }
-                            
+
                             val totalActionableCompleted = occurrences.size
-                            
+
                             Napier.d("Personal summary: amount=$totalAmountPaid, tasks=$totalActionableCompleted")
-                            
+
                             val personalSummary = MonthlySummary(
                                 totalAmountPaid = totalAmountPaid,
                                 totalActionableCompleted = totalActionableCompleted,
                                 month = getMonthName(currentMonth),
                                 year = currentYear
                             )
-                            
+
                             _uiState.value = _uiState.value.copy(
                                 personalSummary = personalSummary
                             )
@@ -275,7 +277,7 @@ class DashboardViewModel(
                         }
                     )
             }
-            
+
             // Load Company summary
             launch {
                 dutyOccurrenceRepository.getMonthlyOccurrences("Company", currentMonth, currentYear)
@@ -283,23 +285,26 @@ class DashboardViewModel(
                         onSuccess = { occurrences ->
                             Napier.d("Company occurrences found: ${occurrences.size}")
                             occurrences.forEach { occurrence ->
-                                Napier.d("Company occurrence: amount=${occurrence.paidAmount}, date=${occurrence.completedDate}")
+                                Napier.d(
+                                    "Company occurrence: amount=${occurrence.paidAmount}, " +
+                                        "date=${occurrence.completedDate}"
+                                )
                             }
-                            
+
                             val totalAmountPaid = occurrences
                                 .sumOf { it.paidAmount ?: 0.0 }
-                            
+
                             val totalActionableCompleted = occurrences.size
-                            
+
                             Napier.d("Company summary: amount=$totalAmountPaid, tasks=$totalActionableCompleted")
-                            
+
                             val companySummary = MonthlySummary(
                                 totalAmountPaid = totalAmountPaid,
                                 totalActionableCompleted = totalActionableCompleted,
                                 month = getMonthName(currentMonth),
                                 year = currentYear
                             )
-                            
+
                             _uiState.value = _uiState.value.copy(
                                 companySummary = companySummary
                             )

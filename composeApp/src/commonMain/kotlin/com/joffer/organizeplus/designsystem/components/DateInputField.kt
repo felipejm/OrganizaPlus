@@ -10,9 +10,9 @@ import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.Typography
+import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 @Composable
 fun DateInputField(
@@ -64,7 +64,7 @@ fun DateInputField(
             },
             modifier = Modifier
                 .fillMaxWidth()
-                .clickable { 
+                .clickable {
                     onDatePickerClick()
                 },
             colors = OutlinedTextFieldDefaults.colors(

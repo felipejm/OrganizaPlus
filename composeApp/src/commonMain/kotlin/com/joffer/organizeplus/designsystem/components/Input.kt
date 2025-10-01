@@ -28,8 +28,6 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
-import com.joffer.organizeplus.designsystem.spacing.Spacing
-import com.joffer.organizeplus.designsystem.typography.Typography
 
 enum class InputSize(
     val height: Int,
@@ -92,7 +90,7 @@ fun OrganizeInput(
     val isFocused by interactionSource.collectIsFocusedAsState()
     val isHovered by interactionSource.collectIsHoveredAsState()
     val focusRequester = remember { FocusRequester() }
-    
+
     val currentState = when {
         !enabled -> InputState.DISABLED
         errorText != null -> InputState.ERROR
@@ -100,10 +98,10 @@ fun OrganizeInput(
         isHovered -> InputState.HOVER
         else -> state
     }
-    
+
     val colors = getInputColors(currentState)
     val textStyle = getTextStyle(size)
-    
+
     Column(
         modifier = modifier
     ) {
@@ -120,7 +118,7 @@ fun OrganizeInput(
             )
             Spacer(modifier = Modifier.height(4.dp))
         }
-        
+
         // Input Container
         Box(
             modifier = Modifier
@@ -160,7 +158,7 @@ fun OrganizeInput(
                     )
                     Spacer(modifier = Modifier.width(8.dp))
                 }
-                
+
                 // Text Field
                 BasicTextField(
                     value = value,
@@ -192,7 +190,7 @@ fun OrganizeInput(
                         innerTextField()
                     }
                 )
-                
+
                 // Trailing Icon
                 if (trailingIcon != null) {
                     Spacer(modifier = Modifier.width(8.dp))
@@ -213,7 +211,7 @@ fun OrganizeInput(
                 }
             }
         }
-        
+
         // Helper/Error Text
         if (errorText != null || helperText != null) {
             Spacer(modifier = Modifier.height(4.dp))

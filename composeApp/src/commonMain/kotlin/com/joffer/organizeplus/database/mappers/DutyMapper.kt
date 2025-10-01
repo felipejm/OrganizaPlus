@@ -5,7 +5,7 @@ import com.joffer.organizeplus.features.dashboard.domain.entities.Duty
 import com.joffer.organizeplus.features.dashboard.domain.entities.DutyType
 
 object DutyMapper {
-    
+
     fun toDomainEntity(entity: DutyEntity): Duty {
         return Duty(
             id = entity.id.toString(),
@@ -23,7 +23,7 @@ object DutyMapper {
             createdAt = entity.createdAt
         )
     }
-    
+
     fun toRoomEntity(domain: Duty): DutyEntity {
         return DutyEntity(
             id = domain.id.toLongOrNull() ?: 0L,

@@ -2,20 +2,17 @@ package com.joffer.organizeplus.designsystem.catalog
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
-import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.Typography
+import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -51,7 +48,7 @@ fun TagShowcaseScreen(
                 )
                 Spacer(modifier = Modifier.height(Spacing.md))
             }
-            
+
             item {
                 Text(
                     text = "Sizes",
@@ -77,7 +74,7 @@ fun TagShowcaseScreen(
                             size = TagSize.LARGE
                         )
                     }
-                    
+
                     Column(
                         horizontalAlignment = androidx.compose.ui.Alignment.CenterHorizontally
                     ) {
@@ -92,7 +89,7 @@ fun TagShowcaseScreen(
                             size = TagSize.MEDIUM
                         )
                     }
-                    
+
                     Column(
                         horizontalAlignment = androidx.compose.ui.Alignment.CenterHorizontally
                     ) {
@@ -109,7 +106,7 @@ fun TagShowcaseScreen(
                     }
                 }
             }
-            
+
             item {
                 Text(
                     text = "Variants",
@@ -133,7 +130,7 @@ fun TagShowcaseScreen(
                     OrganizeTag(text = "Disabled", enabled = false)
                 }
             }
-            
+
             item {
                 Text(
                     text = "With Icons",
@@ -168,7 +165,7 @@ fun TagShowcaseScreen(
                     )
                 }
             }
-            
+
             item {
                 Spacer(modifier = Modifier.height(Spacing.lg))
                 Text(
@@ -178,7 +175,7 @@ fun TagShowcaseScreen(
                 )
                 Spacer(modifier = Modifier.height(Spacing.sm))
             }
-            
+
             item {
                 TagUsageExample()
             }

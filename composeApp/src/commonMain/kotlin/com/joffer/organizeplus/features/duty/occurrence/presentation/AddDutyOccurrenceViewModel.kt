@@ -2,35 +2,35 @@ package com.joffer.organizeplus.features.duty.occurrence.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.joffer.organizeplus.features.dashboard.domain.repositories.DutyRepository
 import com.joffer.organizeplus.features.duty.occurrence.domain.entities.DutyOccurrenceForm
 import com.joffer.organizeplus.features.duty.occurrence.domain.entities.DutyOccurrenceFormField
-import com.joffer.organizeplus.features.duty.occurrence.domain.validation.ValidationError
 import com.joffer.organizeplus.features.duty.occurrence.domain.usecases.SaveDutyOccurrenceUseCase
 import com.joffer.organizeplus.features.duty.occurrence.domain.validation.DutyOccurrenceValidator
-import com.joffer.organizeplus.features.dashboard.domain.repositories.DutyRepository
+import com.joffer.organizeplus.features.duty.occurrence.domain.validation.ValidationError
+import io.github.aakira.napier.Napier
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
-import io.github.aakira.napier.Napier
 
 class AddDutyOccurrenceViewModel(
     private val saveRecordUseCase: SaveDutyOccurrenceUseCase,
     private val dutyRepository: DutyRepository,
     private val dutyId: String
 ) : ViewModel() {
-    
+
     private val _formState = MutableStateFlow(DutyOccurrenceForm(dutyId = dutyId))
     val formState: StateFlow<DutyOccurrenceForm> = _formState.asStateFlow()
-    
+
     private val _uiState = MutableStateFlow(AddDutyOccurrenceUiState())
     val uiState: StateFlow<AddDutyOccurrenceUiState> = _uiState.asStateFlow()
-    
+
     init {
         loadDutyInfo()
     }
-    
+
     private fun loadDutyInfo() {
         viewModelScope.launch {
             dutyRepository.getDutyById(dutyId)
@@ -51,7 +51,7 @@ class AddDutyOccurrenceViewModel(
                 }
         }
     }
-    
+
     fun onIntent(intent: AddDutyOccurrenceIntent) {
         when (intent) {
             is AddDutyOccurrenceIntent.UpdateFormField -> updateFormField(intent.field, intent.value)
@@ -60,26 +60,28 @@ class AddDutyOccurrenceViewModel(
             AddDutyOccurrenceIntent.Retry -> saveRecord()
         }
     }
-    
+
     private fun updateFormField(field: DutyOccurrenceFormField, value: Any) {
         _formState.value = when (field) {
             DutyOccurrenceFormField.PaidAmount -> updatePaidAmount(value)
             DutyOccurrenceFormField.CompletedDate -> updateCompletedDate(value)
         }
-        
+
         _uiState.value = _uiState.value.copy(hasUnsavedChanges = true)
     }
-    
+
     private fun updatePaidAmount(value: Any) = _formState.value.copy(paidAmount = value as Double)
-    private fun updateCompletedDate(value: Any) = _formState.value.copy(completedDate = value as kotlinx.datetime.LocalDate)
-    
+    private fun updateCompletedDate(
+        value: Any
+    ) = _formState.value.copy(completedDate = value as kotlinx.datetime.LocalDate)
+
     private fun saveRecord() {
         val form = _formState.value
-        
+
         // Validate form
         val validator = DutyOccurrenceValidator()
         val errors = validator.validate(form)
-        
+
         if (errors.isNotEmpty()) {
             _uiState.value = _uiState.value.copy(
                 errors = errors,
@@ -87,13 +89,13 @@ class AddDutyOccurrenceViewModel(
             )
             return
         }
-        
+
         _uiState.value = _uiState.value.copy(
             isLoading = true,
             errors = emptyMap(),
             errorMessage = null
         )
-        
+
         viewModelScope.launch {
             try {
                 val result = saveRecordUseCase(form.toDutyOccurrence())
@@ -123,14 +125,14 @@ class AddDutyOccurrenceViewModel(
             }
         }
     }
-    
+
     private fun clearError() {
         _uiState.value = _uiState.value.copy(
             errorMessage = null,
             errors = emptyMap()
         )
     }
-    
+
     fun getFieldError(field: DutyOccurrenceFormField): ValidationError? {
         return _uiState.value.errors[field]
     }

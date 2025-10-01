@@ -12,4 +12,3 @@ val dutyOccurrenceModule = module {
     single<SaveDutyOccurrenceUseCase> { SaveDutyOccurrenceUseCaseImpl(get()) }
     factory { (dutyId: String) -> AddDutyOccurrenceViewModel(get(), get(), dutyId) }
 }
-

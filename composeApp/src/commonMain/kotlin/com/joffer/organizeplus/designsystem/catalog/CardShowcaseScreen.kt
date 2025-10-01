@@ -4,21 +4,18 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
-import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.Typography
+import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 @OptIn(ExperimentalMaterial3Api::class)
-
 @Composable
 fun CardShowcaseScreen(
     onNavigateBack: () -> Unit,
@@ -46,7 +43,7 @@ fun CardShowcaseScreen(
                     color = AppColorScheme.onSurface
                 )
             }
-            
+
             items(CardShowcaseItem.values()) { item ->
                 CardShowcaseItem(item = item)
             }
@@ -70,15 +67,15 @@ private fun CardShowcaseItem(
                 style = Typography.title,
                 color = AppColorScheme.onSurface
             )
-            
+
             Text(
                 text = item.description,
                 style = Typography.body,
                 color = AppColorScheme.onSurfaceVariant
             )
-            
+
             Spacer(modifier = Modifier.height(Spacing.md))
-            
+
             when (item) {
                 CardShowcaseItem.BASIC -> {
                     BasicCardExamples()
@@ -104,7 +101,7 @@ private fun BasicCardExamples() {
             style = Typography.subtitle,
             color = AppColorScheme.onSurface
         )
-        
+
         OrganizeCard {
             Text(
                 text = "Simple card with just text content",
@@ -113,7 +110,7 @@ private fun BasicCardExamples() {
                 modifier = Modifier.padding(Spacing.md)
             )
         }
-        
+
         OrganizeCard {
             Column(
                 modifier = Modifier.padding(Spacing.md)
@@ -143,7 +140,7 @@ private fun InteractiveCardExamples() {
             style = Typography.subtitle,
             color = AppColorScheme.onSurface
         )
-        
+
         OrganizeCard(
             onClick = { /* Handle click */ }
         ) {
@@ -186,7 +183,7 @@ private fun ContentCardExamples() {
             style = Typography.subtitle,
             color = AppColorScheme.onSurface
         )
-        
+
         // Stats Card
         OrganizeCard {
             Column(
@@ -197,9 +194,9 @@ private fun ContentCardExamples() {
                     style = Typography.subtitle,
                     color = AppColorScheme.onSurfaceVariant
                 )
-                
+
                 Spacer(modifier = Modifier.height(Spacing.sm))
-                
+
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(Spacing.lg)
                 ) {
@@ -218,7 +215,7 @@ private fun ContentCardExamples() {
                 }
             }
         }
-        
+
         // Feature Card
         OrganizeCard {
             Column(
@@ -233,26 +230,26 @@ private fun ContentCardExamples() {
                         tint = AppColorScheme.warning500,
                         modifier = Modifier.size(Spacing.iconSize)
                     )
-                    
+
                     Spacer(modifier = Modifier.width(Spacing.sm))
-                    
+
                     Text(
                         text = "Featured Item",
                         style = Typography.title,
                         color = AppColorScheme.onSurface
                     )
                 }
-                
+
                 Spacer(modifier = Modifier.height(Spacing.sm))
-                
+
                 Text(
                     text = "This is a featured card with an icon and special styling to highlight important content.",
                     style = Typography.body,
                     color = AppColorScheme.onSurface
                 )
-                
+
                 Spacer(modifier = Modifier.height(Spacing.sm))
-                
+
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(Spacing.sm)
                 ) {

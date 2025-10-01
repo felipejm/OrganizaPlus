@@ -5,11 +5,10 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.Typography
+import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -56,16 +55,14 @@ fun ChartShowcaseScreen(
                         ChartDataPoint("Apr", 30f),
                         ChartDataPoint("May", 20f),
                         ChartDataPoint("Jun", 35f)
-                    ),
-                    legend = "Monthly values"
+                    )
                 )
             }
 
             item {
                 ChartExample(
                     title = "Empty State",
-                    data = emptyList(),
-                    legend = null
+                    data = emptyList()
                 )
             }
 
@@ -74,8 +71,7 @@ fun ChartShowcaseScreen(
                     title = "Single Data Point",
                     data = listOf(
                         ChartDataPoint("Jan", 50f)
-                    ),
-                    legend = "Single month data"
+                    )
                 )
             }
 
@@ -87,8 +83,7 @@ fun ChartShowcaseScreen(
                         ChartDataPoint("Q2", 150f),
                         ChartDataPoint("Q3", 120f),
                         ChartDataPoint("Q4", 180f)
-                    ),
-                    legend = "Each bar uses a different color from the design system"
+                    )
                 )
             }
 
@@ -101,9 +96,7 @@ fun ChartShowcaseScreen(
                         ChartDataPoint("Wed", 12f),
                         ChartDataPoint("Thu", 6f),
                         ChartDataPoint("Fri", 15f)
-                    ),
-                    legend = "Daily values",
-                    showValues = false
+                    )
                 )
             }
 
@@ -122,7 +115,6 @@ fun ChartShowcaseScreen(
                         ChartDataPoint("Week 9", 49f),
                         ChartDataPoint("Week 10", 63f)
                     ),
-                    legend = "Weekly performance over 10 weeks"
                 )
             }
         }
@@ -132,9 +124,7 @@ fun ChartShowcaseScreen(
 @Composable
 private fun ChartExample(
     title: String,
-    data: List<ChartDataPoint>,
-    legend: String?,
-    showValues: Boolean = true
+    data: List<ChartDataPoint>
 ) {
     OrganizeCard(
         modifier = Modifier.fillMaxWidth()
@@ -148,7 +138,7 @@ private fun ChartExample(
                 color = AppColorScheme.onSurface
             )
             Spacer(modifier = Modifier.height(Spacing.sm))
-            
+
             AppBarChart(
                 data = data,
                 title = title,

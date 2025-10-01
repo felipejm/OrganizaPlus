@@ -1,4 +1,4 @@
-package com.joffer.organizeplus.features.obligationList.presentation
+package com.joffer.organizeplus.features.duty.list.presentation
 
 sealed class ObligationListIntent {
     object LoadObligations : ObligationListIntent()

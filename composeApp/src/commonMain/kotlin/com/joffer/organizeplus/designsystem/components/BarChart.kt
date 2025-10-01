@@ -10,7 +10,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
@@ -18,12 +17,11 @@ import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import kotlin.math.round
+import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 // Chart dimensions and styling constants
 private val CHART_HEIGHT = 240.dp
@@ -51,11 +49,11 @@ fun AppBarChart(
     title: String? = null,
     barColors: List<Color> = listOf(
         AppColorScheme.success500, // Green
-        AppColorScheme.error,      // Red
+        AppColorScheme.error, // Red
         AppColorScheme.warning500, // Amber
-        AppColorScheme.primary,    // Blue
-        AppColorScheme.secondary,  // Purple
-        AppColorScheme.info500,    // Info blue
+        AppColorScheme.primary, // Blue
+        AppColorScheme.secondary, // Purple
+        AppColorScheme.info500, // Info blue
     ),
     emptyStateText: String = "No data available",
     modifier: Modifier = Modifier
@@ -69,9 +67,9 @@ fun AppBarChart(
     }
 
     val density = LocalDensity.current
-    val animatedData = remember(data) { 
-        data.map { point -> 
-            point.copy(animatedValue = 0f) 
+    val animatedData = remember(data) {
+        data.map { point ->
+            point.copy(animatedValue = 0f)
         }
     }
 
@@ -121,13 +119,13 @@ fun AppBarChart(
                 barColors = barColors,
                 modifier = Modifier.fillMaxSize()
             )
-            
+
             // X-axis labels positioned over the canvas
             XAxisLabelsOverlay(
                 data = data,
                 modifier = Modifier.fillMaxSize()
             )
-            
+
             // Y-axis labels positioned over the canvas
             YAxisLabelsOverlay(
                 data = animatedData.map { point ->
@@ -146,11 +144,11 @@ private fun CustomBarChart(
     modifier: Modifier = Modifier
 ) {
     val density = LocalDensity.current
-    
+
     // Calculate chart dimensions
     val maxValue = data.maxOfOrNull { it.value }?.coerceAtLeast(1f) ?: 1f
     val yAxisTicks = generateYAxisTicks(maxValue)
-    
+
     Canvas(modifier = modifier) {
         val canvasWidth = size.width
         val canvasHeight = size.height
@@ -173,7 +171,6 @@ private fun CustomBarChart(
         // Draw grid lines
         drawGridLines(
             startX = chartStartX,
-            startY = chartStartY,
             endX = chartEndX,
             endY = chartEndY,
             ticks = yAxisTicks,
@@ -184,7 +181,6 @@ private fun CustomBarChart(
         // Draw Y-axis labels
         drawYAxisLabels(
             startX = chartStartX,
-            startY = chartStartY,
             endY = chartEndY,
             ticks = yAxisTicks,
             maxValue = maxValue,
@@ -196,7 +192,6 @@ private fun CustomBarChart(
             data = data,
             barColors = barColors,
             startX = chartStartX,
-            startY = chartStartY,
             endX = chartEndX,
             endY = chartEndY,
             chartHeight = chartHeight,
@@ -215,11 +210,21 @@ private fun CustomBarChart(
 
 private fun generateYAxisTicks(maxValue: Float): List<Float> {
     return when {
-        maxValue <= 1f -> listOf(0f, 1f)
-        maxValue <= 2f -> listOf(0f, 1f, 2f)
-        maxValue <= 3f -> listOf(0f, 1f, 2f, 3f)
-        maxValue <= 5f -> listOf(0f, 1f, 2f, 3f, 4f, 5f)
-        maxValue <= 10f -> listOf(0f, 2f, 4f, 6f, 8f, 10f)
+        maxValue <= 1f -> {
+            listOf(0f, 1f)
+        }
+        maxValue <= 2f -> {
+            listOf(0f, 1f, 2f)
+        }
+        maxValue <= 3f -> {
+            listOf(0f, 1f, 2f, 3f)
+        }
+        maxValue <= 5f -> {
+            listOf(0f, 1f, 2f, 3f, 4f, 5f)
+        }
+        maxValue <= 10f -> {
+            listOf(0f, 2f, 4f, 6f, 8f, 10f)
+        }
         else -> {
             val step = (maxValue / 5f).let { if (it < 1f) 1f else it }
             (0..5).map { it * step }
@@ -240,7 +245,7 @@ private fun DrawScope.drawAxes(
         end = Offset(endX, endY),
         strokeWidth = 2.dp.toPx()
     )
-    
+
     // Y-axis
     drawLine(
         color = AppColorScheme.formSecondaryText,
@@ -252,15 +257,14 @@ private fun DrawScope.drawAxes(
 
 private fun DrawScope.drawYAxisLabels(
     startX: Float,
-    startY: Float,
     endY: Float,
     ticks: List<Float>,
     maxValue: Float,
     chartHeight: Float
 ) {
     ticks.forEach { tickValue ->
-        val y = endY - (tickValue / maxValue) * chartHeight
-        
+        val y = endY - tickValue / maxValue * chartHeight
+
         // Draw tick mark
         drawLine(
             color = AppColorScheme.formSecondaryText,
@@ -268,7 +272,7 @@ private fun DrawScope.drawYAxisLabels(
             end = Offset(startX, y),
             strokeWidth = 1.dp.toPx()
         )
-        
+
         // Note: Text rendering requires platform-specific implementation
         // For now, we'll focus on the chart structure and bars
     }
@@ -285,11 +289,11 @@ private fun DrawScope.drawXAxisLabels(
     val totalBarWidth = barWidth + barSpacing
     val chartWidth = endX - startX
     val startOffset = (chartWidth - (totalBarWidth * data.size - barSpacing)) / 2
-    
+
     data.forEachIndexed { index, point ->
-        val x = startX + startOffset + (totalBarWidth * index) + (barWidth / 2)
+        val x = startX + startOffset + totalBarWidth * index + barWidth / 2
         val y = endY + 20.dp.toPx()
-        
+
         // Note: Text rendering requires platform-specific implementation
         // For now, we'll focus on the chart structure and bars
     }
@@ -297,7 +301,6 @@ private fun DrawScope.drawXAxisLabels(
 
 private fun DrawScope.drawGridLines(
     startX: Float,
-    startY: Float,
     endX: Float,
     endY: Float,
     ticks: List<Float>,
@@ -306,7 +309,7 @@ private fun DrawScope.drawGridLines(
 ) {
     // Draw horizontal grid lines
     ticks.forEach { tickValue ->
-        val y = endY - (tickValue / maxValue) * chartHeight
+        val y = endY - tickValue / maxValue * chartHeight
         drawLine(
             color = AppColorScheme.formSecondaryText.copy(alpha = 0.2f),
             start = Offset(startX, y),
@@ -320,7 +323,6 @@ private fun DrawScope.drawBars(
     data: List<ChartDataPoint>,
     barColors: List<Color>,
     startX: Float,
-    startY: Float,
     endX: Float,
     endY: Float,
     chartHeight: Float,
@@ -334,8 +336,8 @@ private fun DrawScope.drawBars(
     val startOffset = (chartWidth - (totalBarWidth * data.size - barSpacing)) / 2
 
     data.forEachIndexed { index, point ->
-        val x = startX + startOffset + (totalBarWidth * index)
-        val barHeight = (point.animatedValue / maxValue) * chartHeight
+        val x = startX + startOffset + totalBarWidth * index
+        val barHeight = point.animatedValue / maxValue * chartHeight
         val y = endY - barHeight
 
         // Get bar color from the provided colors list (cycle if needed)
@@ -389,12 +391,12 @@ private fun YAxisLabelsOverlay(
     val maxValue = data.maxOfOrNull { it.value }?.coerceAtLeast(1f) ?: 1f
     val yAxisTicks = generateYAxisTicks(maxValue)
     val padding = 40.dp
-    
+
     Box(modifier = modifier) {
         yAxisTicks.forEach { tickValue ->
             val chartHeight = (CHART_HEIGHT - padding * 2).value
-            val y = (CHART_HEIGHT - padding).value - ((tickValue / maxValue) * chartHeight)
-            
+            val y = (CHART_HEIGHT - padding).value - tickValue / maxValue * chartHeight
+
             Text(
                 text = round(tickValue).toString(),
                 modifier = Modifier

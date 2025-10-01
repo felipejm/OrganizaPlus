@@ -6,21 +6,18 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.joffer.organizeplus.designsystem.components.*
-import com.joffer.organizeplus.designsystem.spacing.Spacing
-import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
-import com.joffer.organizeplus.features.dashboard.components.UpcomingSection
-import com.joffer.organizeplus.features.dashboard.components.DutyCategorySection
 import com.joffer.organizeplus.common.constants.CategoryConstants
+import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.components.ErrorBanner
-import com.joffer.organizeplus.features.dashboard.presentation.DashboardViewModel
+import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.features.dashboard.DashboardIntent
+import com.joffer.organizeplus.features.dashboard.components.DutyCategorySection
 import org.jetbrains.compose.resources.stringResource
 import organizeplus.composeapp.generated.resources.Res
-import organizeplus.composeapp.generated.resources.settings_button_description
 import organizeplus.composeapp.generated.resources.app_name
+import organizeplus.composeapp.generated.resources.settings_button_description
+import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -34,11 +31,11 @@ fun DashboardScreen(
     modifier: Modifier = Modifier
 ) {
     val uiState by viewModel.uiState.collectAsState()
-    
+
     LaunchedEffect(Unit) {
         viewModel.onIntent(DashboardIntent.LoadDashboard)
     }
-    
+
     Scaffold(
         modifier = modifier,
         topBar = {
@@ -72,7 +69,7 @@ fun DashboardScreen(
                     )
                 }
             }
-            
+
             if (uiState.isLoading) {
                 item {
                     OrganizeProgressIndicatorFullScreen()
@@ -89,7 +86,7 @@ fun DashboardScreen(
                         monthlySummary = uiState.personalSummary
                     )
                 }
-                
+
                 // Company Duties Section
                 item {
                     DutyCategorySection(
@@ -105,4 +102,3 @@ fun DashboardScreen(
         }
     }
 }
-

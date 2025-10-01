@@ -3,18 +3,16 @@ package com.joffer.organizeplus.designsystem.catalog
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 import com.joffer.organizeplus.designsystem.components.AppTopAppBarWithBackButton
 import com.joffer.organizeplus.designsystem.components.OrganizeCard
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.Typography
+import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -60,15 +58,15 @@ private fun TypographyCategorySection(
                 style = Typography.h3,
                 color = AppColorScheme.onSurface
             )
-            
+
             Text(
                 text = category.description,
                 style = Typography.body,
                 color = AppColorScheme.onSurfaceVariant
             )
-            
+
             Spacer(modifier = Modifier.height(Spacing.md))
-            
+
             when (category) {
                 TypographyCategory.HEADINGS -> {
                     HeadingExamples()
@@ -97,28 +95,28 @@ private fun HeadingExamples() {
             style = Typography.subtitle,
             color = AppColorScheme.onSurface
         )
-        
+
         TypographyExample(
             name = "H1",
             style = Typography.h1,
             text = "Main Page Heading",
             description = "30px / 38px line height"
         )
-        
+
         TypographyExample(
             name = "H2",
             style = Typography.h2,
             text = "Section Heading",
             description = "24px / 32px line height"
         )
-        
+
         TypographyExample(
             name = "H3",
             style = Typography.h3,
             text = "Subsection Heading",
             description = "20px / 28px line height"
         )
-        
+
         TypographyExample(
             name = "Title",
             style = Typography.title,
@@ -138,21 +136,21 @@ private fun BodyTextExamples() {
             style = Typography.subtitle,
             color = AppColorScheme.onSurface
         )
-        
+
         TypographyExample(
             name = "Subtitle",
             style = Typography.subtitle,
             text = "Supporting text for headings",
             description = "16px / 24px line height"
         )
-        
+
         TypographyExample(
             name = "Body",
             style = Typography.body,
             text = "Regular paragraph text for content",
             description = "14px / 22px line height"
         )
-        
+
         TypographyExample(
             name = "Caption",
             style = Typography.caption,
@@ -172,21 +170,21 @@ private fun LabelExamples() {
             style = Typography.subtitle,
             color = AppColorScheme.onSurface
         )
-        
+
         TypographyExample(
             name = "Label Large",
             style = Typography.labelLarge,
             text = "Button Labels",
             description = "16px / 22px line height"
         )
-        
+
         TypographyExample(
             name = "Label Medium",
             style = Typography.labelMedium,
             text = "Form Labels",
             description = "14px / 20px line height"
         )
-        
+
         TypographyExample(
             name = "Label Small",
             style = Typography.labelSmall,
@@ -206,7 +204,7 @@ private fun FontWeightExamples() {
             style = Typography.subtitle,
             color = AppColorScheme.onSurface
         )
-        
+
         // Regular (400) examples
         Text(
             text = "Regular (400)",
@@ -214,23 +212,23 @@ private fun FontWeightExamples() {
             color = AppColorScheme.onSurfaceVariant,
             fontWeight = FontWeight.Medium
         )
-        
+
         TypographyExample(
             name = "H1 Regular",
             style = Typography.h1Regular,
             text = "Regular Heading",
             description = "30px / 38px"
         )
-        
+
         TypographyExample(
             name = "Body Regular",
             style = Typography.bodyRegular,
             text = "Regular body text",
             description = "14px / 22px"
         )
-        
+
         Spacer(modifier = Modifier.height(Spacing.sm))
-        
+
         // Medium (500) examples
         Text(
             text = "Medium (500)",
@@ -238,14 +236,14 @@ private fun FontWeightExamples() {
             color = AppColorScheme.onSurfaceVariant,
             fontWeight = FontWeight.Medium
         )
-        
+
         TypographyExample(
             name = "H1 Medium",
             style = Typography.h1Medium,
             text = "Medium Heading",
             description = "30px / 38px"
         )
-        
+
         TypographyExample(
             name = "Body Medium",
             style = Typography.bodyMedium,
@@ -279,7 +277,7 @@ private fun TypographyExample(
                 fontWeight = FontWeight.Medium,
                 modifier = Modifier.width(120.dp)
             )
-            
+
             Text(
                 text = description,
                 style = Typography.caption,
@@ -287,92 +285,12 @@ private fun TypographyExample(
                 modifier = Modifier.weight(1f)
             )
         }
-        
+
         Text(
             text = text,
             style = style,
             color = AppColorScheme.onSurface
         )
-    }
-}
-
-@Composable
-private fun TypographyUsageExamples() {
-    Column(
-        verticalArrangement = Arrangement.spacedBy(Spacing.lg)
-    ) {
-        Text(
-            text = "Usage Examples",
-            style = Typography.h3,
-            color = AppColorScheme.onSurface
-        )
-        
-        // Card example
-        OrganizeCard {
-            Column(
-                modifier = Modifier.padding(Spacing.md)
-            ) {
-                Text(
-                    text = "Card Title",
-                    style = Typography.title,
-                    color = AppColorScheme.onSurface
-                )
-                
-                Spacer(modifier = Modifier.height(Spacing.xs))
-                
-                Text(
-                    text = "This is a subtitle that provides additional context for the card content.",
-                    style = Typography.subtitle,
-                    color = AppColorScheme.onSurfaceVariant
-                )
-                
-                Spacer(modifier = Modifier.height(Spacing.sm))
-                
-                Text(
-                    text = "This is the main body text that contains the primary information. It should be easy to read and provide clear details about the content.",
-                    style = Typography.body,
-                    color = AppColorScheme.onSurface
-                )
-                
-                Spacer(modifier = Modifier.height(Spacing.sm))
-                
-                Text(
-                    text = "Last updated 2 hours ago",
-                    style = Typography.caption,
-                    color = AppColorScheme.onSurfaceVariant
-                )
-            }
-        }
-        
-        // Button example
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(Spacing.sm)
-        ) {
-            Button(
-                onClick = { },
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = AppColorScheme.primary
-                )
-            ) {
-                Text(
-                    text = "Primary Action",
-                    style = Typography.labelLarge,
-                    color = AppColorScheme.onPrimary
-                )
-            }
-            
-            OutlinedButton(
-                onClick = { },
-                colors = ButtonDefaults.outlinedButtonColors(
-                    contentColor = AppColorScheme.primary
-                )
-            ) {
-                Text(
-                    text = "Secondary",
-                    style = Typography.labelLarge
-                )
-            }
-        }
     }
 }
 

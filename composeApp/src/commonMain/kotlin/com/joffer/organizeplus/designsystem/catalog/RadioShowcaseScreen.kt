@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -14,7 +13,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import com.joffer.organizeplus.designsystem.components.AppTopAppBarWithBackButton
 import com.joffer.organizeplus.designsystem.components.OrganizeCard
 import com.joffer.organizeplus.designsystem.components.OrganizeRadio
@@ -38,7 +36,7 @@ fun RadioShowcaseScreen(
             title = stringResource(Res.string.radio_showcase_title),
             onBackClick = onNavigateBack
         )
-        
+
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
@@ -57,15 +55,15 @@ fun RadioShowcaseScreen(
                             text = "Basic Radio Group",
                             style = Typography.titleMedium
                         )
-                        
+
                         val options = listOf(
                             RadioOption("1", "Option 1"),
                             RadioOption("2", "Option 2"),
                             RadioOption("3", "Option 3")
                         )
-                        
+
                         var selectedValue by remember { mutableStateOf<String?>(null) }
-                        
+
                         OrganizeRadioGroup(
                             options = options,
                             selectedValue = selectedValue,
@@ -75,7 +73,7 @@ fun RadioShowcaseScreen(
                     }
                 }
             }
-            
+
             item {
                 OrganizeCard(
                     modifier = Modifier.fillMaxWidth()
@@ -88,15 +86,15 @@ fun RadioShowcaseScreen(
                             text = "Horizontal Layout",
                             style = Typography.titleMedium
                         )
-                        
+
                         val options = listOf(
                             RadioOption("a", "A"),
                             RadioOption("b", "B"),
                             RadioOption("c", "C")
                         )
-                        
+
                         var selectedValue by remember { mutableStateOf<String?>(null) }
-                        
+
                         OrganizeRadio(
                             options = options,
                             selectedValue = selectedValue,
@@ -106,7 +104,7 @@ fun RadioShowcaseScreen(
                     }
                 }
             }
-            
+
             item {
                 OrganizeCard(
                     modifier = Modifier.fillMaxWidth()
@@ -119,15 +117,15 @@ fun RadioShowcaseScreen(
                             text = "With Disabled Options",
                             style = Typography.titleMedium
                         )
-                        
+
                         val options = listOf(
                             RadioOption("1", "Enabled Option 1"),
                             RadioOption("2", "Disabled Option", disabled = true),
                             RadioOption("3", "Enabled Option 2")
                         )
-                        
+
                         var selectedValue by remember { mutableStateOf<String?>(null) }
-                        
+
                         OrganizeRadioGroup(
                             options = options,
                             selectedValue = selectedValue,
@@ -137,7 +135,7 @@ fun RadioShowcaseScreen(
                     }
                 }
             }
-            
+
             item {
                 OrganizeCard(
                     modifier = Modifier.fillMaxWidth()
@@ -150,12 +148,12 @@ fun RadioShowcaseScreen(
                             text = "Disabled Group",
                             style = Typography.titleMedium
                         )
-                        
+
                         val options = listOf(
                             RadioOption("1", "Option 1"),
                             RadioOption("2", "Option 2")
                         )
-                        
+
                         OrganizeRadioGroup(
                             options = options,
                             selectedValue = "1",

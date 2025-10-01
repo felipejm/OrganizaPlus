@@ -5,4 +5,3 @@ import kotlinx.coroutines.flow.Flow
 interface MarkObligationPaidUseCase {
     suspend operator fun invoke(obligationId: String): Flow<Result<Unit>>
 }
-

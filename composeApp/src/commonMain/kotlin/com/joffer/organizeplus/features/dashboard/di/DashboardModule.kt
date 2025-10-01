@@ -14,9 +14,9 @@ import org.koin.dsl.module
 val dashboardModule = module {
     single<DutyRepository> { RoomDutyRepository(get()) }
     single<DutyOccurrenceRepository> { RoomDutyOccurrenceRepository(get()) }
-    
+
     single<GetDashboardDataUseCase> { GetDashboardDataUseCaseImpl(get()) }
     single<MarkObligationPaidUseCase> { MarkObligationPaidUseCaseImpl(get()) }
-    
+
     single { DashboardViewModel(get(), get(), get(), get()) }
 }

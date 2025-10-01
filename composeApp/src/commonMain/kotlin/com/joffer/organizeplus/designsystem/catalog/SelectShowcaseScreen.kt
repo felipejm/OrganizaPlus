@@ -13,7 +13,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import com.joffer.organizeplus.designsystem.components.AppTopAppBarWithBackButton
 import com.joffer.organizeplus.designsystem.components.OrganizeCard
 import com.joffer.organizeplus.designsystem.components.OrganizeSelect
@@ -36,7 +35,7 @@ fun SelectShowcaseScreen(
             title = stringResource(Res.string.select_showcase_title),
             onBackClick = onNavigateBack
         )
-        
+
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
@@ -55,16 +54,16 @@ fun SelectShowcaseScreen(
                             text = "Basic Select",
                             style = Typography.titleMedium
                         )
-                        
+
                         val options = listOf(
                             SelectOption("1", "Option 1"),
                             SelectOption("2", "Option 2"),
                             SelectOption("3", "Option 3"),
                             SelectOption("4", "Option 4")
                         )
-                        
+
                         var selectedValue by remember { mutableStateOf<String?>(null) }
-                        
+
                         OrganizeSelect(
                             options = options,
                             selectedValue = selectedValue,
@@ -74,7 +73,7 @@ fun SelectShowcaseScreen(
                     }
                 }
             }
-            
+
             item {
                 OrganizeCard(
                     modifier = Modifier.fillMaxWidth()
@@ -87,17 +86,17 @@ fun SelectShowcaseScreen(
                             text = "Different Sizes",
                             style = Typography.titleMedium
                         )
-                        
+
                         val options = listOf(
                             SelectOption("1", "Small Option"),
                             SelectOption("2", "Medium Option"),
                             SelectOption("3", "Large Option")
                         )
-                        
+
                         var smallSelected by remember { mutableStateOf<String?>(null) }
                         var mediumSelected by remember { mutableStateOf<String?>(null) }
                         var largeSelected by remember { mutableStateOf<String?>(null) }
-                        
+
                         OrganizeSelect(
                             options = options,
                             selectedValue = smallSelected,
@@ -105,7 +104,7 @@ fun SelectShowcaseScreen(
                             onValueChange = { smallSelected = it },
                             size = SelectSize.SMALL
                         )
-                        
+
                         OrganizeSelect(
                             options = options,
                             selectedValue = mediumSelected,
@@ -113,7 +112,7 @@ fun SelectShowcaseScreen(
                             onValueChange = { mediumSelected = it },
                             size = SelectSize.MEDIUM
                         )
-                        
+
                         OrganizeSelect(
                             options = options,
                             selectedValue = largeSelected,
@@ -124,7 +123,7 @@ fun SelectShowcaseScreen(
                     }
                 }
             }
-            
+
             item {
                 OrganizeCard(
                     modifier = Modifier.fillMaxWidth()
@@ -137,14 +136,14 @@ fun SelectShowcaseScreen(
                             text = "With Error State",
                             style = Typography.titleMedium
                         )
-                        
+
                         val options = listOf(
                             SelectOption("1", "Valid Option"),
                             SelectOption("2", "Another Valid Option")
                         )
-                        
+
                         var selectedValue by remember { mutableStateOf<String?>(null) }
-                        
+
                         OrganizeSelect(
                             options = options,
                             selectedValue = selectedValue,
@@ -155,7 +154,7 @@ fun SelectShowcaseScreen(
                     }
                 }
             }
-            
+
             item {
                 OrganizeCard(
                     modifier = Modifier.fillMaxWidth()
@@ -168,12 +167,12 @@ fun SelectShowcaseScreen(
                             text = "Disabled State",
                             style = Typography.titleMedium
                         )
-                        
+
                         val options = listOf(
                             SelectOption("1", "Option 1"),
                             SelectOption("2", "Option 2")
                         )
-                        
+
                         OrganizeSelect(
                             options = options,
                             selectedValue = "1",

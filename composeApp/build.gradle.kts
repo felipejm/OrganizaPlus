@@ -48,6 +48,9 @@ kotlin {
             implementation(libs.androidx.work.runtime)
             implementation(libs.mlkit.text.recognition)
             
+            // Android-specific Room dependencies
+            implementation(libs.room.ktx)
+            
         }
         commonMain.dependencies {
             // Compose Multiplatform
@@ -83,9 +86,8 @@ kotlin {
             implementation(libs.sqldelight.runtime)
             implementation(libs.sqldelight.coroutines.extensions)
             
-            // Room library
+            // Room library (KMP compatible)
             implementation(libs.room.runtime)
-            implementation(libs.room.ktx)
             implementation(libs.room.common)
             
             // Preferences library
@@ -143,6 +145,7 @@ android {
 
 dependencies {
     debugImplementation(compose.uiTooling)
+    detektPlugins(libs.detekt.formatting)
 }
 
 
@@ -173,11 +176,25 @@ tasks.withType<com.google.devtools.ksp.gradle.KspAATask> {
     dependsOn("generateResourceAccessorsForCommonMain")
     dependsOn("generateExpectResourceCollectorsForCommonMain")
     dependsOn("generateCommonMainOrganizePlusDatabaseInterface")
+    
+    // iOS-specific resource generation tasks
+    dependsOn("generateResourceAccessorsForIosArm64Main")
+    dependsOn("generateActualResourceCollectorsForIosArm64Main")
+    dependsOn("generateResourceAccessorsForIosMain")
+    dependsOn("generateResourceAccessorsForAppleMain")
+    dependsOn("generateResourceAccessorsForNativeMain")
 }
 
 detekt {
     buildUponDefaultConfig = true
     allRules = false
+    autoCorrect = true
     config.setFrom("$projectDir/../detekt.yml")
-    baseline = file("$projectDir/detekt-baseline.xml")
+    
+    // Explicitly specify source sets
+    source.setFrom(
+        "src/commonMain/kotlin",
+        "src/androidMain/kotlin",
+        "src/iosMain/kotlin"
+    )
 }

@@ -7,36 +7,32 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
-import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
-import com.joffer.organizeplus.designsystem.components.*
-import com.joffer.organizeplus.features.duty.occurrence.domain.entities.DutyOccurrenceFormField
-import com.joffer.organizeplus.features.duty.occurrence.domain.validation.ValidationError
-import com.joffer.organizeplus.features.duty.occurrence.presentation.AddDutyOccurrenceViewModel
-import com.joffer.organizeplus.features.duty.occurrence.presentation.AddDutyOccurrenceIntent
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.Typography
+import com.joffer.organizeplus.features.dashboard.domain.entities.DutyType
+import com.joffer.organizeplus.features.duty.occurrence.domain.entities.DutyOccurrenceFormField
+import com.joffer.organizeplus.features.duty.occurrence.domain.validation.ValidationError
 import com.joffer.organizeplus.utils.formatDateForDisplay
 import com.joffer.organizeplus.utils.parseDateFromString
 import com.joffer.organizeplus.utils.showDatePickerDialog
-import com.joffer.organizeplus.features.dashboard.domain.entities.DutyType
-import kotlinx.datetime.LocalDate
 import org.jetbrains.compose.resources.stringResource
 import organizeplus.composeapp.generated.resources.Res
 import organizeplus.composeapp.generated.resources.add_duty_occurrence_title
-import organizeplus.composeapp.generated.resources.duty_occurrence_paid_amount
-import organizeplus.composeapp.generated.resources.duty_occurrence_paid_amount_hint
-import organizeplus.composeapp.generated.resources.duty_occurrence_completed_date
-import organizeplus.composeapp.generated.resources.duty_occurrence_save
-import organizeplus.composeapp.generated.resources.duty_occurrence_saved
-import organizeplus.composeapp.generated.resources.validation_invalid_amount
 import organizeplus.composeapp.generated.resources.close
 import organizeplus.composeapp.generated.resources.date_placeholder
-import organizeplus.composeapp.generated.resources.validation_field_required
+import organizeplus.composeapp.generated.resources.duty_occurrence_completed_date
+import organizeplus.composeapp.generated.resources.duty_occurrence_paid_amount
+import organizeplus.composeapp.generated.resources.duty_occurrence_paid_amount_hint
+import organizeplus.composeapp.generated.resources.duty_occurrence_save
+import organizeplus.composeapp.generated.resources.duty_occurrence_saved
 import organizeplus.composeapp.generated.resources.validation_date_required
+import organizeplus.composeapp.generated.resources.validation_field_required
+import organizeplus.composeapp.generated.resources.validation_invalid_amount
+import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -181,7 +177,7 @@ fun AddDutyOccurrenceBottomSheet(
             }
         }
     }
-    
+
     // Date Picker Dialog
     if (showDatePicker) {
         showDatePickerDialog(
@@ -208,4 +204,3 @@ private fun getErrorMessage(error: ValidationError?): String? {
         null -> null
     }
 }
-

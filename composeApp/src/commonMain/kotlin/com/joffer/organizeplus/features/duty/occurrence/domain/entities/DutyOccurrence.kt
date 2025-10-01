@@ -9,4 +9,3 @@ data class DutyOccurrence(
     val completedDate: LocalDate,
     val createdAt: LocalDate
 )
-

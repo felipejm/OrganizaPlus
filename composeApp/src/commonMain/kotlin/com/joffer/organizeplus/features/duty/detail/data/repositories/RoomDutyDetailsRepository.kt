@@ -3,39 +3,37 @@ package com.joffer.organizeplus.features.duty.detail.data.repositories
 import com.joffer.organizeplus.database.dao.DutyOccurrenceDao
 import com.joffer.organizeplus.database.mappers.toDomainEntity
 import com.joffer.organizeplus.database.mappers.toRoomEntity
-import com.joffer.organizeplus.features.duty.occurrence.domain.entities.DutyOccurrence
 import com.joffer.organizeplus.features.duty.detail.domain.entities.DutyDetails
 import com.joffer.organizeplus.features.duty.detail.domain.repositories.DutyDetailsRepository
+import com.joffer.organizeplus.features.duty.occurrence.domain.entities.DutyOccurrence
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import kotlinx.datetime.Instant
-import kotlinx.datetime.atStartOfDayIn
-import kotlinx.datetime.toLocalDateTime
-import kotlinx.datetime.toInstant
 import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
 
 class RoomDutyDetailsRepository(
     private val dutyOccurrenceDao: DutyOccurrenceDao
 ) : DutyDetailsRepository {
-    
+
     override suspend fun getAllRecords(): Flow<Result<List<DutyDetails>>> {
         return dutyOccurrenceDao.getAllDutyOccurrences().map { entities ->
             Result.success(entities.map { it.toDomainEntity().toDutyDetails() })
         }
     }
-    
+
     override suspend fun getRecordsByDutyId(dutyId: String): Flow<Result<List<DutyDetails>>> {
         return dutyOccurrenceDao.getDutyOccurrencesByDutyId(dutyId.toLongOrNull() ?: 0L).map { entities ->
             Result.success(entities.map { it.toDomainEntity().toDutyDetails() })
         }
     }
-    
+
     override suspend fun getRecordById(id: String): Flow<Result<DutyDetails?>> {
         val entity = dutyOccurrenceDao.getDutyOccurrenceById(id.toLongOrNull() ?: return flowOf(Result.success(null)))
         return flowOf(Result.success(entity?.let { it.toDomainEntity().toDutyDetails() }))
     }
-    
+
     override suspend fun insertRecord(record: DutyDetails): Flow<Result<Unit>> {
         return try {
             val dutyOccurrence = record.toDutyOccurrence()
@@ -46,7 +44,7 @@ class RoomDutyDetailsRepository(
             flowOf(Result.failure(e))
         }
     }
-    
+
     override suspend fun updateRecord(record: DutyDetails): Flow<Result<Unit>> {
         return try {
             val dutyOccurrence = record.toDutyOccurrence()
@@ -57,18 +55,20 @@ class RoomDutyDetailsRepository(
             flowOf(Result.failure(e))
         }
     }
-    
+
     override suspend fun deleteRecord(id: String): Flow<Result<Unit>> {
         return try {
-            dutyOccurrenceDao.deleteDutyOccurrenceById(id.toLongOrNull() ?: return flowOf(Result.failure(IllegalArgumentException("Invalid ID"))))
+            dutyOccurrenceDao.deleteDutyOccurrenceById(
+                id.toLongOrNull() ?: return flowOf(Result.failure(IllegalArgumentException("Invalid ID")))
+            )
             flowOf(Result.success(Unit))
         } catch (e: Exception) {
             flowOf(Result.failure(e))
         }
     }
-    
+
     override suspend fun getRecordsByDateRange(startDate: Instant, endDate: Instant): Flow<Result<List<DutyDetails>>> {
-        // TODO: Implement date range query in DAO
+        // Date range query not yet implemented in DAO
         return flowOf(Result.success(emptyList()))
     }
 }

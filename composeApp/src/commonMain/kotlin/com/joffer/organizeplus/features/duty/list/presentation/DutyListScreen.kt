@@ -7,36 +7,28 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
-import com.joffer.organizeplus.common.utils.DateUtils
 import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.components.ResultType
-import com.joffer.organizeplus.features.duty.list.components.DutyListItem
-import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.Typography
-import com.joffer.organizeplus.features.dashboard.domain.entities.Duty
+import com.joffer.organizeplus.features.duty.list.components.DutyListItem
 import com.joffer.organizeplus.features.duty.list.domain.DutyCategoryFilter
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.toLocalDateTime
 import org.jetbrains.compose.resources.stringResource
 import organizeplus.composeapp.generated.resources.Res
-import organizeplus.composeapp.generated.resources.duty_list_title
-import organizeplus.composeapp.generated.resources.duty_list_search_hint
-import organizeplus.composeapp.generated.resources.duty_list_empty_title
-import organizeplus.composeapp.generated.resources.duty_list_empty_subtitle
-import organizeplus.composeapp.generated.resources.duty_list_error_title
-import organizeplus.composeapp.generated.resources.duty_list_error_subtitle
-import organizeplus.composeapp.generated.resources.duty_list_retry
 import organizeplus.composeapp.generated.resources.add_duty
+import organizeplus.composeapp.generated.resources.duty_list_empty_subtitle
+import organizeplus.composeapp.generated.resources.duty_list_empty_title
+import organizeplus.composeapp.generated.resources.duty_list_error_subtitle
+import organizeplus.composeapp.generated.resources.duty_list_error_title
+import organizeplus.composeapp.generated.resources.duty_list_retry
+import organizeplus.composeapp.generated.resources.duty_list_search_hint
+import organizeplus.composeapp.generated.resources.duty_list_title
+import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -44,19 +36,17 @@ fun DutyListScreen(
     viewModel: DutyListViewModel,
     categoryFilter: DutyCategoryFilter,
     onNavigateToCreateDuty: () -> Unit,
-    onNavigateToEditDuty: (String) -> Unit,
     onNavigateBack: () -> Unit,
-    onNavigateToOccurrences: (String) -> Unit,
-    modifier: Modifier = Modifier
+    onNavigateToOccurrences: (String) -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsState()
-    
+
     LaunchedEffect(uiState.error) {
         if (uiState.error != null) {
             // Error will be shown in the UI below
         }
     }
-    
+
     Scaffold(
         topBar = {
             AppTopAppBarWithBackButton(
@@ -94,9 +84,9 @@ fun DutyListScreen(
                 onQueryChange = { viewModel.onIntent(DutyListIntent.SearchDuties(it)) },
                 modifier = Modifier.padding(Spacing.md)
             )
-            
+
             Spacer(modifier = Modifier.height(Spacing.sm))
-            
+
             if (uiState.isLoading) {
                 OrganizeProgressIndicatorFullScreen()
             } else if (uiState.error != null) {

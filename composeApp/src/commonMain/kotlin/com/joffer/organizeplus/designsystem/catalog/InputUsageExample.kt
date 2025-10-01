@@ -12,11 +12,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.unit.dp
-import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.Typography
+import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 @Composable
 fun InputUsageExample() {
@@ -29,15 +28,15 @@ fun InputUsageExample() {
     var bio by remember { mutableStateOf("") }
     var showPassword by remember { mutableStateOf(false) }
     var showConfirmPassword by remember { mutableStateOf(false) }
-    
-    val isFormValid = firstName.isNotEmpty() && 
-                     lastName.isNotEmpty() && 
-                     email.isNotEmpty() && 
-                     password.isNotEmpty() && 
-                     confirmPassword.isNotEmpty()
-    
+
+    val isFormValid = firstName.isNotEmpty() &&
+        lastName.isNotEmpty() &&
+        email.isNotEmpty() &&
+        password.isNotEmpty() &&
+        confirmPassword.isNotEmpty()
+
     val passwordMatch = password == confirmPassword
-    
+
     OrganizeCard {
         Column(
             modifier = Modifier.padding(Spacing.lg)
@@ -47,15 +46,15 @@ fun InputUsageExample() {
                 style = Typography.h3,
                 color = AppColorScheme.onSurface
             )
-            
+
             Text(
                 text = "Example of the new input component in a real form",
                 style = Typography.body,
                 color = AppColorScheme.onSurfaceVariant
             )
-            
+
             Spacer(modifier = Modifier.height(Spacing.lg))
-            
+
             // Personal Information Section
             FormSection(
                 title = "Personal Information"
@@ -72,7 +71,7 @@ fun InputUsageExample() {
                         isRequired = true,
                         modifier = Modifier.weight(1f)
                     )
-                    
+
                     OrganizeInput(
                         label = "Last Name",
                         value = lastName,
@@ -82,7 +81,7 @@ fun InputUsageExample() {
                         modifier = Modifier.weight(1f)
                     )
                 }
-                
+
                 OrganizeInput(
                     label = "Email Address",
                     value = email,
@@ -93,7 +92,7 @@ fun InputUsageExample() {
                     isRequired = true,
                     helperText = "We'll use this to send you updates"
                 )
-                
+
                 OrganizeInput(
                     label = "Phone Number",
                     value = phone,
@@ -104,9 +103,9 @@ fun InputUsageExample() {
                     helperText = "Include country code (optional)"
                 )
             }
-            
+
             Spacer(modifier = Modifier.height(Spacing.lg))
-            
+
             // Security Section
             FormSection(
                 title = "Security"
@@ -119,11 +118,15 @@ fun InputUsageExample() {
                     leadingIcon = Icons.Default.Lock,
                     trailingIcon = null, // Using text instead of icon
                     onTrailingIconClick = { showPassword = !showPassword },
-                    visualTransformation = if (showPassword) VisualTransformation.None else PasswordVisualTransformation(),
+                    visualTransformation = if (showPassword) {
+                        VisualTransformation.None
+                    } else {
+                        PasswordVisualTransformation()
+                    },
                     isRequired = true,
                     helperText = "Must be at least 8 characters"
                 )
-                
+
                 OrganizeInput(
                     label = "Confirm Password",
                     value = confirmPassword,
@@ -132,15 +135,27 @@ fun InputUsageExample() {
                     leadingIcon = Icons.Default.Lock,
                     trailingIcon = null, // Using text instead of icon
                     onTrailingIconClick = { showConfirmPassword = !showConfirmPassword },
-                    visualTransformation = if (showConfirmPassword) VisualTransformation.None else PasswordVisualTransformation(),
+                    visualTransformation = if (showConfirmPassword) {
+                        VisualTransformation.None
+                    } else {
+                        PasswordVisualTransformation()
+                    },
                     isRequired = true,
-                    state = if (confirmPassword.isNotEmpty() && !passwordMatch) InputState.ERROR else InputState.DEFAULT,
-                    errorText = if (confirmPassword.isNotEmpty() && !passwordMatch) "Passwords don't match" else null
+                    state = if (confirmPassword.isNotEmpty() && !passwordMatch) {
+                        InputState.ERROR
+                    } else {
+                        InputState.DEFAULT
+                    },
+                    errorText = if (confirmPassword.isNotEmpty() && !passwordMatch) {
+                        "Passwords don't match"
+                    } else {
+                        null
+                    }
                 )
             }
-            
+
             Spacer(modifier = Modifier.height(Spacing.lg))
-            
+
             // Additional Information Section
             FormSection(
                 title = "Additional Information"
@@ -156,9 +171,9 @@ fun InputUsageExample() {
                     helperText = "Optional - Share something about yourself"
                 )
             }
-            
+
             Spacer(modifier = Modifier.height(Spacing.lg))
-            
+
             // Form Actions
             Row(
                 horizontalArrangement = Arrangement.spacedBy(Spacing.md)
@@ -168,7 +183,7 @@ fun InputUsageExample() {
                     onClick = { /* Handle cancel */ },
                     modifier = Modifier.weight(1f)
                 )
-                
+
                 OrganizePrimaryButton(
                     text = "Create Account",
                     onClick = { /* Handle submit */ },
@@ -191,9 +206,9 @@ private fun FormSection(
             style = Typography.subtitle,
             color = AppColorScheme.onSurface
         )
-        
+
         Spacer(modifier = Modifier.height(Spacing.sm))
-        
+
         Column(
             verticalArrangement = Arrangement.spacedBy(Spacing.md)
         ) {

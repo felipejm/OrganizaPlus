@@ -13,7 +13,9 @@ fun DutyOccurrenceEntity.toDomainEntity(): DutyOccurrence {
         id = this.id.toString(),
         dutyId = this.dutyId.toString(),
         paidAmount = if (this.paidAmount < 0) null else this.paidAmount,
-        completedDate = Instant.fromEpochMilliseconds(this.completedDateMillis).toLocalDateTime(TimeZone.currentSystemDefault()).date,
+        completedDate = Instant.fromEpochMilliseconds(
+            this.completedDateMillis
+        ).toLocalDateTime(TimeZone.currentSystemDefault()).date,
         createdAt = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date
     )
 }

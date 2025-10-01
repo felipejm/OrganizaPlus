@@ -10,7 +10,6 @@
 [![Compose Multiplatform](https://img.shields.io/badge/Compose_Multiplatform-1.9.0-4285F4?style=for-the-badge&logo=jetpackcompose&logoColor=white)](https://www.jetbrains.com/lp/compose-multiplatform/)
 [![Android](https://img.shields.io/badge/Android-24%2B-3DDC84?style=for-the-badge&logo=android&logoColor=white)](https://developer.android.com/)
 [![iOS](https://img.shields.io/badge/iOS-13%2B-000000?style=for-the-badge&logo=ios&logoColor=white)](https://developer.apple.com/ios/)
-[![Web](https://img.shields.io/badge/Web-✓-FF6B6B?style=for-the-badge&logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web)
 
 [![License](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=for-the-badge)](http://makeapullrequest.com)
@@ -28,7 +27,7 @@
 - **📅 Smart Scheduling** - Set start dates, due dates, and reminders
 - **🏷️ Categorization** - Organize duties by categories (Personal, Business, etc.)
 - **⚡ Priority Levels** - Mark tasks as Low, Medium, High, or Urgent
-- **📱 Multi-Platform** - Native experience on Android, iOS, and Web
+- **📱 Multi-Platform** - Native experience on Android and iOS
 
 ### 🎨 Modern UI/UX
 - **Material Design 3** - Beautiful, modern interface following Google's design guidelines

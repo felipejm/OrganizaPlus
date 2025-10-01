@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Person
@@ -14,11 +13,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.unit.dp
-import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.Typography
+import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -48,11 +46,11 @@ fun InputShowcaseScreen(
                     color = AppColorScheme.onSurface
                 )
             }
-            
+
             items(InputShowcaseItem.values()) { item ->
                 InputShowcaseItem(item = item)
             }
-            
+
             item {
                 Spacer(modifier = Modifier.height(Spacing.lg))
                 Text(
@@ -62,7 +60,7 @@ fun InputShowcaseScreen(
                 )
                 Spacer(modifier = Modifier.height(Spacing.sm))
             }
-            
+
             item {
                 InputUsageExample()
             }
@@ -86,15 +84,15 @@ private fun InputShowcaseItem(
                 style = Typography.title,
                 color = AppColorScheme.onSurface
             )
-            
+
             Text(
                 text = item.description,
                 style = Typography.body,
                 color = AppColorScheme.onSurfaceVariant
             )
-            
+
             Spacer(modifier = Modifier.height(Spacing.md))
-            
+
             when (item) {
                 InputShowcaseItem.SIZES -> {
                     SizeExamples()
@@ -121,7 +119,7 @@ private fun SizeExamples() {
     var largeValue by remember { mutableStateOf("") }
     var mediumValue by remember { mutableStateOf("") }
     var smallValue by remember { mutableStateOf("") }
-    
+
     Column(
         verticalArrangement = Arrangement.spacedBy(Spacing.md)
     ) {
@@ -130,7 +128,7 @@ private fun SizeExamples() {
             style = Typography.subtitle,
             color = AppColorScheme.onSurface
         )
-        
+
         OrganizeInput(
             label = "Large Input",
             value = largeValue,
@@ -138,7 +136,7 @@ private fun SizeExamples() {
             placeholder = "Enter text here",
             size = InputSize.LARGE
         )
-        
+
         OrganizeInput(
             label = "Medium Input",
             value = mediumValue,
@@ -146,7 +144,7 @@ private fun SizeExamples() {
             placeholder = "Enter text here",
             size = InputSize.MEDIUM
         )
-        
+
         OrganizeInput(
             label = "Small Input",
             value = smallValue,
@@ -164,7 +162,7 @@ private fun StateExamples() {
     var focusedValue by remember { mutableStateOf("") }
     var errorValue by remember { mutableStateOf("") }
     var disabledValue by remember { mutableStateOf("Disabled value") }
-    
+
     Column(
         verticalArrangement = Arrangement.spacedBy(Spacing.md)
     ) {
@@ -173,7 +171,7 @@ private fun StateExamples() {
             style = Typography.subtitle,
             color = AppColorScheme.onSurface
         )
-        
+
         OrganizeInput(
             label = "Default State",
             value = defaultValue,
@@ -181,7 +179,7 @@ private fun StateExamples() {
             placeholder = "Default input",
             state = InputState.DEFAULT
         )
-        
+
         OrganizeInput(
             label = "Hover State",
             value = hoverValue,
@@ -189,7 +187,7 @@ private fun StateExamples() {
             placeholder = "Hover input",
             state = InputState.HOVER
         )
-        
+
         OrganizeInput(
             label = "Focused State",
             value = focusedValue,
@@ -197,7 +195,7 @@ private fun StateExamples() {
             placeholder = "Focused input",
             state = InputState.FOCUSED
         )
-        
+
         OrganizeInput(
             label = "Error State",
             value = errorValue,
@@ -206,7 +204,7 @@ private fun StateExamples() {
             state = InputState.ERROR,
             errorText = "This field is required"
         )
-        
+
         OrganizeInput(
             label = "Disabled State",
             value = disabledValue,
@@ -225,7 +223,7 @@ private fun IconExamples() {
     var bothIconsValue by remember { mutableStateOf("") }
     var passwordValue by remember { mutableStateOf("") }
     var showPassword by remember { mutableStateOf(false) }
-    
+
     Column(
         verticalArrangement = Arrangement.spacedBy(Spacing.md)
     ) {
@@ -234,7 +232,7 @@ private fun IconExamples() {
             style = Typography.subtitle,
             color = AppColorScheme.onSurface
         )
-        
+
         OrganizeInput(
             label = "Leading Icon",
             value = leadingValue,
@@ -242,7 +240,7 @@ private fun IconExamples() {
             placeholder = "Enter email",
             leadingIcon = Icons.Default.Email
         )
-        
+
         OrganizeInput(
             label = "Trailing Icon",
             value = trailingValue,
@@ -251,7 +249,7 @@ private fun IconExamples() {
             trailingIcon = Icons.Default.Person,
             onTrailingIconClick = { /* Handle search */ }
         )
-        
+
         OrganizeInput(
             label = "Both Icons",
             value = bothIconsValue,
@@ -261,7 +259,7 @@ private fun IconExamples() {
             trailingIcon = Icons.Default.Email,
             onTrailingIconClick = { /* Handle action */ }
         )
-        
+
         OrganizeInput(
             label = "Password Field",
             value = passwordValue,
@@ -281,7 +279,7 @@ private fun ValidationExamples() {
     var emailValue by remember { mutableStateOf("") }
     var phoneValue by remember { mutableStateOf("") }
     var errorValue by remember { mutableStateOf("invalid") }
-    
+
     Column(
         verticalArrangement = Arrangement.spacedBy(Spacing.md)
     ) {
@@ -290,7 +288,7 @@ private fun ValidationExamples() {
             style = Typography.subtitle,
             color = AppColorScheme.onSurface
         )
-        
+
         OrganizeInput(
             label = "Required Field",
             value = requiredValue,
@@ -299,7 +297,7 @@ private fun ValidationExamples() {
             isRequired = true,
             helperText = "Please fill this field"
         )
-        
+
         OrganizeInput(
             label = "Email Field",
             value = emailValue,
@@ -309,7 +307,7 @@ private fun ValidationExamples() {
             leadingIcon = Icons.Default.Email,
             helperText = "We'll never share your email"
         )
-        
+
         OrganizeInput(
             label = "Phone Field",
             value = phoneValue,
@@ -318,7 +316,7 @@ private fun ValidationExamples() {
             keyboardType = KeyboardType.Phone,
             helperText = "Include country code"
         )
-        
+
         OrganizeInput(
             label = "Error Field",
             value = errorValue,
@@ -336,7 +334,7 @@ private fun TypeExamples() {
     var numberValue by remember { mutableStateOf("") }
     var multilineValue by remember { mutableStateOf("") }
     var singleLineValue by remember { mutableStateOf("") }
-    
+
     Column(
         verticalArrangement = Arrangement.spacedBy(Spacing.md)
     ) {
@@ -345,7 +343,7 @@ private fun TypeExamples() {
             style = Typography.subtitle,
             color = AppColorScheme.onSurface
         )
-        
+
         OrganizeInput(
             label = "Text Input",
             value = textValue,
@@ -353,7 +351,7 @@ private fun TypeExamples() {
             placeholder = "Enter text",
             keyboardType = KeyboardType.Text
         )
-        
+
         OrganizeInput(
             label = "Number Input",
             value = numberValue,
@@ -361,7 +359,7 @@ private fun TypeExamples() {
             placeholder = "Enter number",
             keyboardType = KeyboardType.Number
         )
-        
+
         OrganizeInput(
             label = "Multiline Input",
             value = multilineValue,
@@ -371,7 +369,7 @@ private fun TypeExamples() {
             minLines = 3,
             maxLines = 6
         )
-        
+
         OrganizeInput(
             label = "Single Line Input",
             value = singleLineValue,

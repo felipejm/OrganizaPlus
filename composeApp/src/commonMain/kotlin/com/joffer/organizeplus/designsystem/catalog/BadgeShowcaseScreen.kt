@@ -6,7 +6,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.ShoppingCart
@@ -15,13 +14,12 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.Typography
+import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 @OptIn(ExperimentalMaterial3Api::class)
-
 @Composable
 fun BadgeShowcaseScreen(
     onNavigateBack: () -> Unit,
@@ -49,11 +47,11 @@ fun BadgeShowcaseScreen(
                     color = AppColorScheme.onSurface
                 )
             }
-            
+
             items(BadgeShowcaseItem.values()) { item ->
                 BadgeShowcaseItem(item = item)
             }
-            
+
             item {
                 Spacer(modifier = Modifier.height(Spacing.lg))
                 Text(
@@ -63,7 +61,7 @@ fun BadgeShowcaseScreen(
                 )
                 Spacer(modifier = Modifier.height(Spacing.sm))
             }
-            
+
             item {
                 BadgeUsageExample()
             }
@@ -87,15 +85,15 @@ private fun BadgeShowcaseItem(
                 style = Typography.title,
                 color = AppColorScheme.onSurface
             )
-            
+
             Text(
                 text = item.description,
                 style = Typography.body,
                 color = AppColorScheme.onSurfaceVariant
             )
-            
+
             Spacer(modifier = Modifier.height(Spacing.md))
-            
+
             when (item) {
                 BadgeShowcaseItem.VARIANTS -> {
                     VariantExamples()
@@ -124,7 +122,7 @@ private fun VariantExamples() {
             style = Typography.subtitle,
             color = AppColorScheme.onSurface
         )
-        
+
         Row(
             horizontalArrangement = Arrangement.spacedBy(Spacing.lg),
             verticalAlignment = Alignment.CenterVertically
@@ -139,7 +137,7 @@ private fun VariantExamples() {
                     color = AppColorScheme.onSurfaceVariant
                 )
                 Spacer(modifier = Modifier.height(Spacing.xs))
-                
+
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(Spacing.sm)
                 ) {
@@ -157,7 +155,7 @@ private fun VariantExamples() {
                     )
                 }
             }
-            
+
             // Double Digit Examples
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally
@@ -168,7 +166,7 @@ private fun VariantExamples() {
                     color = AppColorScheme.onSurfaceVariant
                 )
                 Spacer(modifier = Modifier.height(Spacing.xs))
-                
+
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(Spacing.sm)
                 ) {
@@ -190,7 +188,7 @@ private fun VariantExamples() {
                     )
                 }
             }
-            
+
             // Dot Examples
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally
@@ -201,7 +199,7 @@ private fun VariantExamples() {
                     color = AppColorScheme.onSurfaceVariant
                 )
                 Spacer(modifier = Modifier.height(Spacing.xs))
-                
+
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(Spacing.sm)
                 ) {
@@ -230,7 +228,7 @@ private fun StateExamples() {
             style = Typography.subtitle,
             color = AppColorScheme.onSurface
         )
-        
+
         Row(
             horizontalArrangement = Arrangement.spacedBy(Spacing.lg),
             verticalAlignment = Alignment.CenterVertically
@@ -251,7 +249,7 @@ private fun StateExamples() {
                     state = BadgeState.DEFAULT
                 )
             }
-            
+
             // Hover State
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally
@@ -268,7 +266,7 @@ private fun StateExamples() {
                     state = BadgeState.HOVER
                 )
             }
-            
+
             // Pressed State
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally
@@ -285,7 +283,7 @@ private fun StateExamples() {
                     state = BadgeState.PRESSED
                 )
             }
-            
+
             // Disabled State
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally
@@ -317,7 +315,7 @@ private fun UsageExamples() {
             style = Typography.subtitle,
             color = AppColorScheme.onSurface
         )
-        
+
         // Notification Badge
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -328,7 +326,7 @@ private fun UsageExamples() {
                 style = Typography.body,
                 color = AppColorScheme.onSurface
             )
-            
+
             Box {
                 Icon(
                     imageVector = Icons.Default.Notifications,
@@ -340,7 +338,7 @@ private fun UsageExamples() {
                     modifier = Modifier.offset(x = 8.dp, y = (-8).dp)
                 )
             }
-            
+
             Box {
                 Icon(
                     imageVector = Icons.Default.Email,
@@ -353,7 +351,7 @@ private fun UsageExamples() {
                 )
             }
         }
-        
+
         // Status Badge
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -364,7 +362,7 @@ private fun UsageExamples() {
                 style = Typography.body,
                 color = AppColorScheme.onSurface
             )
-            
+
             Box {
                 Icon(
                     imageVector = Icons.Default.ShoppingCart,
@@ -376,7 +374,7 @@ private fun UsageExamples() {
                 )
             }
         }
-        
+
         // Counter Badge
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -387,7 +385,7 @@ private fun UsageExamples() {
                 style = Typography.body,
                 color = AppColorScheme.onSurface
             )
-            
+
             Box {
                 Icon(
                     imageVector = Icons.Default.ShoppingCart,
@@ -413,13 +411,13 @@ private fun PositioningExamples() {
             style = Typography.subtitle,
             color = AppColorScheme.onSurface
         )
-        
+
         Text(
             text = "Badges are typically positioned in the top-right corner of their parent element with a 2px offset.",
             style = Typography.body,
             color = AppColorScheme.onSurfaceVariant
         )
-        
+
         // Example with different sized containers
         Row(
             horizontalArrangement = Arrangement.spacedBy(Spacing.lg)
@@ -439,7 +437,7 @@ private fun PositioningExamples() {
                     modifier = Modifier.offset(x = 8.dp, y = (-8).dp)
                 )
             }
-            
+
             // Medium container
             Box(
                 modifier = Modifier
@@ -455,7 +453,7 @@ private fun PositioningExamples() {
                     modifier = Modifier.offset(x = 8.dp, y = (-8).dp)
                 )
             }
-            
+
             // Large container
             Box(
                 modifier = Modifier
@@ -472,15 +470,15 @@ private fun PositioningExamples() {
                 )
             }
         }
-        
+
         Spacer(modifier = Modifier.height(Spacing.sm))
-        
+
         Text(
             text = "Dot badges work well for status indicators:",
             style = Typography.body,
             color = AppColorScheme.onSurfaceVariant
         )
-        
+
         Row(
             horizontalArrangement = Arrangement.spacedBy(Spacing.lg)
         ) {
@@ -496,7 +494,7 @@ private fun PositioningExamples() {
                     modifier = Modifier.offset(x = 8.dp, y = (-8).dp)
                 )
             }
-            
+
             Box(
                 modifier = Modifier
                     .size(40.dp)

@@ -3,20 +3,17 @@ package com.joffer.organizeplus.features.duty.occurrence.data.repositories
 import com.joffer.organizeplus.database.dao.DutyOccurrenceDao
 import com.joffer.organizeplus.database.mappers.toDomainEntity
 import com.joffer.organizeplus.database.mappers.toRoomEntity
-import com.joffer.organizeplus.features.duty.occurrence.domain.entities.DutyOccurrence
-import com.joffer.organizeplus.features.duty.occurrence.domain.repositories.DutyOccurrenceRepository
+import com.joffer.organizeplus.features.dashboard.domain.entities.DutyType
 import com.joffer.organizeplus.features.duty.detail.domain.entities.ChartData
 import com.joffer.organizeplus.features.duty.detail.domain.entities.MonthlyChartData
-import com.joffer.organizeplus.features.dashboard.domain.entities.DutyType
-import com.joffer.organizeplus.common.utils.DateUtils
+import com.joffer.organizeplus.features.duty.occurrence.domain.entities.DutyOccurrence
+import com.joffer.organizeplus.features.duty.occurrence.domain.repositories.DutyOccurrenceRepository
 import kotlinx.coroutines.flow.first
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.toLocalDateTime
 
 class RoomDutyOccurrenceRepository(
     private val dutyOccurrenceDao: DutyOccurrenceDao
 ) : DutyOccurrenceRepository {
-    
+
     override suspend fun saveDutyOccurrence(dutyOccurrence: DutyOccurrence): Result<DutyOccurrence> {
         return try {
             val entity = dutyOccurrence.toRoomEntity()
@@ -27,7 +24,7 @@ class RoomDutyOccurrenceRepository(
             Result.failure(e)
         }
     }
-    
+
     override suspend fun getDutyOccurrencesByDutyId(dutyId: String): Result<List<DutyOccurrence>> {
         return try {
             val entities = dutyOccurrenceDao.getDutyOccurrencesByDutyId(dutyId.toLongOrNull() ?: 0L).first()
@@ -37,7 +34,7 @@ class RoomDutyOccurrenceRepository(
             Result.failure(e)
         }
     }
-    
+
     override suspend fun getLastOccurrenceByDutyId(dutyId: String): Result<DutyOccurrence?> {
         return try {
             val entity = dutyOccurrenceDao.getLastOccurrenceByDutyId(dutyId.toLongOrNull() ?: 0L)
@@ -47,12 +44,12 @@ class RoomDutyOccurrenceRepository(
             Result.failure(e)
         }
     }
-    
+
     override suspend fun getMonthlyChartData(dutyId: String, dutyType: DutyType): Result<ChartData> {
         return try {
             val entities = dutyOccurrenceDao.getDutyOccurrencesByDutyId(dutyId.toLongOrNull() ?: 0L).first()
             val dutyOccurrences = entities.map { it.toDomainEntity() }
-            
+
             // Group occurrences by month and year
             val monthlyData = dutyOccurrences
                 .groupBy { occurrence ->
@@ -62,12 +59,12 @@ class RoomDutyOccurrenceRepository(
                 .map { (monthKey, occurrences) ->
                     val firstOccurrence = occurrences.first()
                     val localDate = firstOccurrence.completedDate
-                    
+
                     val value = when (dutyType) {
                         DutyType.ACTIONABLE -> occurrences.size.toFloat() // Count of occurrences
                         DutyType.PAYABLE -> occurrences.sumOf { it.paidAmount ?: 0.0 }.toFloat() // Sum of paid amounts
                     }
-                    
+
                     MonthlyChartData(
                         month = localDate.monthNumber,
                         year = localDate.year,
@@ -76,14 +73,18 @@ class RoomDutyOccurrenceRepository(
                     )
                 }
                 .sortedWith(compareBy<MonthlyChartData> { it.year }.thenBy { it.month })
-            
+
             Result.success(ChartData(monthlyData = monthlyData, dutyType = dutyType))
         } catch (e: Exception) {
             Result.failure(e)
         }
     }
-    
-    override suspend fun getMonthlyOccurrences(categoryName: String, month: Int, year: Int): Result<List<DutyOccurrence>> {
+
+    override suspend fun getMonthlyOccurrences(
+        categoryName: String,
+        month: Int,
+        year: Int
+    ): Result<List<DutyOccurrence>> {
         return try {
             val monthStr = month.toString().padStart(2, '0')
             val yearStr = year.toString()
@@ -94,10 +95,12 @@ class RoomDutyOccurrenceRepository(
             Result.failure(e)
         }
     }
-    
+
     override suspend fun deleteDutyOccurrence(id: String): Result<Unit> {
         return try {
-            dutyOccurrenceDao.deleteDutyOccurrenceById(id.toLongOrNull() ?: return Result.failure(IllegalArgumentException("Invalid ID")))
+            dutyOccurrenceDao.deleteDutyOccurrenceById(
+                id.toLongOrNull() ?: return Result.failure(IllegalArgumentException("Invalid ID"))
+            )
             Result.success(Unit)
         } catch (e: Exception) {
             Result.failure(e)

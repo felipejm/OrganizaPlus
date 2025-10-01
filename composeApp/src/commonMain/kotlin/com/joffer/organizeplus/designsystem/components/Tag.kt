@@ -32,7 +32,7 @@ fun OrganizeTag(
 ) {
     val currentVariant = if (!enabled) TagVariant.DISABLED else variant
     val colors = getTagColors(currentVariant)
-    
+
     val tagModifier = modifier
         .height(size.height.dp)
         .clip(RoundedCornerShape(size.borderRadius.dp))
@@ -51,7 +51,7 @@ fun OrganizeTag(
         .semantics {
             contentDescription?.let { this.contentDescription = it }
         }
-    
+
     Box(modifier = tagModifier) {
         Row(
             modifier = Modifier
@@ -70,7 +70,7 @@ fun OrganizeTag(
                 )
                 Spacer(modifier = Modifier.width(4.dp))
             }
-            
+
             // Text
             Text(
                 text = text,
@@ -81,7 +81,7 @@ fun OrganizeTag(
                     color = colors.text
                 )
             )
-            
+
             // Trailing icon
             trailingIcon?.let { icon ->
                 Spacer(modifier = Modifier.width(4.dp))
@@ -131,15 +131,15 @@ enum class TagSize(
 }
 
 enum class TagVariant {
-    DEFAULT,      // Basic neutral style
-    BORDER,       // With border
-    FILLED,       // Filled background
-    OUTLINED,     // Outlined style
-    SUCCESS,      // Success color scheme
-    WARNING,      // Warning color scheme
-    ERROR,        // Error color scheme
-    INFO,         // Info color scheme
-    DISABLED      // Disabled state
+    DEFAULT, // Basic neutral style
+    BORDER, // With border
+    FILLED, // Filled background
+    OUTLINED, // Outlined style
+    SUCCESS, // Success color scheme
+    WARNING, // Warning color scheme
+    ERROR, // Error color scheme
+    INFO, // Info color scheme
+    DISABLED // Disabled state
 }
 
 @Composable

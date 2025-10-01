@@ -3,9 +3,6 @@ package com.joffer.organizeplus.designsystem.components
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
-// import androidx.compose.material.icons.Icons
-// import androidx.compose.material.icons.filled.Add
-// import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -37,9 +34,9 @@ fun EmptyState(
                         CircleShape
                     )
             )
-            
+
             Spacer(modifier = Modifier.height(Spacing.lg))
-            
+
             Text(
                 text = "Nenhuma obrigação criada ainda",
                 style = Typography.titleMedium,
@@ -47,18 +44,18 @@ fun EmptyState(
                 color = MaterialTheme.colorScheme.onSurface,
                 textAlign = TextAlign.Center
             )
-            
+
             Spacer(modifier = Modifier.height(Spacing.sm))
-            
+
             Text(
                 text = "Comece organizando suas obrigações financeiras e mantenha tudo sob controle.",
                 style = Typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 textAlign = TextAlign.Center
             )
-            
+
             Spacer(modifier = Modifier.height(Spacing.xl))
-            
+
             OrganizePrimaryButton(
                 text = "Adicionar agora",
                 onClick = onAddObligation,

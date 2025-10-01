@@ -12,14 +12,12 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
-// Error icon is referenced directly
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.Icon
@@ -36,11 +34,9 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.semantics.contentDescription
-import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.Typography
 import kotlinx.coroutines.delay
@@ -60,7 +56,7 @@ fun OrganizeMessage(
     onDismiss: (() -> Unit)? = null
 ) {
     var isVisible by remember { mutableStateOf(true) }
-    
+
     LaunchedEffect(Unit) {
         if (autoHide) {
             delay(duration)
@@ -68,7 +64,7 @@ fun OrganizeMessage(
             onDismiss?.invoke()
         }
     }
-    
+
     AnimatedVisibility(
         visible = isVisible,
         enter = slideInVertically(
@@ -86,7 +82,7 @@ fun OrganizeMessage(
             MessageType.ERROR -> ErrorColors to (icon ?: Icons.Default.Warning)
             MessageType.SUCCESS -> SuccessColors to (icon ?: Icons.Default.CheckCircle)
         }
-        
+
         Box(
             modifier = modifier
                 .fillMaxWidth()
@@ -115,9 +111,9 @@ fun OrganizeMessage(
                     tint = colors.icon,
                     modifier = Modifier.size(16.dp)
                 )
-                
+
                 Spacer(modifier = Modifier.width(Spacing.sm))
-                
+
                 Text(
                     text = message,
                     style = Typography.body,

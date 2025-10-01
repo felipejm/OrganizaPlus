@@ -7,14 +7,6 @@ build:
     style: 1
     comments: 1
 
-# Custom rules for project standards
-custom:
-  HardcodedStrings:
-    active: true
-    severity: error
-    message: "Hardcoded strings are not allowed. Use string resources instead."
-    # This is a placeholder - actual implementation would require a custom detekt rule
-
 processors:
   active: true
   exclude:
@@ -176,27 +168,17 @@ naming:
     active: false
   FunctionParameterNaming:
     active: false
-  InvalidPackageName:
-    active: false
   LambdaParameterNaming:
     active: false
   MatchingDeclarationName:
     active: false
   MemberNameEqualsClassName:
     active: false
-  NoNameInPackage:
-    active: false
   NonBooleanPropertyPrefixedWithIs:
     active: false
   ObjectPropertyNaming:
     active: false
   PackageNaming:
-    active: false
-  PropertyMaxLength:
-    active: false
-  PropertyMinLength:
-    active: false
-  PropertyNaming:
     active: false
   TopLevelPropertyNaming:
     active: false
@@ -229,8 +211,6 @@ potential-bugs:
   DontDowncastCollectionTypes:
     active: false
   DoubleMutabilityForCollection:
-    active: false
-  DuplicateCaseInWhenExpression:
     active: false
   ElseCaseInsteadOfExhaustiveWhen:
     active: false
@@ -266,10 +246,6 @@ potential-bugs:
     active: false
   NullableToStringCall:
     active: false
-  RedundantElseInWhen:
-    active: false
-  UnconditionalRecursion:
-    active: false
   UnnecessaryNotNullOperator:
     active: false
   UnnecessarySafeCall:
@@ -287,6 +263,13 @@ potential-bugs:
   UselessPostfixExpression:
     active: false
   WrongEqualsTypeParameter:
+    active: true
+
+formatting:
+  active: true
+  android: false
+  autoCorrect: true
+  NoWildcardImports:
     active: false
 
 style:
@@ -298,18 +281,14 @@ style:
   CascadingCallWrapping:
     active: false
   ClassOrdering:
-    active: false
+    active: true
   CollapsibleIfStatements:
-    active: false
-  DataClassContainsFunction:
     active: false
   DataClassShouldBeImmutable:
     active: false
   DestructuringDeclarationWithTooManyEntries:
     active: false
   EqualsNullCall:
-    active: false
-  EqualsOnLineStart:
     active: false
   ExplicitCollectionElementAccessMethod:
     active: false
@@ -318,40 +297,32 @@ style:
   ExpressionBodySyntax:
     active: false
   ForbiddenComment:
-    active: false
+    active: true
   ForbiddenImport:
     active: false
   ForbiddenMethodCall:
-    active: false
-  ForbiddenPublicDataClass:
     active: false
   ForbiddenVoid:
     active: false
   FunctionOnlyReturningConstant:
     active: false
-  LibraryCodeMustSpecifyReturnType:
-    active: false
-  LibraryEntitiesShouldNotBePublic:
-    active: false
   LoopWithTooManyJumpStatements:
     active: false
   MagicNumber:
-    active: false
-  MandatoryBracesIfStatements:
-    active: false
-  MandatoryBracesLoops:
-    active: false
+    active: true
+  BracesOnIfStatements:
+    active: true
+  BracesOnWhenStatements:
+    active: true
   MaxChainedCallsOnSameLine:
-    active: false
+    active: true
   MaxLineLength:
-    active: false
+    active: true
   MayBeConst:
-    active: false
+    active: true
   ModifierOrder:
-    active: false
+    active: true
   MultilineLambdaItParameter:
-    active: false
-  MultilineRawString:
     active: false
   NestedClassesVisibility:
     active: false
@@ -398,27 +369,27 @@ style:
   UnnecessaryAnnotationUseSiteTarget:
     active: false
   UnnecessaryApply:
-    active: false
+    active: true
   UnnecessaryFilter:
-    active: false
+    active: true
   UnnecessaryInheritance:
     active: false
   UnnecessaryInnerClass:
-    active: false
+    active: true
   UnnecessaryLet:
-    active: false
+    active: true
   UnnecessaryParentheses:
-    active: false
+    active: true
   UntilInsteadOfRangeTo:
     active: false
   UnusedImports:
-    active: false
+    active: true
   UnusedParameter:
-    active: false
+    active: true
   UnusedPrivateClass:
-    active: false
+    active: true
   UnusedPrivateMember:
-    active: false
+    active: true
   UnusedPrivateProperty:
     active: false
   UseAnyOrNoneInsteadOfFind:
@@ -455,5 +426,3 @@ style:
     active: false
   WildcardImport:
     active: false
-
-

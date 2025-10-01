@@ -1,53 +1,43 @@
 package com.joffer.organizeplus.features.duty.create.presentation
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.runtime.*
-import kotlinx.coroutines.delay
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.text.input.KeyboardType
 import com.joffer.organizeplus.designsystem.components.*
-import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 import com.joffer.organizeplus.designsystem.spacing.Spacing
-import com.joffer.organizeplus.designsystem.typography.Typography
-import com.joffer.organizeplus.features.duty.create.domain.entities.CreateDutyForm
+import com.joffer.organizeplus.features.dashboard.domain.entities.DutyType
 import com.joffer.organizeplus.features.duty.create.domain.entities.CreateDutyFormField
 import com.joffer.organizeplus.features.duty.create.domain.entities.CreateDutyValidationError
-import com.joffer.organizeplus.features.duty.create.presentation.CreateDutyIntent
-import com.joffer.organizeplus.features.dashboard.domain.entities.DutyType
-import com.joffer.organizeplus.utils.DateFormatter
 import org.jetbrains.compose.resources.stringResource
 import organizeplus.composeapp.generated.resources.Res
-import organizeplus.composeapp.generated.resources.create_duty_title
-import organizeplus.composeapp.generated.resources.create_duty_due_day
-import organizeplus.composeapp.generated.resources.create_duty_category
-import organizeplus.composeapp.generated.resources.create_duty_save
+import organizeplus.composeapp.generated.resources.category_enterprise
+import organizeplus.composeapp.generated.resources.category_personal
+import organizeplus.composeapp.generated.resources.close
 import organizeplus.composeapp.generated.resources.create_duty_cancel
+import organizeplus.composeapp.generated.resources.create_duty_category
+import organizeplus.composeapp.generated.resources.create_duty_due_day
+import organizeplus.composeapp.generated.resources.create_duty_save
+import organizeplus.composeapp.generated.resources.create_duty_start_day
+import organizeplus.composeapp.generated.resources.create_duty_title
+import organizeplus.composeapp.generated.resources.duty_saved_success
+import organizeplus.composeapp.generated.resources.duty_type_actionable
+import organizeplus.composeapp.generated.resources.duty_type_label
+import organizeplus.composeapp.generated.resources.duty_type_payable
+import organizeplus.composeapp.generated.resources.error_category_required
+import organizeplus.composeapp.generated.resources.error_due_day_invalid
+import organizeplus.composeapp.generated.resources.error_saving
+import organizeplus.composeapp.generated.resources.error_start_day_invalid
+import organizeplus.composeapp.generated.resources.error_title_required
 import organizeplus.composeapp.generated.resources.navigation_create_duty_new
 import organizeplus.composeapp.generated.resources.navigation_edit_duty_new
 import organizeplus.composeapp.generated.resources.placeholder_title
-import organizeplus.composeapp.generated.resources.create_duty_start_day
-import organizeplus.composeapp.generated.resources.category_personal
-import organizeplus.composeapp.generated.resources.category_enterprise
-import organizeplus.composeapp.generated.resources.error_title_required
-import organizeplus.composeapp.generated.resources.error_start_day_invalid
-import organizeplus.composeapp.generated.resources.error_due_day_invalid
-import organizeplus.composeapp.generated.resources.error_category_required
-import organizeplus.composeapp.generated.resources.duty_type_label
-import organizeplus.composeapp.generated.resources.duty_type_payable
-import organizeplus.composeapp.generated.resources.duty_type_actionable
-import organizeplus.composeapp.generated.resources.error_saving
-import organizeplus.composeapp.generated.resources.duty_saved_success
-import organizeplus.composeapp.generated.resources.close
+import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -99,7 +89,13 @@ fun CreateDutyScreen(
     Scaffold(
         topBar = {
             AppTopAppBarWithBackButton(
-                title = if (formState.id == null) stringResource(Res.string.navigation_create_duty_new) else stringResource(Res.string.navigation_edit_duty_new),
+                title = if (formState.id == null) {
+                    stringResource(
+                        Res.string.navigation_create_duty_new
+                    )
+                } else {
+                    stringResource(Res.string.navigation_edit_duty_new)
+                },
                 onBackClick = onNavigateBack,
                 backIcon = Icons.Default.ArrowBack,
                 navigationIconContentColor = AppColorScheme.onSurface
@@ -152,7 +148,11 @@ fun CreateDutyScreen(
             DropdownField(
                 label = stringResource(Res.string.create_duty_category),
                 value = formState.categoryName,
-                onValueChange = { viewModel.onIntent(CreateDutyIntent.UpdateFormField(CreateDutyFormField.CategoryName, it)) },
+                onValueChange = {
+                    viewModel.onIntent(
+                        CreateDutyIntent.UpdateFormField(CreateDutyFormField.CategoryName, it)
+                    )
+                },
                 options = getCategoryOptions(),
                 isRequired = true,
                 isError = uiState.errors.containsKey(CreateDutyFormField.CategoryName),
@@ -171,14 +171,16 @@ fun CreateDutyScreen(
                 isError = uiState.errors.containsKey(CreateDutyFormField.StartDay),
                 supportingText = if (uiState.errors.containsKey(CreateDutyFormField.StartDay)) {
                     { Text(getErrorMessage(viewModel.getFieldError(CreateDutyFormField.StartDay)) ?: "") }
-                } else null,
+                } else {
+                    null
+                },
                 modifier = Modifier.fillMaxWidth(),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 singleLine = true
             )
-            
+
             Spacer(modifier = Modifier.height(Spacing.md))
-            
+
             // Due Day Field
             OutlinedTextField(
                 value = if (formState.dueDay == 0) "" else formState.dueDay.toString(),
@@ -189,7 +191,9 @@ fun CreateDutyScreen(
                 isError = uiState.errors.containsKey(CreateDutyFormField.DueDay),
                 supportingText = if (uiState.errors.containsKey(CreateDutyFormField.DueDay)) {
                     { Text(getErrorMessage(viewModel.getFieldError(CreateDutyFormField.DueDay)) ?: "") }
-                } else null,
+                } else {
+                    null
+                },
                 modifier = Modifier.fillMaxWidth(),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 singleLine = true
@@ -219,7 +223,6 @@ fun CreateDutyScreen(
     }
 }
 
-
 @Composable
 private fun getCategoryOptions(): List<Pair<String, String>> {
     return listOf(
@@ -235,7 +238,6 @@ private fun getDutyTypeOptions(): List<Pair<String, String>> {
         DutyType.ACTIONABLE.name to stringResource(Res.string.duty_type_actionable)
     )
 }
-
 
 @Composable
 private fun getErrorMessage(error: CreateDutyValidationError?): String? {

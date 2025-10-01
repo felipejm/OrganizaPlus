@@ -14,9 +14,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-// Radio button icons are handled internally
-import androidx.compose.material3.Icon
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -30,7 +27,6 @@ import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.Typography
 
@@ -53,7 +49,7 @@ fun OrganizeRadio(
         RadioOrientation.VERTICAL -> Arrangement.spacedBy(Spacing.sm)
         RadioOrientation.HORIZONTAL -> Arrangement.spacedBy(Spacing.lg)
     }
-    
+
     Column(
         modifier = modifier.semantics { role = androidx.compose.ui.semantics.Role.RadioButton },
         verticalArrangement = arrangement
@@ -130,9 +126,9 @@ private fun OrganizeRadioItem(
                 }
             }
         }
-        
+
         Spacer(modifier = Modifier.width(Spacing.sm))
-        
+
         Text(
             text = option.label,
             style = Typography.body,
@@ -169,7 +165,7 @@ fun OrganizeRadioGroup(
                 modifier = Modifier.padding(bottom = 4.dp)
             )
         }
-        
+
         OrganizeRadio(
             options = options,
             selectedValue = selectedValue,

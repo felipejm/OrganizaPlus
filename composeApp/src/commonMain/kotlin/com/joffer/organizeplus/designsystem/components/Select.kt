@@ -31,12 +31,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.contentDescription
-// expanded is not a valid semantic property
 import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.Typography
 
@@ -63,17 +61,17 @@ fun OrganizeSelect(
     helper: String? = null
 ) {
     var expanded by remember { mutableStateOf(false) }
-    
+
     val (height, padding, typography) = when (size) {
         SelectSize.LARGE -> Triple(48.dp, Spacing.md, Typography.bodyLarge)
         SelectSize.MEDIUM -> Triple(40.dp, Spacing.sm, Typography.body)
         SelectSize.SMALL -> Triple(32.dp, Spacing.xs, Typography.bodySmall)
     }
-    
+
     val selectedOption = options.find { it.value == selectedValue }
     val hasError = error != null
     val isDisabled = !enabled
-    
+
     Column(modifier = modifier) {
         Box {
             Row(
@@ -116,7 +114,7 @@ fun OrganizeSelect(
                     },
                     fontWeight = if (selectedOption != null) FontWeight.Medium else FontWeight.Normal
                 )
-                
+
                 Icon(
                     imageVector = Icons.Default.KeyboardArrowDown,
                     contentDescription = "Dropdown",
@@ -124,7 +122,7 @@ fun OrganizeSelect(
                     modifier = Modifier.size(16.dp)
                 )
             }
-            
+
             DropdownMenu(
                 expanded = expanded,
                 onDismissRequest = { expanded = false },
@@ -147,9 +145,13 @@ fun OrganizeSelect(
                                     text = option.label,
                                     style = typography,
                                     color = if (option.disabled) Color(0xFF8F8F8F) else Color(0xFF1F1F1F),
-                                    fontWeight = if (option.value == selectedValue) FontWeight.Medium else FontWeight.Normal
+                                    fontWeight = if (option.value == selectedValue) {
+                                        FontWeight.Medium
+                                    } else {
+                                        FontWeight.Normal
+                                    }
                                 )
-                                
+
                                 if (option.value == selectedValue) {
                                     Icon(
                                         imageVector = Icons.Default.Check,
@@ -171,7 +173,7 @@ fun OrganizeSelect(
                 }
             }
         }
-        
+
         // Helper text or error message
         if (error != null || helper != null) {
             Spacer(modifier = Modifier.height(4.dp))

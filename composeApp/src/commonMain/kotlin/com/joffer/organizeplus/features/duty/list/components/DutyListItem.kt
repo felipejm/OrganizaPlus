@@ -7,25 +7,20 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
+import com.joffer.organizeplus.common.utils.DateUtils
+import com.joffer.organizeplus.designsystem.components.CategoryIcon
 import com.joffer.organizeplus.designsystem.components.OrganizeCard
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.Typography
-import com.joffer.organizeplus.features.dashboard.domain.entities.Duty
-import com.joffer.organizeplus.features.dashboard.domain.entities.DutyWithLastOccurrence
 import com.joffer.organizeplus.features.dashboard.domain.entities.DutyType
-import com.joffer.organizeplus.common.utils.DateUtils
-import com.joffer.organizeplus.designsystem.components.CategoryIcon
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.toLocalDateTime
-import org.jetbrains.compose.resources.painterResource
+import com.joffer.organizeplus.features.dashboard.domain.entities.DutyWithLastOccurrence
 import org.jetbrains.compose.resources.stringResource
 import organizeplus.composeapp.generated.resources.Res
-import organizeplus.composeapp.generated.resources.duty_type_payable
-import organizeplus.composeapp.generated.resources.duty_type_actionable
 import organizeplus.composeapp.generated.resources.duty_due_every_day
+import organizeplus.composeapp.generated.resources.duty_type_actionable
+import organizeplus.composeapp.generated.resources.duty_type_payable
+import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 @Composable
 fun DutyListItem(
@@ -87,13 +82,13 @@ fun DutyListItem(
                     style = Typography.labelSmall,
                     color = AppColorScheme.formSecondaryText
                 )
-                
+
                 Text(
                     text = "•",
                     style = Typography.labelSmall,
                     color = AppColorScheme.formSecondaryText
                 )
-                
+
                 Text(
                     text = when (duty.type) {
                         DutyType.PAYABLE -> stringResource(Res.string.duty_type_payable)
@@ -112,12 +107,14 @@ fun DutyListItem(
                 style = Typography.secondaryText,
                 color = AppColorScheme.formSecondaryText
             )
-            
+
             // Last occurrence info
             lastOccurrence?.let { occurrence ->
                 Spacer(modifier = Modifier.height(Spacing.xs))
                 Text(
-                    text = "Last: ${DateUtils.getMonthName(occurrence.completedDate.monthNumber)} ${occurrence.completedDate.year}",
+                    text = "Last: ${DateUtils.getMonthName(
+                        occurrence.completedDate.monthNumber
+                    )} ${occurrence.completedDate.year}",
                     style = Typography.labelSmall,
                     color = AppColorScheme.primary
                 )

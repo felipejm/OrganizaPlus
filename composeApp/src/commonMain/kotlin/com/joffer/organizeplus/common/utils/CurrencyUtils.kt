@@ -4,7 +4,7 @@ import kotlin.math.abs
 
 /**
  * Extension function to format a Double as currency
- * 
+ *
  * @param symbol The currency symbol (default: "R$")
  * @param decimalPlaces Number of decimal places to show (default: 2)
  * @return Formatted currency string
@@ -15,7 +15,7 @@ fun Double.toCurrencyFormat(
 ): String {
     val absValue = abs(this)
     val formattedValue = String.format(java.util.Locale.US, "%.${decimalPlaces}f", absValue)
-    
+
     return if (this < 0) {
         "-$symbol $formattedValue"
     } else {
@@ -25,7 +25,7 @@ fun Double.toCurrencyFormat(
 
 /**
  * Extension function to format a nullable Double as currency
- * 
+ *
  * @param symbol The currency symbol (default: "R$")
  * @param decimalPlaces Number of decimal places to show (default: 2)
  * @return Formatted currency string or empty string if null

@@ -15,7 +15,7 @@ interface SaveDutyDetailsUseCase {
 class SaveDutyDetailsUseCaseImpl(
     private val repository: DutyDetailsRepository
 ) : SaveDutyDetailsUseCase {
-    
+
     override fun invoke(form: DutyDetailsForm): Flow<Result<Unit>> = flow {
         val record = convertFormToRecord(form)
         repository.insertRecord(record)
@@ -26,7 +26,7 @@ class SaveDutyDetailsUseCaseImpl(
                 emit(result)
             }
     }
-    
+
     private fun convertFormToRecord(form: DutyDetailsForm): DutyDetails {
         val now = Clock.System.now()
         return DutyDetails(
@@ -39,7 +39,7 @@ class SaveDutyDetailsUseCaseImpl(
             updatedAt = now
         )
     }
-    
+
     private fun generateId(): String {
         return "record_${System.currentTimeMillis()}"
     }

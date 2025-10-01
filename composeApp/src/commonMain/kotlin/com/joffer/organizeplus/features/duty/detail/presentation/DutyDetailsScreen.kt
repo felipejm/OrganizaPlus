@@ -3,9 +3,6 @@ package com.joffer.organizeplus.features.duty.detail.presentation
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.ui.unit.dp
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Edit
@@ -14,33 +11,27 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
-import com.joffer.organizeplus.common.utils.DateUtils
-import com.joffer.organizeplus.utils.formatDateForDisplay
+import androidx.compose.ui.unit.dp
 import com.joffer.organizeplus.designsystem.components.*
-import com.joffer.organizeplus.designsystem.components.ResultType
 import com.joffer.organizeplus.designsystem.components.ErrorBanner
-import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
+import com.joffer.organizeplus.designsystem.components.ResultType
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.Typography
-import com.joffer.organizeplus.features.duty.occurrence.domain.entities.DutyOccurrence
-import com.joffer.organizeplus.features.duty.occurrence.presentation.AddDutyOccurrenceBottomSheet
-import com.joffer.organizeplus.features.duty.occurrence.presentation.AddDutyOccurrenceViewModel
 import com.joffer.organizeplus.features.duty.detail.components.DutyBarChart
 import com.joffer.organizeplus.features.duty.detail.components.DutyHeaderCard
 import com.joffer.organizeplus.features.duty.detail.components.DutyOccurrenceListItem
-import com.joffer.organizeplus.features.dashboard.domain.entities.Duty
-import com.joffer.organizeplus.features.dashboard.domain.entities.DutyType
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.toLocalDateTime
+import com.joffer.organizeplus.features.duty.occurrence.presentation.AddDutyOccurrenceBottomSheet
+import com.joffer.organizeplus.features.duty.occurrence.presentation.AddDutyOccurrenceViewModel
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.koinInject
 import org.koin.core.parameter.parametersOf
 import organizeplus.composeapp.generated.resources.Res
-import organizeplus.composeapp.generated.resources.duty_occurrence_list_title
-import organizeplus.composeapp.generated.resources.duty_occurrence_list_empty_title
-import organizeplus.composeapp.generated.resources.duty_occurrence_list_empty_subtitle
-import organizeplus.composeapp.generated.resources.duty_occurrence_list_add_occurrence
 import organizeplus.composeapp.generated.resources.duty_detail_edit
+import organizeplus.composeapp.generated.resources.duty_occurrence_list_add_occurrence
+import organizeplus.composeapp.generated.resources.duty_occurrence_list_empty_subtitle
+import organizeplus.composeapp.generated.resources.duty_occurrence_list_empty_title
+import organizeplus.composeapp.generated.resources.duty_occurrence_list_title
+import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -52,11 +43,11 @@ fun DutyDetailsScreen(
 ) {
     val uiState by viewModel.uiState.collectAsState()
     var showAddOccurrenceBottomSheet by remember { mutableStateOf(false) }
-    
+
     LaunchedEffect(Unit) {
         viewModel.onIntent(DutyDetailsListIntent.LoadRecords)
     }
-    
+
     Column(
         modifier = modifier.fillMaxSize()
     ) {
@@ -73,12 +64,12 @@ fun DutyDetailsScreen(
                 }
             }
         )
-        
+
         when {
             uiState.isLoading -> {
                 OrganizeProgressIndicatorFullScreen()
             }
-            
+
             uiState.error != null -> {
                 ErrorBanner(
                     message = uiState.error ?: "",
@@ -86,7 +77,7 @@ fun DutyDetailsScreen(
                     onDismiss = { viewModel.onIntent(DutyDetailsListIntent.ClearError) }
                 )
             }
-            
+
             else -> {
                 LazyColumn(
                     modifier = Modifier.fillMaxSize(),
@@ -99,14 +90,14 @@ fun DutyDetailsScreen(
                             DutyHeaderCard(duty = duty)
                         }
                     }
-                    
+
                     // Chart
                     uiState.chartData?.let { chartData ->
                         item {
                             DutyBarChart(chartData = chartData)
                         }
                     }
-                    
+
                     // Records Section
                     if (uiState.records.isEmpty()) {
                         item {
@@ -145,17 +136,19 @@ fun DutyDetailsScreen(
                                     color = AppColorScheme.onSurface,
                                     fontWeight = FontWeight.Bold
                                 )
-                                
+
                                 IconButton(onClick = { showAddOccurrenceBottomSheet = true }) {
                                     Icon(
                                         imageVector = Icons.Default.Add,
-                                        contentDescription = stringResource(Res.string.duty_occurrence_list_add_occurrence),
+                                        contentDescription = stringResource(
+                                            Res.string.duty_occurrence_list_add_occurrence
+                                        ),
                                         tint = AppColorScheme.primary
                                     )
                                 }
                             }
                         }
-                        
+
                         items(uiState.records) { occurrence ->
                             DutyOccurrenceListItem(
                                 occurrence = occurrence,
@@ -166,15 +159,15 @@ fun DutyDetailsScreen(
                 }
             }
         }
-        
+
         // Add Occurrence Bottom Sheet
         if (showAddOccurrenceBottomSheet) {
-            val addDutyOccurrenceViewModel: AddDutyOccurrenceViewModel = koinInject { 
-                parametersOf(viewModel.getDutyId()) 
+            val addDutyOccurrenceViewModel: AddDutyOccurrenceViewModel = koinInject {
+                parametersOf(viewModel.getDutyId())
             }
             AddDutyOccurrenceBottomSheet(
                 viewModel = addDutyOccurrenceViewModel,
-                onDismiss = { 
+                onDismiss = {
                     showAddOccurrenceBottomSheet = false
                     viewModel.onIntent(DutyDetailsListIntent.LoadRecords)
                 }
@@ -182,6 +175,3 @@ fun DutyDetailsScreen(
         }
     }
 }
-
-
-

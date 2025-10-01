@@ -3,19 +3,16 @@ package com.joffer.organizeplus.designsystem.catalog
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.Typography
+import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 @OptIn(ExperimentalMaterial3Api::class)
-
 @Composable
 fun BannerShowcaseScreen(
     onNavigateBack: () -> Unit,
@@ -43,7 +40,7 @@ fun BannerShowcaseScreen(
                     color = AppColorScheme.onSurface
                 )
             }
-            
+
             items(BannerShowcaseItem.values()) { item ->
                 BannerShowcaseItem(item = item)
             }
@@ -67,15 +64,15 @@ private fun BannerShowcaseItem(
                 style = Typography.title,
                 color = AppColorScheme.onSurface
             )
-            
+
             Text(
                 text = item.description,
                 style = Typography.body,
                 color = AppColorScheme.onSurfaceVariant
             )
-            
+
             Spacer(modifier = Modifier.height(Spacing.md))
-            
+
             when (item) {
                 BannerShowcaseItem.SUCCESS -> {
                     SuccessBannerExamples()
@@ -104,11 +101,11 @@ private fun SuccessBannerExamples() {
             style = Typography.subtitle,
             color = AppColorScheme.onSurface
         )
-        
+
         SuccessBanner(
             message = "Operation completed successfully!"
         )
-        
+
         SuccessBanner(
             message = "Data saved successfully. You can continue working."
         )
@@ -125,13 +122,13 @@ private fun ErrorBannerExamples() {
             style = Typography.subtitle,
             color = AppColorScheme.onSurface
         )
-        
+
         ErrorBanner(
             message = "Something went wrong. Please try again.",
             onRetry = { },
             onDismiss = { }
         )
-        
+
         ErrorBanner(
             message = "Network connection failed. Check your internet connection.",
             onRetry = { },
@@ -150,12 +147,12 @@ private fun InfoBannerExamples() {
             style = Typography.subtitle,
             color = AppColorScheme.onSurface
         )
-        
+
         InfoBanner(
             message = "New features are available in this update.",
             onDismiss = { }
         )
-        
+
         InfoBanner(
             message = "Your data is synced with the cloud.",
             onDismiss = { }
@@ -173,12 +170,12 @@ private fun WarningBannerExamples() {
             style = Typography.subtitle,
             color = AppColorScheme.onSurface
         )
-        
+
         WarningBanner(
             message = "This action cannot be undone.",
             onDismiss = { }
         )
-        
+
         WarningBanner(
             message = "Your session will expire in 5 minutes.",
             onDismiss = { }
@@ -211,9 +208,9 @@ private fun InfoBanner(
                 color = AppColorScheme.info700,
                 modifier = Modifier.weight(1f)
             )
-            
+
             Spacer(modifier = Modifier.width(Spacing.sm))
-            
+
             OrganizeIconButton(
                 onClick = onDismiss
             ) {
@@ -252,9 +249,9 @@ private fun WarningBanner(
                 color = AppColorScheme.warning700,
                 modifier = Modifier.weight(1f)
             )
-            
+
             Spacer(modifier = Modifier.width(Spacing.sm))
-            
+
             OrganizeIconButton(
                 onClick = onDismiss
             ) {

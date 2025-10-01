@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.datetime.Instant
 
 interface DutyRepository {
-    
+
     // Dutys
     suspend fun getAllDuties(): Flow<Result<List<Duty>>>
     suspend fun getDutyById(id: String): Flow<Result<Duty?>>

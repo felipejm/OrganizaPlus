@@ -7,7 +7,7 @@ import com.joffer.organizeplus.features.duty.occurrence.domain.usecases.SaveDuty
 class SaveDutyOccurrenceUseCaseImpl(
     private val repository: DutyOccurrenceRepository
 ) : SaveDutyOccurrenceUseCase {
-    
+
     override suspend fun invoke(dutyOccurrence: DutyOccurrence): Result<DutyOccurrence> {
         return repository.saveDutyOccurrence(dutyOccurrence)
     }

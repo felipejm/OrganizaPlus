@@ -9,7 +9,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
-import com.joffer.organizeplus.designsystem.spacing.Spacing
 
 /**
  * Design system progress indicator component

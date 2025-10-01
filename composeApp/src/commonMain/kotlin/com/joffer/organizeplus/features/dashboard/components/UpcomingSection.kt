@@ -10,8 +10,11 @@ import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.Typography
 import com.joffer.organizeplus.features.dashboard.domain.entities.Duty
+import com.joffer.organizeplus.features.dashboard.domain.entities.DutyType
 import org.jetbrains.compose.resources.stringResource
 import organizeplus.composeapp.generated.resources.Res
+import organizeplus.composeapp.generated.resources.duty_type_actionable
+import organizeplus.composeapp.generated.resources.duty_type_payable
 import organizeplus.composeapp.generated.resources.no_duties_next_7_days
 import organizeplus.composeapp.generated.resources.upcoming_7_days
 import organizeplus.composeapp.generated.resources.view_all_obligations
@@ -109,10 +112,11 @@ private fun UpcomingDutyItem(
                     color = AppColorScheme.formText
                 )
 
-                val subtitle = "Day ${duty.dueDay}"
-
                 Text(
-                    text = subtitle,
+                    text = when (duty.type) {
+                        DutyType.PAYABLE -> stringResource(Res.string.duty_type_payable)
+                        DutyType.ACTIONABLE -> stringResource(Res.string.duty_type_actionable)
+                    },
                     style = Typography.secondaryText,
                     color = AppColorScheme.formSecondaryText
                 )

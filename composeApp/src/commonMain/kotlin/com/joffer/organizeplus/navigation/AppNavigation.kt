@@ -57,7 +57,21 @@ fun AppNavigation(
         }
 
         composable<CreateDuty> {
-            val createDutyViewModel: CreateDutyViewModel = koinInject { parametersOf(null) }
+            val createDutyViewModel: CreateDutyViewModel = koinInject {
+                parametersOf(null, null)
+            }
+            CreateDutyScreen(
+                viewModel = createDutyViewModel,
+                onNavigateBack = {
+                    navController.popBackStack()
+                },
+            )
+        }
+
+        composable<CreateDutyWithCategory> { backStackEntry ->
+            val createDutyWithCategory = backStackEntry.toRoute<CreateDutyWithCategory>()
+            val createDutyViewModel: CreateDutyViewModel =
+                koinInject { parametersOf(null, createDutyWithCategory.category) }
             CreateDutyScreen(
                 viewModel = createDutyViewModel,
                 onNavigateBack = {
@@ -79,7 +93,7 @@ fun AppNavigation(
                 viewModel = dutyListViewModel,
                 categoryFilter = categoryFilter,
                 onNavigateToCreateDuty = {
-                    navController.navigate(CreateDuty)
+                    navController.navigate(CreateDutyWithCategory(duties.category))
                 },
                 onNavigateBack = {
                     navController.popBackStack()
@@ -93,7 +107,8 @@ fun AppNavigation(
         composable<EditDuty> { backStackEntry ->
             // Type-safe route extraction using toRoute()
             val editDuty = backStackEntry.toRoute<EditDuty>()
-            val createDutyViewModel: CreateDutyViewModel = koinInject { parametersOf(editDuty.dutyId) }
+            val createDutyViewModel: CreateDutyViewModel =
+                koinInject { parametersOf(editDuty.dutyId) }
             CreateDutyScreen(
                 viewModel = createDutyViewModel,
                 onNavigateBack = {
@@ -104,7 +119,8 @@ fun AppNavigation(
 
         composable<DutyOccurrences> { backStackEntry ->
             val dutyOccurrences = backStackEntry.toRoute<DutyOccurrences>()
-            val dutyDetailsListViewModel: DutyDetailsListViewModel = koinInject { parametersOf(dutyOccurrences.dutyId) }
+            val dutyDetailsListViewModel: DutyDetailsListViewModel =
+                koinInject { parametersOf(dutyOccurrences.dutyId) }
             DutyDetailsScreen(
                 viewModel = dutyDetailsListViewModel,
                 onNavigateBack = {

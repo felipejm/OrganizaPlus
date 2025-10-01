@@ -33,8 +33,6 @@ class SaveCreateDutyUseCaseImpl(
         return Duty(
             id = form.id ?: generateId(),
             title = form.title,
-            startDay = form.startDay,
-            dueDay = form.dueDay,
             type = form.dutyType,
             categoryName = form.categoryName,
             createdAt = now

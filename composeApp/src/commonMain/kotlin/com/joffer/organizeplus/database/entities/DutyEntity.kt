@@ -10,9 +10,7 @@ data class DutyEntity(
     val id: String,
     val title: String,
     val description: String? = null,
-    val type: String = "ACTIONABLE",
-    val startDay: Int,
-    val dueDay: Int,
+    val type: String = "PAYABLE",
     val isCompleted: Boolean = false,
     val categoryName: String? = null,
     val createdAt: Instant

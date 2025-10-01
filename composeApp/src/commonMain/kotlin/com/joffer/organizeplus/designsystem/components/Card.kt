@@ -21,9 +21,7 @@ fun OrganizeCard(
         colors = CardDefaults.cardColors(
             containerColor = AppColorScheme.surface,
         ),
-        elevation = CardDefaults.cardElevation(
-            defaultElevation = 1.dp
-        ),
+        elevation = CardDefaults.cardElevation(defaultElevation = Spacing.Elevation.sm),
         shape = MaterialTheme.shapes.medium
     ) {
         Column(

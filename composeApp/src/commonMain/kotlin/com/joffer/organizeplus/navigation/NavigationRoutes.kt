@@ -10,6 +10,9 @@ object Dashboard
 object CreateDuty
 
 @Serializable
+data class CreateDutyWithCategory(val category: String)
+
+@Serializable
 data class Duties(val category: String)
 
 @Serializable

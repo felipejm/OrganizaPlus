@@ -89,30 +89,14 @@ class DashboardViewModel(
                                     .toLocalDateTime(kotlinx.datetime.TimeZone.currentSystemDefault())
                                     .date.dayOfMonth
 
-                                // Filter and sort Personal duties by closest due date
+                                // Filter Personal duties
                                 val personalDuties = allDuties
                                     .filter { it.categoryName == "Personal" }
-                                    .sortedBy { duty: Duty ->
-                                        val daysUntil = if (duty.dueDay >= currentDay) {
-                                            duty.dueDay - currentDay
-                                        } else {
-                                            31 - currentDay + duty.dueDay
-                                        }
-                                        daysUntil
-                                    }
                                     .take(3)
 
-                                // Filter and sort Company duties by closest due date
+                                // Filter Company duties
                                 val companyDuties = allDuties
                                     .filter { it.categoryName == "Company" }
-                                    .sortedBy { duty: Duty ->
-                                        val daysUntil = if (duty.dueDay >= currentDay) {
-                                            duty.dueDay - currentDay
-                                        } else {
-                                            31 - currentDay + duty.dueDay
-                                        }
-                                        daysUntil
-                                    }
                                     .take(3)
 
                                 // Convert to DutyWithLastOccurrence

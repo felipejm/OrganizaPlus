@@ -12,18 +12,6 @@ class CreateDutyValidator {
             errors[CreateDutyFormField.Title] = CreateDutyValidationError.EmptyTitle
         }
 
-        if (form.startDay == 0 || form.startDay !in 1..31) {
-            errors[CreateDutyFormField.StartDay] = CreateDutyValidationError.InvalidStartDay
-        }
-
-        if (form.dueDay == 0 || form.dueDay !in 1..31) {
-            errors[CreateDutyFormField.DueDay] = CreateDutyValidationError.InvalidDueDay
-        }
-
-        if (form.categoryName.isBlank()) {
-            errors[CreateDutyFormField.CategoryName] = CreateDutyValidationError.EmptyCategory
-        }
-
         return errors
     }
 }

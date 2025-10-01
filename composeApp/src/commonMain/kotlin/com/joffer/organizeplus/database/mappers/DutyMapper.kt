@@ -10,12 +10,10 @@ object DutyMapper {
         return Duty(
             id = entity.id,
             title = entity.title,
-            startDay = entity.startDay,
-            dueDay = entity.dueDay,
             type = when (entity.type) {
                 "ACTIONABLE" -> DutyType.ACTIONABLE
                 "PAYABLE" -> DutyType.PAYABLE
-                else -> DutyType.ACTIONABLE
+                else -> DutyType.PAYABLE
             },
             categoryName = entity.categoryName ?: "",
             createdAt = entity.createdAt
@@ -28,8 +26,6 @@ object DutyMapper {
             title = domain.title,
             description = null,
             type = domain.type.name,
-            startDay = domain.startDay,
-            dueDay = domain.dueDay,
             isCompleted = false,
             categoryName = domain.categoryName,
             createdAt = domain.createdAt

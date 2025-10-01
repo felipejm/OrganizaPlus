@@ -21,7 +21,8 @@ import kotlinx.coroutines.launch
 class CreateDutyViewModel(
     private val saveCreateDutyUseCase: SaveCreateDutyUseCase,
     private val dutyRepository: DutyRepository,
-    private val dutyId: String? = null
+    private val dutyId: String? = null,
+    private val categoryName: String
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(CreateDutyUiState())
@@ -31,6 +32,8 @@ class CreateDutyViewModel(
     val formState: StateFlow<CreateDutyForm> = _formState.asStateFlow()
 
     init {
+        _formState.value = _formState.value.copy(categoryName = categoryName)
+
         // Automatically load existing duty if dutyId is provided
         dutyId?.let { id ->
             loadExistingDuty(id)
@@ -50,10 +53,7 @@ class CreateDutyViewModel(
     private fun updateFormField(field: CreateDutyFormField, value: Any) {
         when (field) {
             CreateDutyFormField.Title -> _formState.value = updateTitle(value)
-            CreateDutyFormField.StartDay -> updateStartDay(value)
-            CreateDutyFormField.DueDay -> updateDueDay(value)
             CreateDutyFormField.DutyType -> _formState.value = updateDutyType(value)
-            CreateDutyFormField.CategoryName -> _formState.value = updateCategoryName(value)
         }
     }
 
@@ -61,25 +61,6 @@ class CreateDutyViewModel(
         title = (value as String).capitalize(Locale.current)
     )
 
-    private fun updateStartDay(value: Any) {
-        val dayString = value as String
-        val day = dayString.toIntOrNull()
-        if (day != null && day in 1..31) {
-            _formState.value = _formState.value.copy(startDay = day)
-        } else if (dayString.isEmpty()) {
-            _formState.value = _formState.value.copy(startDay = 0)
-        }
-    }
-
-    private fun updateDueDay(value: Any) {
-        val dayString = value as String
-        val day = dayString.toIntOrNull()
-        if (day != null && day in 1..31) {
-            _formState.value = _formState.value.copy(dueDay = day)
-        } else if (dayString.isEmpty()) {
-            _formState.value = _formState.value.copy(dueDay = 0)
-        }
-    }
 
     private fun updateDutyType(value: Any) = _formState.value.copy(dutyType = value as DutyType)
     private fun updateCategoryName(value: Any) =
@@ -158,8 +139,6 @@ class CreateDutyViewModel(
                                 _formState.value = CreateDutyForm(
                                     id = d.id,
                                     title = d.title,
-                                    startDay = d.startDay,
-                                    dueDay = d.dueDay,
                                     dutyType = d.type,
                                     categoryName = d.categoryName
                                 )

@@ -101,13 +101,6 @@ fun DutyListItem(
 
             Spacer(modifier = Modifier.height(Spacing.xs))
 
-            // Due day
-            Text(
-                text = formatString(stringResource(Res.string.duty_due_every_day), duty.dueDay),
-                style = Typography.secondaryText,
-                color = AppColorScheme.formSecondaryText
-            )
-
             // Last occurrence info
             lastOccurrence?.let { occurrence ->
                 Spacer(modifier = Modifier.height(Spacing.xs))

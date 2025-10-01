@@ -36,9 +36,6 @@ abstract class OrganizePlusDatabase : RoomDatabase() {
     companion object {
         fun create(builder: Builder<OrganizePlusDatabase>): OrganizePlusDatabase {
             return builder
-                .setDriver(BundledSQLiteDriver())
-                .fallbackToDestructiveMigration(true)
-                .fallbackToDestructiveMigrationOnDowngrade(true)
                 .setQueryCoroutineContext(Dispatchers.IO)
                 .build()
         }

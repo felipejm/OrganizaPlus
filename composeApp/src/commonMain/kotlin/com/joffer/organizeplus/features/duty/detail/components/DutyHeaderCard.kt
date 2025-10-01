@@ -14,8 +14,6 @@ import com.joffer.organizeplus.features.dashboard.domain.entities.DutyType
 import org.jetbrains.compose.resources.stringResource
 import organizeplus.composeapp.generated.resources.Res
 import organizeplus.composeapp.generated.resources.duty_detail_category
-import organizeplus.composeapp.generated.resources.duty_detail_due_day
-import organizeplus.composeapp.generated.resources.duty_detail_start_day
 import organizeplus.composeapp.generated.resources.duty_detail_type
 import organizeplus.composeapp.generated.resources.duty_type_actionable
 import organizeplus.composeapp.generated.resources.duty_type_payable
@@ -35,16 +33,6 @@ fun DutyHeaderCard(
             verticalArrangement = Arrangement.spacedBy(Spacing.sm)
         ) {
             // Duty Information - Horizontal Layout
-            DutyInfoItem(
-                label = stringResource(Res.string.duty_detail_start_day),
-                value = duty.startDay.toString()
-            )
-
-            DutyInfoItem(
-                label = stringResource(Res.string.duty_detail_due_day),
-                value = duty.dueDay.toString()
-            )
-
             DutyInfoItem(
                 label = stringResource(Res.string.duty_detail_category),
                 value = duty.categoryName.ifEmpty { stringResource(Res.string.not_available) }

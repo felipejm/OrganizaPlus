@@ -18,7 +18,7 @@ import kotlinx.coroutines.launch
 class AddDutyOccurrenceViewModel(
     private val saveRecordUseCase: SaveDutyOccurrenceUseCase,
     private val dutyRepository: DutyRepository,
-    private val dutyId: String
+    private val dutyId: Long
 ) : ViewModel() {
 
     private val _formState = MutableStateFlow(DutyOccurrenceForm(dutyId = dutyId))
@@ -70,7 +70,7 @@ class AddDutyOccurrenceViewModel(
         _uiState.value = _uiState.value.copy(hasUnsavedChanges = true)
     }
 
-    private fun updatePaidAmount(value: Any) = _formState.value.copy(paidAmountText = value as String)
+    private fun updatePaidAmount(value: Any) = _formState.value.copy(paidAmount = value as Double)
     private fun updateCompletedDate(
         value: Any
     ) = _formState.value.copy(completedDate = value as kotlinx.datetime.LocalDate)
@@ -101,7 +101,6 @@ class AddDutyOccurrenceViewModel(
                 val result = saveRecordUseCase(form.toDutyOccurrence())
                 result.fold(
                     onSuccess = { savedRecord ->
-                        Napier.d("Duty occurrence saved successfully: ${savedRecord.id}")
                         _uiState.value = _uiState.value.copy(
                             isLoading = false,
                             showSuccessMessage = true,

@@ -34,7 +34,6 @@ class DutyListViewModel(
             DutyListIntent.LoadDuties -> loadDuties()
             DutyListIntent.RefreshDuties -> refreshDuties()
             is DutyListIntent.SearchDuties -> searchDuties(intent.query)
-            is DutyListIntent.MarkDutyPaid -> markDutyPaid(intent.dutyId)
             is DutyListIntent.DeleteDuty -> deleteDuty(intent.dutyId)
             DutyListIntent.ClearError -> clearError()
             DutyListIntent.Retry -> retry()
@@ -136,32 +135,7 @@ class DutyListViewModel(
         _uiState.value = currentState.copy(duties = filteredDuties)
     }
 
-    private fun markDutyPaid(dutyId: String) {
-        viewModelScope.launch {
-            repository.markDutyPaid(dutyId, kotlinx.datetime.Clock.System.now())
-                .catch { exception ->
-                    Napier.e("Error marking duty as paid", exception)
-                    _uiState.value = _uiState.value.copy(
-                        error = exception.message ?: "error_marking_paid"
-                    )
-                }
-                .collect { result ->
-                    result.fold(
-                        onSuccess = {
-                            loadDuties()
-                        },
-                        onFailure = { exception ->
-                            Napier.e("Failed to mark duty as paid", exception)
-                            _uiState.value = _uiState.value.copy(
-                                error = exception.message ?: "error_marking_paid"
-                            )
-                        }
-                    )
-                }
-        }
-    }
-
-    private fun deleteDuty(dutyId: String) {
+    private fun deleteDuty(dutyId: Long) {
         viewModelScope.launch {
             try {
                 val result = deleteDutyUseCase(dutyId)

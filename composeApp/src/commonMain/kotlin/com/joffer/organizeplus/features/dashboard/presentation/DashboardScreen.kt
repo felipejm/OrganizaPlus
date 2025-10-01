@@ -25,7 +25,7 @@ fun DashboardScreen(
     viewModel: DashboardViewModel,
     onNavigateToPersonalDuties: () -> Unit,
     onNavigateToCompanyDuties: () -> Unit,
-    onNavigateToEditDuty: (String) -> Unit,
+    onNavigateToEditDuty: (Long) -> Unit,
     onNavigateToSettings: () -> Unit,
     modifier: Modifier = Modifier
 ) {

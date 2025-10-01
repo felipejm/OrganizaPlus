@@ -8,7 +8,13 @@ import com.joffer.organizeplus.features.duty.occurrence.presentation.AddDutyOccu
 import org.koin.dsl.module
 
 val dutyOccurrenceModule = module {
-    single<DutyOccurrenceRepository> { RoomDutyOccurrenceRepository(get()) }
-    single<SaveDutyOccurrenceUseCase> { SaveDutyOccurrenceUseCaseImpl(get()) }
-    factory { (dutyId: String) -> AddDutyOccurrenceViewModel(get(), get(), dutyId) }
+    single<DutyOccurrenceRepository> { RoomDutyOccurrenceRepository(dutyOccurrenceDao = get()) }
+    single<SaveDutyOccurrenceUseCase> { SaveDutyOccurrenceUseCaseImpl(repository = get()) }
+    factory { (dutyId: Long) ->
+        AddDutyOccurrenceViewModel(
+            saveRecordUseCase = get(),
+            dutyRepository = get(),
+            dutyId = dutyId
+        )
+    }
 }

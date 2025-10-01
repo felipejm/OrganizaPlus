@@ -52,7 +52,7 @@ private val ACCENT_BAR_HEIGHT = 24.dp
 fun DutyCategorySection(
     duties: List<DutyWithLastOccurrence>,
     onViewAll: () -> Unit,
-    onDutyClick: (String) -> Unit,
+    onDutyClick: (Long) -> Unit,
     categoryName: String,
     modifier: Modifier = Modifier,
     sectionTitle: String? = null,

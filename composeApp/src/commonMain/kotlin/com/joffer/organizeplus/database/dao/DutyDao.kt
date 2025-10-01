@@ -16,7 +16,7 @@ interface DutyDao {
     fun getAllDuties(): Flow<List<DutyEntity>>
 
     @Query("SELECT * FROM duties WHERE id = :id")
-    suspend fun getDutyById(id: String): DutyEntity?
+    suspend fun getDutyById(id: Long): DutyEntity?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertDuty(duty: DutyEntity)
@@ -28,5 +28,5 @@ interface DutyDao {
     suspend fun deleteDuty(duty: DutyEntity)
 
     @Query("DELETE FROM duties WHERE id = :id")
-    suspend fun deleteDutyById(id: String)
+    suspend fun deleteDutyById(id: Long)
 }

@@ -7,6 +7,12 @@ import com.joffer.organizeplus.features.duty.occurrence.domain.repositories.Duty
 import org.koin.dsl.module
 
 val dutyDetailsModule = module {
-    single<DutyOccurrenceRepository> { RoomDutyOccurrenceRepository(get()) }
-    factory { (dutyId: String) -> DutyDetailsListViewModel(get(), get<DutyRepository>(), dutyId) }
+    single<DutyOccurrenceRepository> { RoomDutyOccurrenceRepository(dutyOccurrenceDao = get()) }
+    factory { (dutyId: Long) ->
+        DutyDetailsListViewModel(
+            repository = get(),
+            dutyRepository = get<DutyRepository>(),
+            dutyId = dutyId
+        )
+    }
 }

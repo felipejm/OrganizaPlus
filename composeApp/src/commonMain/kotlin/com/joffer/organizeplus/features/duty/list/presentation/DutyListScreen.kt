@@ -39,7 +39,7 @@ fun DutyListScreen(
     categoryFilter: DutyCategoryFilter,
     onNavigateToCreateDuty: () -> Unit,
     onNavigateBack: () -> Unit,
-    onNavigateToOccurrences: (String) -> Unit
+    onNavigateToOccurrences: (Long) -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsState()
 

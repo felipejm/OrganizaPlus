@@ -24,7 +24,7 @@ class RoomDutyOccurrenceRepository(
         }
     }
 
-    override suspend fun getDutyOccurrencesByDutyId(dutyId: String): Result<List<DutyOccurrence>> {
+    override suspend fun getDutyOccurrencesByDutyId(dutyId: Long): Result<List<DutyOccurrence>> {
         return try {
             val entities = dutyOccurrenceDao.getDutyOccurrencesByDutyId(dutyId).first()
             val dutyOccurrences = entities.map { it.toDomainEntity() }
@@ -34,7 +34,7 @@ class RoomDutyOccurrenceRepository(
         }
     }
 
-    override suspend fun getLastOccurrenceByDutyId(dutyId: String): Result<DutyOccurrence?> {
+    override suspend fun getLastOccurrenceByDutyId(dutyId: Long): Result<DutyOccurrence?> {
         return try {
             val entity = dutyOccurrenceDao.getLastOccurrenceByDutyId(dutyId)
             val dutyOccurrence = entity?.toDomainEntity()
@@ -44,7 +44,7 @@ class RoomDutyOccurrenceRepository(
         }
     }
 
-    override suspend fun getMonthlyChartData(dutyId: String, dutyType: DutyType): Result<ChartData> {
+    override suspend fun getMonthlyChartData(dutyId: Long, dutyType: DutyType): Result<ChartData> {
         return try {
             val entities = dutyOccurrenceDao.getDutyOccurrencesByDutyId(dutyId).first()
             val dutyOccurrences = entities.map { it.toDomainEntity() }
@@ -95,7 +95,7 @@ class RoomDutyOccurrenceRepository(
         }
     }
 
-    override suspend fun deleteDutyOccurrence(id: String): Result<Unit> {
+    override suspend fun deleteDutyOccurrence(id: Long): Result<Unit> {
         return try {
             dutyOccurrenceDao.deleteDutyOccurrenceById(id)
             Result.success(Unit)

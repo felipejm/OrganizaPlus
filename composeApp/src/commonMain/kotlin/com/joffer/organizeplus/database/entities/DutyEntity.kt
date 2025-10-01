@@ -6,8 +6,8 @@ import kotlinx.datetime.Instant
 
 @Entity(tableName = "duties")
 data class DutyEntity(
-    @PrimaryKey
-    val id: String,
+    @PrimaryKey(autoGenerate = true)
+    val id: Long = 0L,
     val title: String,
     val description: String? = null,
     val type: String = "PAYABLE",

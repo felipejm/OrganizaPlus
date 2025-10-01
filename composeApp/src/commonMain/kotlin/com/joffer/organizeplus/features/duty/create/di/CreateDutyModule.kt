@@ -11,7 +11,7 @@ val createDutyModule = module {
         SaveCreateDutyUseCaseImpl(get<DutyRepository>())
     }
 
-    factory { (dutyId: String?, categoryName: String) ->
+    factory { (dutyId: Long?, categoryName: String) ->
         CreateDutyViewModel(
             saveCreateDutyUseCase = get(),
             dutyRepository = get(),

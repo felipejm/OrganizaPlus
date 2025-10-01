@@ -40,7 +40,7 @@ private val EMPTY_STATE_HEIGHT = 400.dp
 fun DutyDetailsScreen(
     viewModel: DutyDetailsListViewModel,
     onNavigateBack: () -> Unit,
-    onEditDuty: (String) -> Unit,
+    onEditDuty: (Long) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val uiState by viewModel.uiState.collectAsState()
@@ -164,9 +164,10 @@ fun DutyDetailsScreen(
 
         // Add Occurrence Bottom Sheet
         if (showAddOccurrenceBottomSheet) {
-            val addDutyOccurrenceViewModel: AddDutyOccurrenceViewModel = koinInject {
-                parametersOf(viewModel.getDutyId())
+            val addDutyOccurrenceViewModel = koinInject<AddDutyOccurrenceViewModel> {
+                parametersOf(uiState.duty?.id)
             }
+
             AddDutyOccurrenceBottomSheet(
                 viewModel = addDutyOccurrenceViewModel,
                 onDismiss = {

@@ -7,28 +7,18 @@ import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 
 data class DutyOccurrenceForm(
-    val id: String? = null,
-    val dutyId: String = "",
+    val id: Long = 0L,
+    val dutyId: Long = 0L,
     val dutyType: DutyType = DutyType.ACTIONABLE,
     val paidAmount: Double = 0.0,
-    val paidAmountText: String = "",
     val completedDate: LocalDate = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date
 ) {
-    fun isValid(): Boolean {
-        return dutyId.isNotBlank() && (dutyType != DutyType.PAYABLE || paidAmountText.isNotBlank())
-    }
-
     fun toDutyOccurrence(): DutyOccurrence {
         val now = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date
-        val parsedAmount = if (dutyType == DutyType.PAYABLE && paidAmountText.isNotBlank()) {
-            paidAmountText.toDoubleOrNull() ?: 0.0
-        } else {
-            0.0
-        }
         return DutyOccurrence(
-            id = id ?: "",
+            id = id,
             dutyId = dutyId,
-            paidAmount = if (parsedAmount > 0) parsedAmount else null,
+            paidAmount = if (dutyType == DutyType.PAYABLE && paidAmount > 0) paidAmount else null,
             completedDate = completedDate,
             createdAt = now
         )

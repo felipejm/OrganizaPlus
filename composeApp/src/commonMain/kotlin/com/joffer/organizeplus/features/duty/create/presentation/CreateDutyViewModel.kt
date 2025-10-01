@@ -21,7 +21,7 @@ import kotlinx.coroutines.launch
 class CreateDutyViewModel(
     private val saveCreateDutyUseCase: SaveCreateDutyUseCase,
     private val dutyRepository: DutyRepository,
-    private val dutyId: String? = null,
+    private val dutyId: Long? = null,
     private val categoryName: String
 ) : ViewModel() {
 
@@ -36,7 +36,7 @@ class CreateDutyViewModel(
 
         // Automatically load existing duty if dutyId is provided
         dutyId?.let { id ->
-            loadExistingDuty(id)
+            loadExistingDuty(dutyId = id)
         }
     }
 
@@ -119,7 +119,7 @@ class CreateDutyViewModel(
         _uiState.value = _uiState.value.copy(showSuccessMessage = false)
     }
 
-    private fun loadExistingDuty(dutyId: String) {
+    private fun loadExistingDuty(dutyId: Long) {
         viewModelScope.launch {
             _uiState.value = _uiState.value.copy(isLoading = true)
 
@@ -135,12 +135,12 @@ class CreateDutyViewModel(
                 .collect { result ->
                     result.fold(
                         onSuccess = { duty ->
-                            duty?.let { d ->
+                            duty?.let {
                                 _formState.value = CreateDutyForm(
-                                    id = d.id,
-                                    title = d.title,
-                                    dutyType = d.type,
-                                    categoryName = d.categoryName
+                                    id = it.id,
+                                    title = it.title,
+                                    dutyType = it.type,
+                                    categoryName = it.categoryName
                                 )
                             }
                             _uiState.value = _uiState.value.copy(isLoading = false)

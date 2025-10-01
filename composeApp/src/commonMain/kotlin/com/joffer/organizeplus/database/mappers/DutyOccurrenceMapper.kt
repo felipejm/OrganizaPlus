@@ -22,7 +22,6 @@ fun DutyOccurrenceEntity.toDomainEntity(): DutyOccurrence {
 
 fun DutyOccurrence.toRoomEntity(): DutyOccurrenceEntity {
     return DutyOccurrenceEntity(
-        id = this.id,
         dutyId = this.dutyId,
         paidAmount = this.paidAmount ?: -1.0, // Use -1.0 to represent null
         completedDateMillis = this.completedDate.atStartOfDayIn(TimeZone.currentSystemDefault()).toEpochMilliseconds()

@@ -17,7 +17,7 @@ class SaveCreateDutyUseCaseImpl(
         return try {
             val duty = convertFormToDuty(form)
 
-            if (form.id == null) {
+            if (form.id == 0L) {
                 repository.insertDuty(duty)
             } else {
                 repository.updateDuty(duty)
@@ -31,15 +31,11 @@ class SaveCreateDutyUseCaseImpl(
         val now = Clock.System.now()
 
         return Duty(
-            id = form.id ?: generateId(),
+            id = form.id,
             title = form.title,
             type = form.dutyType,
             categoryName = form.categoryName,
             createdAt = now
         )
-    }
-
-    private fun generateId(): String {
-        return "obligation_${currentTimeMillis()}"
     }
 }

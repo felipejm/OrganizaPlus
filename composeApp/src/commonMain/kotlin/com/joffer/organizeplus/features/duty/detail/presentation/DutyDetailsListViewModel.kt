@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
 class DutyDetailsListViewModel(
     private val repository: DutyOccurrenceRepository,
     private val dutyRepository: DutyRepository,
-    private val dutyId: String
+    private val dutyId: Long
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(DutyDetailsListUiState())
@@ -26,8 +26,6 @@ class DutyDetailsListViewModel(
     init {
         loadRecords()
     }
-
-    fun getDutyId(): String = dutyId
 
     fun onIntent(intent: DutyDetailsListIntent) {
         when (intent) {
@@ -79,7 +77,8 @@ class DutyDetailsListViewModel(
                                 repository.getMonthlyChartData(dutyId, dutyInfo.type)
                                     .fold(
                                         onSuccess = { chartData ->
-                                            _uiState.value = _uiState.value.copy(chartData = chartData)
+                                            _uiState.value =
+                                                _uiState.value.copy(chartData = chartData)
                                         },
                                         onFailure = { exception ->
                                             Napier.e("Failed to load chart data", exception)
@@ -110,7 +109,7 @@ class DutyDetailsListViewModel(
         loadRecords()
     }
 
-    private fun deleteRecord(recordId: String) {
+    private fun deleteRecord(recordId: Long) {
         viewModelScope.launch {
             try {
                 val result = repository.deleteDutyOccurrence(recordId)
@@ -154,7 +153,7 @@ data class DutyDetailsListUiState(
 sealed class DutyDetailsListIntent {
     object LoadRecords : DutyDetailsListIntent()
     object RefreshRecords : DutyDetailsListIntent()
-    data class DeleteRecord(val recordId: String) : DutyDetailsListIntent()
+    data class DeleteRecord(val recordId: Long) : DutyDetailsListIntent()
     object ClearError : DutyDetailsListIntent()
     object Retry : DutyDetailsListIntent()
 }

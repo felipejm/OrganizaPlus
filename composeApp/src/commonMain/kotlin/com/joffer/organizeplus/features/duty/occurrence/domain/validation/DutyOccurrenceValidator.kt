@@ -10,19 +10,8 @@ class DutyOccurrenceValidator {
         val errors = mutableMapOf<DutyOccurrenceFormField, ValidationError>()
 
         // Only validate paid amount for payable duties
-        if (form.dutyType == DutyType.PAYABLE) {
-            if (form.paidAmountText.isBlank()) {
-                errors[DutyOccurrenceFormField.PaidAmount] = ValidationError.BlankField
-            } else {
-                val amount = form.paidAmountText.toDoubleOrNull()
-                if (amount == null || amount <= 0) {
-                    errors[DutyOccurrenceFormField.PaidAmount] = ValidationError.InvalidAmount
-                }
-            }
-        }
-
-        if (form.dutyId.isBlank()) {
-            errors[DutyOccurrenceFormField.PaidAmount] = ValidationError.BlankField
+        if (form.dutyType == DutyType.PAYABLE && form.paidAmount <= 0) {
+            errors[DutyOccurrenceFormField.PaidAmount] = ValidationError.InvalidAmount
         }
 
         return errors

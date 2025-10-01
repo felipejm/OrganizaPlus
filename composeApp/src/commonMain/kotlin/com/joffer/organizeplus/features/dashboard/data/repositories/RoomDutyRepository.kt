@@ -19,7 +19,7 @@ class RoomDutyRepository(
         }
     }
 
-    override suspend fun getDutyById(id: String): Flow<Result<Duty?>> {
+    override suspend fun getDutyById(id: Long): Flow<Result<Duty?>> {
         val entity = dutyDao.getDutyById(id)
         return flowOf(Result.success(entity?.let { DutyMapper.toDomainEntity(it) }))
     }
@@ -44,18 +44,13 @@ class RoomDutyRepository(
         }
     }
 
-    override suspend fun deleteDuty(id: String): Flow<Result<Unit>> {
+    override suspend fun deleteDuty(id: Long): Flow<Result<Unit>> {
         return try {
             dutyDao.deleteDutyById(id)
             flowOf(Result.success(Unit))
         } catch (e: Exception) {
             flowOf(Result.failure(e))
         }
-    }
-
-    override suspend fun markDutyPaid(id: String, paidAt: Instant): Flow<Result<Unit>> {
-        // Not yet implemented - mark paid functionality
-        return flowOf(Result.success(Unit))
     }
 
     override suspend fun getUpcomingDuties(days: Int): Flow<Result<List<Duty>>> {

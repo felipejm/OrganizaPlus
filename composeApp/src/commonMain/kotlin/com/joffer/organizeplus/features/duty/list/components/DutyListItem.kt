@@ -25,8 +25,8 @@ import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 @Composable
 fun DutyListItem(
     dutyWithOccurrence: DutyWithLastOccurrence,
-    onViewOccurrences: (String) -> Unit,
-    onDelete: (String) -> Unit,
+    onViewOccurrences: (Long) -> Unit,
+    onDelete: (Long) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val duty = dutyWithOccurrence.duty

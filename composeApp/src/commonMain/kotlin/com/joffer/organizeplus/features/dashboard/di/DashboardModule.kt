@@ -3,9 +3,7 @@ package com.joffer.organizeplus.features.dashboard.di
 import com.joffer.organizeplus.features.dashboard.data.repositories.RoomDutyRepository
 import com.joffer.organizeplus.features.dashboard.domain.repositories.DutyRepository
 import com.joffer.organizeplus.features.dashboard.domain.usecases.GetDashboardDataUseCase
-import com.joffer.organizeplus.features.dashboard.domain.usecases.MarkObligationPaidUseCase
 import com.joffer.organizeplus.features.dashboard.domain.usecases.implementations.GetDashboardDataUseCaseImpl
-import com.joffer.organizeplus.features.dashboard.domain.usecases.implementations.MarkObligationPaidUseCaseImpl
 import com.joffer.organizeplus.features.dashboard.presentation.DashboardViewModel
 import com.joffer.organizeplus.features.duty.occurrence.data.repositories.RoomDutyOccurrenceRepository
 import com.joffer.organizeplus.features.duty.occurrence.domain.repositories.DutyOccurrenceRepository
@@ -15,8 +13,13 @@ val dashboardModule = module {
     single<DutyRepository> { RoomDutyRepository(get()) }
     single<DutyOccurrenceRepository> { RoomDutyOccurrenceRepository(get()) }
 
-    single<GetDashboardDataUseCase> { GetDashboardDataUseCaseImpl(get()) }
-    single<MarkObligationPaidUseCase> { MarkObligationPaidUseCaseImpl(get()) }
+    single<GetDashboardDataUseCase> { GetDashboardDataUseCaseImpl(repository = get()) }
 
-    single { DashboardViewModel(get(), get(), get(), get()) }
+    single {
+        DashboardViewModel(
+            getDashboardDataUseCase = get(),
+            dutyRepository = get(),
+            dutyOccurrenceRepository = get()
+        )
+    }
 }

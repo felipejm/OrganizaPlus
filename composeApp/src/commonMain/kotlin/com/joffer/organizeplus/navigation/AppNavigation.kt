@@ -126,7 +126,7 @@ fun AppNavigation(
                 onNavigateBack = {
                     navController.popBackStack()
                 },
-                onEditDuty = { editDutyId: String ->
+                onEditDuty = { editDutyId ->
                     navController.navigate(EditDuty(editDutyId))
                 }
             )

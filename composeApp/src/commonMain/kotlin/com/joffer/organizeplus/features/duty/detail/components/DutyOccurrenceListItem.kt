@@ -20,7 +20,7 @@ import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 @Composable
 fun DutyOccurrenceListItem(
     occurrence: DutyOccurrence,
-    onDelete: (String) -> Unit,
+    onDelete: (Long) -> Unit,
     modifier: Modifier = Modifier
 ) {
     OrganizeCard(

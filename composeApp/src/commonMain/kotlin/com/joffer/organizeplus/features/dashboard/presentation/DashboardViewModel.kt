@@ -10,7 +10,6 @@ import com.joffer.organizeplus.features.dashboard.domain.entities.Duty
 import com.joffer.organizeplus.features.dashboard.domain.entities.DutyWithLastOccurrence
 import com.joffer.organizeplus.features.dashboard.domain.repositories.DutyRepository
 import com.joffer.organizeplus.features.dashboard.domain.usecases.GetDashboardDataUseCase
-import com.joffer.organizeplus.features.dashboard.domain.usecases.MarkObligationPaidUseCase
 import com.joffer.organizeplus.features.duty.occurrence.domain.repositories.DutyOccurrenceRepository
 import io.github.aakira.napier.Napier
 import kotlinx.coroutines.flow.*
@@ -21,7 +20,6 @@ import kotlinx.datetime.toLocalDateTime
 
 class DashboardViewModel(
     private val getDashboardDataUseCase: GetDashboardDataUseCase,
-    private val markObligationPaidUseCase: MarkObligationPaidUseCase,
     private val dutyRepository: DutyRepository,
     private val dutyOccurrenceRepository: DutyOccurrenceRepository
 ) : ViewModel() {
@@ -40,7 +38,6 @@ class DashboardViewModel(
         when (intent) {
             is DashboardIntent.LoadDashboard -> loadDashboardData()
             is DashboardIntent.RefreshDashboard -> refreshDashboard()
-            is DashboardIntent.MarkObligationPaid -> markObligationPaid(intent.obligationId)
             is DashboardIntent.ClearError -> clearError()
             is DashboardIntent.Retry -> retry()
         }
@@ -175,26 +172,6 @@ class DashboardViewModel(
     private fun refreshDashboard() {
         loadDashboardData()
     }
-
-    private fun markObligationPaid(obligationId: String) {
-        viewModelScope.launch {
-            markObligationPaidUseCase(obligationId)
-                .collect { result ->
-                    result.fold(
-                        onSuccess = {
-                            // Refresh data after successful payment
-                            loadDashboardData()
-                        },
-                        onFailure = { exception ->
-                            _uiState.value = _uiState.value.copy(
-                                error = exception.message ?: "Erro ao marcar como pago"
-                            )
-                        }
-                    )
-                }
-        }
-    }
-
     private fun clearError() {
         _uiState.value = _uiState.value.copy(error = null)
     }

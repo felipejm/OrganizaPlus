@@ -9,7 +9,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.Typography
@@ -46,6 +46,7 @@ fun AddDutyOccurrenceBottomSheet(
     val formState by viewModel.formState.collectAsState()
     val uiState by viewModel.uiState.collectAsState()
     var showDatePicker by remember { mutableStateOf(false) }
+    val keyboardController = LocalSoftwareKeyboardController.current
 
     LaunchedEffect(uiState.showSuccessMessage) {
         if (uiState.showSuccessMessage) {
@@ -103,7 +104,6 @@ fun AddDutyOccurrenceBottomSheet(
                 Spacer(modifier = Modifier.height(Spacing.md))
             }
 
-            // Form Fields
             // Only show paid amount field for payable duties
             if (formState.dutyType == DutyType.PAYABLE) {
                 FormField(
@@ -161,13 +161,13 @@ fun AddDutyOccurrenceBottomSheet(
                     containerColor = AppColorScheme.primary
                 )
             ) {
+                keyboardController?.hide()
+
                 if (uiState.isLoading) {
-                    OrganizeProgressIndicatorInline(
-                        size = 16.dp,
-                        color = AppColorScheme.onPrimary
-                    )
+                    OrganizeProgressIndicatorInline()
                     Spacer(modifier = Modifier.width(Spacing.sm))
                 }
+
                 Text(
                     text = if (uiState.showSuccessMessage) {
                         stringResource(Res.string.duty_occurrence_saved)

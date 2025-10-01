@@ -7,7 +7,7 @@ actual fun formatString(format: String, vararg args: Any?): String {
     // Simple format string replacement for iOS
     // Handles basic cases like %d, %s, %f, %.2f, %02X
     if (args.isEmpty()) return format
-    
+
     var result = format
     args.forEach { arg ->
         // Handle different format specifiers
@@ -52,7 +52,7 @@ private fun formatDouble(value: Double, precision: Int): String {
     val rounded = (value * multiplier).toLong().toDouble() / multiplier
     val wholePart = rounded.toLong()
     val fractionalPart = ((rounded - wholePart) * multiplier).toLong()
-    
+
     return if (precision == 0) {
         wholePart.toString()
     } else {
@@ -64,4 +64,3 @@ private fun formatDouble(value: Double, precision: Int): String {
 actual fun currentTimeMillis(): Long {
     return (NSDate().timeIntervalSince1970 * 1000).toLong()
 }
-

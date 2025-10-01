@@ -1,6 +1,7 @@
 package com.joffer.organizeplus.features.dashboard.domain.usecases
 
 import com.joffer.organizeplus.features.dashboard.domain.repositories.DutyRepository
+import kotlinx.coroutines.flow.collect
 
 interface DeleteDutyUseCase {
     suspend operator fun invoke(dutyId: String): Result<Unit>
@@ -11,7 +12,7 @@ class DeleteDutyUseCaseImpl(
 ) : DeleteDutyUseCase {
     override suspend fun invoke(dutyId: String): Result<Unit> {
         return try {
-            repository.deleteDuty(dutyId)
+            repository.deleteDuty(dutyId).collect()
             Result.success(Unit)
         } catch (e: Exception) {
             Result.failure(e)

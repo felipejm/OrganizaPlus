@@ -18,6 +18,6 @@ data class DashboardUiState(
 data class MonthlySummary(
     val totalAmountPaid: Double = 0.0,
     val totalActionableCompleted: Int = 0,
-    val month: String = "",
+    val currentMonth: Int = 0,
     val year: Int = 0
 )

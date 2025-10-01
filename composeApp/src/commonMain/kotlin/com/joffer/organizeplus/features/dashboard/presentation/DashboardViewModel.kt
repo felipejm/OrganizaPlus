@@ -2,6 +2,7 @@ package com.joffer.organizeplus.features.dashboard.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.joffer.organizeplus.common.constants.CategoryConstants
 import com.joffer.organizeplus.features.dashboard.DashboardIntent
 import com.joffer.organizeplus.features.dashboard.DashboardUiState
 import com.joffer.organizeplus.features.dashboard.MonthlySummary
@@ -17,6 +18,7 @@ import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
+
 class DashboardViewModel(
     private val getDashboardDataUseCase: GetDashboardDataUseCase,
     private val markObligationPaidUseCase: MarkObligationPaidUseCase,
@@ -138,7 +140,9 @@ class DashboardViewModel(
                                                     val updatedDuties =
                                                         _uiState.value.personalDuties.map { dutyWithOccurrence ->
                                                             if (dutyWithOccurrence.duty.id == duty.id) {
-                                                                dutyWithOccurrence.copy(lastOccurrence = lastOccurrence)
+                                                                dutyWithOccurrence.copy(
+                                                                    lastOccurrence = lastOccurrence
+                                                                )
                                                             } else {
                                                                 dutyWithOccurrence
                                                             }
@@ -161,7 +165,9 @@ class DashboardViewModel(
                                                     val updatedDuties =
                                                         _uiState.value.companyDuties.map { dutyWithOccurrence ->
                                                             if (dutyWithOccurrence.duty.id == duty.id) {
-                                                                dutyWithOccurrence.copy(lastOccurrence = lastOccurrence)
+                                                                dutyWithOccurrence.copy(
+                                                                    lastOccurrence = lastOccurrence
+                                                                )
                                                             } else {
                                                                 dutyWithOccurrence
                                                             }
@@ -213,28 +219,6 @@ class DashboardViewModel(
         loadDashboardData()
     }
 
-    fun setUserName(name: String) {
-        _userName.value = name
-    }
-
-    private fun getMonthName(monthNumber: Int): String {
-        return when (monthNumber) {
-            1 -> "January"
-            2 -> "February"
-            3 -> "March"
-            4 -> "April"
-            5 -> "May"
-            6 -> "June"
-            7 -> "July"
-            8 -> "August"
-            9 -> "September"
-            10 -> "October"
-            11 -> "November"
-            12 -> "December"
-            else -> "Unknown"
-        }
-    }
-
     private fun loadMonthlySummaries() {
         viewModelScope.launch {
             val currentDate = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
@@ -243,28 +227,22 @@ class DashboardViewModel(
 
             // Load Personal summary
             launch {
-                dutyOccurrenceRepository.getMonthlyOccurrences("Personal", currentMonth, currentYear)
+                dutyOccurrenceRepository.getMonthlyOccurrences(
+                    CategoryConstants.PERSONAL,
+                    currentMonth,
+                    currentYear
+                )
                     .fold(
                         onSuccess = { occurrences ->
-                            Napier.d("Personal occurrences found: ${occurrences.size}")
-                            occurrences.forEach { occurrence ->
-                                Napier.d(
-                                    "Personal occurrence: amount=${occurrence.paidAmount}, " +
-                                        "date=${occurrence.completedDate}"
-                                )
-                            }
-
                             val totalAmountPaid = occurrences
                                 .sumOf { it.paidAmount ?: 0.0 }
 
                             val totalActionableCompleted = occurrences.size
 
-                            Napier.d("Personal summary: amount=$totalAmountPaid, tasks=$totalActionableCompleted")
-
                             val personalSummary = MonthlySummary(
                                 totalAmountPaid = totalAmountPaid,
                                 totalActionableCompleted = totalActionableCompleted,
-                                month = getMonthName(currentMonth),
+                                currentMonth = currentMonth,
                                 year = currentYear
                             )
 
@@ -280,28 +258,22 @@ class DashboardViewModel(
 
             // Load Company summary
             launch {
-                dutyOccurrenceRepository.getMonthlyOccurrences("Company", currentMonth, currentYear)
+                dutyOccurrenceRepository.getMonthlyOccurrences(
+                    CategoryConstants.COMPANY,
+                    currentMonth,
+                    currentYear
+                )
                     .fold(
                         onSuccess = { occurrences ->
-                            Napier.d("Company occurrences found: ${occurrences.size}")
-                            occurrences.forEach { occurrence ->
-                                Napier.d(
-                                    "Company occurrence: amount=${occurrence.paidAmount}, " +
-                                        "date=${occurrence.completedDate}"
-                                )
-                            }
-
                             val totalAmountPaid = occurrences
                                 .sumOf { it.paidAmount ?: 0.0 }
 
                             val totalActionableCompleted = occurrences.size
 
-                            Napier.d("Company summary: amount=$totalAmountPaid, tasks=$totalActionableCompleted")
-
                             val companySummary = MonthlySummary(
                                 totalAmountPaid = totalAmountPaid,
                                 totalActionableCompleted = totalActionableCompleted,
-                                month = getMonthName(currentMonth),
+                                currentMonth = currentMonth,
                                 year = currentYear
                             )
 

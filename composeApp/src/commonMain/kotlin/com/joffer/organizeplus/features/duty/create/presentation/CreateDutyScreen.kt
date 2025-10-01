@@ -8,7 +8,9 @@ import androidx.compose.material3.*
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.KeyboardType
+import com.joffer.organizeplus.common.constants.CategoryConstants
 import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.features.dashboard.domain.entities.DutyType
@@ -44,12 +46,12 @@ import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 fun CreateDutyScreen(
     viewModel: CreateDutyViewModel,
     onNavigateBack: () -> Unit,
-    dutyId: String? = null,
     modifier: Modifier = Modifier
 ) {
     val uiState by viewModel.uiState.collectAsState()
     val formState by viewModel.formState.collectAsState()
     val snackbarHostState = remember { SnackbarHostState() }
+    val keyboardController = LocalSoftwareKeyboardController.current
 
     // Get string resources
     val successMessage = stringResource(Res.string.duty_saved_success)
@@ -78,14 +80,6 @@ fun CreateDutyScreen(
             )
         }
     }
-
-    // Load existing duty when dutyId is provided
-    LaunchedEffect(dutyId) {
-        dutyId?.let { id ->
-            viewModel.loadExistingDuty(id)
-        }
-    }
-
     Scaffold(
         topBar = {
             AppTopAppBarWithBackButton(
@@ -208,13 +202,19 @@ fun CreateDutyScreen(
             ) {
                 OrganizeSecondaryButton(
                     text = stringResource(Res.string.create_duty_cancel),
-                    onClick = onNavigateBack,
+                    onClick = {
+                        keyboardController?.hide()
+                        onNavigateBack()
+                    },
                     modifier = Modifier.weight(1f)
                 )
 
                 OrganizePrimaryButton(
                     text = stringResource(Res.string.create_duty_save),
-                    onClick = { viewModel.onIntent(CreateDutyIntent.SaveCreateDuty) },
+                    onClick = {
+                        keyboardController?.hide()
+                        viewModel.onIntent(CreateDutyIntent.SaveCreateDuty)
+                    },
                     modifier = Modifier.weight(1f),
                     enabled = !uiState.isLoading
                 )
@@ -226,8 +226,8 @@ fun CreateDutyScreen(
 @Composable
 private fun getCategoryOptions(): List<Pair<String, String>> {
     return listOf(
-        stringResource(Res.string.category_personal) to stringResource(Res.string.category_personal),
-        stringResource(Res.string.category_enterprise) to stringResource(Res.string.category_enterprise)
+        CategoryConstants.PERSONAL to stringResource(Res.string.category_personal),
+        CategoryConstants.COMPANY to stringResource(Res.string.category_enterprise)
     )
 }
 

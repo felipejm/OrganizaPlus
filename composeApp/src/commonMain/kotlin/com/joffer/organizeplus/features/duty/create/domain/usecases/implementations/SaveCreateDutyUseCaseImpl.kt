@@ -16,11 +16,10 @@ class SaveCreateDutyUseCaseImpl(
     override suspend operator fun invoke(form: CreateDutyForm): Flow<Result<Unit>> {
         return try {
             val duty = convertFormToDuty(form)
+
             if (form.id == null) {
-                // Creating new duty
                 repository.insertDuty(duty)
             } else {
-                // Updating existing duty
                 repository.updateDuty(duty)
             }
         } catch (e: Exception) {
@@ -28,7 +27,7 @@ class SaveCreateDutyUseCaseImpl(
         }
     }
 
-    private suspend fun convertFormToDuty(form: CreateDutyForm): Duty {
+    private fun convertFormToDuty(form: CreateDutyForm): Duty {
         val now = Clock.System.now()
 
         return Duty(

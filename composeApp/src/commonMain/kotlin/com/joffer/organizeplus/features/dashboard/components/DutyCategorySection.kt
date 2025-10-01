@@ -21,7 +21,6 @@ import com.joffer.organizeplus.common.constants.CategoryConstants
 import com.joffer.organizeplus.common.utils.CurrencyUtils
 import com.joffer.organizeplus.common.utils.DateUtils
 import com.joffer.organizeplus.designsystem.components.*
-import com.joffer.organizeplus.designsystem.components.ResultType
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.Typography
 import com.joffer.organizeplus.features.dashboard.MonthlySummary
@@ -30,7 +29,6 @@ import com.joffer.organizeplus.features.dashboard.domain.entities.DutyWithLastOc
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
 import organizeplus.composeapp.generated.resources.Res
-import organizeplus.composeapp.generated.resources.add_duty
 import organizeplus.composeapp.generated.resources.dashboard_amount_paid
 import organizeplus.composeapp.generated.resources.dashboard_company_duties
 import organizeplus.composeapp.generated.resources.dashboard_last_occurrence
@@ -39,45 +37,12 @@ import organizeplus.composeapp.generated.resources.dashboard_personal_duties
 import organizeplus.composeapp.generated.resources.dashboard_tasks_done
 import organizeplus.composeapp.generated.resources.duty_type_actionable
 import organizeplus.composeapp.generated.resources.duty_type_payable
-import organizeplus.composeapp.generated.resources.no_duties_created_yet
-import organizeplus.composeapp.generated.resources.start_creating_first_duty
 import organizeplus.composeapp.generated.resources.view_all_duties
 import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 // Component-specific constants
 private val ACCENT_BAR_WIDTH = 4.dp
 private val ACCENT_BAR_HEIGHT = 24.dp
-
-/**
- * Configuration data for category-specific styling and content
- */
-private data class CategoryConfig(
-    val accentColor: Color,
-    val accentLight: Color,
-    val backgroundColor: Color,
-    val sectionIcon: ImageVector,
-    val titleResource: StringResource
-)
-
-private fun getCategoryConfig(categoryName: String): CategoryConfig {
-    return when (categoryName) {
-        CategoryConstants.COMPANY -> CategoryConfig(
-            accentColor = AppColorScheme.companyAccent,
-            accentLight = AppColorScheme.companyAccentLight,
-            backgroundColor = AppColorScheme.background,
-            sectionIcon = Icons.Default.Home,
-            titleResource = Res.string.dashboard_company_duties
-        )
-
-        else -> CategoryConfig(
-            accentColor = AppColorScheme.personalAccent,
-            accentLight = AppColorScheme.personalAccentLight,
-            backgroundColor = AppColorScheme.background,
-            sectionIcon = Icons.Default.Person,
-            titleResource = Res.string.dashboard_personal_duties
-        ) // Default fallback
-    }
-}
 
 /**
  * Duty category section showing duties for a specific category (Personal or Company)
@@ -87,24 +52,20 @@ private fun getCategoryConfig(categoryName: String): CategoryConfig {
 fun DutyCategorySection(
     duties: List<DutyWithLastOccurrence>,
     onViewAll: () -> Unit,
-    onAddDuty: () -> Unit,
     onDutyClick: (String) -> Unit,
     categoryName: String,
     modifier: Modifier = Modifier,
     sectionTitle: String? = null,
     monthlySummary: MonthlySummary? = null
 ) {
-    // Get category configuration
     val config = getCategoryConfig(categoryName)
 
     Card(
-        modifier = modifier
-            .fillMaxWidth()
-            .clickable { onViewAll() },
+        modifier = modifier.fillMaxWidth(),
         colors = CardDefaults.cardColors(
             containerColor = config.backgroundColor
         ),
-        elevation = CardDefaults.cardElevation(defaultElevation = Spacing.Elevation.md)
+        elevation = CardDefaults.cardElevation(defaultElevation = Spacing.Elevation.sm)
     ) {
         Column(
             modifier = Modifier
@@ -152,65 +113,43 @@ fun DutyCategorySection(
                 Spacer(modifier = Modifier.height(Spacing.lg))
             }
 
-            if (duties.isEmpty()) {
-                // Empty state with add duty button
-                Box(
-                    modifier = Modifier.fillMaxWidth(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    OrganizeResult(
-                        type = ResultType.INFO,
-                        title = stringResource(Res.string.no_duties_created_yet),
-                        description = stringResource(Res.string.start_creating_first_duty),
-                        actions = {
-                            OrganizePrimaryButton(
-                                text = stringResource(Res.string.add_duty),
-                                onClick = onAddDuty,
-                                modifier = Modifier.fillMaxWidth()
-                            )
-                        }
+            Column(
+                verticalArrangement = Arrangement.spacedBy(Spacing.sm)
+            ) {
+                duties.forEachIndexed { index, dutyWithOccurrence ->
+                    DutyCategoryItem(
+                        dutyWithOccurrence = dutyWithOccurrence,
+                        onDutyClick = { onDutyClick(dutyWithOccurrence.duty.id) },
+                        accentColor = config.accentColor,
+                        accentLight = config.accentLight
                     )
-                }
-            } else {
-                Column(
-                    verticalArrangement = Arrangement.spacedBy(Spacing.sm)
-                ) {
-                    duties.forEachIndexed { index, dutyWithOccurrence ->
-                        DutyCategoryItem(
-                            dutyWithOccurrence = dutyWithOccurrence,
-                            onDutyClick = { onDutyClick(dutyWithOccurrence.duty.id) },
-                            accentColor = config.accentColor,
-                            accentLight = config.accentLight
-                        )
 
-                        // Add divider between items (except for the last one)
-                        if (index < duties.size - 1) {
-                            HorizontalDivider(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(horizontal = Spacing.lg),
-                                color = AppColorScheme.divider,
-                                thickness = Spacing.Divider.thin
-                            )
-                        }
+                    // Add divider between items (except for the last one)
+                    if (index < duties.size - 1) {
+                        HorizontalDivider(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = Spacing.lg),
+                            color = AppColorScheme.divider,
+                            thickness = Spacing.Divider.thin
+                        )
                     }
                 }
+            }
 
-                Spacer(modifier = Modifier.height(Spacing.md))
+            Spacer(modifier = Modifier.height(Spacing.md))
 
-                // View All button with new styling
-                TextButton(
-                    onClick = onViewAll,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(Spacing.buttonHeight + Spacing.sm)
-                ) {
-                    Text(
-                        text = stringResource(Res.string.view_all_duties),
-                        style = Typography.bodyMedium,
-                        color = config.accentColor
-                    )
-                }
+            TextButton(
+                onClick = onViewAll,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(Spacing.buttonHeight + Spacing.sm)
+            ) {
+                Text(
+                    text = stringResource(Res.string.view_all_duties),
+                    style = Typography.bodyMedium,
+                    color = config.accentColor
+                )
             }
         }
     }
@@ -326,7 +265,7 @@ private fun MonthlySummaryCard(
             Text(
                 text = stringResource(
                     Res.string.dashboard_monthly_summary,
-                    summary.month,
+                    DateUtils.getMonthName(summary.currentMonth),
                     summary.year
                 ),
                 style = Typography.bodyMedium,
@@ -373,5 +312,36 @@ private fun MonthlySummaryCard(
                 }
             }
         }
+    }
+}
+
+/**
+ * Configuration data for category-specific styling and content
+ */
+private data class CategoryConfig(
+    val accentColor: Color,
+    val accentLight: Color,
+    val backgroundColor: Color,
+    val sectionIcon: ImageVector,
+    val titleResource: StringResource
+)
+
+private fun getCategoryConfig(categoryName: String): CategoryConfig {
+    return when (categoryName) {
+        CategoryConstants.COMPANY -> CategoryConfig(
+            accentColor = AppColorScheme.companyAccent,
+            accentLight = AppColorScheme.companyAccentLight,
+            backgroundColor = AppColorScheme.background,
+            sectionIcon = Icons.Default.Home,
+            titleResource = Res.string.dashboard_company_duties
+        )
+
+        else -> CategoryConfig(
+            accentColor = AppColorScheme.personalAccent,
+            accentLight = AppColorScheme.personalAccentLight,
+            backgroundColor = AppColorScheme.background,
+            sectionIcon = Icons.Default.Person,
+            titleResource = Res.string.dashboard_personal_duties
+        )
     }
 }

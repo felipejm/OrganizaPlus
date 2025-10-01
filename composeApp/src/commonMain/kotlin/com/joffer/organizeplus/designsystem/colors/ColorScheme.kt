@@ -104,7 +104,7 @@ object ColorScheme {
     val onErrorContainer = danger700
 
     // Background and surface colors
-    val background = neutral50
+    val background = white
     val onBackground = neutral700
     val surface = white
     val onSurface = neutral700
@@ -121,13 +121,7 @@ object ColorScheme {
     val inverseOnSurface = white
     val inversePrimary = primary300
 
-    val surfaceDim = neutral200
-    val surfaceBright = white
-    val surfaceContainerLowest = white
     val surfaceContainerLow = neutral50
-    val surfaceContainer = neutral100
-    val surfaceContainerHigh = neutral200
-    val surfaceContainerHighest = neutral300
 
     // ===== FORM COLORS =====
     val formLabel = neutral700
@@ -139,34 +133,24 @@ object ColorScheme {
     val formIcon = neutral500
 
     // ===== LEGACY COLORS (for backward compatibility) =====
-    val amber = warning500
-    val onAmber = white
-    val green = success500
-    val onGreen = white
+
     val iconOrange = auxiliary500
     val iconBlue = info500
     val iconOrangeContainer = auxiliary100
     val iconBlueContainer = info100
 
-    // HTML colors (keeping for compatibility)
-    val htmlPrimary = info500
-    val htmlAmber = warning500
-
     // ===== DASHBOARD SPECIFIC COLORS =====
     // Personal accent colors
     val personalAccent = Color(0xFF42D9E4) // Teal
     val personalAccentLight = Color(0xFFE6F4FF) // Light teal
-    val personalBackground = Color(0xFFF0FAFA) // Very light teal tint
 
     // Company accent colors
     val companyAccent = Color(0xFFFF9800) // Amber
     val companyAccentLight = Color(0xFFFFF3E0) // Light amber
-    val companyBackground = Color(0xFFFFF8F0) // Very light amber tint
 
     // Dashboard specific colors
     val overdueText = Color(0xFFE53935) // Red for overdue
     val amountPaid = Color(0xFF2E7D32) // Green for amount paid
-    val taskDoneCount = personalAccent // Teal for task count
     val summaryMonthLabel = overdueText // Red for month label
     val summaryBackground = Color(0xFFFDECEC) // Soft tinted background for summary
 
@@ -177,7 +161,6 @@ object ColorScheme {
     val lastOccurrence = overdueText // #E53935 for overdue
 
     // Background colors
-    val backgroundNeutral = neutral100 // #FAFAFA
     val cardBackground = white // #FFFFFF
 
     // Divider colors

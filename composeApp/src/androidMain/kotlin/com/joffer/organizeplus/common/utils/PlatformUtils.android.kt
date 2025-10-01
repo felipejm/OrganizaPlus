@@ -7,4 +7,3 @@ actual fun formatString(format: String, vararg args: Any?): String {
 actual fun currentTimeMillis(): Long {
     return System.currentTimeMillis()
 }
-

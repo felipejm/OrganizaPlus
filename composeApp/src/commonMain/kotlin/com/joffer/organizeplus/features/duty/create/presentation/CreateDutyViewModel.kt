@@ -1,5 +1,7 @@
 package com.joffer.organizeplus.features.duty.create.presentation
 
+import androidx.compose.ui.text.capitalize
+import androidx.compose.ui.text.intl.Locale
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.joffer.organizeplus.features.dashboard.domain.entities.DutyType
@@ -28,6 +30,13 @@ class CreateDutyViewModel(
     private val _formState = MutableStateFlow(CreateDutyForm())
     val formState: StateFlow<CreateDutyForm> = _formState.asStateFlow()
 
+    init {
+        // Automatically load existing duty if dutyId is provided
+        dutyId?.let { id ->
+            loadExistingDuty(id)
+        }
+    }
+
     fun onIntent(intent: CreateDutyIntent) {
         when (intent) {
             CreateDutyIntent.SaveCreateDuty -> saveCreateDuty()
@@ -46,15 +55,12 @@ class CreateDutyViewModel(
             CreateDutyFormField.DutyType -> _formState.value = updateDutyType(value)
             CreateDutyFormField.CategoryName -> _formState.value = updateCategoryName(value)
         }
-
-        _uiState.value = _uiState.value.copy(hasUnsavedChanges = true)
     }
 
     private fun updateTitle(value: Any) = _formState.value.copy(
-        title = (value as String).trim().split(" ").joinToString(" ") { word ->
-            word.replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() }
-        }
+        title = (value as String).capitalize(Locale.current)
     )
+
     private fun updateStartDay(value: Any) {
         val dayString = value as String
         val day = dayString.toIntOrNull()
@@ -74,8 +80,10 @@ class CreateDutyViewModel(
             _formState.value = _formState.value.copy(dueDay = 0)
         }
     }
+
     private fun updateDutyType(value: Any) = _formState.value.copy(dutyType = value as DutyType)
-    private fun updateCategoryName(value: Any) = _formState.value.copy(categoryName = value as String)
+    private fun updateCategoryName(value: Any) =
+        _formState.value.copy(categoryName = value as String)
 
     fun getFieldError(field: CreateDutyFormField): CreateDutyValidationError? {
         return _uiState.value.errors[field]
@@ -104,7 +112,6 @@ class CreateDutyViewModel(
                                 _uiState.value = _uiState.value.copy(
                                     isLoading = false,
                                     showSuccessSnackbar = true,
-                                    hasUnsavedChanges = false
                                 )
                             },
                             onFailure = { exception ->
@@ -131,7 +138,7 @@ class CreateDutyViewModel(
         _uiState.value = _uiState.value.copy(showSuccessMessage = false)
     }
 
-    fun loadExistingDuty(dutyId: String) {
+    private fun loadExistingDuty(dutyId: String) {
         viewModelScope.launch {
             _uiState.value = _uiState.value.copy(isLoading = true)
 

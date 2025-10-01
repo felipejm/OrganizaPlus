@@ -6,7 +6,6 @@ import kotlinx.datetime.Instant
 
 interface DutyRepository {
 
-    // Dutys
     suspend fun getAllDuties(): Flow<Result<List<Duty>>>
     suspend fun getDutyById(id: String): Flow<Result<Duty?>>
     suspend fun insertDuty(duty: Duty): Flow<Result<Unit>>

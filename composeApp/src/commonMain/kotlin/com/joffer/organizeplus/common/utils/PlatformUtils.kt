@@ -11,4 +11,3 @@ expect fun formatString(format: String, vararg args: Any?): String
  * Replaces System.currentTimeMillis() which is not available in KMP common code
  */
 expect fun currentTimeMillis(): Long
-

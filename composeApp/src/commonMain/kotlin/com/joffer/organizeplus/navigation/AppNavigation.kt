@@ -50,9 +50,6 @@ fun AppNavigation(
                 onNavigateToEditDuty = { dutyId ->
                     navController.navigate(EditDuty(dutyId))
                 },
-                onNavigateToCreateDuty = {
-                    navController.navigate(CreateDuty)
-                },
                 onNavigateToSettings = {
                     navController.navigate(Settings)
                 }
@@ -66,7 +63,6 @@ fun AppNavigation(
                 onNavigateBack = {
                     navController.popBackStack()
                 },
-                dutyId = null
             )
         }
 
@@ -103,12 +99,10 @@ fun AppNavigation(
                 onNavigateBack = {
                     navController.popBackStack()
                 },
-                dutyId = editDuty.dutyId
             )
         }
 
         composable<DutyOccurrences> { backStackEntry ->
-            // Type-safe route extraction using toRoute()
             val dutyOccurrences = backStackEntry.toRoute<DutyOccurrences>()
             val dutyDetailsListViewModel: DutyDetailsListViewModel = koinInject { parametersOf(dutyOccurrences.dutyId) }
             DutyDetailsScreen(

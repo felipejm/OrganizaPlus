@@ -26,7 +26,6 @@ fun DashboardScreen(
     onNavigateToPersonalDuties: () -> Unit,
     onNavigateToCompanyDuties: () -> Unit,
     onNavigateToEditDuty: (String) -> Unit,
-    onNavigateToCreateDuty: () -> Unit,
     onNavigateToSettings: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -80,7 +79,6 @@ fun DashboardScreen(
                     DutyCategorySection(
                         duties = uiState.personalDuties,
                         onViewAll = onNavigateToPersonalDuties,
-                        onAddDuty = onNavigateToCreateDuty,
                         onDutyClick = onNavigateToEditDuty,
                         categoryName = CategoryConstants.PERSONAL,
                         monthlySummary = uiState.personalSummary
@@ -92,7 +90,6 @@ fun DashboardScreen(
                     DutyCategorySection(
                         duties = uiState.companyDuties,
                         onViewAll = onNavigateToCompanyDuties,
-                        onAddDuty = onNavigateToCreateDuty,
                         onDutyClick = onNavigateToEditDuty,
                         categoryName = CategoryConstants.COMPANY,
                         monthlySummary = uiState.companySummary

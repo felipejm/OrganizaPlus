@@ -59,8 +59,12 @@ class DutyListViewModel(
                             // Filter duties by category
                             val filteredDuties = when (categoryFilter) {
                                 DutyCategoryFilter.All -> duties
-                                DutyCategoryFilter.Personal -> duties.filter { it.categoryName == CategoryConstants.PERSONAL }
-                                DutyCategoryFilter.Company -> duties.filter { it.categoryName == CategoryConstants.COMPANY }
+                                DutyCategoryFilter.Personal -> duties.filter {
+                                    it.categoryName == CategoryConstants.PERSONAL
+                                }
+                                DutyCategoryFilter.Company -> duties.filter {
+                                    it.categoryName == CategoryConstants.COMPANY
+                                }
                                 is DutyCategoryFilter.Custom -> duties.filter { it.categoryName == categoryFilter.name }
                             }
 

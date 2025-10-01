@@ -90,19 +90,10 @@ kotlin {
             // Room library (KMP compatible)
             implementation(libs.room.runtime)
             implementation(libs.room.common)
-            
-            // Preferences library
-            // implementation(libs.multiplatform.settings)
+            implementation(libs.sqlite.bundled)
             
             // Logging library
             implementation(libs.napier)
-            
-            
-            // Core module
-            // implementation(project(":core"))
-            
-            // Flows library (commented out for now - can be added when needed)
-            // implementation(libs.km.nativecoroutines)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
@@ -110,11 +101,7 @@ kotlin {
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
-            implementation(libs.sqldelight.native.driver)
-            implementation(libs.sqlite.bundled)
         }
-        
-        
     }
 }
 
@@ -132,6 +119,9 @@ android {
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        }
+        jniLibs {
+            useLegacyPackaging = false
         }
     }
     buildTypes {

@@ -18,9 +18,6 @@ interface DutyDao {
     @Query("SELECT * FROM duties WHERE id = :id")
     suspend fun getDutyById(id: String): DutyEntity?
 
-    @Query("SELECT * FROM duties WHERE isCompleted = :isCompleted ORDER BY createdAt DESC")
-    fun getDutiesByCompletionStatus(isCompleted: Boolean): Flow<List<DutyEntity>>
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertDuty(duty: DutyEntity)
 

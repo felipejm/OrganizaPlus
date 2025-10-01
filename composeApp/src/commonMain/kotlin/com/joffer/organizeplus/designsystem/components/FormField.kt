@@ -26,7 +26,7 @@ fun FormField(
     Column(modifier = modifier) {
         Text(
             text = if (isRequired) "$label *" else label,
-            style = Typography.bodyMedium,
+            style = Typography.bodyLarge,
             color = AppColorScheme.formLabel,
             fontWeight = FontWeight.Medium
         )
@@ -63,47 +63,5 @@ fun FormField(
                 color = AppColorScheme.error
             )
         }
-    }
-}
-
-@Composable
-fun FormTextArea(
-    label: String,
-    value: String,
-    onValueChange: (String) -> Unit,
-    placeholder: String = "",
-    rows: Int = 3,
-    modifier: Modifier = Modifier
-) {
-    Column(modifier = modifier) {
-        Text(
-            text = label,
-            style = Typography.bodyMedium,
-            color = AppColorScheme.formLabel,
-            fontWeight = FontWeight.Medium
-        )
-
-        Spacer(modifier = Modifier.height(Spacing.xs))
-
-        OutlinedTextField(
-            value = value,
-            onValueChange = onValueChange,
-            placeholder = {
-                Text(
-                    text = placeholder,
-                    color = AppColorScheme.formPlaceholder
-                )
-            },
-            modifier = Modifier.fillMaxWidth(),
-            colors = OutlinedTextFieldDefaults.colors(
-                focusedBorderColor = AppColorScheme.primary,
-                unfocusedBorderColor = AppColorScheme.formBorder,
-                focusedContainerColor = Color.Transparent,
-                unfocusedContainerColor = Color.Transparent
-            ),
-            shape = RoundedCornerShape(Spacing.borderRadius),
-            minLines = rows,
-            maxLines = rows
-        )
     }
 }

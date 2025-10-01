@@ -5,9 +5,9 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "duty_occurrences")
 data class DutyOccurrenceEntity(
-    @PrimaryKey(autoGenerate = true)
-    val id: Long = 0,
-    val dutyId: Long,
+    @PrimaryKey
+    val id: String,
+    val dutyId: String,
     val paidAmount: Double,
     val completedDateMillis: Long
 )

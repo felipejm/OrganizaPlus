@@ -10,8 +10,8 @@ import kotlinx.datetime.toLocalDateTime
 
 fun DutyOccurrenceEntity.toDomainEntity(): DutyOccurrence {
     return DutyOccurrence(
-        id = this.id.toString(),
-        dutyId = this.dutyId.toString(),
+        id = this.id,
+        dutyId = this.dutyId,
         paidAmount = if (this.paidAmount < 0) null else this.paidAmount,
         completedDate = Instant.fromEpochMilliseconds(
             this.completedDateMillis
@@ -22,8 +22,8 @@ fun DutyOccurrenceEntity.toDomainEntity(): DutyOccurrence {
 
 fun DutyOccurrence.toRoomEntity(): DutyOccurrenceEntity {
     return DutyOccurrenceEntity(
-        id = this.id.toLongOrNull() ?: 0L,
-        dutyId = this.dutyId.toLongOrNull() ?: 0L,
+        id = this.id,
+        dutyId = this.dutyId,
         paidAmount = this.paidAmount ?: -1.0, // Use -1.0 to represent null
         completedDateMillis = this.completedDate.atStartOfDayIn(TimeZone.currentSystemDefault()).toEpochMilliseconds()
     )

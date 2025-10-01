@@ -24,13 +24,13 @@ class RoomDutyDetailsRepository(
     }
 
     override suspend fun getRecordsByDutyId(dutyId: String): Flow<Result<List<DutyDetails>>> {
-        return dutyOccurrenceDao.getDutyOccurrencesByDutyId(dutyId.toLongOrNull() ?: 0L).map { entities ->
+        return dutyOccurrenceDao.getDutyOccurrencesByDutyId(dutyId).map { entities ->
             Result.success(entities.map { it.toDomainEntity().toDutyDetails() })
         }
     }
 
     override suspend fun getRecordById(id: String): Flow<Result<DutyDetails?>> {
-        val entity = dutyOccurrenceDao.getDutyOccurrenceById(id.toLongOrNull() ?: return flowOf(Result.success(null)))
+        val entity = dutyOccurrenceDao.getDutyOccurrenceById(id)
         return flowOf(Result.success(entity?.let { it.toDomainEntity().toDutyDetails() }))
     }
 
@@ -58,9 +58,7 @@ class RoomDutyDetailsRepository(
 
     override suspend fun deleteRecord(id: String): Flow<Result<Unit>> {
         return try {
-            dutyOccurrenceDao.deleteDutyOccurrenceById(
-                id.toLongOrNull() ?: return flowOf(Result.failure(IllegalArgumentException("Invalid ID")))
-            )
+            dutyOccurrenceDao.deleteDutyOccurrenceById(id)
             flowOf(Result.success(Unit))
         } catch (e: Exception) {
             flowOf(Result.failure(e))

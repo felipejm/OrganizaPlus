@@ -16,16 +16,16 @@ interface DutyOccurrenceDao {
     fun getAllDutyOccurrences(): Flow<List<DutyOccurrenceEntity>>
 
     @Query("SELECT * FROM duty_occurrences WHERE id = :id")
-    suspend fun getDutyOccurrenceById(id: Long): DutyOccurrenceEntity?
+    suspend fun getDutyOccurrenceById(id: String): DutyOccurrenceEntity?
 
     @Query("SELECT * FROM duty_occurrences WHERE dutyId = :dutyId ORDER BY completedDateMillis DESC")
-    fun getDutyOccurrencesByDutyId(dutyId: Long): Flow<List<DutyOccurrenceEntity>>
+    fun getDutyOccurrencesByDutyId(dutyId: String): Flow<List<DutyOccurrenceEntity>>
 
     @Query("SELECT * FROM duty_occurrences WHERE dutyId = :dutyId ORDER BY completedDateMillis DESC LIMIT 1")
-    suspend fun getLastOccurrenceByDutyId(dutyId: Long): DutyOccurrenceEntity?
+    suspend fun getLastOccurrenceByDutyId(dutyId: String): DutyOccurrenceEntity?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertDutyOccurrence(dutyOccurrence: DutyOccurrenceEntity): Long
+    suspend fun insertDutyOccurrence(dutyOccurrence: DutyOccurrenceEntity)
 
     @Update
     suspend fun updateDutyOccurrence(dutyOccurrence: DutyOccurrenceEntity)
@@ -34,10 +34,10 @@ interface DutyOccurrenceDao {
     suspend fun deleteDutyOccurrence(dutyOccurrence: DutyOccurrenceEntity)
 
     @Query("DELETE FROM duty_occurrences WHERE id = :id")
-    suspend fun deleteDutyOccurrenceById(id: Long)
+    suspend fun deleteDutyOccurrenceById(id: String)
 
     @Query("DELETE FROM duty_occurrences WHERE dutyId = :dutyId")
-    suspend fun deleteDutyOccurrencesByDutyId(dutyId: Long)
+    suspend fun deleteDutyOccurrencesByDutyId(dutyId: String)
 
     @Query(
         """

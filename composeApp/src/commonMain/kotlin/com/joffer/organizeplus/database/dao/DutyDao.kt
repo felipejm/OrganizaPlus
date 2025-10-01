@@ -16,13 +16,13 @@ interface DutyDao {
     fun getAllDuties(): Flow<List<DutyEntity>>
 
     @Query("SELECT * FROM duties WHERE id = :id")
-    suspend fun getDutyById(id: Long): DutyEntity?
+    suspend fun getDutyById(id: String): DutyEntity?
 
     @Query("SELECT * FROM duties WHERE isCompleted = :isCompleted ORDER BY createdAt DESC")
     fun getDutiesByCompletionStatus(isCompleted: Boolean): Flow<List<DutyEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertDuty(duty: DutyEntity): Long
+    suspend fun insertDuty(duty: DutyEntity)
 
     @Update
     suspend fun updateDuty(duty: DutyEntity)
@@ -31,5 +31,5 @@ interface DutyDao {
     suspend fun deleteDuty(duty: DutyEntity)
 
     @Query("DELETE FROM duties WHERE id = :id")
-    suspend fun deleteDutyById(id: Long)
+    suspend fun deleteDutyById(id: String)
 }

@@ -8,7 +8,7 @@ object DutyMapper {
 
     fun toDomainEntity(entity: DutyEntity): Duty {
         return Duty(
-            id = entity.id.toString(),
+            id = entity.id,
             title = entity.title,
             startDay = entity.startDay,
             dueDay = entity.dueDay,
@@ -24,7 +24,7 @@ object DutyMapper {
 
     fun toRoomEntity(domain: Duty): DutyEntity {
         return DutyEntity(
-            id = domain.id.toLongOrNull() ?: 0L,
+            id = domain.id,
             title = domain.title,
             description = null,
             type = domain.type.name,

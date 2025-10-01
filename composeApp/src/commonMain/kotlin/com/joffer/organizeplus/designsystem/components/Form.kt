@@ -16,11 +16,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.Typography
+import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 enum class FormLayout {
     LEFT_ALIGNED, // Label above field (mobile default)
@@ -104,7 +104,7 @@ fun OrganizeFormField(
                     modifier = Modifier
                         .fillMaxWidth()
                         .background(
-                            color = Color(0xFFFAFAFA), // Neutral 100
+                            color = AppColorScheme.neutral100,
                             shape = RoundedCornerShape(Spacing.Radius.xs)
                         )
                         .padding(Spacing.md)
@@ -127,7 +127,7 @@ fun OrganizeFormSection(
         Text(
             text = title,
             style = Typography.titleMedium,
-            color = Color(0xFF1F1F1F), // Neutral 700
+            color = AppColorScheme.neutral700,
             fontWeight = FontWeight.Medium
         )
 
@@ -136,7 +136,7 @@ fun OrganizeFormSection(
             Text(
                 text = description,
                 style = Typography.body,
-                color = Color(0xFF8F8F8F) // Neutral 500
+                color = AppColorScheme.neutral500
             )
         }
 
@@ -147,7 +147,7 @@ fun OrganizeFormSection(
         Spacer(modifier = Modifier.height(Spacing.lg))
 
         Divider(
-            color = Color(0xFFF5F5F5), // Neutral 200
+            color = AppColorScheme.neutral200,
             thickness = 1.dp
         )
     }
@@ -201,7 +201,7 @@ private fun FormLabel(
         Text(
             text = text,
             style = Typography.body,
-            color = Color(0xFF4F4F4F), // Neutral 600
+            color = AppColorScheme.neutral600,
             fontWeight = FontWeight.Normal
         )
         if (required) {
@@ -209,7 +209,7 @@ private fun FormLabel(
             Text(
                 text = "*",
                 style = Typography.body,
-                color = Color(0xFFFB612F), // Danger 500
+                color = AppColorScheme.danger500,
                 fontWeight = FontWeight.Medium
             )
         }
@@ -226,7 +226,7 @@ private fun FormHelperOrError(
         Text(
             text = error ?: helper ?: "",
             style = Typography.caption,
-            color = if (error != null) Color(0xFFFB612F) else Color(0xFF8F8F8F),
+            color = if (error != null) AppColorScheme.danger500 else AppColorScheme.neutral500,
             modifier = modifier
         )
     }
@@ -241,7 +241,7 @@ fun OrganizeFormValidationBanner(
         modifier = modifier
             .fillMaxWidth()
             .background(
-                color = Color(0xFFFFE7E2), // Danger 100
+                color = AppColorScheme.danger100,
                 shape = RoundedCornerShape(Spacing.Radius.xs)
             )
             .padding(Spacing.md)
@@ -249,7 +249,7 @@ fun OrganizeFormValidationBanner(
         Text(
             text = message,
             style = Typography.body,
-            color = Color(0xFFE42312), // Danger 700
+            color = AppColorScheme.danger700,
             fontWeight = FontWeight.Medium
         )
     }

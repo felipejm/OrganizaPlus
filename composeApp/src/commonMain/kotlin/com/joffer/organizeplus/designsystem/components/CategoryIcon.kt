@@ -17,6 +17,8 @@ import organizeplus.composeapp.generated.resources.ic_company
 import organizeplus.composeapp.generated.resources.ic_personal
 import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
+private const val CATEGORY_ICON_SIZE_RATIO = 0.6f
+
 /**
  * A circular icon component for displaying category icons
  *
@@ -29,7 +31,7 @@ import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 fun CategoryIcon(
     categoryName: String,
     size: Dp = Spacing.iconSize,
-    iconSize: Dp = Spacing.iconSize * 0.6f,
+    iconSize: Dp = Spacing.iconSize * CATEGORY_ICON_SIZE_RATIO,
     modifier: Modifier = Modifier
 ) {
     val iconColor = when (categoryName) {

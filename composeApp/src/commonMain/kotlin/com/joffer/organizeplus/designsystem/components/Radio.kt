@@ -29,6 +29,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.Typography
+import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 data class RadioOption(
     val value: String,
@@ -105,9 +106,9 @@ private fun OrganizeRadioItem(
                     .border(
                         width = 2.dp,
                         color = when {
-                            !enabled -> Color(0xFFF5F5F5) // Neutral 200
-                            isSelected -> Color(0xFF42D9E4) // Primary 500
-                            else -> Color(0xFFC2C2C2) // Neutral 400
+                            !enabled -> AppColorScheme.neutral200
+                            isSelected -> AppColorScheme.personalAccent
+                            else -> AppColorScheme.neutral400
                         },
                         shape = CircleShape
                     ),
@@ -120,7 +121,7 @@ private fun OrganizeRadioItem(
                             .size(8.dp)
                             .clip(CircleShape)
                             .background(
-                                color = if (enabled) Color(0xFF42D9E4) else Color(0xFF8F8F8F)
+                                color = if (enabled) AppColorScheme.personalAccent else AppColorScheme.neutral500
                             )
                     )
                 }
@@ -133,8 +134,8 @@ private fun OrganizeRadioItem(
             text = option.label,
             style = Typography.body,
             color = when {
-                !enabled -> Color(0xFF8F8F8F) // Neutral 500
-                else -> Color(0xFF1F1F1F) // Neutral 700
+                !enabled -> AppColorScheme.neutral500
+                else -> AppColorScheme.neutral700
             },
             fontWeight = FontWeight.Normal
         )
@@ -160,7 +161,7 @@ fun OrganizeRadioGroup(
             Text(
                 text = label,
                 style = Typography.body,
-                color = Color(0xFF4F4F4F), // Neutral 600
+                color = AppColorScheme.neutral600,
                 fontWeight = FontWeight.Normal,
                 modifier = Modifier.padding(bottom = 4.dp)
             )

@@ -41,6 +41,9 @@ import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.Typography
 import kotlinx.coroutines.delay
 
+private const val MESSAGE_ENTER_ANIMATION_DURATION = 200
+private const val MESSAGE_EXIT_ANIMATION_DURATION = 150
+
 enum class MessageType {
     INFO, WARNING, ERROR, SUCCESS
 }
@@ -69,12 +72,12 @@ fun OrganizeMessage(
         visible = isVisible,
         enter = slideInVertically(
             initialOffsetY = { -it },
-            animationSpec = tween(200)
-        ) + fadeIn(animationSpec = tween(200)),
+            animationSpec = tween(MESSAGE_ENTER_ANIMATION_DURATION)
+        ) + fadeIn(animationSpec = tween(MESSAGE_ENTER_ANIMATION_DURATION)),
         exit = slideOutVertically(
             targetOffsetY = { -it },
-            animationSpec = tween(150)
-        ) + fadeOut(animationSpec = tween(150))
+            animationSpec = tween(MESSAGE_EXIT_ANIMATION_DURATION)
+        ) + fadeOut(animationSpec = tween(MESSAGE_EXIT_ANIMATION_DURATION))
     ) {
         val (colors, iconVector) = when (type) {
             MessageType.INFO -> InfoColors to (icon ?: Icons.Default.Info)

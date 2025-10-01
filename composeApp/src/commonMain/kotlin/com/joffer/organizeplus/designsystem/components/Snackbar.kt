@@ -62,7 +62,11 @@ fun AppSnackbarHost(
         AppSnackbar(
             message = data.visuals.message,
             actionLabel = data.visuals.actionLabel,
-            onActionClick = if (data.visuals.actionLabel != null) { data.performAction() } else null,
+            onActionClick = if (data.visuals.actionLabel != null) {
+                { data.performAction() }
+            } else {
+                null
+            },
             isError = false
         )
     }

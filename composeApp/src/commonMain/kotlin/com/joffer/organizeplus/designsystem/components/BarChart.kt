@@ -28,6 +28,7 @@ private val CHART_HEIGHT = 240.dp
 private val CHART_PADDING = 16.dp
 private val Y_AXIS_LABEL_PADDING = 24.dp
 private val RIGHT_PADDING = 16.dp
+private const val CHART_LABEL_PADDING = 40f
 private val BAR_WIDTH = 18.dp
 private val BAR_SPACING = 12.dp
 private val BAR_CORNER_RADIUS = 4.dp
@@ -152,7 +153,7 @@ private fun CustomBarChart(
     Canvas(modifier = modifier) {
         val canvasWidth = size.width
         val canvasHeight = size.height
-        val padding = 40f // Space for labels
+        val padding = CHART_LABEL_PADDING
         val chartWidth = canvasWidth - padding * 2
         val chartHeight = canvasHeight - padding * 2
         val chartStartX = padding

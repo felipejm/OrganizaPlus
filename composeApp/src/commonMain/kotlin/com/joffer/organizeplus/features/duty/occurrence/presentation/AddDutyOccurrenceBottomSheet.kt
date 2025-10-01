@@ -34,6 +34,8 @@ import organizeplus.composeapp.generated.resources.validation_field_required
 import organizeplus.composeapp.generated.resources.validation_invalid_amount
 import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
+private const val SUCCESS_MESSAGE_DELAY_MS = 2000L
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddDutyOccurrenceBottomSheet(
@@ -47,7 +49,7 @@ fun AddDutyOccurrenceBottomSheet(
 
     LaunchedEffect(uiState.showSuccessMessage) {
         if (uiState.showSuccessMessage) {
-            kotlinx.coroutines.delay(2000)
+            kotlinx.coroutines.delay(SUCCESS_MESSAGE_DELAY_MS)
             onDismiss()
         }
     }

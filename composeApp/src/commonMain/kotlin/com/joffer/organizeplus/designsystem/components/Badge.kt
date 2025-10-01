@@ -27,6 +27,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
+private const val BADGE_SINGLE_DIGIT_MAX = 9
+private const val BADGE_DOUBLE_DIGIT_MAX = 99
+
 enum class BadgeVariant {
     SINGLE_DIGIT, // 1-9
     DOUBLE_DIGIT, // 10-99
@@ -69,11 +72,11 @@ fun OrganizeBadge(
                 count == null || count <= 0 -> {
                     null
                 }
-                count <= 9 -> {
+                count <= BADGE_SINGLE_DIGIT_MAX -> {
                     count.toString()
                 }
                 else -> {
-                    "9+"
+                    "${BADGE_SINGLE_DIGIT_MAX}+"
                 }
             }
         }
@@ -82,11 +85,11 @@ fun OrganizeBadge(
                 count == null || count <= 0 -> {
                     null
                 }
-                count <= 99 -> {
+                count <= BADGE_DOUBLE_DIGIT_MAX -> {
                     count.toString()
                 }
                 else -> {
-                    "99+"
+                    "${BADGE_DOUBLE_DIGIT_MAX}+"
                 }
             }
         }
@@ -248,16 +251,16 @@ fun NotificationBadge(
     onClick: (() -> Unit)? = null
 ) {
     val variant = when {
-        count <= 9 -> BadgeVariant.SINGLE_DIGIT
-        count <= 99 -> BadgeVariant.DOUBLE_DIGIT
+        count <= BADGE_SINGLE_DIGIT_MAX -> BadgeVariant.SINGLE_DIGIT
+        count <= BADGE_DOUBLE_DIGIT_MAX -> BadgeVariant.DOUBLE_DIGIT
         else -> BadgeVariant.DOUBLE_DIGIT
     }
 
     val contentDescription = when {
         count <= 0 -> null
         count == 1 -> "1 notification"
-        count <= 99 -> "$count notifications"
-        else -> "99+ notifications"
+        count <= BADGE_DOUBLE_DIGIT_MAX -> "$count notifications"
+        else -> "${BADGE_DOUBLE_DIGIT_MAX}+ notifications"
     }
 
     OrganizeBadge(
@@ -293,16 +296,16 @@ fun CounterBadge(
     onClick: (() -> Unit)? = null
 ) {
     val variant = when {
-        count <= 9 -> BadgeVariant.SINGLE_DIGIT
-        count <= 99 -> BadgeVariant.DOUBLE_DIGIT
+        count <= BADGE_SINGLE_DIGIT_MAX -> BadgeVariant.SINGLE_DIGIT
+        count <= BADGE_DOUBLE_DIGIT_MAX -> BadgeVariant.DOUBLE_DIGIT
         else -> BadgeVariant.DOUBLE_DIGIT
     }
 
     val contentDescription = when {
         count <= 0 -> null
         count == 1 -> "1 item"
-        count <= 99 -> "$count items"
-        else -> "99+ items"
+        count <= BADGE_DOUBLE_DIGIT_MAX -> "$count items"
+        else -> "${BADGE_DOUBLE_DIGIT_MAX}+ items"
     }
 
     OrganizeBadge(

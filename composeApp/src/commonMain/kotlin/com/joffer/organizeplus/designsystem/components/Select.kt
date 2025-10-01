@@ -29,14 +29,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.Typography
+import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 enum class SelectSize {
     LARGE, MEDIUM, SMALL
@@ -63,9 +62,9 @@ fun OrganizeSelect(
     var expanded by remember { mutableStateOf(false) }
 
     val (height, padding, typography) = when (size) {
-        SelectSize.LARGE -> Triple(48.dp, Spacing.md, Typography.bodyLarge)
-        SelectSize.MEDIUM -> Triple(40.dp, Spacing.sm, Typography.body)
-        SelectSize.SMALL -> Triple(32.dp, Spacing.xs, Typography.bodySmall)
+        SelectSize.LARGE -> Triple(Spacing.iconSize + Spacing.lg, Spacing.md, Typography.bodyLarge)
+        SelectSize.MEDIUM -> Triple(Spacing.buttonHeight, Spacing.sm, Typography.body)
+        SelectSize.SMALL -> Triple(Spacing.iconSize, Spacing.xs, Typography.bodySmall)
     }
 
     val selectedOption = options.find { it.value == selectedValue }
@@ -78,22 +77,22 @@ fun OrganizeSelect(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(height)
-                    .clip(RoundedCornerShape(4.dp))
+                    .clip(RoundedCornerShape(Spacing.Radius.xs))
                     .background(
                         color = when {
-                            isDisabled -> Color(0xFFFAFAFA) // Neutral 100
-                            else -> Color.White
+                            isDisabled -> AppColorScheme.neutral100
+                            else -> AppColorScheme.white
                         }
                     )
                     .border(
-                        width = if (expanded) 2.dp else 1.dp,
+                        width = if (expanded) Spacing.Divider.medium else Spacing.Divider.thin,
                         color = when {
-                            hasError -> Color(0xFFFB612F) // Danger 500
-                            expanded -> Color(0xFF42D9E4) // Primary 500
-                            isDisabled -> Color(0xFFF5F5F5) // Neutral 200
-                            else -> Color(0xFFC2C2C2) // Neutral 400
+                            hasError -> AppColorScheme.danger500
+                            expanded -> AppColorScheme.personalAccent
+                            isDisabled -> AppColorScheme.neutral200
+                            else -> AppColorScheme.neutral400
                         },
-                        shape = RoundedCornerShape(4.dp)
+                        shape = RoundedCornerShape(Spacing.Radius.xs)
                     )
                     .clickable(enabled = enabled) { expanded = !expanded }
                     .padding(horizontal = padding, vertical = Spacing.sm)
@@ -108,9 +107,9 @@ fun OrganizeSelect(
                     text = selectedOption?.label ?: placeholder,
                     style = typography,
                     color = when {
-                        isDisabled -> Color(0xFF8F8F8F) // Neutral 500
-                        selectedOption == null -> Color(0xFF8F8F8F) // Neutral 500
-                        else -> Color(0xFF1F1F1F) // Neutral 700
+                        isDisabled -> AppColorScheme.neutral500
+                        selectedOption == null -> AppColorScheme.neutral500
+                        else -> AppColorScheme.neutral700
                     },
                     fontWeight = if (selectedOption != null) FontWeight.Medium else FontWeight.Normal
                 )
@@ -118,8 +117,8 @@ fun OrganizeSelect(
                 Icon(
                     imageVector = Icons.Default.KeyboardArrowDown,
                     contentDescription = "Dropdown",
-                    tint = if (isDisabled) Color(0xFF8F8F8F) else Color(0xFF1F1F1F),
-                    modifier = Modifier.size(16.dp)
+                    tint = if (isDisabled) AppColorScheme.neutral500 else AppColorScheme.neutral700,
+                    modifier = Modifier.size(Spacing.Icon.xs)
                 )
             }
 
@@ -129,8 +128,8 @@ fun OrganizeSelect(
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(
-                        color = Color.White,
-                        shape = RoundedCornerShape(8.dp)
+                        color = AppColorScheme.white,
+                        shape = RoundedCornerShape(Spacing.Radius.sm)
                     )
             ) {
                 options.forEach { option ->
@@ -144,7 +143,11 @@ fun OrganizeSelect(
                                 Text(
                                     text = option.label,
                                     style = typography,
-                                    color = if (option.disabled) Color(0xFF8F8F8F) else Color(0xFF1F1F1F),
+                                    color = if (option.disabled) {
+                                        AppColorScheme.neutral500
+                                    } else {
+                                        AppColorScheme.neutral700
+                                    },
                                     fontWeight = if (option.value == selectedValue) {
                                         FontWeight.Medium
                                     } else {
@@ -156,8 +159,8 @@ fun OrganizeSelect(
                                     Icon(
                                         imageVector = Icons.Default.Check,
                                         contentDescription = "Selected",
-                                        tint = Color(0xFF42D9E4), // Primary 500
-                                        modifier = Modifier.size(12.dp)
+                                        tint = AppColorScheme.personalAccent,
+                                        modifier = Modifier.size(Spacing.md)
                                     )
                                 }
                             }
@@ -176,11 +179,11 @@ fun OrganizeSelect(
 
         // Helper text or error message
         if (error != null || helper != null) {
-            Spacer(modifier = Modifier.height(4.dp))
+            Spacer(modifier = Modifier.height(Spacing.xs))
             Text(
                 text = error ?: helper ?: "",
                 style = Typography.caption,
-                color = if (error != null) Color(0xFFFB612F) else Color(0xFF8F8F8F),
+                color = if (error != null) AppColorScheme.danger500 else AppColorScheme.neutral500,
                 modifier = Modifier.padding(horizontal = Spacing.xs)
             )
         }

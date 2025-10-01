@@ -5,6 +5,8 @@ import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 
+private const val MIN_VALID_YEAR = 1900
+
 object DateFormatter {
 
     fun getDatePlaceholder(): String {
@@ -49,7 +51,7 @@ fun String.parseDateFromString(): LocalDate? {
             val month = parts[1].toIntOrNull() ?: return null
             val year = parts[2].toIntOrNull() ?: return null
 
-            if (day in 1..31 && month in 1..12 && year > 1900) {
+            if (day in 1..31 && month in 1..12 && year > MIN_VALID_YEAR) {
                 LocalDate(year, month, day)
             } else {
                 null

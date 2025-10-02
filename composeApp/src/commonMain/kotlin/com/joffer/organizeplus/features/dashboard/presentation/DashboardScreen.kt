@@ -15,6 +15,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.joffer.organizeplus.common.constants.CategoryConstants
 import com.joffer.organizeplus.common.utils.DateUtils
+import com.joffer.organizeplus.designsystem.colors.SemanticColors
 import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.components.ErrorBanner
 import com.joffer.organizeplus.designsystem.spacing.Spacing
@@ -26,12 +27,11 @@ import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import org.jetbrains.compose.resources.stringResource
 import organizeplus.composeapp.generated.resources.Res
-import organizeplus.composeapp.generated.resources.settings_button_description
-import com.joffer.organizeplus.designsystem.colors.SemanticColors
 import organizeplus.composeapp.generated.resources.dashboard_create_first_duty
 import organizeplus.composeapp.generated.resources.dashboard_title
 import organizeplus.composeapp.generated.resources.dashboard_welcome_subtitle
 import organizeplus.composeapp.generated.resources.dashboard_welcome_title
+import organizeplus.composeapp.generated.resources.settings_button_description
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

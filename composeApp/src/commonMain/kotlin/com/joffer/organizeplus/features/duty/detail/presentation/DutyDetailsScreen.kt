@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.*
@@ -13,6 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.joffer.organizeplus.designsystem.colors.SemanticColors
 import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.components.ErrorBanner
 import com.joffer.organizeplus.designsystem.components.ResultType
@@ -32,7 +32,6 @@ import organizeplus.composeapp.generated.resources.duty_occurrence_list_add_occu
 import organizeplus.composeapp.generated.resources.duty_occurrence_list_empty_subtitle
 import organizeplus.composeapp.generated.resources.duty_occurrence_list_empty_title
 import organizeplus.composeapp.generated.resources.duty_occurrence_list_title
-import com.joffer.organizeplus.designsystem.colors.SemanticColors
 
 private val EMPTY_STATE_HEIGHT = 400.dp
 
@@ -44,7 +43,6 @@ fun DutyDetailsScreen(
     onEditDuty: (Long, String) -> Unit,
     modifier: Modifier = Modifier
 ) {
-
     val uiState by viewModel.uiState.collectAsState()
 
     var showAddOccurrenceBottomSheet by remember { mutableStateOf(false) }
@@ -55,25 +53,10 @@ fun DutyDetailsScreen(
 
     Scaffold(
         modifier = modifier.fillMaxSize(),
+        contentColor = SemanticColors.Background.primary,
         topBar = {
-            TopAppBar(
-                title = {
-                    Text(
-                        text = uiState.duty?.title.orEmpty(),
-                        style = DesignSystemTypography().headlineSmall,
-                        color = SemanticColors.Foreground.primary,
-                        fontWeight = FontWeight.Bold
-                    )
-                },
-                navigationIcon = {
-                    IconButton(onClick = onNavigateBack) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Back",
-                            tint = SemanticColors.Foreground.primary
-                        )
-                    }
-                },
+            AppTopAppBarWithBackButton(
+                onBackClick = onNavigateBack,
                 actions = {
                     IconButton(onClick = {
                         uiState.duty?.let { duty ->
@@ -87,12 +70,6 @@ fun DutyDetailsScreen(
                         )
                     }
                 },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = SemanticColors.Background.surface,
-                    titleContentColor = SemanticColors.Foreground.primary,
-                    navigationIconContentColor = SemanticColors.Foreground.primary,
-                    actionIconContentColor = SemanticColors.Foreground.brand
-                )
             )
         }
     ) { paddingValues ->
@@ -118,7 +95,6 @@ fun DutyDetailsScreen(
             )
         }
     }
-
 }
 
 @Composable
@@ -186,6 +162,14 @@ private fun DutyDetailsDataContent(
         contentPadding = PaddingValues(Spacing.md),
         verticalArrangement = Arrangement.spacedBy(Spacing.md)
     ) {
+        item {
+            Text(
+                text = uiState.duty?.title.orEmpty(),
+                style = DesignSystemTypography().headlineLarge,
+                color = SemanticColors.Foreground.primary,
+                fontWeight = FontWeight.Black
+            )
+        }
         // Duty Header Information
         uiState.duty?.let { duty ->
             item {

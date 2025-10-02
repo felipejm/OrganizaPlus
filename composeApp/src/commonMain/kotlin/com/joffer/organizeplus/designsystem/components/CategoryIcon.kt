@@ -13,12 +13,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import com.joffer.organizeplus.common.constants.CategoryConstants
-import com.joffer.organizeplus.designsystem.spacing.Spacing
-import org.jetbrains.compose.resources.painterResource
-import organizeplus.composeapp.generated.resources.Res
-import organizeplus.composeapp.generated.resources.ic_company
-import organizeplus.composeapp.generated.resources.ic_personal
 import com.joffer.organizeplus.designsystem.colors.SemanticColors
+import com.joffer.organizeplus.designsystem.spacing.Spacing
 
 private const val CATEGORY_ICON_SIZE_RATIO = 0.6f
 

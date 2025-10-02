@@ -82,7 +82,6 @@ fun CreateDutyScreen(
                 .padding(paddingValues)
                 .padding(horizontal = Spacing.md)
         ) {
-
             Text(
                 text = if (formState.id == 0L) {
                     stringResource(

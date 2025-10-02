@@ -8,6 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import com.joffer.organizeplus.common.utils.DateUtils
 import com.joffer.organizeplus.common.utils.toCurrencyFormat
+import com.joffer.organizeplus.designsystem.colors.SemanticColors
 import com.joffer.organizeplus.designsystem.components.OrganizeCard
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
@@ -15,7 +16,6 @@ import com.joffer.organizeplus.features.duty.occurrence.domain.entities.DutyOccu
 import org.jetbrains.compose.resources.stringResource
 import organizeplus.composeapp.generated.resources.Res
 import organizeplus.composeapp.generated.resources.duty_occurrence_list_delete
-import com.joffer.organizeplus.designsystem.colors.SemanticColors
 
 @Composable
 fun DutyOccurrenceListItem(

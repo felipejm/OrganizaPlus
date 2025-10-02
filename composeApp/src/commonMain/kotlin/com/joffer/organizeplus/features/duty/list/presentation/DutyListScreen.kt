@@ -12,11 +12,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight.Companion.Black
 import com.joffer.organizeplus.common.utils.DateUtils
+import com.joffer.organizeplus.designsystem.colors.SemanticColors
 import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.components.ResultType
 import com.joffer.organizeplus.designsystem.spacing.Spacing
-import com.joffer.organizeplus.designsystem.typography.ProvideSfProTypography
 import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
+import com.joffer.organizeplus.designsystem.typography.ProvideSfProTypography
 import com.joffer.organizeplus.features.duty.list.components.DutyListItem
 import com.joffer.organizeplus.features.duty.list.domain.DutyCategoryFilter
 import kotlinx.datetime.Clock
@@ -32,7 +33,6 @@ import organizeplus.composeapp.generated.resources.duty_list_empty_title
 import organizeplus.composeapp.generated.resources.duty_list_error_subtitle
 import organizeplus.composeapp.generated.resources.duty_list_error_title
 import organizeplus.composeapp.generated.resources.duty_list_retry
-import com.joffer.organizeplus.designsystem.colors.SemanticColors
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

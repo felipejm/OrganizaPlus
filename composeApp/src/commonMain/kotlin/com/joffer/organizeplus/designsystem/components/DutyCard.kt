@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import com.joffer.organizeplus.designsystem.colors.SemanticColors
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
 import com.joffer.organizeplus.features.dashboard.domain.entities.DutyType
@@ -25,7 +26,6 @@ import organizeplus.composeapp.generated.resources.duty_list_paid
 import organizeplus.composeapp.generated.resources.duty_list_separator
 import organizeplus.composeapp.generated.resources.duty_type_actionable
 import organizeplus.composeapp.generated.resources.duty_type_payable
-import com.joffer.organizeplus.designsystem.colors.SemanticColors
 
 /**
  * Reusable duty card component that can be used in both dashboard and duty list screens

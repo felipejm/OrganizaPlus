@@ -7,8 +7,10 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.joffer.organizeplus.designsystem.spacing.Spacing
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.Dp
 import com.joffer.organizeplus.designsystem.colors.SemanticColors
+import com.joffer.organizeplus.designsystem.spacing.Spacing
 
 /**
  * Design system progress indicator component
@@ -16,9 +18,9 @@ import com.joffer.organizeplus.designsystem.colors.SemanticColors
 @Composable
 fun OrganizeProgressIndicator(
     modifier: Modifier = Modifier,
-    size: androidx.compose.ui.unit.Dp = Spacing.Icon.xl,
-    strokeWidth: androidx.compose.ui.unit.Dp = Spacing.xs,
-    color: androidx.compose.ui.graphics.Color = SemanticColors.Foreground.interactive
+    size: Dp = Spacing.Icon.xl,
+    strokeWidth: Dp = Spacing.xs,
+    color: Color = SemanticColors.Background.brand
 ) {
     CircularProgressIndicator(
         modifier = modifier.size(size),
@@ -33,9 +35,9 @@ fun OrganizeProgressIndicator(
 @Composable
 fun OrganizeProgressIndicatorFullScreen(
     modifier: Modifier = Modifier,
-    size: androidx.compose.ui.unit.Dp = Spacing.Icon.xl,
-    strokeWidth: androidx.compose.ui.unit.Dp = Spacing.xs,
-    color: androidx.compose.ui.graphics.Color = SemanticColors.Foreground.interactive
+    size: Dp = Spacing.Icon.xl,
+    strokeWidth: Dp = Spacing.xs,
+    color: Color = SemanticColors.Background.brand
 ) {
     Box(
         modifier = modifier.fillMaxSize(),
@@ -55,9 +57,9 @@ fun OrganizeProgressIndicatorFullScreen(
 @Composable
 fun OrganizeProgressIndicatorInline(
     modifier: Modifier = Modifier,
-    size: androidx.compose.ui.unit.Dp = Spacing.Icon.sm,
-    strokeWidth: androidx.compose.ui.unit.Dp = Spacing.Divider.medium,
-    color: androidx.compose.ui.graphics.Color = SemanticColors.Foreground.interactive
+    size: Dp = Spacing.Icon.sm,
+    strokeWidth: Dp = Spacing.Divider.medium,
+    color: Color = SemanticColors.Background.brand
 ) {
     OrganizeProgressIndicator(
         modifier = modifier,

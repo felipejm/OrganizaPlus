@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import com.joffer.organizeplus.common.constants.CategoryConstants
 import com.joffer.organizeplus.common.utils.CurrencyUtils
 import com.joffer.organizeplus.common.utils.DateUtils
+import com.joffer.organizeplus.designsystem.colors.SemanticColors
 import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
@@ -31,7 +32,6 @@ import organizeplus.composeapp.generated.resources.dashboard_monthly_summary
 import organizeplus.composeapp.generated.resources.dashboard_personal_duties
 import organizeplus.composeapp.generated.resources.dashboard_tasks_done
 import organizeplus.composeapp.generated.resources.view_all_duties
-import com.joffer.organizeplus.designsystem.colors.SemanticColors
 
 // Component-specific constants
 private val ACCENT_BAR_WIDTH = 4.dp

@@ -32,10 +32,10 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.joffer.organizeplus.designsystem.colors.SemanticColors
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
 import kotlinx.coroutines.delay
-import com.joffer.organizeplus.designsystem.colors.SemanticColors
 
 enum class ResultType {
     SUCCESS, ERROR, WARNING, INFO

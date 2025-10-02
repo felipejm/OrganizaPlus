@@ -12,6 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.KeyboardType
+import com.joffer.organizeplus.designsystem.colors.SemanticColors
 import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
@@ -34,7 +35,6 @@ import organizeplus.composeapp.generated.resources.duty_occurrence_saved
 import organizeplus.composeapp.generated.resources.validation_date_required
 import organizeplus.composeapp.generated.resources.validation_field_required
 import organizeplus.composeapp.generated.resources.validation_invalid_amount
-import com.joffer.organizeplus.designsystem.colors.SemanticColors
 
 private const val SUCCESS_MESSAGE_DELAY_MS = 2000L
 

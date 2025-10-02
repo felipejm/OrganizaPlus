@@ -3,166 +3,170 @@ package com.joffer.organizeplus.designsystem.colors
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
 
+/**
+ * Main color scheme that provides access to both primitive and semantic colors.
+ * This class maintains backward compatibility while delegating to the new color structure.
+ */
 @Immutable
 object ColorScheme {
 
-    // ===== NEUTRAL COLORS =====
-    val black = Color(0xFF000000)
-    val white = Color(0xFFFFFFFF)
-    val neutral700 = Color(0xFF1F1F1F)
-    val neutral600 = Color(0xFF4F4F4F)
-    val neutral500 = Color(0xFF8F8F8F)
-    val neutral400 = Color(0xFFC2C2C2)
-    val neutral300 = Color(0xFFE1E1E1)
-    val neutral200 = Color(0xFFF5F5F5)
-    val neutral100 = Color(0xFFFAFAFA)
-    val neutral50 = Color(0xFFFCFCFC)
+    // ===== PRIMITIVE COLORS DELEGATION =====
+    // Delegate to PrimitiveColors for low-level color tokens
+    val black = PrimitiveColors.black
+    val white = PrimitiveColors.white
+    val neutral700 = PrimitiveColors.neutral700
+    val neutral600 = PrimitiveColors.neutral600
+    val neutral500 = PrimitiveColors.neutral500
+    val neutral400 = PrimitiveColors.neutral400
+    val neutral300 = PrimitiveColors.neutral300
+    val neutral200 = PrimitiveColors.neutral200
+    val neutral100 = PrimitiveColors.neutral100
+    val neutral50 = PrimitiveColors.neutral50
 
-    // ===== PRIMARY COLORS =====
-    val primary700 = Color(0xFFC0392B) // Darker red
-    val primary600 = Color(0xFFD63031) // Dark red
-    val primary500 = Color(0xFFE74C3C) // Main red (#E74C3C)
-    val primary400 = Color(0xFFE67E22) // Orange-red
-    val primary300 = Color(0xFFF39C12) // Light orange
-    val primary200 = Color(0xFFFDCB6E) // Very light orange
-    val primary100 = Color(0xFFFFE0B2) // Lightest orange
-    val primary50 = Color(0xFFFFF8F0) // Almost white with orange tint
+    // ===== PRIMARY COLORS DELEGATION =====
+    val primary700 = PrimitiveColors.primary700
+    val primary600 = PrimitiveColors.primary600
+    val primary500 = PrimitiveColors.primary500
+    val primary400 = PrimitiveColors.primary400
+    val primary300 = PrimitiveColors.primary300
+    val primary200 = PrimitiveColors.primary200
+    val primary100 = PrimitiveColors.primary100
+    val primary50 = PrimitiveColors.primary50
 
-    // ===== AUXILIARY COLORS =====
-    val auxiliary700 = Color(0xFFF36C3F)
-    val auxiliary600 = Color(0xFFFB815A)
-    val auxiliary500 = Color(0xFFFFA447)
-    val auxiliary400 = Color(0xFFFFB586)
-    val auxiliary300 = Color(0xFFFFD1B0)
-    val auxiliary200 = Color(0xFFFFE8DE)
-    val auxiliary100 = Color(0xFFFFF2F2)
-    val auxiliary50 = Color(0xFFFFF8F6)
+    // ===== AUXILIARY COLORS DELEGATION =====
+    val auxiliary700 = PrimitiveColors.auxiliary700
+    val auxiliary600 = PrimitiveColors.auxiliary600
+    val auxiliary500 = PrimitiveColors.auxiliary500
+    val auxiliary400 = PrimitiveColors.auxiliary400
+    val auxiliary300 = PrimitiveColors.auxiliary300
+    val auxiliary200 = PrimitiveColors.auxiliary200
+    val auxiliary100 = PrimitiveColors.auxiliary100
+    val auxiliary50 = PrimitiveColors.auxiliary50
 
-    // ===== SEMANTIC COLORS - DANGER =====
-    val danger700 = Color(0xFFE42312)
-    val danger600 = Color(0xFFF54A2C)
-    val danger500 = Color(0xFFFB612F)
-    val danger400 = Color(0xFFFE8055)
-    val danger300 = Color(0xFFFF9B7A)
-    val danger200 = Color(0xFFFFBEBF)
-    val danger100 = Color(0xFFFFE7E2)
-    val danger50 = Color(0xFFFFF3F3)
+    // ===== SEMANTIC COLORS - DANGER DELEGATION =====
+    val danger700 = PrimitiveColors.danger700
+    val danger600 = PrimitiveColors.danger600
+    val danger500 = PrimitiveColors.danger500
+    val danger400 = PrimitiveColors.danger400
+    val danger300 = PrimitiveColors.danger300
+    val danger200 = PrimitiveColors.danger200
+    val danger100 = PrimitiveColors.danger100
+    val danger50 = PrimitiveColors.danger50
 
-    // ===== SEMANTIC COLORS - WARNING =====
-    val warning700 = Color(0xFFF29D0E)
-    val warning600 = Color(0xFFF5B42C)
-    val warning500 = Color(0xFFFFC542)
-    val warning400 = Color(0xFFFFE16D)
-    val warning300 = Color(0xFFFFED83)
-    val warning200 = Color(0xFFFFF1BE)
-    val warning100 = Color(0xFFFFF6D2)
-    val warning50 = Color(0xFFFFFAF3)
+    // ===== SEMANTIC COLORS - WARNING DELEGATION =====
+    val warning700 = PrimitiveColors.warning700
+    val warning600 = PrimitiveColors.warning600
+    val warning500 = PrimitiveColors.warning500
+    val warning400 = PrimitiveColors.warning400
+    val warning300 = PrimitiveColors.warning300
+    val warning200 = PrimitiveColors.warning200
+    val warning100 = PrimitiveColors.warning100
+    val warning50 = PrimitiveColors.warning50
 
-    // ===== SEMANTIC COLORS - SUCCESS =====
-    val success700 = Color(0xFF1E9E4B)
-    val success600 = Color(0xFF44B76C)
-    val success500 = Color(0xFF63C684)
-    val success400 = Color(0xFF80D4A4)
-    val success300 = Color(0xFFA1E2BF)
-    val success200 = Color(0xFFC5EFD9)
-    val success100 = Color(0xFFE0F7EB)
-    val success50 = Color(0xFFF0FBF7)
+    // ===== SEMANTIC COLORS - SUCCESS DELEGATION =====
+    val success700 = PrimitiveColors.success700
+    val success600 = PrimitiveColors.success600
+    val success500 = PrimitiveColors.success500
+    val success400 = PrimitiveColors.success400
+    val success300 = PrimitiveColors.success300
+    val success200 = PrimitiveColors.success200
+    val success100 = PrimitiveColors.success100
+    val success50 = PrimitiveColors.success50
 
-    // ===== SEMANTIC COLORS - INFO =====
-    val info700 = Color(0xFF1A70D2)
-    val info600 = Color(0xFF2E8CF0)
-    val info500 = Color(0xFF4DA7FF)
-    val info400 = Color(0xFF74BDFF)
-    val info300 = Color(0xFF91CFFF)
-    val info200 = Color(0xFFC7E4FF)
-    val info100 = Color(0xFFE4F3FF)
-    val info50 = Color(0xFFF0F8FF)
+    // ===== SEMANTIC COLORS - INFO DELEGATION =====
+    val info700 = PrimitiveColors.info700
+    val info600 = PrimitiveColors.info600
+    val info500 = PrimitiveColors.info500
+    val info400 = PrimitiveColors.info400
+    val info300 = PrimitiveColors.info300
+    val info200 = PrimitiveColors.info200
+    val info100 = PrimitiveColors.info100
+    val info50 = PrimitiveColors.info50
 
     // ===== MATERIAL DESIGN 3 MAPPING =====
     // Primary colors mapped to new primary palette
-    val primary = black
-    val onPrimary = white
-    val primaryContainer = primary100
-    val onPrimaryContainer = primary700
+    val primary = SemanticColors.Foreground.brand
+    val onPrimary = SemanticColors.OnBackground.onBrand
+    val primaryContainer = SemanticColors.Background.brandContainer
+    val onPrimaryContainer = SemanticColors.OnBackground.onBrandContainer
 
     // Secondary colors mapped to auxiliary palette
-    val secondary = auxiliary500
-    val onSecondary = white
-    val secondaryContainer = auxiliary100
-    val onSecondaryContainer = auxiliary700
+    val secondary = PrimitiveColors.auxiliary500
+    val onSecondary = PrimitiveColors.white
+    val secondaryContainer = PrimitiveColors.auxiliary100
+    val onSecondaryContainer = PrimitiveColors.auxiliary700
 
     // Tertiary colors mapped to info palette
-    val tertiary = info500
-    val onTertiary = white
-    val tertiaryContainer = info100
-    val onTertiaryContainer = info700
+    val tertiary = SemanticColors.Foreground.info
+    val onTertiary = PrimitiveColors.white
+    val tertiaryContainer = SemanticColors.Background.info
+    val onTertiaryContainer = SemanticColors.OnBackground.onInfo
 
     // Error colors mapped to danger palette
-    val error = danger500
-    val onError = white
-    val errorContainer = danger100
-    val onErrorContainer = danger700
+    val error = SemanticColors.Foreground.error
+    val onError = PrimitiveColors.white
+    val errorContainer = SemanticColors.Background.error
+    val onErrorContainer = SemanticColors.OnBackground.onError
 
     // Background and surface colors
-    val background = white
-    val onBackground = neutral700
-    val surface = white
-    val onSurface = neutral700
-    val surfaceVariant = neutral100
-    val onSurfaceVariant = neutral600
+    val background = SemanticColors.Background.primary
+    val onBackground = SemanticColors.OnBackground.primary
+    val surface = SemanticColors.Background.surface
+    val onSurface = SemanticColors.OnBackground.onSurface
+    val surfaceVariant = SemanticColors.Background.surfaceVariant
+    val onSurfaceVariant = SemanticColors.OnBackground.onSurfaceVariant
 
     // Outline colors
-    val outline = neutral300
-    val outlineVariant = neutral200
+    val outline = SemanticColors.Border.outline
+    val outlineVariant = SemanticColors.Border.outlineVariant
 
     // Additional surface colors
-    val scrim = Color(0x80000000)
-    val inverseSurface = neutral700
-    val inverseOnSurface = white
-    val inversePrimary = primary300
+    val scrim = PrimitiveColors.scrim
+    val inverseSurface = PrimitiveColors.neutral700
+    val inverseOnSurface = PrimitiveColors.white
+    val inversePrimary = PrimitiveColors.primary300
 
-    val surfaceContainerLow = neutral50
+    val surfaceContainerLow = SemanticColors.Background.surfaceContainerLow
 
     // ===== FORM COLORS =====
-    val formLabel = neutral700
-    val formText = neutral700
-    val formPlaceholder = neutral500
-    val formBorder = neutral300
-    val formBackground = white
-    val formSecondaryText = neutral600
-    val formIcon = neutral500
+    val formLabel = SemanticColors.Foreground.primary
+    val formText = SemanticColors.Foreground.primary
+    val formPlaceholder = SemanticColors.Foreground.tertiary
+    val formBorder = SemanticColors.Border.primary
+    val formBackground = SemanticColors.Background.primary
+    val formSecondaryText = SemanticColors.Foreground.secondary
+    val formIcon = SemanticColors.Foreground.tertiary
 
     // ===== LEGACY COLORS (for backward compatibility) =====
-
-    val iconOrange = auxiliary500
-    val iconBlue = info500
-    val iconOrangeContainer = auxiliary100
-    val iconBlueContainer = info100
+    val iconOrange = SemanticColors.Legacy.iconOrange
+    val iconBlue = SemanticColors.Legacy.iconBlue
+    val iconOrangeContainer = SemanticColors.Legacy.iconOrangeContainer
+    val iconBlueContainer = SemanticColors.Legacy.iconBlueContainer
 
     // ===== DASHBOARD SPECIFIC COLORS =====
     // Personal accent colors
-    val personalAccent = Color(0xFF42D9E4) // Teal
-    val personalAccentLight = Color(0xFFE6F4FF) // Light teal
+    val personalAccent = SemanticColors.Legacy.personalAccent
+    val personalAccentLight = SemanticColors.Legacy.personalAccentLight
 
     // Company accent colors
-    val companyAccent = Color(0xFFFF9800) // Amber
-    val companyAccentLight = Color(0xFFFFF3E0) // Light amber
+    val companyAccent = SemanticColors.Legacy.companyAccent
+    val companyAccentLight = SemanticColors.Legacy.companyAccentLight
 
     // Dashboard specific colors
-    val overdueText = Color(0xFFE53935) // Red for overdue
-    val amountPaid = Color(0xFF2E7D32) // Green for amount paid
-    val summaryMonthLabel = overdueText // Red for month label
-    val summaryBackground = Color(0xFFFDECEC) // Soft tinted background for summary
+    val overdueText = SemanticColors.Legacy.overdueText
+    val amountPaid = SemanticColors.Legacy.amountPaid
+    val summaryMonthLabel = SemanticColors.Legacy.summaryMonthLabel
+    val summaryBackground = SemanticColors.Legacy.summaryBackground
 
     // Text colors
-    val sectionHeader = neutral700 // #1F1F1F
-    val dutyTitle = neutral700 // #1F1F1F
-    val dutyMeta = neutral600 // #6B6B6B
-    val lastOccurrence = overdueText // #E53935 for overdue
+    val sectionHeader = SemanticColors.Legacy.sectionHeader
+    val dutyTitle = SemanticColors.Legacy.dutyTitle
+    val dutyMeta = SemanticColors.Legacy.dutyMeta
+    val lastOccurrence = SemanticColors.Legacy.lastOccurrence
 
     // Background colors
-    val cardBackground = white // #FFFFFF
+    val cardBackground = SemanticColors.Legacy.cardBackground
 
     // Divider colors
-    val divider = neutral300 // #E1E1E1
+    val divider = SemanticColors.Legacy.divider
 }

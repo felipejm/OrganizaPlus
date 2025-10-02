@@ -108,7 +108,7 @@ fun AppNavigation(
             // Type-safe route extraction using toRoute()
             val editDuty = backStackEntry.toRoute<EditDuty>()
             val createDutyViewModel: CreateDutyViewModel =
-                koinInject { parametersOf(editDuty.dutyId) }
+                koinInject { parametersOf(editDuty.dutyId, editDuty.categoryName) }
             CreateDutyScreen(
                 viewModel = createDutyViewModel,
                 onNavigateBack = {
@@ -126,8 +126,8 @@ fun AppNavigation(
                 onNavigateBack = {
                     navController.popBackStack()
                 },
-                onEditDuty = { editDutyId ->
-                    navController.navigate(EditDuty(editDutyId))
+                onEditDuty = { editDutyId, categoryName ->
+                    navController.navigate(EditDuty(editDutyId, categoryName))
                 }
             )
         }

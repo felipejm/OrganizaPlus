@@ -28,7 +28,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import com.joffer.organizeplus.designsystem.spacing.Spacing
-import com.joffer.organizeplus.designsystem.typography.Typography
+import com.joffer.organizeplus.designsystem.typography.localTypography
 import kotlinx.coroutines.delay
 import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
@@ -40,6 +40,7 @@ fun AppToast(
     duration: Long = 2000L, // 2 seconds
     modifier: Modifier = Modifier
 ) {
+    val typography = localTypography()
     var showToast by remember { mutableStateOf(false) }
 
     LaunchedEffect(isVisible) {
@@ -86,7 +87,7 @@ fun AppToast(
 
                 Text(
                     text = message,
-                    style = Typography.bodyMedium,
+                    style = typography.bodyMedium,
                     color = Color.White,
                     modifier = Modifier.weight(1f)
                 )

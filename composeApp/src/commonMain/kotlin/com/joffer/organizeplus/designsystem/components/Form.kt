@@ -19,7 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.joffer.organizeplus.designsystem.spacing.Spacing
-import com.joffer.organizeplus.designsystem.typography.Typography
+import com.joffer.organizeplus.designsystem.typography.localTypography
 import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 enum class FormLayout {
@@ -51,6 +51,7 @@ fun OrganizeFormField(
     layout: FormLayout = FormLayout.LEFT_ALIGNED,
     required: Boolean = false
 ) {
+    val typography = localTypography()
     when (layout) {
         FormLayout.LEFT_ALIGNED -> {
             Column(modifier = modifier) {
@@ -123,10 +124,11 @@ fun OrganizeFormSection(
     content: @Composable () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val typography = localTypography()
     Column(modifier = modifier) {
         Text(
             text = title,
-            style = Typography.titleMedium,
+            style = typography.titleMedium,
             color = AppColorScheme.neutral700,
             fontWeight = FontWeight.Medium
         )
@@ -135,7 +137,7 @@ fun OrganizeFormSection(
             Spacer(modifier = Modifier.height(Spacing.xs))
             Text(
                 text = description,
-                style = Typography.body,
+                style = typography.bodyMedium,
                 color = AppColorScheme.neutral500
             )
         }
@@ -194,13 +196,14 @@ private fun FormLabel(
     required: Boolean = false,
     modifier: Modifier = Modifier
 ) {
+    val typography = localTypography()
     Row(
         modifier = modifier,
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
             text = text,
-            style = Typography.body,
+            style = typography.bodyMedium,
             color = AppColorScheme.neutral600,
             fontWeight = FontWeight.Normal
         )
@@ -208,7 +211,7 @@ private fun FormLabel(
             Spacer(modifier = Modifier.width(Spacing.xs))
             Text(
                 text = "*",
-                style = Typography.body,
+                style = typography.bodyMedium,
                 color = AppColorScheme.danger500,
                 fontWeight = FontWeight.Medium
             )
@@ -222,10 +225,11 @@ private fun FormHelperOrError(
     error: String? = null,
     modifier: Modifier = Modifier
 ) {
+    val typography = localTypography()
     if (error != null || helper != null) {
         Text(
             text = error ?: helper ?: "",
-            style = Typography.caption,
+            style = typography.caption,
             color = if (error != null) AppColorScheme.danger500 else AppColorScheme.neutral500,
             modifier = modifier
         )
@@ -237,6 +241,7 @@ fun OrganizeFormValidationBanner(
     message: String,
     modifier: Modifier = Modifier
 ) {
+    val typography = localTypography()
     Box(
         modifier = modifier
             .fillMaxWidth()
@@ -248,7 +253,7 @@ fun OrganizeFormValidationBanner(
     ) {
         Text(
             text = message,
-            style = Typography.body,
+            style = typography.bodyMedium,
             color = AppColorScheme.danger700,
             fontWeight = FontWeight.Medium
         )

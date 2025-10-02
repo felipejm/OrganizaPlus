@@ -10,13 +10,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import com.joffer.organizeplus.designsystem.spacing.Spacing
-import com.joffer.organizeplus.designsystem.typography.Typography
+import com.joffer.organizeplus.designsystem.typography.localTypography
 
 @Composable
 fun EmptyState(
     onAddObligation: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val typography = localTypography()
     OrganizeCard(
         modifier = modifier.fillMaxWidth()
     ) {
@@ -38,7 +39,7 @@ fun EmptyState(
 
             Text(
                 text = "Nenhuma obrigação criada ainda",
-                style = Typography.titleMedium,
+                style = typography.titleMedium,
                 fontWeight = FontWeight.Medium,
                 color = MaterialTheme.colorScheme.onSurface,
                 textAlign = TextAlign.Center
@@ -48,7 +49,7 @@ fun EmptyState(
 
             Text(
                 text = "Comece organizando suas obrigações financeiras e mantenha tudo sob controle.",
-                style = Typography.bodyMedium,
+                style = typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 textAlign = TextAlign.Center
             )

@@ -15,7 +15,7 @@ data class CreateDutyWithCategory(val category: String)
 data class Duties(val category: String)
 
 @Serializable
-data class EditDuty(val dutyId: Long)
+data class EditDuty(val dutyId: Long, val categoryName: String)
 
 @Serializable
 data class DutyOccurrences(val dutyId: Long)

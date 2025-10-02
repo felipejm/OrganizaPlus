@@ -27,7 +27,7 @@ import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import com.joffer.organizeplus.designsystem.spacing.Spacing
-import com.joffer.organizeplus.designsystem.typography.Typography
+import com.joffer.organizeplus.designsystem.typography.localTypography
 import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 data class RadioOption(
@@ -74,6 +74,7 @@ private fun OrganizeRadioItem(
     modifier: Modifier = Modifier,
     enabled: Boolean = true
 ) {
+    val typography = localTypography()
     Row(
         modifier = modifier
             .selectable(
@@ -131,7 +132,7 @@ private fun OrganizeRadioItem(
 
         Text(
             text = option.label,
-            style = Typography.body,
+            style = typography.bodyMedium,
             color = when {
                 !enabled -> AppColorScheme.neutral500
                 else -> AppColorScheme.neutral700
@@ -155,11 +156,12 @@ fun OrganizeRadioGroup(
     orientation: RadioOrientation = RadioOrientation.VERTICAL,
     label: String? = null
 ) {
+    val typography = localTypography()
     Column(modifier = modifier) {
         if (label != null) {
             Text(
                 text = label,
-                style = Typography.body,
+                style = typography.bodyMedium,
                 color = AppColorScheme.neutral600,
                 fontWeight = FontWeight.Normal,
                 modifier = Modifier.padding(bottom = Spacing.xs)

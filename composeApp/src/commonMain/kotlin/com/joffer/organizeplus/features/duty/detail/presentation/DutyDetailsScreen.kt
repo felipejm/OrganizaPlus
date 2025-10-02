@@ -41,7 +41,7 @@ private val EMPTY_STATE_HEIGHT = 400.dp
 fun DutyDetailsScreen(
     viewModel: DutyDetailsListViewModel,
     onNavigateBack: () -> Unit,
-    onEditDuty: (Long) -> Unit,
+    onEditDuty: (Long, String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     ProvideSfProTypography {
@@ -60,7 +60,11 @@ fun DutyDetailsScreen(
             title = uiState.duty?.title ?: stringResource(Res.string.duty_occurrence_list_title),
             onBackClick = onNavigateBack,
             actions = {
-                IconButton(onClick = { uiState.duty?.id?.let(onEditDuty) }) {
+                IconButton(onClick = { 
+                    uiState.duty?.let { duty ->
+                        onEditDuty(duty.id, duty.categoryName)
+                    }
+                }) {
                     Icon(
                         imageVector = Icons.Default.Edit,
                         contentDescription = stringResource(Res.string.duty_detail_edit),

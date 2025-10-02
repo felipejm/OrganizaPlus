@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.spacing.Spacing
+import com.joffer.organizeplus.designsystem.typography.ProvideSfProTypography
 import com.joffer.organizeplus.features.dashboard.domain.entities.DutyType
 import com.joffer.organizeplus.features.duty.create.domain.entities.CreateDutyFormField
 import com.joffer.organizeplus.features.duty.create.domain.entities.CreateDutyValidationError
@@ -62,7 +63,9 @@ fun CreateDutyScreen(
             )
         }
     }
-    Scaffold(
+    
+    ProvideSfProTypography {
+        Scaffold(
         topBar = {
             AppTopAppBarWithBackButton(
                 title = if (formState.id == null) {
@@ -145,6 +148,7 @@ fun CreateDutyScreen(
                 )
             }
         }
+    }
     }
 }
 

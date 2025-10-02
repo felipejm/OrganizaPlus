@@ -38,7 +38,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.joffer.organizeplus.designsystem.spacing.Spacing
-import com.joffer.organizeplus.designsystem.typography.Typography
+import com.joffer.organizeplus.designsystem.typography.localTypography
 import kotlinx.coroutines.delay
 import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
@@ -59,6 +59,7 @@ fun OrganizeMessage(
     duration: Long = 4000L,
     onDismiss: (() -> Unit)? = null
 ) {
+    val typography = localTypography()
     var isVisible by remember { mutableStateOf(true) }
 
     LaunchedEffect(Unit) {
@@ -120,7 +121,7 @@ fun OrganizeMessage(
 
                 Text(
                     text = message,
-                    style = Typography.body,
+                    style = typography.bodyMedium,
                     color = colors.text,
                     fontWeight = FontWeight.Normal
                 )

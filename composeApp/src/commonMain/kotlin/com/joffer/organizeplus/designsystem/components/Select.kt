@@ -34,7 +34,7 @@ import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import com.joffer.organizeplus.designsystem.spacing.Spacing
-import com.joffer.organizeplus.designsystem.typography.Typography
+import com.joffer.organizeplus.designsystem.typography.localTypography
 import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 enum class SelectSize {
@@ -60,11 +60,12 @@ fun OrganizeSelect(
     helper: String? = null
 ) {
     var expanded by remember { mutableStateOf(false) }
+    val localTypography = localTypography()
 
-    val (height, padding, typography) = when (size) {
-        SelectSize.LARGE -> Triple(Spacing.iconSize + Spacing.lg, Spacing.md, Typography.bodyLarge)
-        SelectSize.MEDIUM -> Triple(Spacing.buttonHeight, Spacing.sm, Typography.body)
-        SelectSize.SMALL -> Triple(Spacing.iconSize, Spacing.xs, Typography.bodySmall)
+    val (height, padding, textStyle) = when (size) {
+        SelectSize.LARGE -> Triple(Spacing.iconSize + Spacing.lg, Spacing.md, localTypography.bodyLarge)
+        SelectSize.MEDIUM -> Triple(Spacing.buttonHeight, Spacing.sm, localTypography.bodyMedium)
+        SelectSize.SMALL -> Triple(Spacing.iconSize, Spacing.xs, localTypography.bodySmall)
     }
 
     val selectedOption = options.find { it.value == selectedValue }
@@ -105,7 +106,7 @@ fun OrganizeSelect(
             ) {
                 Text(
                     text = selectedOption?.label ?: placeholder,
-                    style = typography,
+                    style = textStyle,
                     color = when {
                         isDisabled -> AppColorScheme.neutral500
                         selectedOption == null -> AppColorScheme.neutral500
@@ -142,7 +143,7 @@ fun OrganizeSelect(
                             ) {
                                 Text(
                                     text = option.label,
-                                    style = typography,
+                                    style = textStyle,
                                     color = if (option.disabled) {
                                         AppColorScheme.neutral500
                                     } else {
@@ -182,7 +183,7 @@ fun OrganizeSelect(
             Spacer(modifier = Modifier.height(Spacing.xs))
             Text(
                 text = error ?: helper ?: "",
-                style = Typography.caption,
+                style = localTypography.caption,
                 color = if (error != null) AppColorScheme.danger500 else AppColorScheme.neutral500,
                 modifier = Modifier.padding(horizontal = Spacing.xs)
             )

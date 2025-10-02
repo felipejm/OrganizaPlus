@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import com.joffer.organizeplus.designsystem.spacing.Spacing
-import com.joffer.organizeplus.designsystem.typography.Typography
+import com.joffer.organizeplus.designsystem.typography.localTypography
 import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 @Composable
@@ -25,10 +25,11 @@ fun FormField(
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     trailingIcon: @Composable (() -> Unit)? = null
 ) {
+    val typography = localTypography()
     Column(modifier = modifier) {
         Text(
             text = if (isRequired) "$label *" else label,
-            style = Typography.bodyLarge,
+            style = typography.bodyLarge,
             color = AppColorScheme.formLabel,
             fontWeight = FontWeight.Medium
         )
@@ -62,7 +63,7 @@ fun FormField(
             Spacer(modifier = Modifier.height(Spacing.xs))
             Text(
                 text = errorMessage,
-                style = Typography.bodySmall,
+                style = typography.bodySmall,
                 color = AppColorScheme.error
             )
         }

@@ -127,11 +127,6 @@ enum class ComponentCategory(
     val description: String,
     val route: String
 ) {
-    BADGES(
-        title = "Badges",
-        description = "Notification, status, and counter badges",
-        route = "badges"
-    ),
     BANNERS(
         title = "Banners",
         description = "Success, error, and notification banners",
@@ -147,65 +142,35 @@ enum class ComponentCategory(
         description = "Content containers and layouts",
         route = "cards"
     ),
-    CHARTS(
-        title = "Charts",
-        description = "Data visualization and chart components",
-        route = "charts"
-    ),
     CHIPS(
         title = "Chips",
         description = "Priority, category, and status chips",
         route = "chips"
+    ),
+    CHARTS(
+        title = "Charts",
+        description = "Data visualization and chart components",
+        route = "charts"
     ),
     COLORS(
         title = "Colors",
         description = "Color palette and theme colors",
         route = "colors"
     ),
-    FORM(
-        title = "Form",
-        description = "Form layout and field components",
-        route = "form"
-    ),
-    INPUTS(
-        title = "Inputs",
-        description = "New input component with multiple sizes and states",
-        route = "inputs"
-    ),
     LAYOUTS(
         title = "Layouts",
         description = "Empty states, sections, and containers",
         route = "layouts"
-    ),
-    MESSAGE(
-        title = "Message",
-        description = "Toast messages and inline prompts",
-        route = "message"
     ),
     PROGRESS(
         title = "Progress",
         description = "Loading indicators and progress components",
         route = "progress"
     ),
-    RADIO(
-        title = "Radio",
-        description = "Radio button selection components",
-        route = "radio"
-    ),
     RESULT(
         title = "Result",
         description = "Result and feedback components",
         route = "result"
-    ),
-    SELECT(
-        title = "Select",
-        description = "Dropdown selection components",
-        route = "select"
-    ),
-    TAGS(
-        title = "Tags",
-        description = "Categorization, labeling, and status tags",
-        route = "simple_tags"
     ),
     TYPOGRAPHY(
         title = "Typography",

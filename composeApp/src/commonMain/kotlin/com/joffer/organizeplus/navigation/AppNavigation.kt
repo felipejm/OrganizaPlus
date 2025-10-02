@@ -193,32 +193,8 @@ fun AppNavigation(
                 )
             }
 
-            composable("inputs") {
-                com.joffer.organizeplus.designsystem.catalog.InputShowcaseScreen(
-                    onNavigateBack = {
-                        navController.popBackStack()
-                    }
-                )
-            }
-
             composable("chips") {
                 com.joffer.organizeplus.designsystem.catalog.ChipShowcaseScreen(
-                    onNavigateBack = {
-                        navController.popBackStack()
-                    }
-                )
-            }
-
-            composable("badges") {
-                com.joffer.organizeplus.designsystem.catalog.BadgeShowcaseScreen(
-                    onNavigateBack = {
-                        navController.popBackStack()
-                    }
-                )
-            }
-
-            composable("simple_tags") {
-                com.joffer.organizeplus.designsystem.catalog.SimpleTagShowcaseScreen(
                     onNavigateBack = {
                         navController.popBackStack()
                     }
@@ -259,34 +235,6 @@ fun AppNavigation(
 
             composable("progress") {
                 com.joffer.organizeplus.designsystem.catalog.ProgressShowcaseScreen(
-                    onNavigateBack = {
-                        navController.popBackStack()
-                    }
-                )
-            }
-            composable("message") {
-                com.joffer.organizeplus.designsystem.catalog.MessageShowcaseScreen(
-                    onNavigateBack = {
-                        navController.popBackStack()
-                    }
-                )
-            }
-            composable("select") {
-                com.joffer.organizeplus.designsystem.catalog.SelectShowcaseScreen(
-                    onNavigateBack = {
-                        navController.popBackStack()
-                    }
-                )
-            }
-            composable("radio") {
-                com.joffer.organizeplus.designsystem.catalog.RadioShowcaseScreen(
-                    onNavigateBack = {
-                        navController.popBackStack()
-                    }
-                )
-            }
-            composable("form") {
-                com.joffer.organizeplus.designsystem.catalog.FormShowcaseScreen(
                     onNavigateBack = {
                         navController.popBackStack()
                     }

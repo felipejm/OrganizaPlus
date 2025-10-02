@@ -1,14 +1,13 @@
 package com.joffer.organizeplus.designsystem.catalog
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.joffer.organizeplus.designsystem.components.*
+import com.joffer.organizeplus.designsystem.components.AppBarChart
+import com.joffer.organizeplus.designsystem.components.AppTopAppBarWithBackButton
+import com.joffer.organizeplus.designsystem.components.ChartDataPoint
 import com.joffer.organizeplus.designsystem.spacing.Spacing
-import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
-import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -16,135 +15,43 @@ fun ChartShowcaseScreen(
     onNavigateBack: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val typography = DesignSystemTypography()
     Scaffold(
         topBar = {
             AppTopAppBarWithBackButton(
-                title = "Charts",
+                title = "Chart Components",
                 onBackClick = onNavigateBack
             )
         }
     ) { paddingValues ->
-        LazyColumn(
+        Column(
             modifier = modifier
                 .fillMaxSize()
                 .padding(paddingValues)
                 .padding(Spacing.md),
             verticalArrangement = Arrangement.spacedBy(Spacing.lg)
         ) {
-            item {
-                Text(
-                    text = "Bar Chart",
-                    style = typography.headlineMedium,
-                    color = AppColorScheme.onSurface
-                )
-                Spacer(modifier = Modifier.height(Spacing.sm))
-                Text(
-                    text = "Vertical bar charts using AAY-chart library with design system color palette",
-                    style = typography.bodyMedium,
-                    color = AppColorScheme.onSurfaceVariant
-                )
-            }
-
-            item {
-                ChartExample(
-                    title = "Sample Data Chart",
-                    data = listOf(
-                        ChartDataPoint("Jan", 10f),
-                        ChartDataPoint("Feb", 25f),
-                        ChartDataPoint("Mar", 15f),
-                        ChartDataPoint("Apr", 30f),
-                        ChartDataPoint("May", 20f),
-                        ChartDataPoint("Jun", 35f)
-                    )
-                )
-            }
-
-            item {
-                ChartExample(
-                    title = "Empty State",
-                    data = emptyList()
-                )
-            }
-
-            item {
-                ChartExample(
-                    title = "Single Data Point",
-                    data = listOf(
-                        ChartDataPoint("Jan", 50f)
-                    )
-                )
-            }
-
-            item {
-                ChartExample(
-                    title = "Multi-Color Bars",
-                    data = listOf(
-                        ChartDataPoint("Q1", 100f),
-                        ChartDataPoint("Q2", 150f),
-                        ChartDataPoint("Q3", 120f),
-                        ChartDataPoint("Q4", 180f)
-                    )
-                )
-            }
-
-            item {
-                ChartExample(
-                    title = "Without Values",
-                    data = listOf(
-                        ChartDataPoint("Mon", 5f),
-                        ChartDataPoint("Tue", 8f),
-                        ChartDataPoint("Wed", 12f),
-                        ChartDataPoint("Thu", 6f),
-                        ChartDataPoint("Fri", 15f)
-                    )
-                )
-            }
-
-            item {
-                ChartExample(
-                    title = "Large Dataset",
-                    data = listOf(
-                        ChartDataPoint("Week 1", 45f),
-                        ChartDataPoint("Week 2", 52f),
-                        ChartDataPoint("Week 3", 38f),
-                        ChartDataPoint("Week 4", 61f),
-                        ChartDataPoint("Week 5", 47f),
-                        ChartDataPoint("Week 6", 55f),
-                        ChartDataPoint("Week 7", 42f),
-                        ChartDataPoint("Week 8", 58f),
-                        ChartDataPoint("Week 9", 49f),
-                        ChartDataPoint("Week 10", 63f)
-                    ),
-                )
-            }
-        }
-    }
-}
-
-@Composable
-private fun ChartExample(
-    title: String,
-    data: List<ChartDataPoint>
-) {
-    val typography = DesignSystemTypography()
-    OrganizeCard(
-        modifier = Modifier.fillMaxWidth()
-    ) {
-        Column(
-            modifier = Modifier.padding(Spacing.md)
-        ) {
-            Text(
-                text = title,
-                style = typography.titleMedium,
-                color = AppColorScheme.onSurface
+            // Sample bar chart data
+            val sampleData = listOf(
+                ChartDataPoint("Jan", 45f),
+                ChartDataPoint("Feb", 32f),
+                ChartDataPoint("Mar", 67f),
+                ChartDataPoint("Apr", 23f),
+                ChartDataPoint("May", 89f),
+                ChartDataPoint("Jun", 56f)
             )
-            Spacer(modifier = Modifier.height(Spacing.sm))
 
             AppBarChart(
-                data = data,
-                title = title,
-                emptyStateText = "No chart data available"
+                data = sampleData,
+                title = "Sample Data Chart",
+                modifier = Modifier.fillMaxWidth()
+            )
+
+            // Empty state chart
+            AppBarChart(
+                data = emptyList(),
+                title = "Empty Chart",
+                emptyStateText = "No data available",
+                modifier = Modifier.fillMaxWidth()
             )
         }
     }

@@ -19,43 +19,9 @@ class RoomDutyReviewRepository(
         return flow {
             try {
                 val occurrences = dutyOccurrenceDao.getAllDutyOccurrencesWithDutyInfo()
-
-                val reviewItems = occurrences
-                    .filter { occurrence ->
-                        // Filter by category if provided
-                        categoryFilter == null || occurrence.categoryName == categoryFilter
-                    }
-                    .map { occurrence ->
-                        val completedDate = Instant.fromEpochMilliseconds(occurrence.completedDateMillis)
-                            .toLocalDateTime(TimeZone.currentSystemDefault()).date
-
-                        DutyReviewItem(
-                            dutyId = occurrence.dutyId,
-                            dutyTitle = occurrence.dutyTitle,
-                            categoryName = occurrence.categoryName,
-                            paidAmount = occurrence.paidAmount,
-                            completedDate = completedDate
-                        )
-                    }
-
-                // Group by year-month directly from the LocalDate
-                val monthlyGroups = reviewItems.groupBy { item ->
-                    "${item.completedDate.year}-${item.completedDate.monthNumber.toString().padStart(2, '0')}"
-                }
-
-                val monthlyReviews = monthlyGroups.map { (monthKey, items) ->
-                    // Use the first item's date to get month and year info
-                    val firstDate = items.first().completedDate
-
-                    MonthlyDutyReview(
-                        monthNumber = firstDate.monthNumber,
-                        year = firstDate.year,
-                        totalPaid = items.sumOf { it.paidAmount },
-                        dutyItems = items.sortedByDescending { it.completedDate }
-                    )
-                }.sortedWith(compareByDescending<MonthlyDutyReview> { it.year }.thenByDescending { it.monthNumber })
-
-                val grandTotal = monthlyReviews.sumOf { it.totalPaid }
+                val reviewItems = processOccurrences(occurrences, categoryFilter)
+                val monthlyReviews = groupItemsByMonth(reviewItems)
+                val grandTotal = calculateGrandTotal(monthlyReviews)
 
                 emit(
                     Result.success(
@@ -69,5 +35,65 @@ class RoomDutyReviewRepository(
                 emit(Result.failure(e))
             }
         }
+    }
+
+    private fun processOccurrences(
+        occurrences: List<com.joffer.organizeplus.database.entities.DutyOccurrenceWithDutyInfo>,
+        categoryFilter: String?
+    ): List<DutyReviewItem> {
+        return occurrences
+            .filter { occurrence ->
+                categoryFilter == null || occurrence.categoryName == categoryFilter
+            }
+            .map { occurrence ->
+                val completedDate = convertToLocalDate(occurrence.completedDateMillis)
+                createDutyReviewItem(occurrence, completedDate)
+            }
+    }
+
+    private fun convertToLocalDate(timestampMillis: Long): kotlinx.datetime.LocalDate {
+        return Instant.fromEpochMilliseconds(timestampMillis)
+            .toLocalDateTime(TimeZone.currentSystemDefault()).date
+    }
+
+    private fun createDutyReviewItem(
+        occurrence: com.joffer.organizeplus.database.entities.DutyOccurrenceWithDutyInfo,
+        completedDate: kotlinx.datetime.LocalDate
+    ): DutyReviewItem {
+        return DutyReviewItem(
+            dutyId = occurrence.dutyId,
+            dutyTitle = occurrence.dutyTitle,
+            categoryName = occurrence.categoryName,
+            paidAmount = occurrence.paidAmount,
+            completedDate = completedDate
+        )
+    }
+
+    private fun groupItemsByMonth(reviewItems: List<DutyReviewItem>): List<MonthlyDutyReview> {
+        val monthlyGroups = reviewItems.groupBy { item ->
+            createMonthKey(item.completedDate)
+        }
+
+        return monthlyGroups.map { (_, items) ->
+            createMonthlyReview(items)
+        }.sortedWith(compareByDescending<MonthlyDutyReview> { it.year }.thenByDescending { it.monthNumber })
+    }
+
+    private fun createMonthKey(date: kotlinx.datetime.LocalDate): String {
+        return "${date.year}-${date.monthNumber.toString().padStart(2, '0')}"
+    }
+
+    private fun createMonthlyReview(items: List<DutyReviewItem>): MonthlyDutyReview {
+        val firstDate = items.first().completedDate
+        return MonthlyDutyReview(
+            monthNumber = firstDate.monthNumber,
+            year = firstDate.year,
+            totalPaid = items.sumOf { it.paidAmount },
+            dutyItems = items.sortedByDescending { it.completedDate }
+        )
+    }
+
+    private fun calculateGrandTotal(monthlyReviews: List<MonthlyDutyReview>): Double {
+        return monthlyReviews.sumOf { it.totalPaid }
     }
 }

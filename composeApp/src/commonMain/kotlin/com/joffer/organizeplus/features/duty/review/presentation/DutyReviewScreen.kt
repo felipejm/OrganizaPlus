@@ -1,6 +1,5 @@
 package com.joffer.organizeplus.features.duty.review.presentation
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -13,7 +12,7 @@ import androidx.compose.ui.text.font.FontWeight
 import com.joffer.organizeplus.designsystem.colors.ColorScheme
 import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.spacing.Spacing
-import com.joffer.organizeplus.designsystem.typography.localTypography
+import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
 import com.joffer.organizeplus.features.duty.review.domain.entities.DutyReviewData
 import com.joffer.organizeplus.features.duty.review.presentation.components.MonthlyDutySection
 import org.jetbrains.compose.resources.stringResource
@@ -87,12 +86,7 @@ private fun DutyReviewContent(
 private fun DutyReviewLoadingContent(
     paddingValues: PaddingValues
 ) {
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(paddingValues),
-        contentAlignment = Alignment.Center
-    ) {
+    DutyReviewCenteredContent(paddingValues = paddingValues) {
         OrganizeProgressIndicatorFullScreen()
     }
 }
@@ -103,12 +97,7 @@ private fun DutyReviewErrorContent(
     onRetry: () -> Unit,
     paddingValues: PaddingValues
 ) {
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(paddingValues),
-        contentAlignment = Alignment.Center
-    ) {
+    DutyReviewCenteredContent(paddingValues = paddingValues) {
         OrganizeResult(
             type = ResultType.ERROR,
             title = stringResource(Res.string.duty_review_error_title),
@@ -127,17 +116,27 @@ private fun DutyReviewErrorContent(
 private fun DutyReviewEmptyContent(
     paddingValues: PaddingValues
 ) {
+    DutyReviewCenteredContent(paddingValues = paddingValues) {
+        OrganizeResult(
+            type = ResultType.INFO,
+            title = stringResource(Res.string.duty_review_empty_title),
+            description = stringResource(Res.string.duty_review_empty_subtitle)
+        )
+    }
+}
+
+@Composable
+private fun DutyReviewCenteredContent(
+    paddingValues: PaddingValues,
+    content: @Composable () -> Unit
+) {
     Box(
         modifier = Modifier
             .fillMaxSize()
             .padding(paddingValues),
         contentAlignment = Alignment.Center
     ) {
-        OrganizeResult(
-            type = ResultType.INFO,
-            title = stringResource(Res.string.duty_review_empty_title),
-            description = stringResource(Res.string.duty_review_empty_subtitle)
-        )
+        content()
     }
 }
 
@@ -164,7 +163,7 @@ private fun DutyReviewDataContent(
             item {
                 Text(
                     text = stringResource(Res.string.duty_review_title),
-                    style = localTypography().headlineLarge,
+                    style = DesignSystemTypography().headlineLarge,
                     color = ColorScheme.black,
                     fontWeight = FontWeight.Black
                 )

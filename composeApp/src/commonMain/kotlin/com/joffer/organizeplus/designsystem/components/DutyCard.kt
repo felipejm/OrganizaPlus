@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import com.joffer.organizeplus.designsystem.spacing.Spacing
-import com.joffer.organizeplus.designsystem.typography.localTypography
+import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
 import com.joffer.organizeplus.features.dashboard.domain.entities.DutyType
 import com.joffer.organizeplus.features.dashboard.domain.entities.DutyWithLastOccurrence
 import org.jetbrains.compose.resources.stringResource
@@ -52,7 +52,7 @@ fun DutyCard(
     accentLight: Color? = null,
     modifier: Modifier = Modifier
 ) {
-    val typography = localTypography()
+    val typography = DesignSystemTypography()
     val duty = dutyWithOccurrence.duty
 
     Card(

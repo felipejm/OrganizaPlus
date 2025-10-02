@@ -11,7 +11,7 @@ import androidx.compose.ui.unit.dp
 import com.joffer.organizeplus.designsystem.components.AppTopAppBarWithBackButton
 import com.joffer.organizeplus.designsystem.components.OrganizeCard
 import com.joffer.organizeplus.designsystem.spacing.Spacing
-import com.joffer.organizeplus.designsystem.typography.localTypography
+import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
 import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -20,7 +20,7 @@ fun TypographyShowcaseScreen(
     onNavigateBack: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val typography = localTypography()
+    val typography = DesignSystemTypography()
     Scaffold(
         topBar = {
             AppTopAppBarWithBackButton(
@@ -48,7 +48,7 @@ private fun TypographyCategorySection(
     category: TypographyCategory,
     modifier: Modifier = Modifier
 ) {
-    val typography = localTypography()
+    val typography = DesignSystemTypography()
     OrganizeCard(
         modifier = modifier.fillMaxWidth()
     ) {
@@ -89,7 +89,7 @@ private fun TypographyCategorySection(
 
 @Composable
 private fun HeadingExamples() {
-    val typography = localTypography()
+    val typography = DesignSystemTypography()
     Column(
         verticalArrangement = Arrangement.spacedBy(Spacing.md)
     ) {
@@ -131,7 +131,7 @@ private fun HeadingExamples() {
 
 @Composable
 private fun BodyTextExamples() {
-    val typography = localTypography()
+    val typography = DesignSystemTypography()
     Column(
         verticalArrangement = Arrangement.spacedBy(Spacing.md)
     ) {
@@ -166,7 +166,7 @@ private fun BodyTextExamples() {
 
 @Composable
 private fun LabelExamples() {
-    val typography = localTypography()
+    val typography = DesignSystemTypography()
     Column(
         verticalArrangement = Arrangement.spacedBy(Spacing.md)
     ) {
@@ -201,7 +201,7 @@ private fun LabelExamples() {
 
 @Composable
 private fun FontWeightExamples() {
-    val typography = localTypography()
+    val typography = DesignSystemTypography()
     Column(
         verticalArrangement = Arrangement.spacedBy(Spacing.md)
     ) {
@@ -267,7 +267,7 @@ private fun TypographyExample(
     description: String,
     modifier: Modifier = Modifier
 ) {
-    val typography = localTypography()
+    val typography = DesignSystemTypography()
     Column(
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(Spacing.xs)

@@ -15,12 +15,12 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.spacing.Spacing
-import com.joffer.organizeplus.designsystem.typography.localTypography
+import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
 import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 @Composable
 fun BadgeUsageExample() {
-    val typography = localTypography()
+    val typography = DesignSystemTypography()
     OrganizeCard {
         Column(
             modifier = Modifier.padding(Spacing.lg)
@@ -57,7 +57,7 @@ fun BadgeUsageExample() {
 
 @Composable
 private fun NavigationBarExample() {
-    val typography = localTypography()
+    val typography = DesignSystemTypography()
     Column {
         Text(
             text = "Navigation Bar",
@@ -118,7 +118,7 @@ private fun NavigationItem(
     badgeCount: Int?,
     hasStatus: Boolean = false
 ) {
-    val typography = localTypography()
+    val typography = DesignSystemTypography()
     Column(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -157,7 +157,7 @@ private fun NavigationItem(
 
 @Composable
 private fun ListItemsExample() {
-    val typography = localTypography()
+    val typography = DesignSystemTypography()
     Column {
         Text(
             text = "List Items",
@@ -210,7 +210,7 @@ private fun ListItem(
     badgeCount: Int?,
     hasStatus: Boolean = false
 ) {
-    val typography = localTypography()
+    val typography = DesignSystemTypography()
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -262,7 +262,7 @@ private fun ListItem(
 
 @Composable
 private fun ActionButtonsExample() {
-    val typography = localTypography()
+    val typography = DesignSystemTypography()
     Column {
         Text(
             text = "Action Buttons",

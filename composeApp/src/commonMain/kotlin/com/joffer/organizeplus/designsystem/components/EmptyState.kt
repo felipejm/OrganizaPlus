@@ -10,14 +10,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import com.joffer.organizeplus.designsystem.spacing.Spacing
-import com.joffer.organizeplus.designsystem.typography.localTypography
+import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
 
 @Composable
 fun EmptyState(
     onAddObligation: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val typography = localTypography()
+    val typography = DesignSystemTypography()
     OrganizeCard(
         modifier = modifier.fillMaxWidth()
     ) {

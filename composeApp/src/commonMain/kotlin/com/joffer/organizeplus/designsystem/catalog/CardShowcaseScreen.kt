@@ -12,7 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.spacing.Spacing
-import com.joffer.organizeplus.designsystem.typography.localTypography
+import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
 import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -21,7 +21,7 @@ fun CardShowcaseScreen(
     onNavigateBack: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val typography = localTypography()
+    val typography = DesignSystemTypography()
     Scaffold(
         topBar = {
             AppTopAppBarWithBackButton(
@@ -57,7 +57,7 @@ private fun CardShowcaseItem(
     item: CardShowcaseItem,
     modifier: Modifier = Modifier
 ) {
-    val typography = localTypography()
+    val typography = DesignSystemTypography()
     OrganizeCard(
         modifier = modifier.fillMaxWidth()
     ) {
@@ -97,7 +97,7 @@ private fun CardShowcaseItem(
 
 @Composable
 private fun BasicCardExamples() {
-    val typography = localTypography()
+    val typography = DesignSystemTypography()
     Column(
         verticalArrangement = Arrangement.spacedBy(Spacing.sm)
     ) {
@@ -137,7 +137,7 @@ private fun BasicCardExamples() {
 
 @Composable
 private fun InteractiveCardExamples() {
-    val typography = localTypography()
+    val typography = DesignSystemTypography()
     Column(
         verticalArrangement = Arrangement.spacedBy(Spacing.sm)
     ) {
@@ -181,7 +181,7 @@ private fun InteractiveCardExamples() {
 
 @Composable
 private fun ContentCardExamples() {
-    val typography = localTypography()
+    val typography = DesignSystemTypography()
     Column(
         verticalArrangement = Arrangement.spacedBy(Spacing.sm)
     ) {
@@ -277,7 +277,7 @@ private fun StatItem(
     label: String,
     modifier: Modifier = Modifier
 ) {
-    val typography = localTypography()
+    val typography = DesignSystemTypography()
     Column(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally

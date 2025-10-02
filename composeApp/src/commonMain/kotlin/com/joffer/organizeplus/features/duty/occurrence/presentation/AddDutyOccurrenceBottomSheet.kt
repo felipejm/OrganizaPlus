@@ -14,7 +14,7 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.KeyboardType
 import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.spacing.Spacing
-import com.joffer.organizeplus.designsystem.typography.localTypography
+import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
 import com.joffer.organizeplus.features.dashboard.domain.entities.DutyType
 import com.joffer.organizeplus.features.duty.occurrence.domain.entities.DutyOccurrenceFormField
 import com.joffer.organizeplus.features.duty.occurrence.domain.validation.ValidationError
@@ -45,7 +45,7 @@ fun AddDutyOccurrenceBottomSheet(
     onDismiss: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val typography = localTypography()
+    val typography = DesignSystemTypography()
     val formState by viewModel.formState.collectAsState()
     val uiState by viewModel.uiState.collectAsState()
     var showDatePicker by remember { mutableStateOf(false) }
@@ -89,68 +89,19 @@ fun AddDutyOccurrenceBottomSheet(
                 }
             }
 
-            // Error Banner
-            uiState.errorMessage?.let { error ->
-                ErrorBanner(
-                    message = error,
-                    onRetry = { viewModel.onIntent(AddDutyOccurrenceIntent.Retry) },
-                    onDismiss = { viewModel.onIntent(AddDutyOccurrenceIntent.ClearError) }
-                )
-                Spacer(modifier = Modifier.height(Spacing.md))
-            }
+            // Status Messages
+            AddOccurrenceStatusMessages(
+                uiState = uiState,
+                onRetry = { viewModel.onIntent(AddDutyOccurrenceIntent.Retry) },
+                onDismiss = { viewModel.onIntent(AddDutyOccurrenceIntent.ClearError) }
+            )
 
-            // Success Message
-            if (uiState.showSuccessMessage) {
-                SuccessBanner(
-                    message = stringResource(Res.string.duty_occurrence_saved)
-                )
-                Spacer(modifier = Modifier.height(Spacing.md))
-            }
-
-            // Only show paid amount field for payable duties
-            if (formState.dutyType == DutyType.PAYABLE) {
-                FormField(
-                    label = stringResource(Res.string.duty_occurrence_paid_amount),
-                    value = formState.paidAmount ?: "",
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
-                    onValueChange = {
-                        viewModel.onIntent(
-                            AddDutyOccurrenceIntent.UpdateFormField(
-                                DutyOccurrenceFormField.PaidAmount,
-                                it
-                            )
-                        )
-                    },
-                    placeholder = stringResource(Res.string.duty_occurrence_paid_amount_hint),
-                    isRequired = true,
-                    isError = uiState.errors.containsKey(DutyOccurrenceFormField.PaidAmount),
-                    errorMessage = getErrorMessage(viewModel.getFieldError(DutyOccurrenceFormField.PaidAmount))
-                )
-
-                Spacer(modifier = Modifier.height(Spacing.md))
-            }
-
-            DateInputField(
-                label = stringResource(Res.string.duty_occurrence_completed_date),
-                value = formState.completedDate.formatDateForDisplay(),
-                onValueChange = { dateString ->
-                    val parsedDate = dateString.parseDateFromString()
-                    if (parsedDate != null) {
-                        viewModel.onIntent(
-                            AddDutyOccurrenceIntent.UpdateFormField(
-                                DutyOccurrenceFormField.CompletedDate,
-                                parsedDate
-                            )
-                        )
-                    }
-                },
-                placeholder = stringResource(Res.string.date_placeholder),
-                isRequired = true,
-                isError = uiState.errors.containsKey(DutyOccurrenceFormField.CompletedDate),
-                errorMessage = getErrorMessage(viewModel.getFieldError(DutyOccurrenceFormField.CompletedDate)),
-                onDatePickerClick = {
-                    showDatePicker = true
-                }
+            // Form Fields
+            AddOccurrenceFormFields(
+                formState = formState,
+                uiState = uiState,
+                viewModel = viewModel,
+                onShowDatePicker = { showDatePicker = true }
             )
 
             Spacer(modifier = Modifier.height(Spacing.xl))
@@ -198,6 +149,110 @@ fun AddDutyOccurrenceBottomSheet(
             }
         )
     }
+}
+
+@Composable
+private fun AddOccurrenceStatusMessages(
+    uiState: AddDutyOccurrenceUiState,
+    onRetry: () -> Unit,
+    onDismiss: () -> Unit
+) {
+    // Error Banner
+    uiState.errorMessage?.let { error ->
+        ErrorBanner(
+            message = error,
+            onRetry = onRetry,
+            onDismiss = onDismiss
+        )
+        Spacer(modifier = Modifier.height(Spacing.md))
+    }
+
+    // Success Message
+    if (uiState.showSuccessMessage) {
+        SuccessBanner(
+            message = stringResource(Res.string.duty_occurrence_saved)
+        )
+        Spacer(modifier = Modifier.height(Spacing.md))
+    }
+}
+
+@Composable
+private fun AddOccurrenceFormFields(
+    formState: com.joffer.organizeplus.features.duty.occurrence.domain.entities.DutyOccurrenceForm,
+    uiState: AddDutyOccurrenceUiState,
+    viewModel: AddDutyOccurrenceViewModel,
+    onShowDatePicker: () -> Unit
+) {
+    // Only show paid amount field for payable duties
+    if (formState.dutyType == DutyType.PAYABLE) {
+        AddOccurrencePaidAmountField(
+            formState = formState,
+            uiState = uiState,
+            viewModel = viewModel
+        )
+        Spacer(modifier = Modifier.height(Spacing.md))
+    }
+
+    AddOccurrenceDateField(
+        formState = formState,
+        uiState = uiState,
+        viewModel = viewModel,
+        onShowDatePicker = onShowDatePicker
+    )
+}
+
+@Composable
+private fun AddOccurrencePaidAmountField(
+    formState: com.joffer.organizeplus.features.duty.occurrence.domain.entities.DutyOccurrenceForm,
+    uiState: AddDutyOccurrenceUiState,
+    viewModel: AddDutyOccurrenceViewModel
+) {
+    FormField(
+        label = stringResource(Res.string.duty_occurrence_paid_amount),
+        value = formState.paidAmount ?: "",
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
+        onValueChange = {
+            viewModel.onIntent(
+                AddDutyOccurrenceIntent.UpdateFormField(
+                    DutyOccurrenceFormField.PaidAmount,
+                    it
+                )
+            )
+        },
+        placeholder = stringResource(Res.string.duty_occurrence_paid_amount_hint),
+        isRequired = true,
+        isError = uiState.errors.containsKey(DutyOccurrenceFormField.PaidAmount),
+        errorMessage = getErrorMessage(viewModel.getFieldError(DutyOccurrenceFormField.PaidAmount))
+    )
+}
+
+@Composable
+private fun AddOccurrenceDateField(
+    formState: com.joffer.organizeplus.features.duty.occurrence.domain.entities.DutyOccurrenceForm,
+    uiState: AddDutyOccurrenceUiState,
+    viewModel: AddDutyOccurrenceViewModel,
+    onShowDatePicker: () -> Unit
+) {
+    DateInputField(
+        label = stringResource(Res.string.duty_occurrence_completed_date),
+        value = formState.completedDate.formatDateForDisplay(),
+        onValueChange = { dateString ->
+            val parsedDate = dateString.parseDateFromString()
+            if (parsedDate != null) {
+                viewModel.onIntent(
+                    AddDutyOccurrenceIntent.UpdateFormField(
+                        DutyOccurrenceFormField.CompletedDate,
+                        parsedDate
+                    )
+                )
+            }
+        },
+        placeholder = stringResource(Res.string.date_placeholder),
+        isRequired = true,
+        isError = uiState.errors.containsKey(DutyOccurrenceFormField.CompletedDate),
+        errorMessage = getErrorMessage(viewModel.getFieldError(DutyOccurrenceFormField.CompletedDate)),
+        onDatePickerClick = onShowDatePicker
+    )
 }
 
 @Composable

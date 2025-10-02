@@ -12,7 +12,7 @@ import com.joffer.organizeplus.common.utils.formatString
 import com.joffer.organizeplus.designsystem.colors.ColorScheme
 import com.joffer.organizeplus.designsystem.components.OrganizeCard
 import com.joffer.organizeplus.designsystem.spacing.Spacing
-import com.joffer.organizeplus.designsystem.typography.localTypography
+import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
 import com.joffer.organizeplus.features.duty.review.domain.entities.MonthlyDutyReview
 import org.jetbrains.compose.resources.stringResource
 import organizeplus.composeapp.generated.resources.Res
@@ -39,12 +39,12 @@ fun MonthlyDutySection(
             Column {
                 Text(
                     text = stringResource(Res.string.duty_review_date),
-                    style = localTypography().bodyMedium,
+                    style = DesignSystemTypography().bodyMedium,
                     color = ColorScheme.formSecondaryText
                 )
                 Text(
                     text = "${DateUtils.getMonthName(monthlyReview.monthNumber)} ${monthlyReview.year}",
-                    style = localTypography().titleMedium,
+                    style = DesignSystemTypography().titleMedium,
                     fontWeight = FontWeight.SemiBold,
                     color = ColorScheme.onSurface
                 )
@@ -56,13 +56,13 @@ fun MonthlyDutySection(
             ) {
                 Text(
                     text = stringResource(Res.string.duty_review_total),
-                    style = localTypography().titleMedium,
+                    style = DesignSystemTypography().titleMedium,
                     color = ColorScheme.formSecondaryText
                 )
                 Spacer(modifier = Modifier.height(Spacing.sm))
                 Text(
                     text = formatString("$%.2f", monthlyReview.totalPaid),
-                    style = localTypography().bodyLarge,
+                    style = DesignSystemTypography().bodyLarge,
                     fontWeight = FontWeight.SemiBold,
                     color = ColorScheme.amountPaid
                 )
@@ -76,18 +76,22 @@ fun MonthlyDutySection(
             monthlyReview.dutyItems.forEachIndexed { index, item ->
                 DutyReviewItem(item = item)
 
-                // Divider between items (except for the last one)
                 if (index < monthlyReview.dutyItems.size - 1) {
-                    Spacer(modifier = Modifier.height(Spacing.sm))
-                    Divider(
-                        modifier = Modifier.padding(horizontal = Spacing.md),
-                        color = ColorScheme.outline,
-                        thickness = 1.dp
-                    )
-                    Spacer(modifier = Modifier.height(Spacing.sm))
+                    Divider()
                 }
             }
         }
         Spacer(modifier = Modifier.height(Spacing.xs))
     }
+}
+
+@Composable
+private fun Divider() {
+    Spacer(modifier = Modifier.height(Spacing.sm))
+    Divider(
+        modifier = Modifier.padding(horizontal = Spacing.md),
+        color = ColorScheme.outline,
+        thickness = 1.dp
+    )
+    Spacer(modifier = Modifier.height(Spacing.sm))
 }

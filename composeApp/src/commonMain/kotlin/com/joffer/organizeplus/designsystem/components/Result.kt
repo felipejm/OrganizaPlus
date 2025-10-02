@@ -33,7 +33,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.joffer.organizeplus.designsystem.spacing.Spacing
-import com.joffer.organizeplus.designsystem.typography.localTypography
+import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
 import kotlinx.coroutines.delay
 import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
@@ -51,7 +51,7 @@ fun OrganizeResult(
     modifier: Modifier = Modifier,
     animated: Boolean = true
 ) {
-    val typography = localTypography()
+    val typography = DesignSystemTypography()
     LaunchedEffect(Unit) {
         if (animated) {
             delay(100) // Small delay for smooth animation

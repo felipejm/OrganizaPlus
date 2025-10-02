@@ -4,7 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Settings
@@ -19,7 +18,7 @@ import com.joffer.organizeplus.common.utils.DateUtils
 import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.components.ErrorBanner
 import com.joffer.organizeplus.designsystem.spacing.Spacing
-import com.joffer.organizeplus.designsystem.typography.localTypography
+import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
 import com.joffer.organizeplus.features.dashboard.DashboardIntent
 import com.joffer.organizeplus.features.dashboard.components.DutyCategorySection
 import kotlinx.datetime.Clock
@@ -43,7 +42,7 @@ fun DashboardScreen(
     modifier: Modifier = Modifier
 ) {
     val uiState by viewModel.uiState.collectAsState()
-    val typography = localTypography()
+    val typography = DesignSystemTypography()
     val listState = rememberLazyListState()
 
     // Get current month and year for header
@@ -202,7 +201,7 @@ private fun EmptyDashboardState(
 
         Text(
             text = "Welcome to OrganizePlus",
-            style = localTypography().headlineMedium,
+            style = DesignSystemTypography().headlineMedium,
             color = AppColorScheme.formText,
             fontWeight = FontWeight.Bold
         )
@@ -211,7 +210,7 @@ private fun EmptyDashboardState(
 
         Text(
             text = "Start organizing your duties by creating your first task. You can add personal or company-related duties to keep track of everything.",
-            style = localTypography().bodyMedium,
+            style = DesignSystemTypography().bodyMedium,
             color = AppColorScheme.formSecondaryText,
             textAlign = androidx.compose.ui.text.style.TextAlign.Center
         )

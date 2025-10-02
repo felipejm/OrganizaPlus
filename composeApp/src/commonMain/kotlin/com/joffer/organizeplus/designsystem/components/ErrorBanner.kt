@@ -7,7 +7,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.joffer.organizeplus.designsystem.spacing.Spacing
-import com.joffer.organizeplus.designsystem.typography.localTypography
+import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
 
 @Composable
 fun ErrorBanner(
@@ -16,7 +16,7 @@ fun ErrorBanner(
     onDismiss: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val typography = localTypography()
+    val typography = DesignSystemTypography()
     Card(
         modifier = modifier.fillMaxWidth(),
         colors = CardDefaults.cardColors(

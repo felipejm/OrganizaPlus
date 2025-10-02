@@ -62,7 +62,7 @@ class DutyListViewModel(
 
     private suspend fun processDuties(duties: List<Duty>) {
         val filteredDuties = filterDutiesByCategory(duties)
-        
+
         if (filteredDuties.isEmpty()) {
             _uiState.value = _uiState.value.copy(
                 isLoading = false,
@@ -108,7 +108,7 @@ class DutyListViewModel(
         currentDate: CurrentDate
     ): DutyWithLastOccurrence {
         val lastOccurrence = dutyOccurrenceRepository.getLastOccurrenceByDutyId(duty.id).getOrNull()
-        
+
         val hasCurrentMonthOccurrence = dutyOccurrenceRepository.getMonthlyOccurrences(
             duty.categoryName,
             currentDate.month,

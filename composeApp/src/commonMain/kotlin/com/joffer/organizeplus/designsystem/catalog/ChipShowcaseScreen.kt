@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.spacing.Spacing
-import com.joffer.organizeplus.designsystem.typography.localTypography
+import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
 import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -17,7 +17,7 @@ fun ChipShowcaseScreen(
     onNavigateBack: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val typography = localTypography()
+    val typography = DesignSystemTypography()
     Scaffold(
         topBar = {
             AppTopAppBarWithBackButton(
@@ -53,7 +53,7 @@ private fun ChipShowcaseItem(
     item: ChipShowcaseItem,
     modifier: Modifier = Modifier
 ) {
-    val typography = localTypography()
+    val typography = DesignSystemTypography()
     OrganizeCard(
         modifier = modifier.fillMaxWidth()
     ) {
@@ -93,7 +93,7 @@ private fun ChipShowcaseItem(
 
 @Composable
 private fun PriorityChipExamples() {
-    val typography = localTypography()
+    val typography = DesignSystemTypography()
     Column(
         verticalArrangement = Arrangement.spacedBy(Spacing.sm)
     ) {
@@ -117,7 +117,7 @@ private fun PriorityChipExamples() {
 
 @Composable
 private fun CategoryChipExamples() {
-    val typography = localTypography()
+    val typography = DesignSystemTypography()
     Column(
         verticalArrangement = Arrangement.spacedBy(Spacing.sm)
     ) {
@@ -153,7 +153,7 @@ private fun CategoryChipExamples() {
 
 @Composable
 private fun StatusChipExamples() {
-    val typography = localTypography()
+    val typography = DesignSystemTypography()
     Column(
         verticalArrangement = Arrangement.spacedBy(Spacing.sm)
     ) {
@@ -189,7 +189,7 @@ private fun StatusChip(
     text: String,
     modifier: Modifier = Modifier
 ) {
-    val typography = localTypography()
+    val typography = DesignSystemTypography()
     val (containerColor, contentColor) = when (status) {
         ObligationStatus.PENDING -> AppColorScheme.surfaceVariant to AppColorScheme.onSurfaceVariant
         ObligationStatus.PAID -> AppColorScheme.success100 to AppColorScheme.success700

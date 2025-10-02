@@ -15,7 +15,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.spacing.Spacing
-import com.joffer.organizeplus.designsystem.typography.localTypography
+import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
 import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -24,7 +24,7 @@ fun InputShowcaseScreen(
     onNavigateBack: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val typography = localTypography()
+    val typography = DesignSystemTypography()
     Scaffold(
         topBar = {
             AppTopAppBarWithBackButton(
@@ -74,7 +74,7 @@ private fun InputShowcaseItem(
     item: InputShowcaseItem,
     modifier: Modifier = Modifier
 ) {
-    val typography = localTypography()
+    val typography = DesignSystemTypography()
     OrganizeCard(
         modifier = modifier.fillMaxWidth()
     ) {
@@ -118,7 +118,7 @@ private fun InputShowcaseItem(
 
 @Composable
 private fun SizeExamples() {
-    val typography = localTypography()
+    val typography = DesignSystemTypography()
     var largeValue by remember { mutableStateOf("") }
     var mediumValue by remember { mutableStateOf("") }
     var smallValue by remember { mutableStateOf("") }
@@ -160,7 +160,7 @@ private fun SizeExamples() {
 
 @Composable
 private fun StateExamples() {
-    val typography = localTypography()
+    val typography = DesignSystemTypography()
     var defaultValue by remember { mutableStateOf("") }
     var hoverValue by remember { mutableStateOf("") }
     var focusedValue by remember { mutableStateOf("") }
@@ -222,7 +222,7 @@ private fun StateExamples() {
 
 @Composable
 private fun IconExamples() {
-    val typography = localTypography()
+    val typography = DesignSystemTypography()
     var leadingValue by remember { mutableStateOf("") }
     var trailingValue by remember { mutableStateOf("") }
     var bothIconsValue by remember { mutableStateOf("") }
@@ -280,7 +280,7 @@ private fun IconExamples() {
 
 @Composable
 private fun ValidationExamples() {
-    val typography = localTypography()
+    val typography = DesignSystemTypography()
     var requiredValue by remember { mutableStateOf("") }
     var emailValue by remember { mutableStateOf("") }
     var phoneValue by remember { mutableStateOf("") }
@@ -336,7 +336,7 @@ private fun ValidationExamples() {
 
 @Composable
 private fun TypeExamples() {
-    val typography = localTypography()
+    val typography = DesignSystemTypography()
     var textValue by remember { mutableStateOf("") }
     var numberValue by remember { mutableStateOf("") }
     var multilineValue by remember { mutableStateOf("") }

@@ -11,7 +11,7 @@ import com.joffer.organizeplus.common.utils.formatString
 import com.joffer.organizeplus.designsystem.colors.ColorScheme
 import com.joffer.organizeplus.designsystem.components.CategoryIcon
 import com.joffer.organizeplus.designsystem.spacing.Spacing
-import com.joffer.organizeplus.designsystem.typography.localTypography
+import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
 import com.joffer.organizeplus.features.duty.review.domain.entities.DutyReviewItem
 
 @Composable
@@ -41,7 +41,7 @@ fun DutyReviewItem(
             Column {
                 Text(
                     text = item.dutyTitle,
-                    style = localTypography().titleMedium,
+                    style = DesignSystemTypography().titleMedium,
                     fontWeight = FontWeight.Medium,
                     color = ColorScheme.onSurface
                 )
@@ -51,7 +51,7 @@ fun DutyReviewItem(
         // Right side - Amount
         Text(
             text = formatString("$%.2f", item.paidAmount),
-            style = localTypography().bodyLarge,
+            style = DesignSystemTypography().bodyLarge,
             fontWeight = FontWeight.Medium,
             color = ColorScheme.onSurface
         )

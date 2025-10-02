@@ -16,7 +16,7 @@ import com.joffer.organizeplus.common.utils.formatString
 import com.joffer.organizeplus.designsystem.components.AppTopAppBarWithBackButton
 import com.joffer.organizeplus.designsystem.components.OrganizeCard
 import com.joffer.organizeplus.designsystem.spacing.Spacing
-import com.joffer.organizeplus.designsystem.typography.localTypography
+import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
 import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -25,7 +25,7 @@ fun ColorShowcaseScreen(
     onNavigateBack: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val typography = localTypography()
+    val typography = DesignSystemTypography()
     Scaffold(
         topBar = {
             AppTopAppBarWithBackButton(
@@ -53,7 +53,7 @@ private fun ColorPaletteSection(
     palette: ColorPalette,
     modifier: Modifier = Modifier
 ) {
-    val typography = localTypography()
+    val typography = DesignSystemTypography()
     OrganizeCard(
         modifier = modifier.fillMaxWidth()
     ) {
@@ -94,7 +94,7 @@ private fun ColorPaletteSection(
 
 @Composable
 private fun NeutralColorGrid() {
-    val typography = localTypography()
+    val typography = DesignSystemTypography()
     val neutralColors = listOf(
         "Black" to AppColorScheme.black,
         "Neutral 700" to AppColorScheme.neutral700,
@@ -113,7 +113,7 @@ private fun NeutralColorGrid() {
 
 @Composable
 private fun PrimaryColorGrid() {
-    val typography = localTypography()
+    val typography = DesignSystemTypography()
     val primaryColors = listOf(
         "Primary 700" to AppColorScheme.primary700,
         "Primary 600" to AppColorScheme.primary600,
@@ -130,7 +130,7 @@ private fun PrimaryColorGrid() {
 
 @Composable
 private fun AuxiliaryColorGrid() {
-    val typography = localTypography()
+    val typography = DesignSystemTypography()
     val auxiliaryColors = listOf(
         "Auxiliary 700" to AppColorScheme.auxiliary700,
         "Auxiliary 600" to AppColorScheme.auxiliary600,
@@ -147,7 +147,7 @@ private fun AuxiliaryColorGrid() {
 
 @Composable
 private fun SemanticColorGrid() {
-    val typography = localTypography()
+    val typography = DesignSystemTypography()
     Column(
         verticalArrangement = Arrangement.spacedBy(Spacing.md)
     ) {
@@ -220,7 +220,7 @@ private fun ColorGrid(
     colors: List<Pair<String, Color>>,
     modifier: Modifier = Modifier
 ) {
-    val typography = localTypography()
+    val typography = DesignSystemTypography()
     Column(
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(Spacing.sm)
@@ -251,7 +251,7 @@ private fun ColorSwatch(
     color: Color,
     modifier: Modifier = Modifier
 ) {
-    val typography = localTypography()
+    val typography = DesignSystemTypography()
     Column(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally

@@ -19,7 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.joffer.organizeplus.designsystem.spacing.Spacing
-import com.joffer.organizeplus.designsystem.typography.localTypography
+import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
 import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 enum class FormLayout {
@@ -51,7 +51,7 @@ fun OrganizeFormField(
     layout: FormLayout = FormLayout.LEFT_ALIGNED,
     required: Boolean = false
 ) {
-    val typography = localTypography()
+    val typography = DesignSystemTypography()
     when (layout) {
         FormLayout.LEFT_ALIGNED -> {
             Column(modifier = modifier) {
@@ -124,7 +124,7 @@ fun OrganizeFormSection(
     content: @Composable () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val typography = localTypography()
+    val typography = DesignSystemTypography()
     Column(modifier = modifier) {
         Text(
             text = title,
@@ -196,7 +196,7 @@ private fun FormLabel(
     required: Boolean = false,
     modifier: Modifier = Modifier
 ) {
-    val typography = localTypography()
+    val typography = DesignSystemTypography()
     Row(
         modifier = modifier,
         verticalAlignment = Alignment.CenterVertically
@@ -225,7 +225,7 @@ private fun FormHelperOrError(
     error: String? = null,
     modifier: Modifier = Modifier
 ) {
-    val typography = localTypography()
+    val typography = DesignSystemTypography()
     if (error != null || helper != null) {
         Text(
             text = error ?: helper ?: "",
@@ -241,7 +241,7 @@ fun OrganizeFormValidationBanner(
     message: String,
     modifier: Modifier = Modifier
 ) {
-    val typography = localTypography()
+    val typography = DesignSystemTypography()
     Box(
         modifier = modifier
             .fillMaxWidth()

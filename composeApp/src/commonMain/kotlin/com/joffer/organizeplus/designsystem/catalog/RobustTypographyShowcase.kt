@@ -23,7 +23,7 @@ fun RobustTypographyShowcase(
     onNavigateBack: () -> Unit
 ) {
     ProvideSfProTypography {
-        val typography = localTypography()
+        val typography = DesignSystemTypography()
 
         Scaffold(
             topBar = {

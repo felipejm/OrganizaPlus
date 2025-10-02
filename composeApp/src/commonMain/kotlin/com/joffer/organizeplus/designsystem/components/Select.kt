@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
@@ -34,7 +33,7 @@ import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import com.joffer.organizeplus.designsystem.spacing.Spacing
-import com.joffer.organizeplus.designsystem.typography.localTypography
+import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
 import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 enum class SelectSize {
@@ -60,7 +59,7 @@ fun OrganizeSelect(
     helper: String? = null
 ) {
     var expanded by remember { mutableStateOf(false) }
-    val localTypography = localTypography()
+    val localTypography = DesignSystemTypography()
 
     val (height, padding, textStyle) = when (size) {
         SelectSize.LARGE -> Triple(Spacing.iconSize + Spacing.lg, Spacing.md, localTypography.bodyLarge)

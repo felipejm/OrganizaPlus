@@ -65,4 +65,4 @@ fun ProvideSfProTypography(
  * ```
  */
 @Composable
-fun localTypography(): Typography = typography()
+fun DesignSystemTypography(): Typography = typography()

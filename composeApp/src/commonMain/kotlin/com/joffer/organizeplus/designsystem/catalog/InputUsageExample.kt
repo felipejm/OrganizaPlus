@@ -14,12 +14,12 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.spacing.Spacing
-import com.joffer.organizeplus.designsystem.typography.localTypography
+import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
 import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 @Composable
 fun InputUsageExample() {
-    val typography = localTypography()
+    val typography = DesignSystemTypography()
     var firstName by remember { mutableStateOf("") }
     var lastName by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
@@ -201,7 +201,7 @@ private fun FormSection(
     title: String,
     content: @Composable () -> Unit
 ) {
-    val typography = localTypography()
+    val typography = DesignSystemTypography()
     Column {
         Text(
             text = title,

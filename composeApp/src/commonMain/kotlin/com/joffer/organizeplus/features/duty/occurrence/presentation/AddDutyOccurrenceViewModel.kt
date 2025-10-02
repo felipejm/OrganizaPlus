@@ -36,30 +36,28 @@ class AddDutyOccurrenceViewModel(
         viewModelScope.launch {
             dutyRepository.getDutyById(dutyId)
                 .catch { exception ->
-                    Napier.e("Error loading duty", exception)
+                    handleError("Error loading duty", exception)
                 }
                 .collect { result ->
                     result.fold(
                         onSuccess = { duty ->
-                            duty?.let {
-                                _formState.value = _formState.value.copy(dutyType = it.type)
-                            }
+                            duty?.let { updateDutyType(it.type) }
                         },
                         onFailure = { exception ->
-                            Napier.e("Failed to load duty", exception)
+                            handleError("Failed to load duty", exception)
                         }
                     )
                 }
         }
     }
 
+    private fun updateDutyType(dutyType: com.joffer.organizeplus.features.dashboard.domain.entities.DutyType) {
+        _formState.value = _formState.value.copy(dutyType = dutyType)
+    }
+
     fun onIntent(intent: AddDutyOccurrenceIntent) {
         when (intent) {
-            is AddDutyOccurrenceIntent.UpdateFormField -> updateFormField(
-                field = intent.field,
-                value = intent.value
-            )
-
+            is AddDutyOccurrenceIntent.UpdateFormField -> updateFormField(intent.field, intent.value)
             AddDutyOccurrenceIntent.SaveRecord -> saveRecord()
             AddDutyOccurrenceIntent.ClearError -> clearError()
             AddDutyOccurrenceIntent.Retry -> saveRecord()
@@ -81,52 +79,60 @@ class AddDutyOccurrenceViewModel(
 
     private fun saveRecord() {
         val form = _formState.value
+        val validationErrors = validateForm(form)
 
-        // Validate form
-        val validator = DutyOccurrenceValidator()
-        val errors = validator.validate(form)
-
-        if (errors.isNotEmpty()) {
+        if (validationErrors.isNotEmpty()) {
             _uiState.value = _uiState.value.copy(
-                errors = errors,
+                errors = validationErrors,
                 isLoading = false
             )
             return
         }
 
+        startSavingProcess()
+        performSave(form)
+    }
+
+    private fun validateForm(form: DutyOccurrenceForm): Map<DutyOccurrenceFormField, ValidationError> {
+        val validator = DutyOccurrenceValidator()
+        return validator.validate(form)
+    }
+
+    private fun startSavingProcess() {
         _uiState.value = _uiState.value.copy(
             isLoading = true,
             errors = emptyMap(),
             errorMessage = null
         )
+    }
 
+    private fun performSave(form: DutyOccurrenceForm) {
         viewModelScope.launch {
             try {
-                val result = saveRecordUseCase(form.toDutyOccurrence())
-                result.fold(
-                    onSuccess = { savedRecord ->
-                        _uiState.value = _uiState.value.copy(
-                            isLoading = false,
-                            showSuccessMessage = true,
-                            hasUnsavedChanges = false
-                        )
-                    },
-                    onFailure = { exception ->
-                        Napier.e("Error saving duty occurrence", throwable = exception)
-                        _uiState.value = _uiState.value.copy(
-                            isLoading = false,
-                            errorMessage = exception.message ?: "Failed to save duty occurrence"
-                        )
-                    }
+                saveRecordUseCase(form.toDutyOccurrence()).fold(
+                    onSuccess = { handleSaveSuccess() },
+                    onFailure = { exception -> handleSaveError(exception) }
                 )
             } catch (exception: Exception) {
-                Napier.e("Error saving duty occurrence", throwable = exception)
-                _uiState.value = _uiState.value.copy(
-                    isLoading = false,
-                    errorMessage = exception.message ?: "Unknown error occurred"
-                )
+                handleSaveError(exception)
             }
         }
+    }
+
+    private fun handleSaveSuccess() {
+        _uiState.value = _uiState.value.copy(
+            isLoading = false,
+            showSuccessMessage = true,
+            hasUnsavedChanges = false
+        )
+    }
+
+    private fun handleSaveError(exception: Throwable) {
+        Napier.e("Error saving duty occurrence", throwable = exception)
+        _uiState.value = _uiState.value.copy(
+            isLoading = false,
+            errorMessage = exception.message ?: "Failed to save duty occurrence"
+        )
     }
 
     private fun clearError() {
@@ -136,24 +142,12 @@ class AddDutyOccurrenceViewModel(
         )
     }
 
+    private fun handleError(message: String, exception: Throwable) {
+        Napier.e(message, exception)
+        // For duty loading errors, we don't show UI errors as the form can still work
+    }
+
     fun getFieldError(field: DutyOccurrenceFormField): ValidationError? {
         return _uiState.value.errors[field]
     }
-}
-
-data class AddDutyOccurrenceUiState(
-    val isLoading: Boolean = false,
-    val hasUnsavedChanges: Boolean = false,
-    val showSuccessMessage: Boolean = false,
-    val errorMessage: String? = null,
-    val errors: Map<DutyOccurrenceFormField, ValidationError> = emptyMap()
-)
-
-sealed class AddDutyOccurrenceIntent {
-    data class UpdateFormField(val field: DutyOccurrenceFormField, val value: Any) :
-        AddDutyOccurrenceIntent()
-
-    object SaveRecord : AddDutyOccurrenceIntent()
-    object ClearError : AddDutyOccurrenceIntent()
-    object Retry : AddDutyOccurrenceIntent()
 }

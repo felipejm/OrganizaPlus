@@ -20,7 +20,7 @@ import com.joffer.organizeplus.designsystem.components.OrganizeRadioGroup
 import com.joffer.organizeplus.designsystem.components.RadioOption
 import com.joffer.organizeplus.designsystem.components.RadioOrientation
 import com.joffer.organizeplus.designsystem.spacing.Spacing
-import com.joffer.organizeplus.designsystem.typography.localTypography
+import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
 import org.jetbrains.compose.resources.stringResource
 import organizeplus.composeapp.generated.resources.Res
 import organizeplus.composeapp.generated.resources.radio_showcase_title
@@ -29,7 +29,7 @@ import organizeplus.composeapp.generated.resources.radio_showcase_title
 fun RadioShowcaseScreen(
     onNavigateBack: () -> Unit
 ) {
-    val typography = localTypography()
+    val typography = DesignSystemTypography()
     Column(
         modifier = Modifier.fillMaxSize()
     ) {

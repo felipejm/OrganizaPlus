@@ -8,5 +8,10 @@ import org.koin.dsl.module
 val dutyReviewModule = module {
     single<DutyReviewRepository> { RoomDutyReviewRepository(get()) }
 
-    factory { (categoryFilter: String?) -> DutyReviewViewModel(categoryFilter) }
+    factory { (categoryFilter: String?) ->
+        DutyReviewViewModel(
+            repository = get(),
+            categoryFilter = categoryFilter
+        )
+    }
 }

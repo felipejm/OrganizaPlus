@@ -22,7 +22,7 @@ import com.joffer.organizeplus.designsystem.components.OrganizeCard
 import com.joffer.organizeplus.designsystem.components.OrganizeMessage
 import com.joffer.organizeplus.designsystem.components.OrganizeMessageStack
 import com.joffer.organizeplus.designsystem.spacing.Spacing
-import com.joffer.organizeplus.designsystem.typography.localTypography
+import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
 import org.jetbrains.compose.resources.stringResource
 import organizeplus.composeapp.generated.resources.Res
 import organizeplus.composeapp.generated.resources.message_showcase_title
@@ -31,7 +31,7 @@ import organizeplus.composeapp.generated.resources.message_showcase_title
 fun MessageShowcaseScreen(
     onNavigateBack: () -> Unit
 ) {
-    val typography = localTypography()
+    val typography = DesignSystemTypography()
     Column(
         modifier = Modifier.fillMaxSize()
     ) {

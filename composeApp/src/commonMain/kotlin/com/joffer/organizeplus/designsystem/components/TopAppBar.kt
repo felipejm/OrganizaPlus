@@ -17,7 +17,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import com.joffer.organizeplus.designsystem.spacing.Spacing
-import com.joffer.organizeplus.designsystem.typography.localTypography
+import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
 import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -32,7 +32,7 @@ fun AppTopAppBar(
     navigationIconContentColor: Color = AppColorScheme.formIcon,
     actionIconContentColor: Color = AppColorScheme.formIcon
 ) {
-    val typography = localTypography()
+    val typography = DesignSystemTypography()
     TopAppBar(
         title = {
             title?.let {

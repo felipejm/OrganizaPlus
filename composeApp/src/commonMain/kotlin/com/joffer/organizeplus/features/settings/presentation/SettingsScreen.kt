@@ -10,7 +10,7 @@ import androidx.compose.ui.text.font.FontWeight
 import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.ProvideSfProTypography
-import com.joffer.organizeplus.designsystem.typography.localTypography
+import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
 import org.jetbrains.compose.resources.stringResource
 import organizeplus.composeapp.generated.resources.Res
 import organizeplus.composeapp.generated.resources.settings_design_system
@@ -29,7 +29,7 @@ fun SettingsScreen(
 ) {
     ProvideSfProTypography {
         val uiState by viewModel.uiState.collectAsState()
-        val typography = localTypography()
+        val typography = DesignSystemTypography()
 
         Column(
             modifier = modifier.fillMaxSize()

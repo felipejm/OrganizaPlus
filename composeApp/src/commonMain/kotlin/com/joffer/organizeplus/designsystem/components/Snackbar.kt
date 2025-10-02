@@ -12,7 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import com.joffer.organizeplus.designsystem.spacing.Spacing
-import com.joffer.organizeplus.designsystem.typography.localTypography
+import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
 import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 @Composable
@@ -23,7 +23,7 @@ fun AppSnackbar(
     modifier: Modifier = Modifier,
     isError: Boolean = false
 ) {
-    val typography = localTypography()
+    val typography = DesignSystemTypography()
     Snackbar(
         modifier = modifier.padding(Spacing.lg),
         containerColor = if (isError) AppColorScheme.error else AppColorScheme.surface,

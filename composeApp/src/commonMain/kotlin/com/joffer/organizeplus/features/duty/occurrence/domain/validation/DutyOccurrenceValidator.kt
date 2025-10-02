@@ -10,11 +10,34 @@ class DutyOccurrenceValidator {
     fun validate(form: DutyOccurrenceForm): Map<DutyOccurrenceFormField, ValidationError> {
         val errors = mutableMapOf<DutyOccurrenceFormField, ValidationError>()
 
-        val amount = form.paidAmount?.safeToDouble()
-        if (form.dutyType == DutyType.PAYABLE && amount != null && amount <= 0) {
-            errors[DutyOccurrenceFormField.PaidAmount] = ValidationError.InvalidAmount
-        }
+        validatePaidAmount(form, errors)
+        validateCompletedDate(form, errors)
 
         return errors
+    }
+
+    private fun validatePaidAmount(
+        form: DutyOccurrenceForm,
+        errors: MutableMap<DutyOccurrenceFormField, ValidationError>
+    ) {
+        if (form.dutyType == DutyType.PAYABLE) {
+            val amount = form.paidAmount?.safeToDouble()
+            when {
+                form.paidAmount.isNullOrBlank() -> {
+                    errors[DutyOccurrenceFormField.PaidAmount] = ValidationError.BlankField
+                }
+                amount == null || amount <= 0 -> {
+                    errors[DutyOccurrenceFormField.PaidAmount] = ValidationError.InvalidAmount
+                }
+            }
+        }
+    }
+
+    private fun validateCompletedDate(
+        form: DutyOccurrenceForm,
+        errors: MutableMap<DutyOccurrenceFormField, ValidationError>
+    ) {
+        // Date validation can be added here if needed
+        // For now, we assume the date is always valid as it comes from a date picker
     }
 }

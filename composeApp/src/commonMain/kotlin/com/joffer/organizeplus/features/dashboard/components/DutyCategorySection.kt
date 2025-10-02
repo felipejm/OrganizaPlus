@@ -19,7 +19,7 @@ import com.joffer.organizeplus.common.utils.CurrencyUtils
 import com.joffer.organizeplus.common.utils.DateUtils
 import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.spacing.Spacing
-import com.joffer.organizeplus.designsystem.typography.localTypography
+import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
 import com.joffer.organizeplus.features.dashboard.MonthlySummary
 import com.joffer.organizeplus.features.dashboard.domain.entities.DutyWithLastOccurrence
 import org.jetbrains.compose.resources.StringResource
@@ -51,7 +51,7 @@ fun DutyCategorySection(
     sectionTitle: String? = null,
     monthlySummary: MonthlySummary? = null
 ) {
-    val typography = localTypography()
+    val typography = DesignSystemTypography()
     val config = getCategoryConfig(categoryName)
 
     Card(
@@ -166,7 +166,7 @@ private fun MonthlySummaryCard(
     summary: MonthlySummary,
     modifier: Modifier = Modifier
 ) {
-    val typography = localTypography()
+    val typography = DesignSystemTypography()
     Card(
         modifier = modifier.fillMaxWidth(),
         colors = CardDefaults.cardColors(

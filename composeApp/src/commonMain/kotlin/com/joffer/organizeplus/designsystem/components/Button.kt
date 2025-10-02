@@ -7,7 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.joffer.organizeplus.designsystem.colors.ColorScheme
 import com.joffer.organizeplus.designsystem.spacing.Spacing
-import com.joffer.organizeplus.designsystem.typography.localTypography
+import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
 
 @Composable
 fun OrganizePrimaryButton(
@@ -17,7 +17,7 @@ fun OrganizePrimaryButton(
     enabled: Boolean = true,
     icon: ImageVector? = null
 ) {
-    val typography = localTypography()
+    val typography = DesignSystemTypography()
     Button(
         onClick = onClick,
         modifier = modifier,
@@ -54,7 +54,7 @@ fun OrganizeSecondaryButton(
     enabled: Boolean = true,
     icon: ImageVector? = null
 ) {
-    val typography = localTypography()
+    val typography = DesignSystemTypography()
     OutlinedButton(
         onClick = onClick,
         modifier = modifier,
@@ -89,7 +89,7 @@ fun OrganizeTextButton(
     modifier: Modifier = Modifier,
     enabled: Boolean = true
 ) {
-    val typography = localTypography()
+    val typography = DesignSystemTypography()
     TextButton(
         onClick = onClick,
         modifier = modifier,

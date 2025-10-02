@@ -1,11 +1,10 @@
 package com.joffer.organizeplus.designsystem.components
 
-import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import com.joffer.organizeplus.designsystem.typography.localTypography
+import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
 import org.jetbrains.compose.resources.stringResource
 import organizeplus.composeapp.generated.resources.Res
 import organizeplus.composeapp.generated.resources.status_overdue
@@ -17,7 +16,7 @@ fun StatusChip(
     status: ObligationStatus,
     modifier: Modifier = Modifier
 ) {
-    val typography = localTypography()
+    val typography = DesignSystemTypography()
     val (textResource, containerColor, contentColor) = when (status) {
         ObligationStatus.PENDING -> Triple(
             Res.string.status_pending,
@@ -61,7 +60,7 @@ fun PriorityChip(
     text: String,
     modifier: Modifier = Modifier
 ) {
-    val typography = localTypography()
+    val typography = DesignSystemTypography()
     val (containerColor, contentColor) = when (priority) {
         ObligationPriority.LOW -> Pair(
             MaterialTheme.colorScheme.surfaceVariant,
@@ -107,7 +106,7 @@ fun CategoryChip(
     color: Color = MaterialTheme.colorScheme.primary,
     modifier: Modifier = Modifier
 ) {
-    val typography = localTypography()
+    val typography = DesignSystemTypography()
     AssistChip(
         onClick = { },
         label = {

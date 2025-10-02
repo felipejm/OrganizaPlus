@@ -16,7 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.spacing.Spacing
-import com.joffer.organizeplus.designsystem.typography.localTypography
+import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
 import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -33,7 +33,7 @@ fun BadgeShowcaseScreen(
             )
         }
     ) { paddingValues ->
-        val typography = localTypography()
+        val typography = DesignSystemTypography()
         LazyColumn(
             modifier = modifier
                 .fillMaxSize()
@@ -75,7 +75,7 @@ private fun BadgeShowcaseItem(
     item: BadgeShowcaseItem,
     modifier: Modifier = Modifier
 ) {
-    val typography = localTypography()
+    val typography = DesignSystemTypography()
     OrganizeCard(
         modifier = modifier.fillMaxWidth()
     ) {
@@ -116,7 +116,7 @@ private fun BadgeShowcaseItem(
 
 @Composable
 private fun VariantExamples() {
-    val typography = localTypography()
+    val typography = DesignSystemTypography()
     Column(
         verticalArrangement = Arrangement.spacedBy(Spacing.md)
     ) {
@@ -223,7 +223,7 @@ private fun VariantExamples() {
 
 @Composable
 private fun StateExamples() {
-    val typography = localTypography()
+    val typography = DesignSystemTypography()
     Column(
         verticalArrangement = Arrangement.spacedBy(Spacing.md)
     ) {
@@ -311,7 +311,7 @@ private fun StateExamples() {
 
 @Composable
 private fun UsageExamples() {
-    val typography = localTypography()
+    val typography = DesignSystemTypography()
     Column(
         verticalArrangement = Arrangement.spacedBy(Spacing.md)
     ) {
@@ -408,7 +408,7 @@ private fun UsageExamples() {
 
 @Composable
 private fun PositioningExamples() {
-    val typography = localTypography()
+    val typography = DesignSystemTypography()
     Column(
         verticalArrangement = Arrangement.spacedBy(Spacing.md)
     ) {

@@ -2,10 +2,7 @@ package com.joffer.organizeplus.features.duty.detail.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.joffer.organizeplus.features.dashboard.domain.entities.Duty
 import com.joffer.organizeplus.features.dashboard.domain.repositories.DutyRepository
-import com.joffer.organizeplus.features.duty.detail.domain.entities.ChartData
-import com.joffer.organizeplus.features.duty.occurrence.domain.entities.DutyOccurrence
 import com.joffer.organizeplus.features.duty.occurrence.domain.repositories.DutyOccurrenceRepository
 import io.github.aakira.napier.Napier
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -41,94 +38,78 @@ class DutyDetailsListViewModel(
         viewModelScope.launch {
             _uiState.value = _uiState.value.copy(isLoading = true, error = null)
 
-            // Load duty information
-            dutyRepository.getDutyById(dutyId)
-                .catch { exception ->
-                    Napier.e("Error loading duty", exception)
-                }
-                .collect { result ->
-                    result.fold(
-                        onSuccess = { duty ->
-                            _uiState.value = _uiState.value.copy(duty = duty)
-                        },
-                        onFailure = { exception ->
-                            Napier.e("Failed to load duty", exception)
-                        }
-                    )
-                }
-
-            // Load occurrences
-            try {
-                val result = repository.getDutyOccurrencesByDutyId(dutyId)
-                result.fold(
-                    onSuccess = { occurrences ->
-                        // Sort occurrences by date (most recent first)
-                        val sortedOccurrences = occurrences.sortedByDescending { it.completedDate }
-
-                        _uiState.value = _uiState.value.copy(
-                            isLoading = false,
-                            records = sortedOccurrences,
-                            error = null
-                        )
-
-                        // Load chart data if duty is available
-                        _uiState.value.duty?.let { dutyInfo ->
-                            launch {
-                                repository.getMonthlyChartData(dutyId, dutyInfo.type)
-                                    .fold(
-                                        onSuccess = { chartData ->
-                                            _uiState.value =
-                                                _uiState.value.copy(chartData = chartData)
-                                        },
-                                        onFailure = { exception ->
-                                            Napier.e("Failed to load chart data", exception)
-                                        }
-                                    )
-                            }
-                        }
-                    },
-                    onFailure = { exception ->
-                        Napier.e("Failed to load occurrences", exception)
-                        _uiState.value = _uiState.value.copy(
-                            isLoading = false,
-                            error = exception.message ?: "error_loading_occurrences"
-                        )
-                    }
-                )
-            } catch (exception: Exception) {
-                Napier.e("Error loading occurrences", exception)
-                _uiState.value = _uiState.value.copy(
-                    isLoading = false,
-                    error = exception.message ?: "error_loading_occurrences"
-                )
-            }
+            launch { loadDutyInformation() }
+            launch { loadOccurrences() }
         }
     }
 
-    private fun refreshRecords() {
-        loadRecords()
+    private suspend fun loadDutyInformation() {
+        dutyRepository.getDutyById(dutyId)
+            .catch { exception ->
+                handleError("Error loading duty", exception)
+            }
+            .collect { result ->
+                result.fold(
+                    onSuccess = { duty ->
+                        _uiState.value = _uiState.value.copy(duty = duty)
+                        duty?.let { loadChartData(it) }
+                    },
+                    onFailure = { exception ->
+                        handleError("Failed to load duty", exception)
+                    }
+                )
+            }
     }
+
+    private suspend fun loadOccurrences() {
+        try {
+            repository.getDutyOccurrencesByDutyId(dutyId).fold(
+                onSuccess = { occurrences ->
+                    val sortedOccurrences = sortOccurrencesByDate(occurrences)
+                    _uiState.value = _uiState.value.copy(
+                        isLoading = false,
+                        records = sortedOccurrences,
+                        error = null
+                    )
+                },
+                onFailure = { exception ->
+                    handleError("Failed to load occurrences", exception)
+                }
+            )
+        } catch (exception: Exception) {
+            handleError("Error loading occurrences", exception)
+        }
+    }
+
+    private fun sortOccurrencesByDate(occurrences: List<com.joffer.organizeplus.features.duty.occurrence.domain.entities.DutyOccurrence>): List<com.joffer.organizeplus.features.duty.occurrence.domain.entities.DutyOccurrence> {
+        return occurrences.sortedByDescending { it.completedDate }
+    }
+
+    private fun loadChartData(duty: com.joffer.organizeplus.features.dashboard.domain.entities.Duty) {
+        viewModelScope.launch {
+            repository.getMonthlyChartData(dutyId, duty.type)
+                .fold(
+                    onSuccess = { chartData ->
+                        _uiState.value = _uiState.value.copy(chartData = chartData)
+                    },
+                    onFailure = { exception ->
+                        Napier.e("Failed to load chart data", exception)
+                    }
+                )
+        }
+    }
+
+    private fun refreshRecords() = loadRecords()
 
     private fun deleteRecord(recordId: Long) {
         viewModelScope.launch {
             try {
-                val result = repository.deleteDutyOccurrence(recordId)
-                result.fold(
-                    onSuccess = {
-                        loadRecords() // Refresh the list
-                    },
-                    onFailure = { exception ->
-                        Napier.e("Failed to delete occurrence", exception)
-                        _uiState.value = _uiState.value.copy(
-                            error = exception.message ?: "error_deleting_occurrence"
-                        )
-                    }
+                repository.deleteDutyOccurrence(recordId).fold(
+                    onSuccess = { loadRecords() },
+                    onFailure = { exception -> handleError("Failed to delete occurrence", exception) }
                 )
             } catch (exception: Exception) {
-                Napier.e("Error deleting occurrence", exception)
-                _uiState.value = _uiState.value.copy(
-                    error = exception.message ?: "error_deleting_occurrence"
-                )
+                handleError("Error deleting occurrence", exception)
             }
         }
     }
@@ -137,23 +118,13 @@ class DutyDetailsListViewModel(
         _uiState.value = _uiState.value.copy(error = null)
     }
 
-    private fun retry() {
-        loadRecords()
+    private fun retry() = loadRecords()
+
+    private fun handleError(message: String, exception: Throwable) {
+        Napier.e(message, exception)
+        _uiState.value = _uiState.value.copy(
+            isLoading = false,
+            error = exception.message ?: "Unknown error"
+        )
     }
-}
-
-data class DutyDetailsListUiState(
-    val isLoading: Boolean = false,
-    val records: List<DutyOccurrence> = emptyList(),
-    val duty: Duty? = null,
-    val chartData: ChartData? = null,
-    val error: String? = null
-)
-
-sealed class DutyDetailsListIntent {
-    object LoadRecords : DutyDetailsListIntent()
-    object RefreshRecords : DutyDetailsListIntent()
-    data class DeleteRecord(val recordId: Long) : DutyDetailsListIntent()
-    object ClearError : DutyDetailsListIntent()
-    object Retry : DutyDetailsListIntent()
 }

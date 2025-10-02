@@ -8,7 +8,7 @@ import androidx.compose.ui.graphics.Color
  * Unlike semantic tokens, primitive colors are not intended for direct use in UI design.
  * They are defined in a neutral, agnostic manner that describes the color itself rather than
  * its usage or meaning within the design.
- * 
+ *
  * These colors are based on the actual color values currently used in the OrganizePlus app.
  */
 @Immutable
@@ -17,7 +17,8 @@ object PrimitiveColors {
     // ===== NEUTRAL PRIMITIVES =====
     val black = Color(0xFF000000)
     val white = Color(0xFFFFFFFF)
-    
+    val lightGrey = Color(0xFFF7F8F9)
+
     // Neutral grays (from original ColorScheme)
     val neutral50 = Color(0xFFFCFCFC)
     val neutral100 = Color(0xFFFAFAFA)
@@ -103,7 +104,7 @@ object PrimitiveColors {
     val overdueRed = Color(0xFFE53935) // Red for overdue
     val amountPaidGreen = Color(0xFF2E7D32) // Green for amount paid
     val summaryBackground = Color(0xFFFDECEC) // Soft tinted background for summary
-    
+
     // Utility primitives
     val transparent = Color(0x00000000)
     val scrim = Color(0x80000000)

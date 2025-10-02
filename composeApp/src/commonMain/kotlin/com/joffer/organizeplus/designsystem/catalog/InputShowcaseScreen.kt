@@ -15,7 +15,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.spacing.Spacing
-import com.joffer.organizeplus.designsystem.typography.Typography
+import com.joffer.organizeplus.designsystem.typography.localTypography
 import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -24,6 +24,7 @@ fun InputShowcaseScreen(
     onNavigateBack: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val typography = localTypography()
     Scaffold(
         topBar = {
             AppTopAppBarWithBackButton(
@@ -42,7 +43,7 @@ fun InputShowcaseScreen(
             item {
                 Text(
                     text = "Input Component",
-                    style = Typography.h3,
+                    style = typography.headlineMedium,
                     color = AppColorScheme.onSurface
                 )
             }
@@ -55,7 +56,7 @@ fun InputShowcaseScreen(
                 Spacer(modifier = Modifier.height(Spacing.lg))
                 Text(
                     text = "Real Usage Example",
-                    style = Typography.h3,
+                    style = typography.headlineMedium,
                     color = AppColorScheme.onSurface
                 )
                 Spacer(modifier = Modifier.height(Spacing.sm))
@@ -73,6 +74,7 @@ private fun InputShowcaseItem(
     item: InputShowcaseItem,
     modifier: Modifier = Modifier
 ) {
+    val typography = localTypography()
     OrganizeCard(
         modifier = modifier.fillMaxWidth()
     ) {
@@ -81,13 +83,13 @@ private fun InputShowcaseItem(
         ) {
             Text(
                 text = item.title,
-                style = Typography.title,
+                style = typography.titleMedium,
                 color = AppColorScheme.onSurface
             )
 
             Text(
                 text = item.description,
-                style = Typography.body,
+                style = typography.bodyMedium,
                 color = AppColorScheme.onSurfaceVariant
             )
 
@@ -116,6 +118,7 @@ private fun InputShowcaseItem(
 
 @Composable
 private fun SizeExamples() {
+    val typography = localTypography()
     var largeValue by remember { mutableStateOf("") }
     var mediumValue by remember { mutableStateOf("") }
     var smallValue by remember { mutableStateOf("") }
@@ -125,7 +128,7 @@ private fun SizeExamples() {
     ) {
         Text(
             text = "Input Sizes",
-            style = Typography.subtitle,
+            style = typography.titleSmall,
             color = AppColorScheme.onSurface
         )
 
@@ -157,6 +160,7 @@ private fun SizeExamples() {
 
 @Composable
 private fun StateExamples() {
+    val typography = localTypography()
     var defaultValue by remember { mutableStateOf("") }
     var hoverValue by remember { mutableStateOf("") }
     var focusedValue by remember { mutableStateOf("") }
@@ -168,7 +172,7 @@ private fun StateExamples() {
     ) {
         Text(
             text = "Input States",
-            style = Typography.subtitle,
+            style = typography.titleSmall,
             color = AppColorScheme.onSurface
         )
 
@@ -218,6 +222,7 @@ private fun StateExamples() {
 
 @Composable
 private fun IconExamples() {
+    val typography = localTypography()
     var leadingValue by remember { mutableStateOf("") }
     var trailingValue by remember { mutableStateOf("") }
     var bothIconsValue by remember { mutableStateOf("") }
@@ -229,7 +234,7 @@ private fun IconExamples() {
     ) {
         Text(
             text = "Input with Icons",
-            style = Typography.subtitle,
+            style = typography.titleSmall,
             color = AppColorScheme.onSurface
         )
 
@@ -275,6 +280,7 @@ private fun IconExamples() {
 
 @Composable
 private fun ValidationExamples() {
+    val typography = localTypography()
     var requiredValue by remember { mutableStateOf("") }
     var emailValue by remember { mutableStateOf("") }
     var phoneValue by remember { mutableStateOf("") }
@@ -285,7 +291,7 @@ private fun ValidationExamples() {
     ) {
         Text(
             text = "Validation Examples",
-            style = Typography.subtitle,
+            style = typography.titleSmall,
             color = AppColorScheme.onSurface
         )
 
@@ -330,6 +336,7 @@ private fun ValidationExamples() {
 
 @Composable
 private fun TypeExamples() {
+    val typography = localTypography()
     var textValue by remember { mutableStateOf("") }
     var numberValue by remember { mutableStateOf("") }
     var multilineValue by remember { mutableStateOf("") }
@@ -340,7 +347,7 @@ private fun TypeExamples() {
     ) {
         Text(
             text = "Input Types",
-            style = Typography.subtitle,
+            style = typography.titleSmall,
             color = AppColorScheme.onSurface
         )
 

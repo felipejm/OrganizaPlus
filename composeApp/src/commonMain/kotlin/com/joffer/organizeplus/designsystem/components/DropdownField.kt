@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import com.joffer.organizeplus.designsystem.spacing.Spacing
-import com.joffer.organizeplus.designsystem.typography.Typography
+import com.joffer.organizeplus.designsystem.typography.localTypography
 import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -25,12 +25,13 @@ fun <T> DropdownField(
     errorMessage: String? = null,
     modifier: Modifier = Modifier
 ) {
+    val typography = localTypography()
     var expanded by remember { mutableStateOf(false) }
 
     Column(modifier = modifier) {
         Text(
             text = if (isRequired) "$label *" else label,
-            style = Typography.bodyMedium,
+            style = typography.bodyMedium,
             color = AppColorScheme.formLabel,
             fontWeight = FontWeight.Medium
         )
@@ -92,7 +93,7 @@ fun <T> DropdownField(
             Spacer(modifier = Modifier.height(Spacing.xs))
             Text(
                 text = errorMessage,
-                style = Typography.bodySmall,
+                style = typography.bodySmall,
                 color = AppColorScheme.error
             )
         }

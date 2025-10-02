@@ -17,7 +17,7 @@ import com.joffer.organizeplus.designsystem.components.OrganizeResultCard
 import com.joffer.organizeplus.designsystem.components.OrganizeSecondaryButton
 import com.joffer.organizeplus.designsystem.components.ResultType
 import com.joffer.organizeplus.designsystem.spacing.Spacing
-import com.joffer.organizeplus.designsystem.typography.Typography
+import com.joffer.organizeplus.designsystem.typography.localTypography
 import org.jetbrains.compose.resources.stringResource
 import organizeplus.composeapp.generated.resources.Res
 import organizeplus.composeapp.generated.resources.result_showcase_title
@@ -26,6 +26,7 @@ import organizeplus.composeapp.generated.resources.result_showcase_title
 fun ResultShowcaseScreen(
     onNavigateBack: () -> Unit
 ) {
+    val typography = localTypography()
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -50,7 +51,7 @@ fun ResultShowcaseScreen(
                     ) {
                         Text(
                             text = "Success Result",
-                            style = Typography.titleMedium
+                            style = typography.titleMedium
                         )
 
                         OrganizeResult(
@@ -78,7 +79,7 @@ fun ResultShowcaseScreen(
                     ) {
                         Text(
                             text = "Error Result",
-                            style = Typography.titleMedium
+                            style = typography.titleMedium
                         )
 
                         OrganizeResult(
@@ -110,7 +111,7 @@ fun ResultShowcaseScreen(
                     ) {
                         Text(
                             text = "Warning Result",
-                            style = Typography.titleMedium
+                            style = typography.titleMedium
                         )
 
                         OrganizeResult(
@@ -132,7 +133,7 @@ fun ResultShowcaseScreen(
                     ) {
                         Text(
                             text = "Info Result",
-                            style = Typography.titleMedium
+                            style = typography.titleMedium
                         )
 
                         OrganizeResult(
@@ -154,7 +155,7 @@ fun ResultShowcaseScreen(
                     ) {
                         Text(
                             text = "Result Card",
-                            style = Typography.titleMedium
+                            style = typography.titleMedium
                         )
 
                         OrganizeResultCard(

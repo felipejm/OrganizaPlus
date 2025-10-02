@@ -16,7 +16,7 @@ import com.joffer.organizeplus.common.utils.formatString
 import com.joffer.organizeplus.designsystem.components.AppTopAppBarWithBackButton
 import com.joffer.organizeplus.designsystem.components.OrganizeCard
 import com.joffer.organizeplus.designsystem.spacing.Spacing
-import com.joffer.organizeplus.designsystem.typography.Typography
+import com.joffer.organizeplus.designsystem.typography.localTypography
 import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -25,6 +25,7 @@ fun ColorShowcaseScreen(
     onNavigateBack: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val typography = localTypography()
     Scaffold(
         topBar = {
             AppTopAppBarWithBackButton(
@@ -52,6 +53,7 @@ private fun ColorPaletteSection(
     palette: ColorPalette,
     modifier: Modifier = Modifier
 ) {
+    val typography = localTypography()
     OrganizeCard(
         modifier = modifier.fillMaxWidth()
     ) {
@@ -60,13 +62,13 @@ private fun ColorPaletteSection(
         ) {
             Text(
                 text = palette.title,
-                style = Typography.h3,
+                style = typography.headlineMedium,
                 color = AppColorScheme.onSurface
             )
 
             Text(
                 text = palette.description,
-                style = Typography.body,
+                style = typography.bodyMedium,
                 color = AppColorScheme.onSurfaceVariant
             )
 
@@ -92,6 +94,7 @@ private fun ColorPaletteSection(
 
 @Composable
 private fun NeutralColorGrid() {
+    val typography = localTypography()
     val neutralColors = listOf(
         "Black" to AppColorScheme.black,
         "Neutral 700" to AppColorScheme.neutral700,
@@ -110,6 +113,7 @@ private fun NeutralColorGrid() {
 
 @Composable
 private fun PrimaryColorGrid() {
+    val typography = localTypography()
     val primaryColors = listOf(
         "Primary 700" to AppColorScheme.primary700,
         "Primary 600" to AppColorScheme.primary600,
@@ -126,6 +130,7 @@ private fun PrimaryColorGrid() {
 
 @Composable
 private fun AuxiliaryColorGrid() {
+    val typography = localTypography()
     val auxiliaryColors = listOf(
         "Auxiliary 700" to AppColorScheme.auxiliary700,
         "Auxiliary 600" to AppColorScheme.auxiliary600,
@@ -142,13 +147,14 @@ private fun AuxiliaryColorGrid() {
 
 @Composable
 private fun SemanticColorGrid() {
+    val typography = localTypography()
     Column(
         verticalArrangement = Arrangement.spacedBy(Spacing.md)
     ) {
         // Danger Colors
         Text(
             text = "Danger",
-            style = Typography.subtitle,
+            style = typography.titleSmall,
             color = AppColorScheme.onSurface
         )
         val dangerColors = listOf(
@@ -164,7 +170,7 @@ private fun SemanticColorGrid() {
         // Warning Colors
         Text(
             text = "Warning",
-            style = Typography.subtitle,
+            style = typography.titleSmall,
             color = AppColorScheme.onSurface
         )
         val warningColors = listOf(
@@ -180,7 +186,7 @@ private fun SemanticColorGrid() {
         // Success Colors
         Text(
             text = "Success",
-            style = Typography.subtitle,
+            style = typography.titleSmall,
             color = AppColorScheme.onSurface
         )
         val successColors = listOf(
@@ -196,7 +202,7 @@ private fun SemanticColorGrid() {
         // Info Colors
         Text(
             text = "Info",
-            style = Typography.subtitle,
+            style = typography.titleSmall,
             color = AppColorScheme.onSurface
         )
         val infoColors = listOf(
@@ -214,6 +220,7 @@ private fun ColorGrid(
     colors: List<Pair<String, Color>>,
     modifier: Modifier = Modifier
 ) {
+    val typography = localTypography()
     Column(
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(Spacing.sm)
@@ -244,6 +251,7 @@ private fun ColorSwatch(
     color: Color,
     modifier: Modifier = Modifier
 ) {
+    val typography = localTypography()
     Column(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally
@@ -261,14 +269,14 @@ private fun ColorSwatch(
 
         Text(
             text = name,
-            style = Typography.caption,
+            style = typography.caption,
             color = AppColorScheme.onSurfaceVariant,
             fontWeight = FontWeight.Medium
         )
 
         Text(
             text = color.toHexString(),
-            style = Typography.caption,
+            style = typography.caption,
             color = AppColorScheme.onSurfaceVariant
         )
     }

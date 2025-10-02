@@ -13,11 +13,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.spacing.Spacing
-import com.joffer.organizeplus.designsystem.typography.Typography
+import com.joffer.organizeplus.designsystem.typography.localTypography
 import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 @Composable
 fun TagUsageExample(modifier: Modifier = Modifier) {
+    val typography = localTypography()
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -29,7 +30,7 @@ fun TagUsageExample(modifier: Modifier = Modifier) {
         // Example 1: Tags as filters
         Text(
             text = "Filters:",
-            style = Typography.bodyMedium,
+            style = typography.bodyMedium,
             color = AppColorScheme.onSurface
         )
         var selectedCategories by remember { mutableStateOf(setOf("Work")) }
@@ -63,7 +64,7 @@ fun TagUsageExample(modifier: Modifier = Modifier) {
         // Example 2: Closable tags for selected items
         Text(
             text = "Selected Users:",
-            style = Typography.bodyMedium,
+            style = typography.bodyMedium,
             color = AppColorScheme.onSurface
         )
         var selectedUsers by remember { mutableStateOf(listOf("Alice", "Bob", "Charlie")) }
@@ -91,7 +92,7 @@ fun TagUsageExample(modifier: Modifier = Modifier) {
         } else {
             Text(
                 text = "No users selected.",
-                style = Typography.body,
+                style = typography.bodyMedium,
                 color = AppColorScheme.neutral500
             )
         }
@@ -99,7 +100,7 @@ fun TagUsageExample(modifier: Modifier = Modifier) {
         // Example 3: Status indicators
         Text(
             text = "Project Status:",
-            style = Typography.bodyMedium,
+            style = typography.bodyMedium,
             color = AppColorScheme.onSurface
         )
         Row(
@@ -121,7 +122,7 @@ fun TagUsageExample(modifier: Modifier = Modifier) {
         // Example 4: Tags in a list item
         Text(
             text = "Task Details:",
-            style = Typography.bodyMedium,
+            style = typography.bodyMedium,
             color = AppColorScheme.onSurface
         )
         Card(
@@ -132,7 +133,7 @@ fun TagUsageExample(modifier: Modifier = Modifier) {
             Column(modifier = Modifier.padding(Spacing.md)) {
                 Text(
                     text = "Implement new feature",
-                    style = Typography.subtitle,
+                    style = typography.titleSmall,
                     color = AppColorScheme.onSurface
                 )
                 Spacer(modifier = Modifier.height(Spacing.xs))

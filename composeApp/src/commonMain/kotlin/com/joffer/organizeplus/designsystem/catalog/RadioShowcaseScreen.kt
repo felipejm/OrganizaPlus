@@ -20,7 +20,7 @@ import com.joffer.organizeplus.designsystem.components.OrganizeRadioGroup
 import com.joffer.organizeplus.designsystem.components.RadioOption
 import com.joffer.organizeplus.designsystem.components.RadioOrientation
 import com.joffer.organizeplus.designsystem.spacing.Spacing
-import com.joffer.organizeplus.designsystem.typography.Typography
+import com.joffer.organizeplus.designsystem.typography.localTypography
 import org.jetbrains.compose.resources.stringResource
 import organizeplus.composeapp.generated.resources.Res
 import organizeplus.composeapp.generated.resources.radio_showcase_title
@@ -29,6 +29,7 @@ import organizeplus.composeapp.generated.resources.radio_showcase_title
 fun RadioShowcaseScreen(
     onNavigateBack: () -> Unit
 ) {
+    val typography = localTypography()
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -53,7 +54,7 @@ fun RadioShowcaseScreen(
                     ) {
                         Text(
                             text = "Basic Radio Group",
-                            style = Typography.titleMedium
+                            style = typography.titleMedium
                         )
 
                         val options = listOf(
@@ -84,7 +85,7 @@ fun RadioShowcaseScreen(
                     ) {
                         Text(
                             text = "Horizontal Layout",
-                            style = Typography.titleMedium
+                            style = typography.titleMedium
                         )
 
                         val options = listOf(
@@ -115,7 +116,7 @@ fun RadioShowcaseScreen(
                     ) {
                         Text(
                             text = "With Disabled Options",
-                            style = Typography.titleMedium
+                            style = typography.titleMedium
                         )
 
                         val options = listOf(
@@ -146,7 +147,7 @@ fun RadioShowcaseScreen(
                     ) {
                         Text(
                             text = "Disabled Group",
-                            style = Typography.titleMedium
+                            style = typography.titleMedium
                         )
 
                         val options = listOf(

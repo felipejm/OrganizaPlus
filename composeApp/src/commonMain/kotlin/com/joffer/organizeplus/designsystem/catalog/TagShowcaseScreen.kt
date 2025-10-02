@@ -11,7 +11,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.spacing.Spacing
-import com.joffer.organizeplus.designsystem.typography.Typography
+import com.joffer.organizeplus.designsystem.typography.localTypography
 import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -20,6 +20,7 @@ fun TagShowcaseScreen(
     onNavigateBack: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val typography = localTypography()
     Scaffold(
         topBar = {
             AppTopAppBarWithBackButton(
@@ -38,12 +39,12 @@ fun TagShowcaseScreen(
             item {
                 Text(
                     text = "Tag Component",
-                    style = Typography.h3,
+                    style = typography.headlineMedium,
                     color = AppColorScheme.onSurface
                 )
                 Text(
                     text = "A generic, presentational tag component for labeling and categorization.",
-                    style = Typography.body,
+                    style = typography.bodyMedium,
                     color = AppColorScheme.onSurfaceVariant
                 )
                 Spacer(modifier = Modifier.height(Spacing.md))
@@ -52,7 +53,7 @@ fun TagShowcaseScreen(
             item {
                 Text(
                     text = "Sizes",
-                    style = Typography.h3,
+                    style = typography.headlineMedium,
                     color = AppColorScheme.onSurface
                 )
                 Spacer(modifier = Modifier.height(Spacing.sm))
@@ -65,7 +66,7 @@ fun TagShowcaseScreen(
                     ) {
                         Text(
                             text = "Large",
-                            style = Typography.caption,
+                            style = typography.caption,
                             color = AppColorScheme.onSurfaceVariant
                         )
                         Spacer(modifier = Modifier.height(Spacing.xs))
@@ -80,7 +81,7 @@ fun TagShowcaseScreen(
                     ) {
                         Text(
                             text = "Medium",
-                            style = Typography.caption,
+                            style = typography.caption,
                             color = AppColorScheme.onSurfaceVariant
                         )
                         Spacer(modifier = Modifier.height(Spacing.xs))
@@ -95,7 +96,7 @@ fun TagShowcaseScreen(
                     ) {
                         Text(
                             text = "Small",
-                            style = Typography.caption,
+                            style = typography.caption,
                             color = AppColorScheme.onSurfaceVariant
                         )
                         Spacer(modifier = Modifier.height(Spacing.xs))
@@ -110,7 +111,7 @@ fun TagShowcaseScreen(
             item {
                 Text(
                     text = "Variants",
-                    style = Typography.h3,
+                    style = typography.headlineMedium,
                     color = AppColorScheme.onSurface
                 )
                 Spacer(modifier = Modifier.height(Spacing.sm))
@@ -134,7 +135,7 @@ fun TagShowcaseScreen(
             item {
                 Text(
                     text = "With Icons",
-                    style = Typography.h3,
+                    style = typography.headlineMedium,
                     color = AppColorScheme.onSurface
                 )
                 Spacer(modifier = Modifier.height(Spacing.sm))
@@ -170,7 +171,7 @@ fun TagShowcaseScreen(
                 Spacer(modifier = Modifier.height(Spacing.lg))
                 Text(
                     text = "Real Usage Examples",
-                    style = Typography.h3,
+                    style = typography.headlineMedium,
                     color = AppColorScheme.onSurface
                 )
                 Spacer(modifier = Modifier.height(Spacing.sm))

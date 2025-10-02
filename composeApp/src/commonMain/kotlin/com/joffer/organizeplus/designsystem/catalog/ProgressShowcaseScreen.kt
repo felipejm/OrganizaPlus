@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.spacing.Spacing
-import com.joffer.organizeplus.designsystem.typography.Typography
+import com.joffer.organizeplus.designsystem.typography.localTypography
 import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -18,6 +18,7 @@ fun ProgressShowcaseScreen(
     onNavigateBack: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val typography = localTypography()
     Scaffold(
         topBar = {
             AppTopAppBarWithBackButton(
@@ -36,7 +37,7 @@ fun ProgressShowcaseScreen(
             item {
                 Text(
                     text = "Progress Indicators",
-                    style = Typography.h1,
+                    style = typography.displayLarge,
                     color = AppColorScheme.onSurface
                 )
             }
@@ -44,7 +45,7 @@ fun ProgressShowcaseScreen(
             item {
                 Text(
                     text = "Different types of progress indicators for various use cases",
-                    style = Typography.body,
+                    style = typography.bodyMedium,
                     color = AppColorScheme.onSurfaceVariant
                 )
             }
@@ -59,7 +60,7 @@ fun ProgressShowcaseScreen(
                     ) {
                         Text(
                             text = "Basic Progress Indicator",
-                            style = Typography.titleMedium,
+                            style = typography.titleMedium,
                             color = AppColorScheme.onSurface,
                             fontWeight = FontWeight.SemiBold
                         )
@@ -68,7 +69,7 @@ fun ProgressShowcaseScreen(
 
                         Text(
                             text = "Standard progress indicator with customizable size and color",
-                            style = Typography.body,
+                            style = typography.bodyMedium,
                             color = AppColorScheme.onSurfaceVariant
                         )
 
@@ -82,7 +83,7 @@ fun ProgressShowcaseScreen(
 
                             Text(
                                 text = "Default (40dp, Primary color)",
-                                style = Typography.caption,
+                                style = typography.caption,
                                 color = AppColorScheme.onSurfaceVariant
                             )
                         }
@@ -100,7 +101,7 @@ fun ProgressShowcaseScreen(
                     ) {
                         Text(
                             text = "Full Screen Progress",
-                            style = Typography.titleMedium,
+                            style = typography.titleMedium,
                             color = AppColorScheme.onSurface,
                             fontWeight = FontWeight.SemiBold
                         )
@@ -109,7 +110,7 @@ fun ProgressShowcaseScreen(
 
                         Text(
                             text = "Centered progress indicator for loading states",
-                            style = Typography.body,
+                            style = typography.bodyMedium,
                             color = AppColorScheme.onSurfaceVariant
                         )
 
@@ -136,7 +137,7 @@ fun ProgressShowcaseScreen(
                     ) {
                         Text(
                             text = "Inline Progress",
-                            style = Typography.titleMedium,
+                            style = typography.titleMedium,
                             color = AppColorScheme.onSurface,
                             fontWeight = FontWeight.SemiBold
                         )
@@ -145,7 +146,7 @@ fun ProgressShowcaseScreen(
 
                         Text(
                             text = "Small progress indicator for buttons and compact spaces",
-                            style = Typography.body,
+                            style = typography.bodyMedium,
                             color = AppColorScheme.onSurfaceVariant
                         )
 
@@ -163,7 +164,7 @@ fun ProgressShowcaseScreen(
                                     OrganizeProgressIndicatorInline()
                                     Text(
                                         text = "Default",
-                                        style = Typography.caption,
+                                        style = typography.caption,
                                         color = AppColorScheme.onSurfaceVariant
                                     )
                                 }
@@ -174,7 +175,7 @@ fun ProgressShowcaseScreen(
                                     )
                                     Text(
                                         text = "16dp",
-                                        style = Typography.caption,
+                                        style = typography.caption,
                                         color = AppColorScheme.onSurfaceVariant
                                     )
                                 }

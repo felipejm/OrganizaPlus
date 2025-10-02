@@ -5,11 +5,12 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.AddChart
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight.Companion.Black
 import com.joffer.organizeplus.common.utils.DateUtils
 import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.components.ResultType
@@ -31,7 +32,6 @@ import organizeplus.composeapp.generated.resources.duty_list_empty_title
 import organizeplus.composeapp.generated.resources.duty_list_error_subtitle
 import organizeplus.composeapp.generated.resources.duty_list_error_title
 import organizeplus.composeapp.generated.resources.duty_list_retry
-import organizeplus.composeapp.generated.resources.duty_list_title
 import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -41,7 +41,8 @@ fun DutyListScreen(
     categoryFilter: DutyCategoryFilter,
     onNavigateToCreateDuty: () -> Unit,
     onNavigateBack: () -> Unit,
-    onNavigateToOccurrences: (Long) -> Unit
+    onNavigateToOccurrences: (Long) -> Unit,
+    onNavigateToReview: () -> Unit = {}
 ) {
     ProvideSfProTypography {
         val uiState by viewModel.uiState.collectAsState()
@@ -52,131 +53,146 @@ fun DutyListScreen(
         val currentMonth = DateUtils.getMonthName(currentDateTime.monthNumber)
         val currentYear = currentDateTime.year
 
-    LaunchedEffect(uiState.error) {
-        if (uiState.error != null) {
-            // Error will be shown in the UI below
-        }
-    }
-
-    Scaffold(
-        topBar = {
-            AppTopAppBarWithBackButton(
-                title = when (categoryFilter) {
-                    DutyCategoryFilter.All -> stringResource(Res.string.duty_list_title)
-                    DutyCategoryFilter.Personal -> stringResource(Res.string.dashboard_personal_duties)
-                    DutyCategoryFilter.Company -> stringResource(Res.string.dashboard_company_duties)
-                    is DutyCategoryFilter.Custom -> "${categoryFilter.name} Duties"
-                },
-                onBackClick = onNavigateBack,
-                backIcon = Icons.Default.ArrowBack,
-                navigationIconContentColor = AppColorScheme.onSurface
-            )
-        },
-        floatingActionButton = {
-            FloatingActionButton(
-                onClick = onNavigateToCreateDuty,
-                containerColor = AppColorScheme.primary,
-                contentColor = AppColorScheme.onPrimary
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Add,
-                    contentDescription = "Add Duty"
-                )
+        LaunchedEffect(uiState.error) {
+            if (uiState.error != null) {
+                // Error will be shown in the UI below
             }
         }
-    ) { paddingValues ->
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(paddingValues)
-        ) {
-            if (uiState.isLoading) {
-                OrganizeProgressIndicatorFullScreen()
-            } else if (uiState.error != null) {
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Column(
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        Text(
-                            text = stringResource(Res.string.duty_list_error_title),
-                            style = typography.titleMedium,
-                            color = AppColorScheme.error
-                        )
-                        Spacer(modifier = Modifier.height(Spacing.sm))
-                        Text(
-                            text = uiState.error
-                                ?: stringResource(Res.string.duty_list_error_subtitle),
-                            style = typography.bodyMedium,
-                            color = AppColorScheme.formSecondaryText
-                        )
-                        Spacer(modifier = Modifier.height(Spacing.md))
-                        Button(
-                            onClick = { viewModel.onIntent(DutyListIntent.Retry) }
-                        ) {
-                            Text(stringResource(Res.string.duty_list_retry))
-                        }
-                    }
-                }
-            } else if (uiState.duties.isEmpty()) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    OrganizeResult(
-                        type = ResultType.INFO,
-                        title = stringResource(Res.string.duty_list_empty_title),
-                        description = stringResource(Res.string.duty_list_empty_subtitle),
-                        actions = {
-                            OrganizePrimaryButton(
-                                text = stringResource(Res.string.add_duty),
-                                onClick = onNavigateToCreateDuty
+
+        Scaffold(
+            topBar = {
+                AppTopAppBarWithBackButton(
+                    onBackClick = onNavigateBack,
+                    actions = {
+                        IconButton(onClick = onNavigateToReview) {
+                            Icon(
+                                imageVector = Icons.Default.AddChart,
+                                contentDescription = "View Review",
+                                tint = AppColorScheme.onSurface
                             )
                         }
+                    }
+                )
+            },
+            floatingActionButton = {
+                FloatingActionButton(
+                    onClick = onNavigateToCreateDuty,
+                    containerColor = AppColorScheme.primary,
+                    contentColor = AppColorScheme.onPrimary
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Add,
+                        contentDescription = "Add Duty"
                     )
                 }
-            } else {
-                LazyColumn(
-                    modifier = Modifier.fillMaxSize(),
-                    contentPadding = PaddingValues(Spacing.md),
-                    verticalArrangement = Arrangement.spacedBy(Spacing.sm)
-                ) {
-                    // Month/Year Header
-                    item {
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth().padding(Spacing.md),
-                            horizontalArrangement = Arrangement.Start,
-                            verticalAlignment = Alignment.CenterVertically
+            }
+        ) { paddingValues ->
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(paddingValues)
+            ) {
+                if (uiState.isLoading) {
+                    OrganizeProgressIndicatorFullScreen()
+                } else if (uiState.error != null) {
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally
                         ) {
                             Text(
-                                text = "$currentMonth $currentYear",
-                                style = typography.titleLarge,
-                                color = AppColorScheme.black
+                                text = stringResource(Res.string.duty_list_error_title),
+                                style = typography.titleMedium,
+                                color = AppColorScheme.error
                             )
+                            Spacer(modifier = Modifier.height(Spacing.sm))
+                            Text(
+                                text = uiState.error
+                                    ?: stringResource(Res.string.duty_list_error_subtitle),
+                                style = typography.bodyMedium,
+                                color = AppColorScheme.formSecondaryText
+                            )
+                            Spacer(modifier = Modifier.height(Spacing.md))
+                            Button(
+                                onClick = { viewModel.onIntent(DutyListIntent.Retry) }
+                            ) {
+                                Text(stringResource(Res.string.duty_list_retry))
+                            }
                         }
-                        Spacer(modifier = Modifier.height(Spacing.sm))
                     }
-
-                    items(uiState.duties) { dutyWithOccurrence ->
-                        DutyListItem(
-                            dutyWithOccurrence = dutyWithOccurrence,
-                            onViewOccurrences = onNavigateToOccurrences,
-                            onDelete = { dutyId ->
-                                viewModel.onIntent(
-                                    DutyListIntent.DeleteDuty(
-                                        dutyId
-                                    )
+                } else if (uiState.duties.isEmpty()) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        OrganizeResult(
+                            type = ResultType.INFO,
+                            title = stringResource(Res.string.duty_list_empty_title),
+                            description = stringResource(Res.string.duty_list_empty_subtitle),
+                            actions = {
+                                OrganizePrimaryButton(
+                                    text = stringResource(Res.string.add_duty),
+                                    onClick = onNavigateToCreateDuty
                                 )
                             }
                         )
                     }
+                } else {
+                    LazyColumn(
+                        modifier = Modifier.fillMaxSize(),
+                        contentPadding = PaddingValues(Spacing.md),
+                        verticalArrangement = Arrangement.spacedBy(Spacing.sm)
+                    ) {
+                        // Month/Year Header
+                        item {
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth().padding(Spacing.md),
+                                horizontalArrangement = Arrangement.Start,
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                val categoryName = when (categoryFilter) {
+                                    DutyCategoryFilter.Personal -> stringResource(Res.string.dashboard_personal_duties)
+                                    DutyCategoryFilter.Company -> stringResource(Res.string.dashboard_company_duties)
+                                }
+
+                                Column {
+                                    Text(
+                                        text = categoryName,
+                                        style = typography.headlineMedium,
+                                        color = AppColorScheme.black,
+                                        fontWeight = Black
+                                    )
+                                    Spacer(modifier = Modifier.height(Spacing.xs))
+                                    Text(
+                                        text = "$currentMonth $currentYear",
+                                        style = typography.titleLarge,
+                                        color = AppColorScheme.black,
+                                    )
+                                }
+                            }
+                            Spacer(modifier = Modifier.height(Spacing.sm))
+                        }
+
+                        items(uiState.duties) { dutyWithOccurrence ->
+                            DutyListItem(
+                                dutyWithOccurrence = dutyWithOccurrence,
+                                onViewOccurrences = onNavigateToOccurrences,
+                                onDelete = { dutyId ->
+                                    viewModel.onIntent(
+                                        DutyListIntent.DeleteDuty(
+                                            dutyId
+                                        )
+                                    )
+                                }
+                            )
+                        }
+                    }
                 }
             }
         }
-    }
     }
 }

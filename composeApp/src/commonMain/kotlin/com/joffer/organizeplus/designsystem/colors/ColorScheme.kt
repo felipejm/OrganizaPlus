@@ -1,7 +1,6 @@
 package com.joffer.organizeplus.designsystem.colors
 
 import androidx.compose.runtime.Immutable
-import androidx.compose.ui.graphics.Color
 
 /**
  * Main color scheme that provides access to both primitive and semantic colors.

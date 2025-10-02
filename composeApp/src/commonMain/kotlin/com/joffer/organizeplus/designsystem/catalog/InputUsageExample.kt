@@ -14,11 +14,12 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.spacing.Spacing
-import com.joffer.organizeplus.designsystem.typography.Typography
+import com.joffer.organizeplus.designsystem.typography.localTypography
 import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 @Composable
 fun InputUsageExample() {
+    val typography = localTypography()
     var firstName by remember { mutableStateOf("") }
     var lastName by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
@@ -43,13 +44,13 @@ fun InputUsageExample() {
         ) {
             Text(
                 text = "User Registration Form",
-                style = Typography.h3,
+                style = typography.headlineMedium,
                 color = AppColorScheme.onSurface
             )
 
             Text(
                 text = "Example of the new input component in a real form",
-                style = Typography.body,
+                style = typography.bodyMedium,
                 color = AppColorScheme.onSurfaceVariant
             )
 
@@ -200,10 +201,11 @@ private fun FormSection(
     title: String,
     content: @Composable () -> Unit
 ) {
+    val typography = localTypography()
     Column {
         Text(
             text = title,
-            style = Typography.subtitle,
+            style = typography.titleSmall,
             color = AppColorScheme.onSurface
         )
 

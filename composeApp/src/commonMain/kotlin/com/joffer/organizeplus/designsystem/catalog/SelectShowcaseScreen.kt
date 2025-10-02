@@ -19,7 +19,7 @@ import com.joffer.organizeplus.designsystem.components.OrganizeSelect
 import com.joffer.organizeplus.designsystem.components.SelectOption
 import com.joffer.organizeplus.designsystem.components.SelectSize
 import com.joffer.organizeplus.designsystem.spacing.Spacing
-import com.joffer.organizeplus.designsystem.typography.Typography
+import com.joffer.organizeplus.designsystem.typography.localTypography
 import org.jetbrains.compose.resources.stringResource
 import organizeplus.composeapp.generated.resources.Res
 import organizeplus.composeapp.generated.resources.select_showcase_title
@@ -28,6 +28,7 @@ import organizeplus.composeapp.generated.resources.select_showcase_title
 fun SelectShowcaseScreen(
     onNavigateBack: () -> Unit
 ) {
+    val typography = localTypography()
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -52,7 +53,7 @@ fun SelectShowcaseScreen(
                     ) {
                         Text(
                             text = "Basic Select",
-                            style = Typography.titleMedium
+                            style = typography.titleMedium
                         )
 
                         val options = listOf(
@@ -84,7 +85,7 @@ fun SelectShowcaseScreen(
                     ) {
                         Text(
                             text = "Different Sizes",
-                            style = Typography.titleMedium
+                            style = typography.titleMedium
                         )
 
                         val options = listOf(
@@ -134,7 +135,7 @@ fun SelectShowcaseScreen(
                     ) {
                         Text(
                             text = "With Error State",
-                            style = Typography.titleMedium
+                            style = typography.titleMedium
                         )
 
                         val options = listOf(
@@ -165,7 +166,7 @@ fun SelectShowcaseScreen(
                     ) {
                         Text(
                             text = "Disabled State",
-                            style = Typography.titleMedium
+                            style = typography.titleMedium
                         )
 
                         val options = listOf(

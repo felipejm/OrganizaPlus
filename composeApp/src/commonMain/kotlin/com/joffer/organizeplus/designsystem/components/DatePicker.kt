@@ -8,7 +8,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import com.joffer.organizeplus.designsystem.spacing.Spacing
-import com.joffer.organizeplus.designsystem.typography.Typography
+import com.joffer.organizeplus.designsystem.typography.localTypography
 import kotlinx.datetime.LocalDate
 import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
@@ -24,10 +24,11 @@ fun DatePickerField(
     modifier: Modifier = Modifier,
     onDatePickerClick: () -> Unit
 ) {
+    val typography = localTypography()
     Column(modifier = modifier) {
         Text(
             text = if (isRequired) "$label *" else label,
-            style = Typography.bodyMedium,
+            style = typography.bodyMedium,
             color = AppColorScheme.formLabel,
             fontWeight = FontWeight.Medium
         )
@@ -55,14 +56,14 @@ fun DatePickerField(
                 disabledContainerColor = AppColorScheme.surface
             ),
             shape = RoundedCornerShape(Spacing.Radius.sm),
-            textStyle = Typography.bodyMedium
+            textStyle = typography.bodyMedium
         )
 
         if (isError && errorMessage != null) {
             Spacer(modifier = Modifier.height(Spacing.xs))
             Text(
                 text = errorMessage,
-                style = Typography.bodySmall,
+                style = typography.bodySmall,
                 color = AppColorScheme.error
             )
         }
@@ -81,10 +82,11 @@ fun TimePickerField(
     modifier: Modifier = Modifier,
     onTimePickerClick: () -> Unit
 ) {
+    val typography = localTypography()
     Column(modifier = modifier) {
         Text(
             text = if (isRequired) "$label *" else label,
-            style = Typography.bodyMedium,
+            style = typography.bodyMedium,
             color = AppColorScheme.formLabel,
             fontWeight = FontWeight.Medium
         )
@@ -112,14 +114,14 @@ fun TimePickerField(
                 disabledContainerColor = AppColorScheme.surface
             ),
             shape = RoundedCornerShape(Spacing.Radius.sm),
-            textStyle = Typography.bodyMedium
+            textStyle = typography.bodyMedium
         )
 
         if (isError && errorMessage != null) {
             Spacer(modifier = Modifier.height(Spacing.xs))
             Text(
                 text = errorMessage,
-                style = Typography.bodySmall,
+                style = typography.bodySmall,
                 color = AppColorScheme.error
             )
         }

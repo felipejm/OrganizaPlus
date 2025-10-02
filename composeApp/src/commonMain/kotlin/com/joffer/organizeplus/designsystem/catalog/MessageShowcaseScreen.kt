@@ -22,7 +22,7 @@ import com.joffer.organizeplus.designsystem.components.OrganizeCard
 import com.joffer.organizeplus.designsystem.components.OrganizeMessage
 import com.joffer.organizeplus.designsystem.components.OrganizeMessageStack
 import com.joffer.organizeplus.designsystem.spacing.Spacing
-import com.joffer.organizeplus.designsystem.typography.Typography
+import com.joffer.organizeplus.designsystem.typography.localTypography
 import org.jetbrains.compose.resources.stringResource
 import organizeplus.composeapp.generated.resources.Res
 import organizeplus.composeapp.generated.resources.message_showcase_title
@@ -31,6 +31,7 @@ import organizeplus.composeapp.generated.resources.message_showcase_title
 fun MessageShowcaseScreen(
     onNavigateBack: () -> Unit
 ) {
+    val typography = localTypography()
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -55,7 +56,7 @@ fun MessageShowcaseScreen(
                     ) {
                         Text(
                             text = "Basic Messages",
-                            style = Typography.titleMedium
+                            style = typography.titleMedium
                         )
 
                         OrganizeMessage(
@@ -91,7 +92,7 @@ fun MessageShowcaseScreen(
                     ) {
                         Text(
                             text = "Messages with Custom Icons",
-                            style = Typography.titleMedium
+                            style = typography.titleMedium
                         )
 
                         OrganizeMessage(
@@ -113,7 +114,7 @@ fun MessageShowcaseScreen(
                     ) {
                         Text(
                             text = "Message Stack (Multiple Messages)",
-                            style = Typography.titleMedium
+                            style = typography.titleMedium
                         )
 
                         var messages by remember {

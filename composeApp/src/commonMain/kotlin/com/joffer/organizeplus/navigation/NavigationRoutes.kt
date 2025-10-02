@@ -28,3 +28,6 @@ object Settings
 
 @Serializable
 object DesignSystemCatalog
+
+@Serializable
+object DutyReview

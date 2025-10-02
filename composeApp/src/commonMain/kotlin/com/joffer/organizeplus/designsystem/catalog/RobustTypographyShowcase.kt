@@ -2,16 +2,16 @@ package com.joffer.organizeplus.designsystem.catalog
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.*
+import com.joffer.organizeplus.designsystem.typography.Typography
+import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 /**
  * Showcase screen for the robust typography system.
@@ -24,7 +24,7 @@ fun RobustTypographyShowcase(
 ) {
     ProvideSfProTypography {
         val typography = localTypography()
-        
+
         Scaffold(
             topBar = {
                 TopAppBar(
@@ -82,7 +82,7 @@ fun RobustTypographyShowcase(
                         }
                     }
                 }
-                
+
                 // Display Typography
                 item {
                     TypographySection(
@@ -106,7 +106,7 @@ fun RobustTypographyShowcase(
                         )
                     }
                 }
-                
+
                 // Headline Typography
                 item {
                     TypographySection(
@@ -130,7 +130,7 @@ fun RobustTypographyShowcase(
                         )
                     }
                 }
-                
+
                 // Title Typography
                 item {
                     TypographySection(
@@ -154,7 +154,7 @@ fun RobustTypographyShowcase(
                         )
                     }
                 }
-                
+
                 // Body Typography
                 item {
                     TypographySection(
@@ -178,7 +178,7 @@ fun RobustTypographyShowcase(
                         )
                     }
                 }
-                
+
                 // Label Typography
                 item {
                     TypographySection(
@@ -202,7 +202,7 @@ fun RobustTypographyShowcase(
                         )
                     }
                 }
-                
+
                 // Semantic Typography
                 item {
                     TypographySection(
@@ -226,8 +226,7 @@ fun RobustTypographyShowcase(
                         )
                     }
                 }
-                
-                
+
                 // Font Weight Examples
                 item {
                     TypographySection(
@@ -260,7 +259,7 @@ fun RobustTypographyShowcase(
 @Composable
 private fun TypographySection(
     title: String,
-    typography: RobustTypography,
+    typography: Typography,
     content: @Composable () -> Unit
 ) {
     Column(
@@ -271,7 +270,7 @@ private fun TypographySection(
             style = typography.titleLarge,
             color = AppColorScheme.onSurface
         )
-        
+
         Card(
             modifier = Modifier.fillMaxWidth(),
             colors = CardDefaults.cardColors(

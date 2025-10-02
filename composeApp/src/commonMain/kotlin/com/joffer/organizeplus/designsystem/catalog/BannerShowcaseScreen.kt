@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.spacing.Spacing
-import com.joffer.organizeplus.designsystem.typography.Typography
+import com.joffer.organizeplus.designsystem.typography.localTypography
 import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -18,6 +18,7 @@ fun BannerShowcaseScreen(
     onNavigateBack: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val typography = localTypography()
     Scaffold(
         topBar = {
             AppTopAppBarWithBackButton(
@@ -36,7 +37,7 @@ fun BannerShowcaseScreen(
             item {
                 Text(
                     text = "Banner Components",
-                    style = Typography.h3,
+                    style = typography.headlineMedium,
                     color = AppColorScheme.onSurface
                 )
             }
@@ -53,6 +54,7 @@ private fun BannerShowcaseItem(
     item: BannerShowcaseItem,
     modifier: Modifier = Modifier
 ) {
+    val typography = localTypography()
     OrganizeCard(
         modifier = modifier.fillMaxWidth()
     ) {
@@ -61,13 +63,13 @@ private fun BannerShowcaseItem(
         ) {
             Text(
                 text = item.title,
-                style = Typography.title,
+                style = typography.titleMedium,
                 color = AppColorScheme.onSurface
             )
 
             Text(
                 text = item.description,
-                style = Typography.body,
+                style = typography.bodyMedium,
                 color = AppColorScheme.onSurfaceVariant
             )
 
@@ -93,12 +95,13 @@ private fun BannerShowcaseItem(
 
 @Composable
 private fun SuccessBannerExamples() {
+    val typography = localTypography()
     Column(
         verticalArrangement = Arrangement.spacedBy(Spacing.sm)
     ) {
         Text(
             text = "Success Banners",
-            style = Typography.subtitle,
+            style = typography.titleSmall,
             color = AppColorScheme.onSurface
         )
 
@@ -114,12 +117,13 @@ private fun SuccessBannerExamples() {
 
 @Composable
 private fun ErrorBannerExamples() {
+    val typography = localTypography()
     Column(
         verticalArrangement = Arrangement.spacedBy(Spacing.sm)
     ) {
         Text(
             text = "Error Banners",
-            style = Typography.subtitle,
+            style = typography.titleSmall,
             color = AppColorScheme.onSurface
         )
 
@@ -139,12 +143,13 @@ private fun ErrorBannerExamples() {
 
 @Composable
 private fun InfoBannerExamples() {
+    val typography = localTypography()
     Column(
         verticalArrangement = Arrangement.spacedBy(Spacing.sm)
     ) {
         Text(
             text = "Info Banners",
-            style = Typography.subtitle,
+            style = typography.titleSmall,
             color = AppColorScheme.onSurface
         )
 
@@ -162,12 +167,13 @@ private fun InfoBannerExamples() {
 
 @Composable
 private fun WarningBannerExamples() {
+    val typography = localTypography()
     Column(
         verticalArrangement = Arrangement.spacedBy(Spacing.sm)
     ) {
         Text(
             text = "Warning Banners",
-            style = Typography.subtitle,
+            style = typography.titleSmall,
             color = AppColorScheme.onSurface
         )
 
@@ -189,6 +195,7 @@ private fun InfoBanner(
     onDismiss: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val typography = localTypography()
     Card(
         modifier = modifier.fillMaxWidth(),
         colors = CardDefaults.cardColors(
@@ -204,7 +211,7 @@ private fun InfoBanner(
         ) {
             Text(
                 text = message,
-                style = Typography.bodyMedium,
+                style = typography.bodyMedium,
                 color = AppColorScheme.info700,
                 modifier = Modifier.weight(1f)
             )
@@ -230,6 +237,7 @@ private fun WarningBanner(
     onDismiss: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val typography = localTypography()
     Card(
         modifier = modifier.fillMaxWidth(),
         colors = CardDefaults.cardColors(
@@ -245,7 +253,7 @@ private fun WarningBanner(
         ) {
             Text(
                 text = message,
-                style = Typography.bodyMedium,
+                style = typography.bodyMedium,
                 color = AppColorScheme.warning700,
                 modifier = Modifier.weight(1f)
             )

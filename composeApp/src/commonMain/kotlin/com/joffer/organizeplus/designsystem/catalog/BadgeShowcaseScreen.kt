@@ -16,7 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.spacing.Spacing
-import com.joffer.organizeplus.designsystem.typography.Typography
+import com.joffer.organizeplus.designsystem.typography.localTypography
 import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -33,6 +33,7 @@ fun BadgeShowcaseScreen(
             )
         }
     ) { paddingValues ->
+        val typography = localTypography()
         LazyColumn(
             modifier = modifier
                 .fillMaxSize()
@@ -43,7 +44,7 @@ fun BadgeShowcaseScreen(
             item {
                 Text(
                     text = "Badge Component",
-                    style = Typography.h3,
+                    style = typography.headlineMedium,
                     color = AppColorScheme.onSurface
                 )
             }
@@ -56,7 +57,7 @@ fun BadgeShowcaseScreen(
                 Spacer(modifier = Modifier.height(Spacing.lg))
                 Text(
                     text = "Real Usage Examples",
-                    style = Typography.h3,
+                    style = typography.headlineMedium,
                     color = AppColorScheme.onSurface
                 )
                 Spacer(modifier = Modifier.height(Spacing.sm))
@@ -74,6 +75,7 @@ private fun BadgeShowcaseItem(
     item: BadgeShowcaseItem,
     modifier: Modifier = Modifier
 ) {
+    val typography = localTypography()
     OrganizeCard(
         modifier = modifier.fillMaxWidth()
     ) {
@@ -82,13 +84,13 @@ private fun BadgeShowcaseItem(
         ) {
             Text(
                 text = item.title,
-                style = Typography.title,
+                style = typography.titleMedium,
                 color = AppColorScheme.onSurface
             )
 
             Text(
                 text = item.description,
-                style = Typography.body,
+                style = typography.bodyMedium,
                 color = AppColorScheme.onSurfaceVariant
             )
 
@@ -114,12 +116,13 @@ private fun BadgeShowcaseItem(
 
 @Composable
 private fun VariantExamples() {
+    val typography = localTypography()
     Column(
         verticalArrangement = Arrangement.spacedBy(Spacing.md)
     ) {
         Text(
             text = "Badge Variants",
-            style = Typography.subtitle,
+            style = typography.titleSmall,
             color = AppColorScheme.onSurface
         )
 
@@ -133,7 +136,7 @@ private fun VariantExamples() {
             ) {
                 Text(
                     text = "Single Digit",
-                    style = Typography.caption,
+                    style = typography.caption,
                     color = AppColorScheme.onSurfaceVariant
                 )
                 Spacer(modifier = Modifier.height(Spacing.xs))
@@ -162,7 +165,7 @@ private fun VariantExamples() {
             ) {
                 Text(
                     text = "Double Digit",
-                    style = Typography.caption,
+                    style = typography.caption,
                     color = AppColorScheme.onSurfaceVariant
                 )
                 Spacer(modifier = Modifier.height(Spacing.xs))
@@ -195,7 +198,7 @@ private fun VariantExamples() {
             ) {
                 Text(
                     text = "Dot",
-                    style = Typography.caption,
+                    style = typography.caption,
                     color = AppColorScheme.onSurfaceVariant
                 )
                 Spacer(modifier = Modifier.height(Spacing.xs))
@@ -220,12 +223,13 @@ private fun VariantExamples() {
 
 @Composable
 private fun StateExamples() {
+    val typography = localTypography()
     Column(
         verticalArrangement = Arrangement.spacedBy(Spacing.md)
     ) {
         Text(
             text = "Badge States",
-            style = Typography.subtitle,
+            style = typography.titleSmall,
             color = AppColorScheme.onSurface
         )
 
@@ -239,7 +243,7 @@ private fun StateExamples() {
             ) {
                 Text(
                     text = "Default",
-                    style = Typography.caption,
+                    style = typography.caption,
                     color = AppColorScheme.onSurfaceVariant
                 )
                 Spacer(modifier = Modifier.height(Spacing.xs))
@@ -256,7 +260,7 @@ private fun StateExamples() {
             ) {
                 Text(
                     text = "Hover",
-                    style = Typography.caption,
+                    style = typography.caption,
                     color = AppColorScheme.onSurfaceVariant
                 )
                 Spacer(modifier = Modifier.height(Spacing.xs))
@@ -273,7 +277,7 @@ private fun StateExamples() {
             ) {
                 Text(
                     text = "Pressed",
-                    style = Typography.caption,
+                    style = typography.caption,
                     color = AppColorScheme.onSurfaceVariant
                 )
                 Spacer(modifier = Modifier.height(Spacing.xs))
@@ -290,7 +294,7 @@ private fun StateExamples() {
             ) {
                 Text(
                     text = "Disabled",
-                    style = Typography.caption,
+                    style = typography.caption,
                     color = AppColorScheme.onSurfaceVariant
                 )
                 Spacer(modifier = Modifier.height(Spacing.xs))
@@ -307,12 +311,13 @@ private fun StateExamples() {
 
 @Composable
 private fun UsageExamples() {
+    val typography = localTypography()
     Column(
         verticalArrangement = Arrangement.spacedBy(Spacing.md)
     ) {
         Text(
             text = "Common Usage Examples",
-            style = Typography.subtitle,
+            style = typography.titleSmall,
             color = AppColorScheme.onSurface
         )
 
@@ -323,7 +328,7 @@ private fun UsageExamples() {
         ) {
             Text(
                 text = "Notification Badge:",
-                style = Typography.body,
+                style = typography.bodyMedium,
                 color = AppColorScheme.onSurface
             )
 
@@ -359,7 +364,7 @@ private fun UsageExamples() {
         ) {
             Text(
                 text = "Status Badge:",
-                style = Typography.body,
+                style = typography.bodyMedium,
                 color = AppColorScheme.onSurface
             )
 
@@ -382,7 +387,7 @@ private fun UsageExamples() {
         ) {
             Text(
                 text = "Counter Badge:",
-                style = Typography.body,
+                style = typography.bodyMedium,
                 color = AppColorScheme.onSurface
             )
 
@@ -403,18 +408,19 @@ private fun UsageExamples() {
 
 @Composable
 private fun PositioningExamples() {
+    val typography = localTypography()
     Column(
         verticalArrangement = Arrangement.spacedBy(Spacing.md)
     ) {
         Text(
             text = "Positioning Examples",
-            style = Typography.subtitle,
+            style = typography.titleSmall,
             color = AppColorScheme.onSurface
         )
 
         Text(
             text = "Badges are typically positioned in the top-right corner of their parent element with a 2px offset.",
-            style = Typography.body,
+            style = typography.bodyMedium,
             color = AppColorScheme.onSurfaceVariant
         )
 
@@ -475,7 +481,7 @@ private fun PositioningExamples() {
 
         Text(
             text = "Dot badges work well for status indicators:",
-            style = Typography.body,
+            style = typography.bodyMedium,
             color = AppColorScheme.onSurfaceVariant
         )
 

@@ -11,7 +11,7 @@ import androidx.compose.ui.unit.dp
 import com.joffer.organizeplus.designsystem.components.AppTopAppBarWithBackButton
 import com.joffer.organizeplus.designsystem.components.OrganizeCard
 import com.joffer.organizeplus.designsystem.spacing.Spacing
-import com.joffer.organizeplus.designsystem.typography.Typography
+import com.joffer.organizeplus.designsystem.typography.localTypography
 import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -20,6 +20,7 @@ fun TypographyShowcaseScreen(
     onNavigateBack: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val typography = localTypography()
     Scaffold(
         topBar = {
             AppTopAppBarWithBackButton(
@@ -47,6 +48,7 @@ private fun TypographyCategorySection(
     category: TypographyCategory,
     modifier: Modifier = Modifier
 ) {
+    val typography = localTypography()
     OrganizeCard(
         modifier = modifier.fillMaxWidth()
     ) {
@@ -55,13 +57,13 @@ private fun TypographyCategorySection(
         ) {
             Text(
                 text = category.title,
-                style = Typography.h3,
+                style = typography.headlineMedium,
                 color = AppColorScheme.onSurface
             )
 
             Text(
                 text = category.description,
-                style = Typography.body,
+                style = typography.bodyMedium,
                 color = AppColorScheme.onSurfaceVariant
             )
 
@@ -87,39 +89,40 @@ private fun TypographyCategorySection(
 
 @Composable
 private fun HeadingExamples() {
+    val typography = localTypography()
     Column(
         verticalArrangement = Arrangement.spacedBy(Spacing.md)
     ) {
         Text(
             text = "Heading Styles",
-            style = Typography.subtitle,
+            style = typography.titleSmall,
             color = AppColorScheme.onSurface
         )
 
         TypographyExample(
             name = "H1",
-            style = Typography.h1,
+            style = typography.displayLarge,
             text = "Main Page Heading",
             description = "30px / 38px line height"
         )
 
         TypographyExample(
             name = "H2",
-            style = Typography.h2,
+            style = typography.headlineLarge,
             text = "Section Heading",
             description = "24px / 32px line height"
         )
 
         TypographyExample(
             name = "H3",
-            style = Typography.h3,
+            style = typography.headlineMedium,
             text = "Subsection Heading",
             description = "20px / 28px line height"
         )
 
         TypographyExample(
             name = "Title",
-            style = Typography.title,
+            style = typography.titleMedium,
             text = "Card or Component Title",
             description = "18px / 26px line height"
         )
@@ -128,32 +131,33 @@ private fun HeadingExamples() {
 
 @Composable
 private fun BodyTextExamples() {
+    val typography = localTypography()
     Column(
         verticalArrangement = Arrangement.spacedBy(Spacing.md)
     ) {
         Text(
             text = "Body Text Styles",
-            style = Typography.subtitle,
+            style = typography.titleSmall,
             color = AppColorScheme.onSurface
         )
 
         TypographyExample(
             name = "Subtitle",
-            style = Typography.subtitle,
+            style = typography.titleSmall,
             text = "Supporting text for headings",
             description = "16px / 24px line height"
         )
 
         TypographyExample(
             name = "Body",
-            style = Typography.body,
+            style = typography.bodyMedium,
             text = "Regular paragraph text for content",
             description = "14px / 22px line height"
         )
 
         TypographyExample(
             name = "Caption",
-            style = Typography.caption,
+            style = typography.caption,
             text = "Small text for captions and metadata",
             description = "12px / 19px line height"
         )
@@ -162,32 +166,33 @@ private fun BodyTextExamples() {
 
 @Composable
 private fun LabelExamples() {
+    val typography = localTypography()
     Column(
         verticalArrangement = Arrangement.spacedBy(Spacing.md)
     ) {
         Text(
             text = "Label Styles",
-            style = Typography.subtitle,
+            style = typography.titleSmall,
             color = AppColorScheme.onSurface
         )
 
         TypographyExample(
             name = "Label Large",
-            style = Typography.labelLarge,
+            style = typography.labelLarge,
             text = "Button Labels",
             description = "16px / 22px line height"
         )
 
         TypographyExample(
             name = "Label Medium",
-            style = Typography.labelMedium,
+            style = typography.labelMedium,
             text = "Form Labels",
             description = "14px / 20px line height"
         )
 
         TypographyExample(
             name = "Label Small",
-            style = Typography.labelSmall,
+            style = typography.labelSmall,
             text = "Small Labels",
             description = "12px / 18px line height"
         )
@@ -196,33 +201,34 @@ private fun LabelExamples() {
 
 @Composable
 private fun FontWeightExamples() {
+    val typography = localTypography()
     Column(
         verticalArrangement = Arrangement.spacedBy(Spacing.md)
     ) {
         Text(
             text = "Font Weight Variants",
-            style = Typography.subtitle,
+            style = typography.titleSmall,
             color = AppColorScheme.onSurface
         )
 
         // Regular (400) examples
         Text(
             text = "Regular (400)",
-            style = Typography.caption,
+            style = typography.caption,
             color = AppColorScheme.onSurfaceVariant,
             fontWeight = FontWeight.Medium
         )
 
         TypographyExample(
             name = "H1 Regular",
-            style = Typography.h1Regular,
+            style = typography.displayLarge,
             text = "Regular Heading",
             description = "30px / 38px"
         )
 
         TypographyExample(
             name = "Body Regular",
-            style = Typography.bodyRegular,
+            style = typography.bodyMedium,
             text = "Regular body text",
             description = "14px / 22px"
         )
@@ -232,21 +238,21 @@ private fun FontWeightExamples() {
         // Medium (500) examples
         Text(
             text = "Medium (500)",
-            style = Typography.caption,
+            style = typography.caption,
             color = AppColorScheme.onSurfaceVariant,
             fontWeight = FontWeight.Medium
         )
 
         TypographyExample(
             name = "H1 Medium",
-            style = Typography.h1Medium,
+            style = typography.displayLarge,
             text = "Medium Heading",
             description = "30px / 38px"
         )
 
         TypographyExample(
             name = "Body Medium",
-            style = Typography.bodyMedium,
+            style = typography.bodyMedium,
             text = "Medium body text",
             description = "14px / 22px"
         )
@@ -261,6 +267,7 @@ private fun TypographyExample(
     description: String,
     modifier: Modifier = Modifier
 ) {
+    val typography = localTypography()
     Column(
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(Spacing.xs)
@@ -272,7 +279,7 @@ private fun TypographyExample(
         ) {
             Text(
                 text = name,
-                style = Typography.caption,
+                style = typography.caption,
                 color = AppColorScheme.onSurfaceVariant,
                 fontWeight = FontWeight.Medium,
                 modifier = Modifier.width(120.dp)
@@ -280,7 +287,7 @@ private fun TypographyExample(
 
             Text(
                 text = description,
-                style = Typography.caption,
+                style = typography.caption,
                 color = AppColorScheme.onSurfaceVariant,
                 modifier = Modifier.weight(1f)
             )

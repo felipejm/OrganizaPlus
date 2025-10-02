@@ -13,7 +13,7 @@ import com.joffer.organizeplus.designsystem.components.AppTopAppBarWithBackButto
 import com.joffer.organizeplus.designsystem.components.OrganizeCard
 import com.joffer.organizeplus.designsystem.components.OrganizeFormValidationBanner
 import com.joffer.organizeplus.designsystem.spacing.Spacing
-import com.joffer.organizeplus.designsystem.typography.Typography
+import com.joffer.organizeplus.designsystem.typography.localTypography
 import org.jetbrains.compose.resources.stringResource
 import organizeplus.composeapp.generated.resources.Res
 import organizeplus.composeapp.generated.resources.form_showcase_title
@@ -22,6 +22,7 @@ import organizeplus.composeapp.generated.resources.form_showcase_title
 fun FormShowcaseScreen(
     onNavigateBack: () -> Unit
 ) {
+    val typography = localTypography()
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -46,13 +47,13 @@ fun FormShowcaseScreen(
                     ) {
                         Text(
                             text = "Form Components",
-                            style = Typography.titleMedium
+                            style = typography.titleMedium
                         )
 
                         Text(
                             text = "Form components are available for building structured " +
                                 "forms with validation, sections, and actions.",
-                            style = Typography.body
+                            style = typography.bodyMedium
                         )
                     }
                 }
@@ -68,7 +69,7 @@ fun FormShowcaseScreen(
                     ) {
                         Text(
                             text = "Form Validation Banner",
-                            style = Typography.titleMedium
+                            style = typography.titleMedium
                         )
 
                         OrganizeFormValidationBanner(

@@ -49,140 +49,140 @@ fun DutyDetailsScreen(
         val typography = localTypography()
         var showAddOccurrenceBottomSheet by remember { mutableStateOf(false) }
 
-    LaunchedEffect(Unit) {
-        viewModel.onIntent(DutyDetailsListIntent.LoadRecords)
-    }
+        LaunchedEffect(Unit) {
+            viewModel.onIntent(DutyDetailsListIntent.LoadRecords)
+        }
 
-    Column(
-        modifier = modifier.fillMaxSize()
-    ) {
-        AppTopAppBarWithBackButton(
-            title = uiState.duty?.title ?: stringResource(Res.string.duty_occurrence_list_title),
-            onBackClick = onNavigateBack,
-            actions = {
-                IconButton(onClick = { 
-                    uiState.duty?.let { duty ->
-                        onEditDuty(duty.id, duty.categoryName)
+        Column(
+            modifier = modifier.fillMaxSize()
+        ) {
+            AppTopAppBarWithBackButton(
+                title = uiState.duty?.title ?: stringResource(Res.string.duty_occurrence_list_title),
+                onBackClick = onNavigateBack,
+                actions = {
+                    IconButton(onClick = {
+                        uiState.duty?.let { duty ->
+                            onEditDuty(duty.id, duty.categoryName)
+                        }
+                    }) {
+                        Icon(
+                            imageVector = Icons.Default.Edit,
+                            contentDescription = stringResource(Res.string.duty_detail_edit),
+                            tint = AppColorScheme.primary
+                        )
                     }
-                }) {
-                    Icon(
-                        imageVector = Icons.Default.Edit,
-                        contentDescription = stringResource(Res.string.duty_detail_edit),
-                        tint = AppColorScheme.primary
+                }
+            )
+
+            when {
+                uiState.isLoading -> {
+                    OrganizeProgressIndicatorFullScreen()
+                }
+
+                uiState.error != null -> {
+                    ErrorBanner(
+                        message = uiState.error ?: "",
+                        onRetry = { viewModel.onIntent(DutyDetailsListIntent.Retry) },
+                        onDismiss = { viewModel.onIntent(DutyDetailsListIntent.ClearError) }
                     )
                 }
-            }
-        )
 
-        when {
-            uiState.isLoading -> {
-                OrganizeProgressIndicatorFullScreen()
-            }
-
-            uiState.error != null -> {
-                ErrorBanner(
-                    message = uiState.error ?: "",
-                    onRetry = { viewModel.onIntent(DutyDetailsListIntent.Retry) },
-                    onDismiss = { viewModel.onIntent(DutyDetailsListIntent.ClearError) }
-                )
-            }
-
-            else -> {
-                LazyColumn(
-                    modifier = Modifier.fillMaxSize(),
-                    contentPadding = PaddingValues(Spacing.md),
-                    verticalArrangement = Arrangement.spacedBy(Spacing.md)
-                ) {
-                    // Duty Header Information
-                    uiState.duty?.let { duty ->
-                        item {
-                            DutyHeaderCard(duty = duty)
-                        }
-                    }
-
-                    // Chart
-                    uiState.chartData?.let { chartData ->
-                        item {
-                            DutyBarChart(chartData = chartData)
-                        }
-                    }
-
-                    // Records Section
-                    if (uiState.records.isEmpty()) {
-                        item {
-                            Box(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .height(EMPTY_STATE_HEIGHT),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                OrganizeResult(
-                                    type = ResultType.INFO,
-                                    title = stringResource(Res.string.duty_occurrence_list_empty_title),
-                                    description = stringResource(Res.string.duty_occurrence_list_empty_subtitle),
-                                    actions = {
-                                        OrganizePrimaryButton(
-                                            text = stringResource(Res.string.duty_occurrence_list_add_occurrence),
-                                            onClick = { showAddOccurrenceBottomSheet = true }
-                                        )
-                                    }
-                                )
+                else -> {
+                    LazyColumn(
+                        modifier = Modifier.fillMaxSize(),
+                        contentPadding = PaddingValues(Spacing.md),
+                        verticalArrangement = Arrangement.spacedBy(Spacing.md)
+                    ) {
+                        // Duty Header Information
+                        uiState.duty?.let { duty ->
+                            item {
+                                DutyHeaderCard(duty = duty)
                             }
                         }
-                    } else {
-                        // Header
-                        item {
-                            Row(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(vertical = Spacing.sm),
-                                horizontalArrangement = Arrangement.SpaceBetween,
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                Text(
-                                    text = stringResource(Res.string.duty_occurrence_list_title),
-                                    style = typography.headlineSmall,
-                                    color = AppColorScheme.onSurface,
-                                    fontWeight = FontWeight.Bold
-                                )
 
-                                IconButton(onClick = { showAddOccurrenceBottomSheet = true }) {
-                                    Icon(
-                                        imageVector = Icons.Default.Add,
-                                        contentDescription = stringResource(
-                                            Res.string.duty_occurrence_list_add_occurrence
-                                        ),
-                                        tint = AppColorScheme.primary
+                        // Chart
+                        uiState.chartData?.let { chartData ->
+                            item {
+                                DutyBarChart(chartData = chartData)
+                            }
+                        }
+
+                        // Records Section
+                        if (uiState.records.isEmpty()) {
+                            item {
+                                Box(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .height(EMPTY_STATE_HEIGHT),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    OrganizeResult(
+                                        type = ResultType.INFO,
+                                        title = stringResource(Res.string.duty_occurrence_list_empty_title),
+                                        description = stringResource(Res.string.duty_occurrence_list_empty_subtitle),
+                                        actions = {
+                                            OrganizePrimaryButton(
+                                                text = stringResource(Res.string.duty_occurrence_list_add_occurrence),
+                                                onClick = { showAddOccurrenceBottomSheet = true }
+                                            )
+                                        }
                                     )
                                 }
                             }
-                        }
+                        } else {
+                            // Header
+                            item {
+                                Row(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(vertical = Spacing.sm),
+                                    horizontalArrangement = Arrangement.SpaceBetween,
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    Text(
+                                        text = stringResource(Res.string.duty_occurrence_list_title),
+                                        style = typography.headlineSmall,
+                                        color = AppColorScheme.onSurface,
+                                        fontWeight = FontWeight.Bold
+                                    )
 
-                        items(uiState.records) { occurrence ->
-                            DutyOccurrenceListItem(
-                                occurrence = occurrence,
-                                onDelete = { viewModel.onIntent(DutyDetailsListIntent.DeleteRecord(it)) }
-                            )
+                                    IconButton(onClick = { showAddOccurrenceBottomSheet = true }) {
+                                        Icon(
+                                            imageVector = Icons.Default.Add,
+                                            contentDescription = stringResource(
+                                                Res.string.duty_occurrence_list_add_occurrence
+                                            ),
+                                            tint = AppColorScheme.primary
+                                        )
+                                    }
+                                }
+                            }
+
+                            items(uiState.records) { occurrence ->
+                                DutyOccurrenceListItem(
+                                    occurrence = occurrence,
+                                    onDelete = { viewModel.onIntent(DutyDetailsListIntent.DeleteRecord(it)) }
+                                )
+                            }
                         }
                     }
                 }
             }
-        }
 
-        // Add Occurrence Bottom Sheet
-        if (showAddOccurrenceBottomSheet) {
-            val addDutyOccurrenceViewModel = koinInject<AddDutyOccurrenceViewModel> {
-                parametersOf(uiState.duty?.id)
-            }
-
-            AddDutyOccurrenceBottomSheet(
-                viewModel = addDutyOccurrenceViewModel,
-                onDismiss = {
-                    showAddOccurrenceBottomSheet = false
-                    viewModel.onIntent(DutyDetailsListIntent.LoadRecords)
+            // Add Occurrence Bottom Sheet
+            if (showAddOccurrenceBottomSheet) {
+                val addDutyOccurrenceViewModel = koinInject<AddDutyOccurrenceViewModel> {
+                    parametersOf(uiState.duty?.id)
                 }
-            )
+
+                AddDutyOccurrenceBottomSheet(
+                    viewModel = addDutyOccurrenceViewModel,
+                    onDismiss = {
+                        showAddOccurrenceBottomSheet = false
+                        viewModel.onIntent(DutyDetailsListIntent.LoadRecords)
+                    }
+                )
+            }
         }
-    }
     }
 }

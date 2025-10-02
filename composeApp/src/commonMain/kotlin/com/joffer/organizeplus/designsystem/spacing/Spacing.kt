@@ -47,6 +47,7 @@ object Spacing {
 
     // Elevation
     object Elevation {
+        val none: Dp = 0.dp
         val xs: Dp = 2.dp
         val sm: Dp = 4.dp
         val md: Dp = 8.dp

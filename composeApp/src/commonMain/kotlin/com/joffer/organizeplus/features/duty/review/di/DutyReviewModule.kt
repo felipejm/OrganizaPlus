@@ -7,6 +7,6 @@ import org.koin.dsl.module
 
 val dutyReviewModule = module {
     single<DutyReviewRepository> { RoomDutyReviewRepository(get()) }
-    
+
     single { DutyReviewViewModel() }
 }

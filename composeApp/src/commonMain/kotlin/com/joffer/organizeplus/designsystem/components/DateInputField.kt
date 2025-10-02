@@ -11,7 +11,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import com.joffer.organizeplus.designsystem.spacing.Spacing
-import com.joffer.organizeplus.designsystem.typography.Typography
+import com.joffer.organizeplus.designsystem.typography.localTypography
 import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 @Composable
@@ -26,10 +26,11 @@ fun DateInputField(
     onDatePickerClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val typography = localTypography()
     Column(modifier = modifier.fillMaxWidth()) {
         Text(
             text = if (isRequired) "$label *" else label,
-            style = Typography.labelMedium,
+            style = typography.labelMedium,
             color = AppColorScheme.formLabel
         )
 
@@ -84,7 +85,7 @@ fun DateInputField(
             Spacer(modifier = Modifier.height(Spacing.xs))
             Text(
                 text = errorMessage,
-                style = Typography.bodySmall,
+                style = typography.bodySmall,
                 color = AppColorScheme.error
             )
         }

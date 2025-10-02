@@ -15,7 +15,7 @@ import organizeplus.composeapp.generated.resources.SF_Pro_Text_Semibold
 
 /**
  * A comprehensive and generic typography system using SF Pro Text fonts.
- * 
+ *
  * This typography system provides:
  * - Consistent font sizing and spacing
  * - Proper font weight hierarchy
@@ -24,40 +24,40 @@ import organizeplus.composeapp.generated.resources.SF_Pro_Text_Semibold
  * - Generic tokens that can be used across any application
  */
 @Immutable
-data class RobustTypography(
+data class Typography(
     // Font Family
     val fontFamily: FontFamily,
-    
+
     // ===== DISPLAY TYPOGRAPHY =====
     // For large headings and hero text
     val displayLarge: TextStyle,
     val displayMedium: TextStyle,
     val displaySmall: TextStyle,
-    
+
     // ===== HEADLINE TYPOGRAPHY =====
     // For section headings and important titles
     val headlineLarge: TextStyle,
     val headlineMedium: TextStyle,
     val headlineSmall: TextStyle,
-    
+
     // ===== TITLE TYPOGRAPHY =====
     // For titles, headers, and prominent text
     val titleLarge: TextStyle,
     val titleMedium: TextStyle,
     val titleSmall: TextStyle,
-    
+
     // ===== BODY TYPOGRAPHY =====
     // For main content and readable text
     val bodyLarge: TextStyle,
     val bodyMedium: TextStyle,
     val bodySmall: TextStyle,
-    
+
     // ===== LABEL TYPOGRAPHY =====
     // For buttons, tags, and UI labels
     val labelLarge: TextStyle,
     val labelMedium: TextStyle,
     val labelSmall: TextStyle,
-    
+
     // ===== SEMANTIC TYPOGRAPHY =====
     // For common UI elements
     val button: TextStyle,
@@ -69,7 +69,7 @@ data class RobustTypography(
  * Creates a FontFamily using SF Pro Text fonts with proper weight mapping.
  */
 @Composable
-fun createRobustSfProTextFontFamily(): FontFamily {
+fun createTextFontFamily(): FontFamily {
     return FontFamily(
         Font(Res.font.SF_Pro_Text_Regular, FontWeight.Normal),
         Font(Res.font.SF_Pro_Text_Medium, FontWeight.Medium),
@@ -80,7 +80,7 @@ fun createRobustSfProTextFontFamily(): FontFamily {
 
 /**
  * Creates a generic typography system using SF Pro Text fonts.
- * 
+ *
  * This function provides a complete typography system with:
  * - Proper font sizing scale (based on 4px grid system)
  * - Consistent line heights for readability
@@ -88,12 +88,12 @@ fun createRobustSfProTextFontFamily(): FontFamily {
  * - Generic semantic naming that can be used across any application
  */
 @Composable
-fun createRobustTypography(): RobustTypography {
-    val fontFamily = createRobustSfProTextFontFamily()
-    
-    return RobustTypography(
+fun createTypography(): Typography {
+    val fontFamily = createTextFontFamily()
+
+    return Typography(
         fontFamily = fontFamily,
-        
+
         // ===== DISPLAY TYPOGRAPHY =====
         displayLarge = TextStyle(
             fontFamily = fontFamily,
@@ -102,7 +102,7 @@ fun createRobustTypography(): RobustTypography {
             lineHeight = 64.sp,
             letterSpacing = (-0.25).sp
         ),
-        
+
         displayMedium = TextStyle(
             fontFamily = fontFamily,
             fontWeight = FontWeight.Medium,
@@ -110,7 +110,7 @@ fun createRobustTypography(): RobustTypography {
             lineHeight = 52.sp,
             letterSpacing = 0.sp
         ),
-        
+
         displaySmall = TextStyle(
             fontFamily = fontFamily,
             fontWeight = FontWeight.Medium,
@@ -118,7 +118,7 @@ fun createRobustTypography(): RobustTypography {
             lineHeight = 44.sp,
             letterSpacing = 0.sp
         ),
-        
+
         // ===== HEADLINE TYPOGRAPHY =====
         headlineLarge = TextStyle(
             fontFamily = fontFamily,
@@ -127,7 +127,7 @@ fun createRobustTypography(): RobustTypography {
             lineHeight = 40.sp,
             letterSpacing = 0.sp
         ),
-        
+
         headlineMedium = TextStyle(
             fontFamily = fontFamily,
             fontWeight = FontWeight.Medium,
@@ -135,7 +135,7 @@ fun createRobustTypography(): RobustTypography {
             lineHeight = 36.sp,
             letterSpacing = 0.sp
         ),
-        
+
         headlineSmall = TextStyle(
             fontFamily = fontFamily,
             fontWeight = FontWeight.Medium,
@@ -143,7 +143,7 @@ fun createRobustTypography(): RobustTypography {
             lineHeight = 32.sp,
             letterSpacing = 0.sp
         ),
-        
+
         // ===== TITLE TYPOGRAPHY =====
         titleLarge = TextStyle(
             fontFamily = fontFamily,
@@ -152,7 +152,7 @@ fun createRobustTypography(): RobustTypography {
             lineHeight = 28.sp,
             letterSpacing = 0.sp
         ),
-        
+
         titleMedium = TextStyle(
             fontFamily = fontFamily,
             fontWeight = FontWeight.Medium,
@@ -160,7 +160,7 @@ fun createRobustTypography(): RobustTypography {
             lineHeight = 26.sp,
             letterSpacing = 0.15.sp
         ),
-        
+
         titleSmall = TextStyle(
             fontFamily = fontFamily,
             fontWeight = FontWeight.Medium,
@@ -168,7 +168,7 @@ fun createRobustTypography(): RobustTypography {
             lineHeight = 24.sp,
             letterSpacing = 0.1.sp
         ),
-        
+
         // ===== BODY TYPOGRAPHY =====
         bodyLarge = TextStyle(
             fontFamily = fontFamily,
@@ -177,7 +177,7 @@ fun createRobustTypography(): RobustTypography {
             lineHeight = 24.sp,
             letterSpacing = 0.5.sp
         ),
-        
+
         bodyMedium = TextStyle(
             fontFamily = fontFamily,
             fontWeight = FontWeight.Normal,
@@ -185,7 +185,7 @@ fun createRobustTypography(): RobustTypography {
             lineHeight = 20.sp,
             letterSpacing = 0.25.sp
         ),
-        
+
         bodySmall = TextStyle(
             fontFamily = fontFamily,
             fontWeight = FontWeight.Normal,
@@ -193,7 +193,7 @@ fun createRobustTypography(): RobustTypography {
             lineHeight = 16.sp,
             letterSpacing = 0.4.sp
         ),
-        
+
         // ===== LABEL TYPOGRAPHY =====
         labelLarge = TextStyle(
             fontFamily = fontFamily,
@@ -202,7 +202,7 @@ fun createRobustTypography(): RobustTypography {
             lineHeight = 20.sp,
             letterSpacing = 0.1.sp
         ),
-        
+
         labelMedium = TextStyle(
             fontFamily = fontFamily,
             fontWeight = FontWeight.Medium,
@@ -210,7 +210,7 @@ fun createRobustTypography(): RobustTypography {
             lineHeight = 16.sp,
             letterSpacing = 0.5.sp
         ),
-        
+
         labelSmall = TextStyle(
             fontFamily = fontFamily,
             fontWeight = FontWeight.Medium,
@@ -218,7 +218,7 @@ fun createRobustTypography(): RobustTypography {
             lineHeight = 16.sp,
             letterSpacing = 0.5.sp
         ),
-        
+
         // ===== SEMANTIC TYPOGRAPHY =====
         button = TextStyle(
             fontFamily = fontFamily,
@@ -227,7 +227,7 @@ fun createRobustTypography(): RobustTypography {
             lineHeight = 20.sp,
             letterSpacing = 0.1.sp
         ),
-        
+
         caption = TextStyle(
             fontFamily = fontFamily,
             fontWeight = FontWeight.Normal,
@@ -235,7 +235,7 @@ fun createRobustTypography(): RobustTypography {
             lineHeight = 16.sp,
             letterSpacing = 0.4.sp
         ),
-        
+
         overline = TextStyle(
             fontFamily = fontFamily,
             fontWeight = FontWeight.Medium,
@@ -249,21 +249,21 @@ fun createRobustTypography(): RobustTypography {
 /**
  * Extension functions for easy access to typography styles
  */
-val RobustTypography.defaultFontFamily: FontFamily
+val Typography.defaultFontFamily: FontFamily
     get() = fontFamily
 
 // Convenience accessors for common typography patterns
-val RobustTypography.display: TextStyle
+val Typography.display: TextStyle
     get() = displayMedium
 
-val RobustTypography.headline: TextStyle
+val Typography.headline: TextStyle
     get() = headlineMedium
 
-val RobustTypography.title: TextStyle
+val Typography.title: TextStyle
     get() = titleMedium
 
-val RobustTypography.body: TextStyle
+val Typography.body: TextStyle
     get() = bodyMedium
 
-val RobustTypography.label: TextStyle
+val Typography.label: TextStyle
     get() = labelMedium

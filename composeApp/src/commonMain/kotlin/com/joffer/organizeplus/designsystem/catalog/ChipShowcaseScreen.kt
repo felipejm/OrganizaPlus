@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.spacing.Spacing
-import com.joffer.organizeplus.designsystem.typography.Typography
+import com.joffer.organizeplus.designsystem.typography.localTypography
 import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -17,6 +17,7 @@ fun ChipShowcaseScreen(
     onNavigateBack: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val typography = localTypography()
     Scaffold(
         topBar = {
             AppTopAppBarWithBackButton(
@@ -35,7 +36,7 @@ fun ChipShowcaseScreen(
             item {
                 Text(
                     text = "Chip Components",
-                    style = Typography.h3,
+                    style = typography.headlineMedium,
                     color = AppColorScheme.onSurface
                 )
             }
@@ -52,6 +53,7 @@ private fun ChipShowcaseItem(
     item: ChipShowcaseItem,
     modifier: Modifier = Modifier
 ) {
+    val typography = localTypography()
     OrganizeCard(
         modifier = modifier.fillMaxWidth()
     ) {
@@ -60,13 +62,13 @@ private fun ChipShowcaseItem(
         ) {
             Text(
                 text = item.title,
-                style = Typography.title,
+                style = typography.titleMedium,
                 color = AppColorScheme.onSurface
             )
 
             Text(
                 text = item.description,
-                style = Typography.body,
+                style = typography.bodyMedium,
                 color = AppColorScheme.onSurfaceVariant
             )
 
@@ -89,12 +91,13 @@ private fun ChipShowcaseItem(
 
 @Composable
 private fun PriorityChipExamples() {
+    val typography = localTypography()
     Column(
         verticalArrangement = Arrangement.spacedBy(Spacing.sm)
     ) {
         Text(
             text = "Priority Chips",
-            style = Typography.subtitle,
+            style = typography.titleSmall,
             color = AppColorScheme.onSurface
         )
 
@@ -112,12 +115,13 @@ private fun PriorityChipExamples() {
 
 @Composable
 private fun CategoryChipExamples() {
+    val typography = localTypography()
     Column(
         verticalArrangement = Arrangement.spacedBy(Spacing.sm)
     ) {
         Text(
             text = "Category Chips",
-            style = Typography.subtitle,
+            style = typography.titleSmall,
             color = AppColorScheme.onSurface
         )
 
@@ -147,12 +151,13 @@ private fun CategoryChipExamples() {
 
 @Composable
 private fun StatusChipExamples() {
+    val typography = localTypography()
     Column(
         verticalArrangement = Arrangement.spacedBy(Spacing.sm)
     ) {
         Text(
             text = "Status Chips",
-            style = Typography.subtitle,
+            style = typography.titleSmall,
             color = AppColorScheme.onSurface
         )
 
@@ -182,6 +187,7 @@ private fun StatusChip(
     text: String,
     modifier: Modifier = Modifier
 ) {
+    val typography = localTypography()
     val (containerColor, contentColor) = when (status) {
         ObligationStatus.PENDING -> AppColorScheme.surfaceVariant to AppColorScheme.onSurfaceVariant
         ObligationStatus.PAID -> AppColorScheme.success100 to AppColorScheme.success700
@@ -193,7 +199,7 @@ private fun StatusChip(
         label = {
             Text(
                 text = text,
-                style = Typography.chip,
+                style = typography.labelMedium,
                 color = contentColor
             )
         },

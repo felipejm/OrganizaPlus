@@ -7,6 +7,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import com.joffer.organizeplus.database.entities.DutyOccurrenceEntity
+import com.joffer.organizeplus.database.entities.DutyOccurrenceWithDutyInfo
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -54,4 +55,21 @@ interface DutyOccurrenceDao {
         monthStr: String,
         yearStr: String
     ): List<DutyOccurrenceEntity>
+
+    @Query(
+        """
+        SELECT 
+            duty_occurrences.id,
+            duty_occurrences.dutyId,
+            duty_occurrences.paidAmount,
+            duty_occurrences.completedDateMillis,
+            duties.title as dutyTitle,
+            duties.categoryName
+        FROM duty_occurrences 
+        INNER JOIN duties ON duty_occurrences.dutyId = duties.id
+        WHERE duty_occurrences.paidAmount > 0
+        ORDER BY duty_occurrences.completedDateMillis DESC
+    """
+    )
+    suspend fun getAllDutyOccurrencesWithDutyInfo(): List<DutyOccurrenceWithDutyInfo>
 }

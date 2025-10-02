@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.spacing.Spacing
-import com.joffer.organizeplus.designsystem.typography.Typography
+import com.joffer.organizeplus.designsystem.typography.localTypography
 import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -21,6 +21,7 @@ fun LayoutShowcaseScreen(
     onNavigateBack: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val typography = localTypography()
     Scaffold(
         topBar = {
             AppTopAppBarWithBackButton(
@@ -39,7 +40,7 @@ fun LayoutShowcaseScreen(
             item {
                 Text(
                     text = "Layout Components",
-                    style = Typography.h3,
+                    style = typography.headlineMedium,
                     color = AppColorScheme.onSurface
                 )
             }
@@ -56,6 +57,7 @@ private fun LayoutShowcaseItem(
     item: LayoutShowcaseItem,
     modifier: Modifier = Modifier
 ) {
+    val typography = localTypography()
     OrganizeCard(
         modifier = modifier.fillMaxWidth()
     ) {
@@ -64,13 +66,13 @@ private fun LayoutShowcaseItem(
         ) {
             Text(
                 text = item.title,
-                style = Typography.title,
+                style = typography.titleMedium,
                 color = AppColorScheme.onSurface
             )
 
             Text(
                 text = item.description,
-                style = Typography.body,
+                style = typography.bodyMedium,
                 color = AppColorScheme.onSurfaceVariant
             )
 
@@ -83,12 +85,13 @@ private fun LayoutShowcaseItem(
 
 @Composable
 private fun EmptyStateExamples() {
+    val typography = localTypography()
     Column(
         verticalArrangement = Arrangement.spacedBy(Spacing.sm)
     ) {
         Text(
             text = "Empty States",
-            style = Typography.subtitle,
+            style = typography.titleSmall,
             color = AppColorScheme.onSurface
         )
 
@@ -126,6 +129,7 @@ private fun EmptyState(
     onAction: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val typography = localTypography()
     OrganizeCard(
         modifier = modifier.fillMaxWidth()
     ) {
@@ -144,7 +148,7 @@ private fun EmptyState(
 
             Text(
                 text = title,
-                style = Typography.h3,
+                style = typography.headlineMedium,
                 color = AppColorScheme.onSurface
             )
 
@@ -152,7 +156,7 @@ private fun EmptyState(
 
             Text(
                 text = message,
-                style = Typography.body,
+                style = typography.bodyMedium,
                 color = AppColorScheme.onSurfaceVariant,
                 modifier = Modifier.fillMaxWidth()
             )

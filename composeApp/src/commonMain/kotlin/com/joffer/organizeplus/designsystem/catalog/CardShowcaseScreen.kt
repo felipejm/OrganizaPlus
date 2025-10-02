@@ -4,7 +4,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowForward
+import androidx.compose.material.icons.filled.ArrowBackIosNew
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -12,7 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.spacing.Spacing
-import com.joffer.organizeplus.designsystem.typography.Typography
+import com.joffer.organizeplus.designsystem.typography.localTypography
 import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -21,6 +21,7 @@ fun CardShowcaseScreen(
     onNavigateBack: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val typography = localTypography()
     Scaffold(
         topBar = {
             AppTopAppBarWithBackButton(
@@ -39,7 +40,7 @@ fun CardShowcaseScreen(
             item {
                 Text(
                     text = "Card Components",
-                    style = Typography.h3,
+                    style = typography.headlineMedium,
                     color = AppColorScheme.onSurface
                 )
             }
@@ -56,6 +57,7 @@ private fun CardShowcaseItem(
     item: CardShowcaseItem,
     modifier: Modifier = Modifier
 ) {
+    val typography = localTypography()
     OrganizeCard(
         modifier = modifier.fillMaxWidth()
     ) {
@@ -64,13 +66,13 @@ private fun CardShowcaseItem(
         ) {
             Text(
                 text = item.title,
-                style = Typography.title,
+                style = typography.titleMedium,
                 color = AppColorScheme.onSurface
             )
 
             Text(
                 text = item.description,
-                style = Typography.body,
+                style = typography.bodyMedium,
                 color = AppColorScheme.onSurfaceVariant
             )
 
@@ -93,19 +95,20 @@ private fun CardShowcaseItem(
 
 @Composable
 private fun BasicCardExamples() {
+    val typography = localTypography()
     Column(
         verticalArrangement = Arrangement.spacedBy(Spacing.sm)
     ) {
         Text(
             text = "Basic Cards",
-            style = Typography.subtitle,
+            style = typography.titleSmall,
             color = AppColorScheme.onSurface
         )
 
         OrganizeCard {
             Text(
                 text = "Simple card with just text content",
-                style = Typography.body,
+                style = typography.bodyMedium,
                 color = AppColorScheme.onSurface,
                 modifier = Modifier.padding(Spacing.md)
             )
@@ -117,12 +120,12 @@ private fun BasicCardExamples() {
             ) {
                 Text(
                     text = "Card with Title",
-                    style = Typography.title,
+                    style = typography.titleMedium,
                     color = AppColorScheme.onSurface
                 )
                 Text(
                     text = "This card has a title and description",
-                    style = Typography.body,
+                    style = typography.bodyMedium,
                     color = AppColorScheme.onSurfaceVariant
                 )
             }
@@ -132,12 +135,13 @@ private fun BasicCardExamples() {
 
 @Composable
 private fun InteractiveCardExamples() {
+    val typography = localTypography()
     Column(
         verticalArrangement = Arrangement.spacedBy(Spacing.sm)
     ) {
         Text(
             text = "Interactive Cards",
-            style = Typography.subtitle,
+            style = typography.titleSmall,
             color = AppColorScheme.onSurface
         )
 
@@ -154,17 +158,17 @@ private fun InteractiveCardExamples() {
                 Column {
                     Text(
                         text = "Clickable Card",
-                        style = Typography.title,
+                        style = typography.titleMedium,
                         color = AppColorScheme.onSurface
                     )
                     Text(
                         text = "Tap to interact",
-                        style = Typography.body,
+                        style = typography.bodyMedium,
                         color = AppColorScheme.onSurfaceVariant
                     )
                 }
                 Icon(
-                    imageVector = Icons.Default.ArrowForward,
+                    imageVector = Icons.Default.ArrowBackIosNew,
                     contentDescription = "Navigate forward",
                     tint = AppColorScheme.primary
                 )
@@ -175,12 +179,13 @@ private fun InteractiveCardExamples() {
 
 @Composable
 private fun ContentCardExamples() {
+    val typography = localTypography()
     Column(
         verticalArrangement = Arrangement.spacedBy(Spacing.sm)
     ) {
         Text(
             text = "Content Cards",
-            style = Typography.subtitle,
+            style = typography.titleSmall,
             color = AppColorScheme.onSurface
         )
 
@@ -191,7 +196,7 @@ private fun ContentCardExamples() {
             ) {
                 Text(
                     text = "Statistics",
-                    style = Typography.subtitle,
+                    style = typography.titleSmall,
                     color = AppColorScheme.onSurfaceVariant
                 )
 
@@ -235,7 +240,7 @@ private fun ContentCardExamples() {
 
                     Text(
                         text = "Featured Item",
-                        style = Typography.title,
+                        style = typography.titleMedium,
                         color = AppColorScheme.onSurface
                     )
                 }
@@ -244,7 +249,7 @@ private fun ContentCardExamples() {
 
                 Text(
                     text = "This is a featured card with an icon and special styling to highlight important content.",
-                    style = Typography.body,
+                    style = typography.bodyMedium,
                     color = AppColorScheme.onSurface
                 )
 
@@ -270,18 +275,19 @@ private fun StatItem(
     label: String,
     modifier: Modifier = Modifier
 ) {
+    val typography = localTypography()
     Column(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
             text = value,
-            style = Typography.h2,
+            style = typography.headlineLarge,
             color = AppColorScheme.primary
         )
         Text(
             text = label,
-            style = Typography.caption,
+            style = typography.caption,
             color = AppColorScheme.onSurfaceVariant
         )
     }

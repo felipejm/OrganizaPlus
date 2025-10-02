@@ -15,24 +15,25 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.spacing.Spacing
-import com.joffer.organizeplus.designsystem.typography.Typography
+import com.joffer.organizeplus.designsystem.typography.localTypography
 import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 @Composable
 fun BadgeUsageExample() {
+    val typography = localTypography()
     OrganizeCard {
         Column(
             modifier = Modifier.padding(Spacing.lg)
         ) {
             Text(
                 text = "Badge Usage Examples",
-                style = Typography.h3,
+                style = typography.headlineMedium,
                 color = AppColorScheme.onSurface
             )
 
             Text(
                 text = "Real-world examples of badges in different UI contexts",
-                style = Typography.body,
+                style = typography.bodyMedium,
                 color = AppColorScheme.onSurfaceVariant
             )
 
@@ -56,10 +57,11 @@ fun BadgeUsageExample() {
 
 @Composable
 private fun NavigationBarExample() {
+    val typography = localTypography()
     Column {
         Text(
             text = "Navigation Bar",
-            style = Typography.subtitle,
+            style = typography.titleSmall,
             color = AppColorScheme.onSurface
         )
 
@@ -116,6 +118,7 @@ private fun NavigationItem(
     badgeCount: Int?,
     hasStatus: Boolean = false
 ) {
+    val typography = localTypography()
     Column(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -146,7 +149,7 @@ private fun NavigationItem(
 
         Text(
             text = label,
-            style = Typography.caption,
+            style = typography.caption,
             color = AppColorScheme.onSurfaceVariant
         )
     }
@@ -154,10 +157,11 @@ private fun NavigationItem(
 
 @Composable
 private fun ListItemsExample() {
+    val typography = localTypography()
     Column {
         Text(
             text = "List Items",
-            style = Typography.subtitle,
+            style = typography.titleSmall,
             color = AppColorScheme.onSurface
         )
 
@@ -206,6 +210,7 @@ private fun ListItem(
     badgeCount: Int?,
     hasStatus: Boolean = false
 ) {
+    val typography = localTypography()
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -243,12 +248,12 @@ private fun ListItem(
         ) {
             Text(
                 text = title,
-                style = Typography.body,
+                style = typography.bodyMedium,
                 color = AppColorScheme.onSurface
             )
             Text(
                 text = subtitle,
-                style = Typography.caption,
+                style = typography.caption,
                 color = AppColorScheme.onSurfaceVariant
             )
         }
@@ -257,10 +262,11 @@ private fun ListItem(
 
 @Composable
 private fun ActionButtonsExample() {
+    val typography = localTypography()
     Column {
         Text(
             text = "Action Buttons",
-            style = Typography.subtitle,
+            style = typography.titleSmall,
             color = AppColorScheme.onSurface
         )
 

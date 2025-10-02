@@ -1,8 +1,6 @@
 package com.joffer.organizeplus.features.duty.create.presentation
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.runtime.*
@@ -10,7 +8,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.spacing.Spacing
-import com.joffer.organizeplus.designsystem.typography.ProvideSfProTypography
 import com.joffer.organizeplus.features.dashboard.domain.entities.DutyType
 import com.joffer.organizeplus.features.duty.create.domain.entities.CreateDutyFormField
 import com.joffer.organizeplus.features.duty.create.domain.entities.CreateDutyValidationError
@@ -63,9 +60,8 @@ fun CreateDutyScreen(
             )
         }
     }
-    
-    ProvideSfProTypography {
-        Scaffold(
+
+    Scaffold(
         topBar = {
             AppTopAppBarWithBackButton(
                 title = if (formState.id == null) {
@@ -76,7 +72,6 @@ fun CreateDutyScreen(
                     stringResource(Res.string.navigation_edit_duty_new)
                 },
                 onBackClick = onNavigateBack,
-                backIcon = Icons.Default.ArrowBack,
                 navigationIconContentColor = AppColorScheme.onSurface
             )
         },
@@ -148,7 +143,6 @@ fun CreateDutyScreen(
                 )
             }
         }
-    }
     }
 }
 

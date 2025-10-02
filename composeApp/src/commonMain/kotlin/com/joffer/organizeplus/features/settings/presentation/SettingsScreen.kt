@@ -31,50 +31,50 @@ fun SettingsScreen(
         val uiState by viewModel.uiState.collectAsState()
         val typography = localTypography()
 
-    Column(
-        modifier = modifier.fillMaxSize()
-    ) {
-        AppTopAppBarWithBackButton(
-            title = stringResource(Res.string.settings_title),
-            onBackClick = onNavigateBack
-        )
-
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .verticalScroll(rememberScrollState())
-                .padding(Spacing.md)
+            modifier = modifier.fillMaxSize()
         ) {
-            // Design System
-            Column {
-                Text(
-                    text = stringResource(Res.string.settings_design_system),
-                    style = typography.titleMedium,
-                    color = AppColorScheme.onSurface,
-                    fontWeight = FontWeight.SemiBold
-                )
+            AppTopAppBarWithBackButton(
+                title = stringResource(Res.string.settings_title),
+                onBackClick = onNavigateBack
+            )
 
-                Spacer(modifier = Modifier.height(Spacing.sm))
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .verticalScroll(rememberScrollState())
+                    .padding(Spacing.md)
+            ) {
+                // Design System
+                Column {
+                    Text(
+                        text = stringResource(Res.string.settings_design_system),
+                        style = typography.titleMedium,
+                        color = AppColorScheme.onSurface,
+                        fontWeight = FontWeight.SemiBold
+                    )
 
-                OrganizeCard {
-                    Column(
-                        modifier = Modifier.padding(Spacing.md)
-                    ) {
-                        OrganizePrimaryButton(
-                            onClick = onNavigateToDesignSystem,
-                            text = stringResource(Res.string.settings_design_system_catalog),
-                            modifier = Modifier.fillMaxWidth()
-                        )
-                        Spacer(modifier = Modifier.height(Spacing.sm))
-                        Text(
-                            text = stringResource(Res.string.settings_design_system_description),
-                            style = typography.bodyMedium,
-                            color = AppColorScheme.onSurfaceVariant
-                        )
+                    Spacer(modifier = Modifier.height(Spacing.sm))
+
+                    OrganizeCard {
+                        Column(
+                            modifier = Modifier.padding(Spacing.md)
+                        ) {
+                            OrganizePrimaryButton(
+                                onClick = onNavigateToDesignSystem,
+                                text = stringResource(Res.string.settings_design_system_catalog),
+                                modifier = Modifier.fillMaxWidth()
+                            )
+                            Spacer(modifier = Modifier.height(Spacing.sm))
+                            Text(
+                                text = stringResource(Res.string.settings_design_system_description),
+                                style = typography.bodyMedium,
+                                color = AppColorScheme.onSurfaceVariant
+                            )
+                        }
                     }
                 }
             }
         }
-    }
     }
 }

@@ -4,14 +4,14 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowForward
+import androidx.compose.material.icons.filled.ArrowBackIosNew
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.joffer.organizeplus.designsystem.components.AppTopAppBarWithBackButton
 import com.joffer.organizeplus.designsystem.components.OrganizeCard
 import com.joffer.organizeplus.designsystem.spacing.Spacing
-import com.joffer.organizeplus.designsystem.typography.Typography
+import com.joffer.organizeplus.designsystem.typography.localTypography
 import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -21,6 +21,7 @@ fun DesignSystemCatalogScreen(
     onNavigateToComponent: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val typography = localTypography()
     Scaffold(
         topBar = {
             AppTopAppBarWithBackButton(
@@ -39,7 +40,7 @@ fun DesignSystemCatalogScreen(
             item {
                 Text(
                     text = "Components",
-                    style = Typography.h3,
+                    style = typography.headlineMedium,
                     color = AppColorScheme.onSurface
                 )
                 Spacer(modifier = Modifier.height(Spacing.sm))
@@ -56,7 +57,7 @@ fun DesignSystemCatalogScreen(
                 Spacer(modifier = Modifier.height(Spacing.lg))
                 Text(
                     text = "Design Tokens",
-                    style = Typography.h3,
+                    style = typography.headlineMedium,
                     color = AppColorScheme.onSurface
                 )
                 Spacer(modifier = Modifier.height(Spacing.sm))
@@ -84,6 +85,7 @@ private fun ComponentCategoryCard(
     category: ComponentCategory,
     onNavigateToComponent: (String) -> Unit
 ) {
+    val typography = localTypography()
     OrganizeCard(
         onClick = { onNavigateToComponent(category.route) },
         modifier = Modifier.fillMaxWidth()
@@ -100,18 +102,18 @@ private fun ComponentCategoryCard(
             ) {
                 Text(
                     text = category.title,
-                    style = Typography.title,
+                    style = typography.titleMedium,
                     color = AppColorScheme.onSurface
                 )
                 Text(
                     text = category.description,
-                    style = Typography.body,
+                    style = typography.bodyMedium,
                     color = AppColorScheme.onSurfaceVariant
                 )
             }
 
             Icon(
-                imageVector = Icons.Default.ArrowForward,
+                imageVector = Icons.Default.ArrowBackIosNew,
                 contentDescription = "Navigate forward",
                 tint = AppColorScheme.primary,
                 modifier = Modifier.size(Spacing.iconSize)

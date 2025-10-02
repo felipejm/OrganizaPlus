@@ -5,7 +5,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import com.joffer.organizeplus.designsystem.typography.Typography
+import com.joffer.organizeplus.designsystem.typography.localTypography
 import org.jetbrains.compose.resources.stringResource
 import organizeplus.composeapp.generated.resources.Res
 import organizeplus.composeapp.generated.resources.priority_high
@@ -21,6 +21,7 @@ fun StatusChip(
     status: ObligationStatus,
     modifier: Modifier = Modifier
 ) {
+    val typography = localTypography()
     val (textResource, containerColor, contentColor) = when (status) {
         ObligationStatus.PENDING -> Triple(
             Res.string.status_pending,
@@ -44,7 +45,7 @@ fun StatusChip(
         label = {
             Text(
                 text = stringResource(textResource),
-                style = Typography.chip,
+                style = typography.labelMedium,
                 color = contentColor
             )
         },
@@ -61,6 +62,7 @@ fun PriorityChip(
     priority: ObligationPriority,
     modifier: Modifier = Modifier
 ) {
+    val typography = localTypography()
     val (textResource, containerColor, contentColor) = when (priority) {
         ObligationPriority.LOW -> Triple(
             Res.string.priority_low,
@@ -89,7 +91,7 @@ fun PriorityChip(
         label = {
             Text(
                 text = stringResource(textResource),
-                style = Typography.chip,
+                style = typography.labelMedium,
                 color = contentColor
             )
         },
@@ -107,12 +109,13 @@ fun CategoryChip(
     color: Color = MaterialTheme.colorScheme.primary,
     modifier: Modifier = Modifier
 ) {
+    val typography = localTypography()
     AssistChip(
         onClick = { },
         label = {
             Text(
                 text = category,
-                style = Typography.chip,
+                style = typography.labelMedium,
                 color = MaterialTheme.colorScheme.onPrimary
             )
         },

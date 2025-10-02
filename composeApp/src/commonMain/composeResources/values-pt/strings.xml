@@ -217,4 +217,37 @@
     <string name="duty_list_separator">•</string>
     
     <string name="month_unknown">Desconhecido</string>
+    
+    <!-- Duty Review Screen -->
+    <string name="duty_review_title">Histórico</string>
+    <string name="duty_review_empty_title">Nenhum pagamento encontrado</string>
+    <string name="duty_review_empty_subtitle">Complete algumas tarefas para ver seu histórico de pagamentos</string>
+    <string name="duty_review_error_title">Erro ao carregar histórico</string>
+    <string name="duty_review_error_subtitle">Tente novamente</string>
+    <string name="duty_review_retry">Tentar novamente</string>
+    <string name="duty_review_date">Data</string>
+    <string name="duty_review_total">Total</string>
+    <string name="duty_review_search">Pesquisar</string>
+    
+    <!-- Missing strings -->
+    <string name="back_arrow">Voltar</string>
+    <string name="chart_amount_series_name">Valor</string>
+    <string name="chart_occurrences_series_name">Ocorrências</string>
+    <string name="duty_detail_status">Status</string>
+    <string name="duty_list_delete">Excluir</string>
+    <string name="duty_list_edit">Editar</string>
+    <string name="duty_list_mark_paid">Marcar como Pago</string>
+    <string name="duty_list_occurrences">Ver Ocorrências</string>
+    <string name="duty_occurrence_list_amount">Valor</string>
+    <string name="duty_occurrence_list_date">Data</string>
+    <string name="duty_occurrence_list_notes">Observações</string>
+    <string name="duty_start_every_day">Inicia todo dia %d do mês</string>
+    <string name="error_reminder_days_range">Dias de lembrete devem estar entre 1 e 31</string>
+    <string name="latest_duties_title">Últimas Tarefas</string>
+    <string name="navigation_create_duty">Criar Tarefa</string>
+    <string name="navigation_duties">Tarefas</string>
+    <string name="navigation_edit_duty">Editar Tarefa</string>
+    <string name="placeholder_category">Selecionar categoria</string>
+    <string name="placeholder_date">Selecionar data</string>
+    <string name="status_snoozed">Adiado</string>
 </resources>

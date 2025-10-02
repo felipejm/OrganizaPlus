@@ -6,10 +6,10 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.joffer.organizeplus.designsystem.components.*
-import com.joffer.organizeplus.designsystem.spacing.Spacing
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.sp
+import com.joffer.organizeplus.designsystem.components.*
+import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.features.dashboard.domain.entities.Duty
 import com.joffer.organizeplus.features.dashboard.domain.entities.DutyType
 import org.jetbrains.compose.resources.stringResource
@@ -109,7 +109,7 @@ private fun UpcomingDutyItem(
             ) {
                 Text(
                     text = duty.title,
-                        style = TextStyle(fontSize = 16.sp),
+                    style = TextStyle(fontSize = 16.sp),
                     color = AppColorScheme.formText
                 )
 

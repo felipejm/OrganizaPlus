@@ -3,7 +3,7 @@ package com.joffer.organizeplus.designsystem.components
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.ArrowBackIosNew
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -12,35 +12,39 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import com.joffer.organizeplus.designsystem.spacing.Spacing
-import com.joffer.organizeplus.designsystem.typography.Typography
+import com.joffer.organizeplus.designsystem.typography.localTypography
 import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AppTopAppBar(
-    title: String,
+    title: String?,
     modifier: Modifier = Modifier,
     navigationIcon: @Composable (() -> Unit)? = null,
     actions: @Composable (RowScope.() -> Unit)? = null,
-    containerColor: androidx.compose.ui.graphics.Color = AppColorScheme.surface,
-    titleContentColor: androidx.compose.ui.graphics.Color = AppColorScheme.formText,
-    navigationIconContentColor: androidx.compose.ui.graphics.Color = AppColorScheme.formIcon,
-    actionIconContentColor: androidx.compose.ui.graphics.Color = AppColorScheme.formIcon
+    containerColor: Color = AppColorScheme.surface,
+    titleContentColor: Color = AppColorScheme.formText,
+    navigationIconContentColor: Color = AppColorScheme.formIcon,
+    actionIconContentColor: Color = AppColorScheme.formIcon
 ) {
+    val typography = localTypography()
     TopAppBar(
         title = {
-            Text(
-                text = title,
-                style = Typography.titleMedium,
-                color = titleContentColor,
-                fontWeight = FontWeight.SemiBold,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
-            )
+            title?.let {
+                Text(
+                    text = title,
+                    style = typography.titleMedium,
+                    color = titleContentColor,
+                    fontWeight = FontWeight.SemiBold,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+            }
         },
         navigationIcon = navigationIcon ?: {},
         actions = actions ?: {},
@@ -57,15 +61,15 @@ fun AppTopAppBar(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AppTopAppBarWithBackButton(
-    title: String,
+    title: String? = null,
     onBackClick: () -> Unit,
     modifier: Modifier = Modifier,
     actions: @Composable (RowScope.() -> Unit)? = null,
     backIcon: ImageVector? = null,
-    containerColor: androidx.compose.ui.graphics.Color = AppColorScheme.surface,
-    titleContentColor: androidx.compose.ui.graphics.Color = AppColorScheme.formText,
-    navigationIconContentColor: androidx.compose.ui.graphics.Color = AppColorScheme.formIcon,
-    actionIconContentColor: androidx.compose.ui.graphics.Color = AppColorScheme.formIcon
+    containerColor: Color = AppColorScheme.background,
+    titleContentColor: Color = AppColorScheme.formText,
+    navigationIconContentColor: Color = AppColorScheme.formIcon,
+    actionIconContentColor: Color = AppColorScheme.formIcon
 ) {
     AppTopAppBar(
         title = title,
@@ -73,10 +77,10 @@ fun AppTopAppBarWithBackButton(
         navigationIcon = {
             IconButton(onClick = onBackClick) {
                 Icon(
-                    imageVector = backIcon ?: Icons.Default.ArrowBack,
+                    imageVector = backIcon ?: Icons.Default.ArrowBackIosNew,
                     contentDescription = "Back",
                     tint = navigationIconContentColor,
-                    modifier = Modifier.size(Spacing.iconSize)
+                    modifier = Modifier.size(Spacing.Icon.xs)
                 )
             }
         },
@@ -91,12 +95,12 @@ fun AppTopAppBarWithBackButton(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AppTopAppBarWithActions(
-    title: String,
+    title: String? = null,
     modifier: Modifier = Modifier,
     actions: @Composable (RowScope.() -> Unit)? = null,
-    containerColor: androidx.compose.ui.graphics.Color = AppColorScheme.surface,
-    titleContentColor: androidx.compose.ui.graphics.Color = AppColorScheme.formText,
-    actionIconContentColor: androidx.compose.ui.graphics.Color = AppColorScheme.formIcon
+    containerColor: Color = AppColorScheme.background,
+    titleContentColor: Color = AppColorScheme.formText,
+    actionIconContentColor: Color = AppColorScheme.formIcon
 ) {
     AppTopAppBar(
         title = title,

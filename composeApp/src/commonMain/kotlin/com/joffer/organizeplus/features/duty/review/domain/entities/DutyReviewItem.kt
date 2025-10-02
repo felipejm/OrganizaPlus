@@ -11,7 +11,7 @@ data class DutyReviewItem(
 )
 
 data class MonthlyDutyReview(
-    val month: String,
+    val monthNumber: Int,
     val year: Int,
     val totalPaid: Double,
     val dutyItems: List<DutyReviewItem>

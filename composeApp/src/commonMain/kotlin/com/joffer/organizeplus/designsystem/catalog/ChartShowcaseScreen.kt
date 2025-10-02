@@ -7,7 +7,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.spacing.Spacing
-import com.joffer.organizeplus.designsystem.typography.Typography
+import com.joffer.organizeplus.designsystem.typography.localTypography
 import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -16,6 +16,7 @@ fun ChartShowcaseScreen(
     onNavigateBack: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val typography = localTypography()
     Scaffold(
         topBar = {
             AppTopAppBarWithBackButton(
@@ -34,13 +35,13 @@ fun ChartShowcaseScreen(
             item {
                 Text(
                     text = "Bar Chart",
-                    style = Typography.h3,
+                    style = typography.headlineMedium,
                     color = AppColorScheme.onSurface
                 )
                 Spacer(modifier = Modifier.height(Spacing.sm))
                 Text(
                     text = "Vertical bar charts using AAY-chart library with design system color palette",
-                    style = Typography.body,
+                    style = typography.bodyMedium,
                     color = AppColorScheme.onSurfaceVariant
                 )
             }
@@ -126,6 +127,7 @@ private fun ChartExample(
     title: String,
     data: List<ChartDataPoint>
 ) {
+    val typography = localTypography()
     OrganizeCard(
         modifier = Modifier.fillMaxWidth()
     ) {
@@ -134,7 +136,7 @@ private fun ChartExample(
         ) {
             Text(
                 text = title,
-                style = Typography.titleMedium,
+                style = typography.titleMedium,
                 color = AppColorScheme.onSurface
             )
             Spacer(modifier = Modifier.height(Spacing.sm))

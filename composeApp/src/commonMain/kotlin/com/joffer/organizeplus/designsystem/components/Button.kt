@@ -5,7 +5,9 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import com.joffer.organizeplus.designsystem.colors.ColorScheme
 import com.joffer.organizeplus.designsystem.spacing.Spacing
+import com.joffer.organizeplus.designsystem.typography.localTypography
 
 @Composable
 fun OrganizePrimaryButton(
@@ -15,12 +17,13 @@ fun OrganizePrimaryButton(
     enabled: Boolean = true,
     icon: ImageVector? = null
 ) {
+    val typography = localTypography()
     Button(
         onClick = onClick,
         modifier = modifier,
         enabled = enabled,
         colors = ButtonDefaults.buttonColors(
-            containerColor = MaterialTheme.colorScheme.primary,
+            containerColor = ColorScheme.black,
             contentColor = MaterialTheme.colorScheme.onPrimary
         ),
         shape = MaterialTheme.shapes.medium
@@ -35,7 +38,7 @@ fun OrganizePrimaryButton(
         }
         Text(
             text = text,
-            style = MaterialTheme.typography.labelLarge
+            style = typography.button
         )
     }
 }
@@ -51,12 +54,13 @@ fun OrganizeSecondaryButton(
     enabled: Boolean = true,
     icon: ImageVector? = null
 ) {
+    val typography = localTypography()
     OutlinedButton(
         onClick = onClick,
         modifier = modifier,
         enabled = enabled,
         colors = ButtonDefaults.outlinedButtonColors(
-            contentColor = MaterialTheme.colorScheme.primary
+            contentColor = ColorScheme.black
         ),
         shape = MaterialTheme.shapes.medium
     ) {
@@ -70,7 +74,7 @@ fun OrganizeSecondaryButton(
         }
         Text(
             text = text,
-            style = MaterialTheme.typography.labelLarge
+            style = typography.button
         )
     }
 }
@@ -85,17 +89,18 @@ fun OrganizeTextButton(
     modifier: Modifier = Modifier,
     enabled: Boolean = true
 ) {
+    val typography = localTypography()
     TextButton(
         onClick = onClick,
         modifier = modifier,
         enabled = enabled,
         colors = ButtonDefaults.textButtonColors(
-            contentColor = MaterialTheme.colorScheme.primary
+            contentColor = ColorScheme.black
         )
     ) {
         Text(
             text = text,
-            style = MaterialTheme.typography.labelLarge
+            style = typography.button
         )
     }
 }

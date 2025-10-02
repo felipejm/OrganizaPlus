@@ -5,7 +5,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import com.joffer.organizeplus.designsystem.colors.ColorScheme
+import com.joffer.organizeplus.designsystem.colors.SemanticColors
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
 
@@ -23,8 +23,8 @@ fun OrganizePrimaryButton(
         modifier = modifier,
         enabled = enabled,
         colors = ButtonDefaults.buttonColors(
-            containerColor = ColorScheme.black,
-            contentColor = MaterialTheme.colorScheme.onPrimary
+            containerColor = SemanticColors.Background.brand,
+            contentColor = SemanticColors.OnBackground.onBrand
         ),
         shape = MaterialTheme.shapes.medium
     ) {
@@ -60,7 +60,7 @@ fun OrganizeSecondaryButton(
         modifier = modifier,
         enabled = enabled,
         colors = ButtonDefaults.outlinedButtonColors(
-            contentColor = ColorScheme.black
+            contentColor = SemanticColors.Foreground.primary
         ),
         shape = MaterialTheme.shapes.medium
     ) {
@@ -95,7 +95,7 @@ fun OrganizeTextButton(
         modifier = modifier,
         enabled = enabled,
         colors = ButtonDefaults.textButtonColors(
-            contentColor = ColorScheme.black
+            contentColor = SemanticColors.Foreground.primary
         )
     ) {
         Text(
@@ -137,8 +137,8 @@ fun OrganizeFAB(
     FloatingActionButton(
         onClick = onClick,
         modifier = modifier,
-        containerColor = MaterialTheme.colorScheme.primary,
-        contentColor = MaterialTheme.colorScheme.onPrimary
+        containerColor = SemanticColors.Background.brand,
+        contentColor = SemanticColors.OnBackground.onBrand
     ) {
         icon?.let {
             Icon(

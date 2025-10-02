@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.*
@@ -31,7 +32,7 @@ import organizeplus.composeapp.generated.resources.duty_occurrence_list_add_occu
 import organizeplus.composeapp.generated.resources.duty_occurrence_list_empty_subtitle
 import organizeplus.composeapp.generated.resources.duty_occurrence_list_empty_title
 import organizeplus.composeapp.generated.resources.duty_occurrence_list_title
-import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
+import com.joffer.organizeplus.designsystem.colors.SemanticColors
 
 private val EMPTY_STATE_HEIGHT = 400.dp
 
@@ -52,30 +53,54 @@ fun DutyDetailsScreen(
         viewModel.onIntent(DutyDetailsListIntent.LoadRecords)
     }
 
-    Column(
-        modifier = modifier.fillMaxSize()
-    ) {
-        AppTopAppBarWithBackButton(
-            onBackClick = onNavigateBack,
-            actions = {
-                IconButton(onClick = {
-                    uiState.duty?.let { duty ->
-                        onEditDuty(duty.id, duty.categoryName)
-                    }
-                }) {
-                    Icon(
-                        imageVector = Icons.Default.Edit,
-                        contentDescription = stringResource(Res.string.duty_detail_edit),
-                        tint = AppColorScheme.primary
+    Scaffold(
+        modifier = modifier.fillMaxSize(),
+        topBar = {
+            TopAppBar(
+                title = {
+                    Text(
+                        text = uiState.duty?.title.orEmpty(),
+                        style = DesignSystemTypography().headlineSmall,
+                        color = SemanticColors.Foreground.primary,
+                        fontWeight = FontWeight.Bold
                     )
-                }
-            }
-        )
-
+                },
+                navigationIcon = {
+                    IconButton(onClick = onNavigateBack) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = "Back",
+                            tint = SemanticColors.Foreground.primary
+                        )
+                    }
+                },
+                actions = {
+                    IconButton(onClick = {
+                        uiState.duty?.let { duty ->
+                            onEditDuty(duty.id, duty.categoryName)
+                        }
+                    }) {
+                        Icon(
+                            imageVector = Icons.Default.Edit,
+                            contentDescription = stringResource(Res.string.duty_detail_edit),
+                            tint = SemanticColors.Foreground.brand
+                        )
+                    }
+                },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = SemanticColors.Background.surface,
+                    titleContentColor = SemanticColors.Foreground.primary,
+                    navigationIconContentColor = SemanticColors.Foreground.primary,
+                    actionIconContentColor = SemanticColors.Foreground.brand
+                )
+            )
+        }
+    ) { paddingValues ->
         DutyDetailsContent(
             uiState = uiState,
             viewModel = viewModel,
-            onShowAddOccurrence = { showAddOccurrenceBottomSheet = true }
+            onShowAddOccurrence = { showAddOccurrenceBottomSheet = true },
+            modifier = Modifier.padding(paddingValues)
         )
 
         // Add Occurrence Bottom Sheet
@@ -100,18 +125,20 @@ fun DutyDetailsScreen(
 private fun DutyDetailsContent(
     uiState: DutyDetailsListUiState,
     viewModel: DutyDetailsListViewModel,
-    onShowAddOccurrence: () -> Unit
+    onShowAddOccurrence: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     when {
         uiState.isLoading -> {
-            OrganizeProgressIndicatorFullScreen()
+            OrganizeProgressIndicatorFullScreen(modifier = modifier)
         }
 
         uiState.error != null -> {
             DutyDetailsErrorContent(
                 error = uiState.error,
                 onRetry = { viewModel.onIntent(DutyDetailsListIntent.Retry) },
-                onDismiss = { viewModel.onIntent(DutyDetailsListIntent.ClearError) }
+                onDismiss = { viewModel.onIntent(DutyDetailsListIntent.ClearError) },
+                modifier = modifier
             )
         }
 
@@ -125,7 +152,8 @@ private fun DutyDetailsContent(
                             recordId
                         )
                     )
-                }
+                },
+                modifier = modifier
             )
         }
     }
@@ -135,12 +163,14 @@ private fun DutyDetailsContent(
 private fun DutyDetailsErrorContent(
     error: String?,
     onRetry: () -> Unit,
-    onDismiss: () -> Unit
+    onDismiss: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     ErrorBanner(
         message = error ?: "",
         onRetry = onRetry,
-        onDismiss = onDismiss
+        onDismiss = onDismiss,
+        modifier = modifier
     )
 }
 
@@ -148,22 +178,14 @@ private fun DutyDetailsErrorContent(
 private fun DutyDetailsDataContent(
     uiState: DutyDetailsListUiState,
     onShowAddOccurrence: () -> Unit,
-    onDeleteRecord: (Long) -> Unit
+    onDeleteRecord: (Long) -> Unit,
+    modifier: Modifier = Modifier
 ) {
     LazyColumn(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         contentPadding = PaddingValues(Spacing.md),
         verticalArrangement = Arrangement.spacedBy(Spacing.md)
     ) {
-
-        item {
-            Text(
-                text = uiState.duty?.title.orEmpty(),
-                style = DesignSystemTypography().headlineLarge,
-                color = AppColorScheme.black,
-                fontWeight = FontWeight.Black
-            )
-        }
         // Duty Header Information
         uiState.duty?.let { duty ->
             item {
@@ -238,7 +260,7 @@ private fun DutyDetailsRecordsHeader(
         Text(
             text = stringResource(Res.string.duty_occurrence_list_title),
             style = typography.headlineSmall,
-            color = AppColorScheme.onSurface,
+            color = SemanticColors.Foreground.primary,
             fontWeight = FontWeight.Bold
         )
 
@@ -246,7 +268,7 @@ private fun DutyDetailsRecordsHeader(
             Icon(
                 imageVector = Icons.Default.Add,
                 contentDescription = stringResource(Res.string.duty_occurrence_list_add_occurrence),
-                tint = AppColorScheme.primary
+                tint = SemanticColors.Foreground.brand
             )
         }
     }

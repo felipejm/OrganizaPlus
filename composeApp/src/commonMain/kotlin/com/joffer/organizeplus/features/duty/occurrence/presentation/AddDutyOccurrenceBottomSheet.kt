@@ -34,7 +34,7 @@ import organizeplus.composeapp.generated.resources.duty_occurrence_saved
 import organizeplus.composeapp.generated.resources.validation_date_required
 import organizeplus.composeapp.generated.resources.validation_field_required
 import organizeplus.composeapp.generated.resources.validation_invalid_amount
-import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
+import com.joffer.organizeplus.designsystem.colors.SemanticColors
 
 private const val SUCCESS_MESSAGE_DELAY_MS = 2000L
 
@@ -61,7 +61,7 @@ fun AddDutyOccurrenceBottomSheet(
     ModalBottomSheet(
         onDismissRequest = onDismiss,
         modifier = modifier.fillMaxWidth(),
-        containerColor = AppColorScheme.surface
+        containerColor = SemanticColors.Background.surface
     ) {
         Column(
             modifier = Modifier
@@ -78,13 +78,13 @@ fun AddDutyOccurrenceBottomSheet(
                 Text(
                     text = stringResource(Res.string.add_duty_occurrence_title),
                     style = typography.titleLarge,
-                    color = AppColorScheme.onSurface
+                    color = SemanticColors.Foreground.primary
                 )
                 IconButton(onClick = onDismiss) {
                     Icon(
                         imageVector = Icons.Default.Close,
                         contentDescription = stringResource(Res.string.close),
-                        tint = AppColorScheme.onSurface
+                        tint = SemanticColors.Foreground.primary
                     )
                 }
             }
@@ -112,7 +112,7 @@ fun AddDutyOccurrenceBottomSheet(
                 modifier = Modifier.fillMaxWidth(),
                 enabled = !uiState.isLoading,
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = AppColorScheme.primary
+                    containerColor = SemanticColors.Background.brand
                 )
             ) {
                 keyboardController?.hide()
@@ -128,7 +128,7 @@ fun AddDutyOccurrenceBottomSheet(
                     } else {
                         stringResource(Res.string.duty_occurrence_save)
                     },
-                    color = AppColorScheme.onPrimary
+                    color = SemanticColors.OnBackground.onBrand
                 )
             }
         }

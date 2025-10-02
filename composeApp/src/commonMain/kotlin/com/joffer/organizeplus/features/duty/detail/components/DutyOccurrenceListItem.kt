@@ -15,7 +15,7 @@ import com.joffer.organizeplus.features.duty.occurrence.domain.entities.DutyOccu
 import org.jetbrains.compose.resources.stringResource
 import organizeplus.composeapp.generated.resources.Res
 import organizeplus.composeapp.generated.resources.duty_occurrence_list_delete
-import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
+import com.joffer.organizeplus.designsystem.colors.SemanticColors
 
 @Composable
 fun DutyOccurrenceListItem(
@@ -46,7 +46,7 @@ fun DutyOccurrenceListItem(
                     Text(
                         text = monthYearText,
                         style = typography.labelLarge,
-                        color = AppColorScheme.formSecondaryText,
+                        color = SemanticColors.Foreground.secondary,
                         fontWeight = FontWeight.Bold
                     )
 
@@ -56,7 +56,7 @@ fun DutyOccurrenceListItem(
                         Text(
                             text = occurrence.paidAmount.toCurrencyFormat(),
                             style = typography.labelLarge,
-                            color = AppColorScheme.formSecondaryText,
+                            color = SemanticColors.Foreground.secondary,
                             fontWeight = FontWeight.Medium
                         )
                     }
@@ -65,7 +65,7 @@ fun DutyOccurrenceListItem(
                 TextButton(
                     onClick = { onDelete(occurrence.id) },
                     colors = ButtonDefaults.textButtonColors(
-                        contentColor = AppColorScheme.error
+                        contentColor = SemanticColors.Foreground.error
                     )
                 ) {
                     Text(stringResource(Res.string.duty_occurrence_list_delete))

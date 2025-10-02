@@ -25,7 +25,7 @@ import organizeplus.composeapp.generated.resources.duty_list_paid
 import organizeplus.composeapp.generated.resources.duty_list_separator
 import organizeplus.composeapp.generated.resources.duty_type_actionable
 import organizeplus.composeapp.generated.resources.duty_type_payable
-import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
+import com.joffer.organizeplus.designsystem.colors.SemanticColors
 
 /**
  * Reusable duty card component that can be used in both dashboard and duty list screens
@@ -60,7 +60,7 @@ fun DutyCard(
             .fillMaxWidth()
             .clickable { onDutyClick() },
         colors = CardDefaults.cardColors(
-            containerColor = AppColorScheme.cardBackground
+            containerColor = SemanticColors.Background.surface
         ),
         shape = RoundedCornerShape(Spacing.Radius.md)
     ) {
@@ -105,7 +105,7 @@ fun DutyCard(
                     Text(
                         text = duty.title,
                         style = if (accentColor != null) typography.titleMedium else typography.titleSmall,
-                        color = if (accentColor != null) AppColorScheme.dutyTitle else AppColorScheme.formText,
+                        color = if (accentColor != null) SemanticColors.Foreground.primary else SemanticColors.Foreground.primary,
                         modifier = Modifier.weight(1f)
                     )
                 }
@@ -135,7 +135,7 @@ fun DutyCard(
                             Icon(
                                 imageVector = Icons.Default.Delete,
                                 contentDescription = stringResource(Res.string.duty_list_delete_description),
-                                tint = AppColorScheme.black,
+                                tint = SemanticColors.Foreground.primary,
                                 modifier = Modifier.size(Spacing.Icon.sm)
                             )
                         }
@@ -153,13 +153,13 @@ fun DutyCard(
                     Text(
                         text = duty.categoryName,
                         style = typography.labelLarge,
-                        color = AppColorScheme.formSecondaryText
+                        color = SemanticColors.Foreground.secondary
                     )
 
                     Text(
                         text = stringResource(Res.string.duty_list_separator),
                         style = typography.labelLarge,
-                        color = AppColorScheme.formSecondaryText
+                        color = SemanticColors.Foreground.secondary
                     )
 
                     Text(
@@ -168,7 +168,7 @@ fun DutyCard(
                             DutyType.ACTIONABLE -> stringResource(Res.string.duty_type_actionable)
                         },
                         style = typography.labelLarge,
-                        color = AppColorScheme.formSecondaryText
+                        color = SemanticColors.Foreground.secondary
                     )
                 }
             }

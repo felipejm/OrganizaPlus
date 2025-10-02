@@ -25,7 +25,7 @@ object SemanticColors {
         val surfaceContainerLow = PrimitiveColors.neutral50
 
         // Brand backgrounds
-        val brand = PrimitiveColors.primary500
+        val brand = PrimitiveColors.black
         val brandContainer = PrimitiveColors.primary100
 
         // State backgrounds

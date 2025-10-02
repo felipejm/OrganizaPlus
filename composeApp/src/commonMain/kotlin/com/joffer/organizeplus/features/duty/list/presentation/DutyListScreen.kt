@@ -32,7 +32,7 @@ import organizeplus.composeapp.generated.resources.duty_list_empty_title
 import organizeplus.composeapp.generated.resources.duty_list_error_subtitle
 import organizeplus.composeapp.generated.resources.duty_list_error_title
 import organizeplus.composeapp.generated.resources.duty_list_retry
-import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
+import com.joffer.organizeplus.designsystem.colors.SemanticColors
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -54,6 +54,7 @@ fun DutyListScreen(
         val currentYear = currentDateTime.year
 
         Scaffold(
+            contentColor = SemanticColors.Background.primary,
             topBar = {
                 AppTopAppBarWithBackButton(
                     onBackClick = onNavigateBack,
@@ -62,7 +63,7 @@ fun DutyListScreen(
                             Icon(
                                 imageVector = Icons.Default.AddChart,
                                 contentDescription = "View Review",
-                                tint = AppColorScheme.onSurface
+                                tint = SemanticColors.Foreground.primary
                             )
                         }
                     }
@@ -71,8 +72,8 @@ fun DutyListScreen(
             floatingActionButton = {
                 FloatingActionButton(
                     onClick = onNavigateToCreateDuty,
-                    containerColor = AppColorScheme.primary,
-                    contentColor = AppColorScheme.onPrimary
+                    containerColor = SemanticColors.Background.brand,
+                    contentColor = SemanticColors.OnBackground.onBrand
                 ) {
                     Icon(
                         imageVector = Icons.Default.Add,
@@ -99,14 +100,14 @@ fun DutyListScreen(
                             Text(
                                 text = stringResource(Res.string.duty_list_error_title),
                                 style = typography.titleMedium,
-                                color = AppColorScheme.error
+                                color = SemanticColors.Foreground.error
                             )
                             Spacer(modifier = Modifier.height(Spacing.sm))
                             Text(
                                 text = uiState.error
                                     ?: stringResource(Res.string.duty_list_error_subtitle),
                                 style = typography.bodyMedium,
-                                color = AppColorScheme.formSecondaryText
+                                color = SemanticColors.Foreground.secondary
                             )
                             Spacer(modifier = Modifier.height(Spacing.md))
                             Button(
@@ -193,14 +194,14 @@ private fun DutyListHeader(
             Text(
                 text = categoryName,
                 style = typography.headlineMedium,
-                color = AppColorScheme.black,
+                color = SemanticColors.Foreground.primary,
                 fontWeight = Black
             )
             Spacer(modifier = Modifier.height(Spacing.xs))
             Text(
                 text = "$currentMonth $currentYear",
                 style = typography.titleLarge,
-                color = AppColorScheme.black,
+                color = SemanticColors.Foreground.primary,
             )
         }
     }

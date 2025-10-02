@@ -114,6 +114,10 @@
     <string name="category_enterprise">Empresa</string>
 
     <!-- Dashboard Section -->
+    <string name="dashboard_title">Dashboard</string>
+    <string name="dashboard_welcome_title">Bem-vindo ao OrganizePlus</string>
+    <string name="dashboard_welcome_subtitle">Comece a organizar seus deveres criando sua primeira tarefa. Você pode adicionar deveres pessoais ou relacionados à empresa para acompanhar tudo.</string>
+    <string name="dashboard_create_first_duty">Criar Seu Primeiro Dever</string>
     <string name="dashboard_personal_duties">Tarefas Pessoais</string>
     <string name="dashboard_company_duties">Tarefas da Empresa</string>
     <string name="dashboard_monthly_summary">Resumo Mensal</string>

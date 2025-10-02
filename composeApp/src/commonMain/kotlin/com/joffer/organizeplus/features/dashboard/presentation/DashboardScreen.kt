@@ -27,7 +27,11 @@ import kotlinx.datetime.toLocalDateTime
 import org.jetbrains.compose.resources.stringResource
 import organizeplus.composeapp.generated.resources.Res
 import organizeplus.composeapp.generated.resources.settings_button_description
-import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
+import com.joffer.organizeplus.designsystem.colors.SemanticColors
+import organizeplus.composeapp.generated.resources.dashboard_create_first_duty
+import organizeplus.composeapp.generated.resources.dashboard_title
+import organizeplus.composeapp.generated.resources.dashboard_welcome_subtitle
+import organizeplus.composeapp.generated.resources.dashboard_welcome_title
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -38,7 +42,6 @@ fun DashboardScreen(
     onNavigateToDutyDetails: (Long) -> Unit,
     onNavigateToSettings: () -> Unit,
     onNavigateToCreateDuty: () -> Unit,
-    onNavigateToAllDuties: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val uiState by viewModel.uiState.collectAsState()
@@ -55,7 +58,7 @@ fun DashboardScreen(
     }
 
     Scaffold(
-        contentColor = AppColorScheme.background,
+        contentColor = SemanticColors.Background.primary,
         topBar = {
             AppTopAppBarWithActions(
                 actions = {
@@ -63,31 +66,16 @@ fun DashboardScreen(
                         Icon(
                             imageVector = Icons.Default.Settings,
                             contentDescription = stringResource(Res.string.settings_button_description),
-                            tint = AppColorScheme.black
+                            tint = SemanticColors.Foreground.primary
                         )
                     }
                 }
             )
         },
-        floatingActionButton = {
-            FloatingActionButton(
-                onClick = onNavigateToCreateDuty,
-                containerColor = AppColorScheme.primary,
-                contentColor = AppColorScheme.onPrimary
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Add,
-                    contentDescription = "Add Duty"
-                )
-            }
-        }
     ) { paddingValues ->
         LazyColumn(
             state = listState,
-            modifier = Modifier
-                .fillMaxSize()
-                .background(AppColorScheme.background)
-                .padding(paddingValues),
+            modifier = modifier.fillMaxSize().padding(paddingValues),
             contentPadding = PaddingValues(horizontal = Spacing.Screen.padding),
             verticalArrangement = Arrangement.spacedBy(Spacing.Screen.contentSpacing)
         ) {
@@ -117,13 +105,13 @@ fun DashboardScreen(
                             Text(
                                 text = "$currentMonth $currentYear",
                                 style = typography.headlineLarge,
-                                color = AppColorScheme.black,
+                                color = SemanticColors.Foreground.primary,
                                 fontWeight = FontWeight.Black
                             )
                             Text(
-                                text = "Dashboard",
+                                text = stringResource(Res.string.dashboard_title),
                                 style = typography.titleMedium,
-                                color = AppColorScheme.formSecondaryText
+                                color = SemanticColors.Foreground.secondary
                             )
                         }
                     }
@@ -184,7 +172,7 @@ private fun EmptyDashboardState(
             modifier = Modifier
                 .size(120.dp)
                 .background(
-                    AppColorScheme.surfaceVariant,
+                    SemanticColors.Background.surfaceVariant,
                     androidx.compose.foundation.shape.CircleShape
                 ),
             contentAlignment = Alignment.Center
@@ -193,32 +181,32 @@ private fun EmptyDashboardState(
                 imageVector = Icons.Default.Add,
                 contentDescription = null,
                 modifier = Modifier.size(48.dp),
-                tint = AppColorScheme.formSecondaryText
+                tint = SemanticColors.Foreground.secondary
             )
         }
 
         Spacer(modifier = Modifier.height(Spacing.lg))
 
         Text(
-            text = "Welcome to OrganizePlus",
+            text = stringResource(Res.string.dashboard_welcome_title),
             style = DesignSystemTypography().headlineMedium,
-            color = AppColorScheme.formText,
+            color = SemanticColors.Foreground.primary,
             fontWeight = FontWeight.Bold
         )
 
         Spacer(modifier = Modifier.height(Spacing.sm))
 
         Text(
-            text = "Start organizing your duties by creating your first task. You can add personal or company-related duties to keep track of everything.",
+            text = stringResource(Res.string.dashboard_welcome_subtitle),
             style = DesignSystemTypography().bodyMedium,
-            color = AppColorScheme.formSecondaryText,
+            color = SemanticColors.Foreground.secondary,
             textAlign = androidx.compose.ui.text.style.TextAlign.Center
         )
 
         Spacer(modifier = Modifier.height(Spacing.xl))
 
         OrganizePrimaryButton(
-            text = "Create Your First Duty",
+            text = stringResource(Res.string.dashboard_create_first_duty),
             onClick = onNavigateToCreateDuty,
             icon = Icons.Default.Add
         )

@@ -18,7 +18,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
-import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
+import com.joffer.organizeplus.designsystem.colors.SemanticColors
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -27,10 +27,10 @@ fun AppTopAppBar(
     modifier: Modifier = Modifier,
     navigationIcon: @Composable (() -> Unit)? = null,
     actions: @Composable (RowScope.() -> Unit)? = null,
-    containerColor: Color = AppColorScheme.surface,
-    titleContentColor: Color = AppColorScheme.formText,
-    navigationIconContentColor: Color = AppColorScheme.formIcon,
-    actionIconContentColor: Color = AppColorScheme.formIcon
+    containerColor: Color = SemanticColors.Background.surface,
+    titleContentColor: Color = SemanticColors.Foreground.primary,
+    navigationIconContentColor: Color = SemanticColors.Foreground.primary,
+    actionIconContentColor: Color = SemanticColors.Foreground.primary
 ) {
     val typography = DesignSystemTypography()
     TopAppBar(
@@ -66,10 +66,10 @@ fun AppTopAppBarWithBackButton(
     modifier: Modifier = Modifier,
     actions: @Composable (RowScope.() -> Unit)? = null,
     backIcon: ImageVector? = null,
-    containerColor: Color = AppColorScheme.background,
-    titleContentColor: Color = AppColorScheme.formText,
-    navigationIconContentColor: Color = AppColorScheme.formIcon,
-    actionIconContentColor: Color = AppColorScheme.formIcon
+    containerColor: Color = SemanticColors.Background.primary,
+    titleContentColor: Color = SemanticColors.Foreground.primary,
+    navigationIconContentColor: Color = SemanticColors.Foreground.primary,
+    actionIconContentColor: Color = SemanticColors.Foreground.primary
 ) {
     AppTopAppBar(
         title = title,
@@ -98,9 +98,9 @@ fun AppTopAppBarWithActions(
     title: String? = null,
     modifier: Modifier = Modifier,
     actions: @Composable (RowScope.() -> Unit)? = null,
-    containerColor: Color = AppColorScheme.background,
-    titleContentColor: Color = AppColorScheme.formText,
-    actionIconContentColor: Color = AppColorScheme.formIcon
+    containerColor: Color = SemanticColors.Background.primary,
+    titleContentColor: Color = SemanticColors.Foreground.primary,
+    actionIconContentColor: Color = SemanticColors.Foreground.primary
 ) {
     AppTopAppBar(
         title = title,

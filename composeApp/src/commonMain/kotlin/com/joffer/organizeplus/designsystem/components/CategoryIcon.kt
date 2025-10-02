@@ -4,6 +4,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -15,7 +18,7 @@ import org.jetbrains.compose.resources.painterResource
 import organizeplus.composeapp.generated.resources.Res
 import organizeplus.composeapp.generated.resources.ic_company
 import organizeplus.composeapp.generated.resources.ic_personal
-import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
+import com.joffer.organizeplus.designsystem.colors.SemanticColors
 
 private const val CATEGORY_ICON_SIZE_RATIO = 0.6f
 
@@ -36,19 +39,18 @@ fun CategoryIcon(
     modifier: Modifier = Modifier
 ) {
     val iconColor = when (categoryName) {
-        CategoryConstants.COMPANY -> AppColorScheme.iconOrange
-        else -> AppColorScheme.iconBlue
+        CategoryConstants.COMPANY -> SemanticColors.Legacy.iconOrange
+        else -> SemanticColors.Legacy.iconBlue
     }
 
     val iconContainerColor = when (categoryName) {
-        CategoryConstants.COMPANY -> AppColorScheme.iconOrangeContainer
-        else -> AppColorScheme.iconBlueContainer
+        CategoryConstants.COMPANY -> SemanticColors.Legacy.iconOrangeContainer
+        else -> SemanticColors.Legacy.iconBlueContainer
     }
 
     val iconResource = when (categoryName) {
-        CategoryConstants.PERSONAL -> Res.drawable.ic_personal
-        CategoryConstants.COMPANY -> Res.drawable.ic_company
-        else -> Res.drawable.ic_personal // Default to personal icon
+        CategoryConstants.COMPANY -> Icons.Default.Home
+        else -> Icons.Default.Person
     }
 
     Box(
@@ -61,7 +63,7 @@ fun CategoryIcon(
         contentAlignment = Alignment.Center
     ) {
         Icon(
-            painter = painterResource(iconResource),
+            imageVector = iconResource,
             contentDescription = categoryName,
             tint = iconColor,
             modifier = Modifier.size(iconSize)

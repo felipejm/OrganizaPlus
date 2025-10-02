@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.joffer.organizeplus.designsystem.spacing.Spacing
-import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
+import com.joffer.organizeplus.designsystem.colors.SemanticColors
 
 /**
  * Design system progress indicator component
@@ -18,7 +18,7 @@ fun OrganizeProgressIndicator(
     modifier: Modifier = Modifier,
     size: androidx.compose.ui.unit.Dp = Spacing.Icon.xl,
     strokeWidth: androidx.compose.ui.unit.Dp = Spacing.xs,
-    color: androidx.compose.ui.graphics.Color = AppColorScheme.primary
+    color: androidx.compose.ui.graphics.Color = SemanticColors.Foreground.interactive
 ) {
     CircularProgressIndicator(
         modifier = modifier.size(size),
@@ -35,7 +35,7 @@ fun OrganizeProgressIndicatorFullScreen(
     modifier: Modifier = Modifier,
     size: androidx.compose.ui.unit.Dp = Spacing.Icon.xl,
     strokeWidth: androidx.compose.ui.unit.Dp = Spacing.xs,
-    color: androidx.compose.ui.graphics.Color = AppColorScheme.primary
+    color: androidx.compose.ui.graphics.Color = SemanticColors.Foreground.interactive
 ) {
     Box(
         modifier = modifier.fillMaxSize(),
@@ -57,7 +57,7 @@ fun OrganizeProgressIndicatorInline(
     modifier: Modifier = Modifier,
     size: androidx.compose.ui.unit.Dp = Spacing.Icon.sm,
     strokeWidth: androidx.compose.ui.unit.Dp = Spacing.Divider.medium,
-    color: androidx.compose.ui.graphics.Color = AppColorScheme.primary
+    color: androidx.compose.ui.graphics.Color = SemanticColors.Foreground.interactive
 ) {
     OrganizeProgressIndicator(
         modifier = modifier,

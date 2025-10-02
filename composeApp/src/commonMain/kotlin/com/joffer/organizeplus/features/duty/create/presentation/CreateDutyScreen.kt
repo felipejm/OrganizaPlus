@@ -6,8 +6,11 @@ import androidx.compose.material3.SnackbarDuration
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.text.font.FontWeight
+import com.joffer.organizeplus.designsystem.colors.SemanticColors
 import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.spacing.Spacing
+import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
 import com.joffer.organizeplus.features.dashboard.domain.entities.DutyType
 import com.joffer.organizeplus.features.duty.create.domain.entities.CreateDutyFormField
 import com.joffer.organizeplus.features.duty.create.domain.entities.CreateDutyValidationError
@@ -62,15 +65,9 @@ fun CreateDutyScreen(
     }
 
     Scaffold(
+        contentColor = SemanticColors.Background.primary,
         topBar = {
             AppTopAppBarWithBackButton(
-                title = if (formState.id == null) {
-                    stringResource(
-                        Res.string.navigation_create_duty_new
-                    )
-                } else {
-                    stringResource(Res.string.navigation_edit_duty_new)
-                },
                 onBackClick = onNavigateBack,
                 navigationIconContentColor = AppColorScheme.onSurface
             )
@@ -85,11 +82,34 @@ fun CreateDutyScreen(
                 .padding(paddingValues)
                 .padding(horizontal = Spacing.md)
         ) {
+
+            Text(
+                text = if (formState.id == 0L) {
+                    stringResource(
+                        Res.string.navigation_create_duty_new
+                    )
+                } else {
+                    stringResource(Res.string.navigation_edit_duty_new)
+                },
+                style = DesignSystemTypography().headlineLarge,
+                color = SemanticColors.Foreground.primary,
+                fontWeight = FontWeight.Black
+            )
+
+            Spacer(modifier = Modifier.height(Spacing.lg))
+
             // Title Field
             FormField(
                 label = stringResource(Res.string.create_duty_title),
                 value = formState.title,
-                onValueChange = { viewModel.onIntent(CreateDutyIntent.UpdateFormField(CreateDutyFormField.Title, it)) },
+                onValueChange = {
+                    viewModel.onIntent(
+                        CreateDutyIntent.UpdateFormField(
+                            CreateDutyFormField.Title,
+                            it
+                        )
+                    )
+                },
                 placeholder = stringResource(Res.string.placeholder_title),
                 isRequired = true,
                 isError = uiState.errors.containsKey(CreateDutyFormField.Title),
@@ -108,7 +128,12 @@ fun CreateDutyScreen(
                         "ACTIONABLE" -> DutyType.ACTIONABLE
                         else -> DutyType.ACTIONABLE
                     }
-                    viewModel.onIntent(CreateDutyIntent.UpdateFormField(CreateDutyFormField.DutyType, dutyType))
+                    viewModel.onIntent(
+                        CreateDutyIntent.UpdateFormField(
+                            CreateDutyFormField.DutyType,
+                            dutyType
+                        )
+                    )
                 },
                 options = getDutyTypeOptions(),
                 isRequired = true,

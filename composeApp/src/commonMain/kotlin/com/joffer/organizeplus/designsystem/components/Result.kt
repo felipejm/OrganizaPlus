@@ -35,7 +35,7 @@ import androidx.compose.ui.unit.dp
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
 import kotlinx.coroutines.delay
-import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
+import com.joffer.organizeplus.designsystem.colors.SemanticColors
 
 enum class ResultType {
     SUCCESS, ERROR, WARNING, INFO
@@ -98,7 +98,7 @@ fun OrganizeResult(
             Text(
                 text = title,
                 style = typography.headlineMedium,
-                color = AppColorScheme.neutral700,
+                color = SemanticColors.Foreground.primary,
                 fontWeight = FontWeight.Medium,
                 textAlign = androidx.compose.ui.text.style.TextAlign.Center
             )
@@ -108,7 +108,7 @@ fun OrganizeResult(
                 Text(
                     text = description,
                     style = typography.bodyMedium,
-                    color = AppColorScheme.neutral600,
+                    color = SemanticColors.Foreground.secondary,
                     fontWeight = FontWeight.Normal,
                     textAlign = androidx.compose.ui.text.style.TextAlign.Center
                 )
@@ -164,23 +164,23 @@ fun OrganizeResultCard(
 
 // Color schemes for each result type
 private val SuccessColors = ResultColors(
-    icon = AppColorScheme.success600,
-    ring = AppColorScheme.success100
+    icon = SemanticColors.Foreground.success,
+    ring = SemanticColors.Background.success
 )
 
 private val ErrorColors = ResultColors(
-    icon = AppColorScheme.danger600,
-    ring = AppColorScheme.danger100
+    icon = SemanticColors.Foreground.error,
+    ring = SemanticColors.Background.error
 )
 
 private val WarningColors = ResultColors(
-    icon = AppColorScheme.warning600,
-    ring = AppColorScheme.warning100
+    icon = SemanticColors.Foreground.warning,
+    ring = SemanticColors.Background.warning
 )
 
 private val InfoColors = ResultColors(
-    icon = AppColorScheme.info600,
-    ring = AppColorScheme.info100
+    icon = SemanticColors.Foreground.info,
+    ring = SemanticColors.Background.info
 )
 
 private data class ResultColors(

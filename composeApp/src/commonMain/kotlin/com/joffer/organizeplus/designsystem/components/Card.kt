@@ -6,7 +6,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.joffer.organizeplus.designsystem.spacing.Spacing
-import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
+import com.joffer.organizeplus.designsystem.colors.SemanticColors
 
 @Composable
 fun OrganizeCard(
@@ -19,7 +19,7 @@ fun OrganizeCard(
         modifier = modifier,
         onClick = onClick ?: {},
         colors = CardDefaults.cardColors(
-            containerColor = AppColorScheme.surface,
+            containerColor = SemanticColors.Background.surface,
         ),
         elevation = CardDefaults.cardElevation(defaultElevation = Spacing.Elevation.none),
     ) {

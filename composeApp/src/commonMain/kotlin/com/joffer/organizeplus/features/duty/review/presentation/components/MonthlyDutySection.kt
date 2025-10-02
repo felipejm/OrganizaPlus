@@ -9,7 +9,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.joffer.organizeplus.common.utils.DateUtils
 import com.joffer.organizeplus.common.utils.formatString
-import com.joffer.organizeplus.designsystem.colors.ColorScheme
+import com.joffer.organizeplus.designsystem.colors.SemanticColors
 import com.joffer.organizeplus.designsystem.components.OrganizeCard
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
@@ -40,13 +40,13 @@ fun MonthlyDutySection(
                 Text(
                     text = stringResource(Res.string.duty_review_date),
                     style = DesignSystemTypography().bodyMedium,
-                    color = ColorScheme.formSecondaryText
+                    color = SemanticColors.Foreground.secondary
                 )
                 Text(
                     text = "${DateUtils.getMonthName(monthlyReview.monthNumber)} ${monthlyReview.year}",
                     style = DesignSystemTypography().titleMedium,
                     fontWeight = FontWeight.SemiBold,
-                    color = ColorScheme.onSurface
+                    color = SemanticColors.Foreground.primary
                 )
             }
 
@@ -57,14 +57,14 @@ fun MonthlyDutySection(
                 Text(
                     text = stringResource(Res.string.duty_review_total),
                     style = DesignSystemTypography().titleMedium,
-                    color = ColorScheme.formSecondaryText
+                    color = SemanticColors.Foreground.secondary
                 )
                 Spacer(modifier = Modifier.height(Spacing.sm))
                 Text(
                     text = formatString("$%.2f", monthlyReview.totalPaid),
                     style = DesignSystemTypography().bodyLarge,
                     fontWeight = FontWeight.SemiBold,
-                    color = ColorScheme.amountPaid
+                    color = SemanticColors.Foreground.success
                 )
             }
         }
@@ -90,7 +90,7 @@ private fun Divider() {
     Spacer(modifier = Modifier.height(Spacing.sm))
     Divider(
         modifier = Modifier.padding(horizontal = Spacing.md),
-        color = ColorScheme.outline,
+        color = SemanticColors.Border.primary,
         thickness = 1.dp
     )
     Spacer(modifier = Modifier.height(Spacing.sm))

@@ -8,7 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.joffer.organizeplus.common.utils.formatString
-import com.joffer.organizeplus.designsystem.colors.ColorScheme
+import com.joffer.organizeplus.designsystem.colors.SemanticColors
 import com.joffer.organizeplus.designsystem.components.CategoryIcon
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
@@ -43,7 +43,7 @@ fun DutyReviewItem(
                     text = item.dutyTitle,
                     style = DesignSystemTypography().titleMedium,
                     fontWeight = FontWeight.Medium,
-                    color = ColorScheme.onSurface
+                    color = SemanticColors.Foreground.primary
                 )
             }
         }
@@ -53,7 +53,7 @@ fun DutyReviewItem(
             text = formatString("$%.2f", item.paidAmount),
             style = DesignSystemTypography().bodyLarge,
             fontWeight = FontWeight.Medium,
-            color = ColorScheme.onSurface
+            color = SemanticColors.Foreground.primary
         )
     }
 }

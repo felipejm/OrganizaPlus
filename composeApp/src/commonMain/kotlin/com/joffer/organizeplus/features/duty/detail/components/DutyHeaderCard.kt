@@ -19,7 +19,7 @@ import organizeplus.composeapp.generated.resources.duty_detail_type
 import organizeplus.composeapp.generated.resources.duty_type_actionable
 import organizeplus.composeapp.generated.resources.duty_type_payable
 import organizeplus.composeapp.generated.resources.not_available
-import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
+import com.joffer.organizeplus.designsystem.colors.SemanticColors
 
 @Composable
 fun DutyHeaderCard(
@@ -64,13 +64,13 @@ fun DutyInfoItem(
         Text(
             text = label,
             style = TextStyle(fontSize = 14.sp),
-            color = AppColorScheme.formSecondaryText,
+            color = SemanticColors.Foreground.secondary,
             fontWeight = FontWeight.Light
         )
         Text(
             text = value,
             style = TextStyle(fontSize = 16.sp),
-            color = AppColorScheme.onSurface,
+            color = SemanticColors.Foreground.primary,
             fontWeight = FontWeight.Bold
         )
     }

@@ -31,7 +31,7 @@ import organizeplus.composeapp.generated.resources.dashboard_monthly_summary
 import organizeplus.composeapp.generated.resources.dashboard_personal_duties
 import organizeplus.composeapp.generated.resources.dashboard_tasks_done
 import organizeplus.composeapp.generated.resources.view_all_duties
-import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
+import com.joffer.organizeplus.designsystem.colors.SemanticColors
 
 // Component-specific constants
 private val ACCENT_BAR_WIDTH = 4.dp
@@ -95,7 +95,7 @@ fun DutyCategorySection(
                 Text(
                     text = sectionTitle ?: stringResource(config.titleResource),
                     style = typography.titleMedium,
-                    color = AppColorScheme.sectionHeader
+                    color = SemanticColors.Foreground.primary
                 )
             }
 
@@ -123,8 +123,8 @@ fun DutyCategorySection(
                         HorizontalDivider(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(horizontal = Spacing.lg),
-                            color = AppColorScheme.divider,
+                                .padding(horizontal = Spacing.md),
+                            color = SemanticColors.Border.primary,
                             thickness = Spacing.Divider.thin
                         )
                     }
@@ -170,7 +170,7 @@ private fun MonthlySummaryCard(
     Card(
         modifier = modifier.fillMaxWidth(),
         colors = CardDefaults.cardColors(
-            containerColor = AppColorScheme.background
+            containerColor = SemanticColors.Background.surface
         ),
         shape = RoundedCornerShape(Spacing.Radius.md)
     ) {
@@ -185,7 +185,7 @@ private fun MonthlySummaryCard(
                     summary.year
                 ),
                 style = typography.bodyMedium,
-                color = AppColorScheme.dutyTitle
+                color = SemanticColors.Foreground.primary
             )
 
             Spacer(modifier = Modifier.height(Spacing.md))
@@ -202,12 +202,12 @@ private fun MonthlySummaryCard(
                     Text(
                         text = CurrencyUtils.formatCurrency(summary.totalAmountPaid),
                         style = typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
-                        color = if (summary.totalAmountPaid > 0) AppColorScheme.amountPaid else AppColorScheme.dutyMeta
+                        color = if (summary.totalAmountPaid > 0) SemanticColors.Foreground.success else SemanticColors.Foreground.secondary
                     )
                     Text(
                         text = stringResource(Res.string.dashboard_amount_paid),
                         style = typography.caption,
-                        color = AppColorScheme.dutyMeta
+                        color = SemanticColors.Foreground.secondary
                     )
                 }
 
@@ -218,12 +218,12 @@ private fun MonthlySummaryCard(
                     Text(
                         text = "${summary.totalCompleted}/${summary.totalTasks}",
                         style = typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
-                        color = AppColorScheme.dutyMeta
+                        color = SemanticColors.Foreground.secondary
                     )
                     Text(
                         text = stringResource(Res.string.dashboard_tasks_done),
                         style = typography.caption,
-                        color = AppColorScheme.dutyMeta
+                        color = SemanticColors.Foreground.secondary
                     )
                 }
             }
@@ -245,17 +245,17 @@ private data class CategoryConfig(
 private fun getCategoryConfig(categoryName: String): CategoryConfig {
     return when (categoryName) {
         CategoryConstants.COMPANY -> CategoryConfig(
-            accentColor = AppColorScheme.companyAccent,
-            accentLight = AppColorScheme.companyAccentLight,
-            backgroundColor = AppColorScheme.surface,
+            accentColor = SemanticColors.Legacy.companyAccent,
+            accentLight = SemanticColors.Legacy.companyAccentLight,
+            backgroundColor = SemanticColors.Background.surface,
             sectionIcon = Icons.Default.Home,
             titleResource = Res.string.dashboard_company_duties
         )
 
         else -> CategoryConfig(
-            accentColor = AppColorScheme.personalAccent,
-            accentLight = AppColorScheme.personalAccentLight,
-            backgroundColor = AppColorScheme.surface,
+            accentColor = SemanticColors.Legacy.personalAccent,
+            accentLight = SemanticColors.Legacy.personalAccentLight,
+            backgroundColor = SemanticColors.Background.surface,
             sectionIcon = Icons.Default.Person,
             titleResource = Res.string.dashboard_personal_duties
         )

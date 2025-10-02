@@ -9,7 +9,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
-import com.joffer.organizeplus.designsystem.colors.ColorScheme
+import com.joffer.organizeplus.designsystem.colors.SemanticColors
 import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
@@ -35,7 +35,7 @@ fun DutyReviewScreen(
 
     Scaffold(
         modifier = modifier.fillMaxSize(),
-        containerColor = ColorScheme.background,
+        containerColor = SemanticColors.Background.primary,
         topBar = {
             AppTopAppBarWithBackButton(
                 onBackClick = onNavigateBack,
@@ -164,7 +164,7 @@ private fun DutyReviewDataContent(
                 Text(
                     text = stringResource(Res.string.duty_review_title),
                     style = DesignSystemTypography().headlineLarge,
-                    color = ColorScheme.black,
+                    color = SemanticColors.Foreground.primary,
                     fontWeight = FontWeight.Black
                 )
                 Spacer(modifier = Modifier.height(Spacing.lg))

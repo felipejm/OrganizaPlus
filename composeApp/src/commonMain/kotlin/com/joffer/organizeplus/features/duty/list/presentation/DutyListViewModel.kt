@@ -14,6 +14,9 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
+import kotlinx.datetime.Clock
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
 
 class DutyListViewModel(
     private val repository: DutyRepository,
@@ -66,39 +69,67 @@ class DutyListViewModel(
                                 is DutyCategoryFilter.Custom -> duties.filter { it.categoryName == categoryFilter.name }
                             }
 
-                            // Load last occurrence for each duty
-                            val dutiesWithLastOccurrence = filteredDuties.map { duty ->
-                                DutyWithLastOccurrence(
-                                    duty = duty,
-                                    lastOccurrence = null // Will be loaded separately
-                                )
-                            }
-                            _uiState.value = _uiState.value.copy(
-                                isLoading = false,
-                                duties = dutiesWithLastOccurrence,
-                                error = null
-                            )
+                            // Get current month and year
+                            val currentDateTime = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
+                            val currentMonth = currentDateTime.monthNumber
+                            val currentYear = currentDateTime.year
 
-                            // Load last occurrence for each duty
+                            // Load last occurrence and check current month occurrence for each duty
+                            val dutiesWithOccurrences = mutableListOf<DutyWithLastOccurrence>()
+                            
                             filteredDuties.forEach { duty ->
                                 launch {
-                                    dutyOccurrenceRepository.getLastOccurrenceByDutyId(duty.id)
-                                        .fold(
-                                            onSuccess = { lastOccurrence ->
-                                                val updatedDuties = _uiState.value.duties.map { dutyWithOccurrence ->
-                                                    if (dutyWithOccurrence.duty.id == duty.id) {
-                                                        dutyWithOccurrence.copy(lastOccurrence = lastOccurrence)
-                                                    } else {
-                                                        dutyWithOccurrence
-                                                    }
-                                                }
-                                                _uiState.value = _uiState.value.copy(
-                                                    duties = updatedDuties
-                                                )
-                                            },
-                                            onFailure = { /* ignore */ }
-                                        )
+                                    // Load last occurrence
+                                    val lastOccurrenceResult = dutyOccurrenceRepository.getLastOccurrenceByDutyId(duty.id)
+                                    
+                                    // Check if duty has occurrences in current month
+                                    val currentMonthOccurrencesResult = dutyOccurrenceRepository.getMonthlyOccurrences(
+                                        duty.categoryName, currentMonth, currentYear
+                                    )
+                                    
+                                    val hasCurrentMonthOccurrence = currentMonthOccurrencesResult
+                                        .getOrNull()
+                                        ?.any { occurrence -> occurrence.dutyId == duty.id } ?: false
+                                    
+                                    val lastOccurrence = lastOccurrenceResult.getOrNull()
+                                    
+                                    val dutyWithOccurrence = DutyWithLastOccurrence(
+                                        duty = duty,
+                                        lastOccurrence = lastOccurrence,
+                                        hasCurrentMonthOccurrence = hasCurrentMonthOccurrence
+                                    )
+                                    
+                                    // Update the list with the new duty
+                                    val updatedDuties = _uiState.value.duties.toMutableList()
+                                    val existingIndex = updatedDuties.indexOfFirst { it.duty.id == duty.id }
+                                    
+                                    if (existingIndex >= 0) {
+                                        updatedDuties[existingIndex] = dutyWithOccurrence
+                                    } else {
+                                        updatedDuties.add(dutyWithOccurrence)
+                                    }
+                                    
+                                    // Sort duties: paid (current month occurrences) first, then by title
+                                    val sortedDuties = updatedDuties.sortedWith(
+                                        compareByDescending<DutyWithLastOccurrence> { it.hasCurrentMonthOccurrence }
+                                            .thenBy { it.duty.title }
+                                    )
+                                    
+                                    _uiState.value = _uiState.value.copy(
+                                        isLoading = false,
+                                        duties = sortedDuties,
+                                        error = null
+                                    )
                                 }
+                            }
+                            
+                            // Initialize with empty list if no duties
+                            if (filteredDuties.isEmpty()) {
+                                _uiState.value = _uiState.value.copy(
+                                    isLoading = false,
+                                    duties = emptyList(),
+                                    error = null
+                                )
                             }
                         },
                         onFailure = { exception ->

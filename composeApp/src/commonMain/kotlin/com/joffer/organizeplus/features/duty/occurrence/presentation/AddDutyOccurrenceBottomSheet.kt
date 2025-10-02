@@ -111,7 +111,7 @@ fun AddDutyOccurrenceBottomSheet(
                 FormField(
                     label = stringResource(Res.string.duty_occurrence_paid_amount),
                     value = formState.paidAmount ?: "",
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
                     onValueChange = {
                         viewModel.onIntent(
                             AddDutyOccurrenceIntent.UpdateFormField(

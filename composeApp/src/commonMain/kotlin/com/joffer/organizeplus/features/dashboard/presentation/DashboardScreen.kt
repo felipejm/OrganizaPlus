@@ -6,11 +6,17 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.joffer.organizeplus.common.utils.DateUtils
 import com.joffer.organizeplus.common.constants.CategoryConstants
+import kotlinx.datetime.Clock
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
 import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.components.ErrorBanner
 import com.joffer.organizeplus.designsystem.spacing.Spacing
+import com.joffer.organizeplus.designsystem.typography.Typography
 import com.joffer.organizeplus.features.dashboard.DashboardIntent
 import com.joffer.organizeplus.features.dashboard.components.DutyCategorySection
 import org.jetbrains.compose.resources.stringResource
@@ -30,6 +36,11 @@ fun DashboardScreen(
     modifier: Modifier = Modifier
 ) {
     val uiState by viewModel.uiState.collectAsState()
+    
+    // Get current month and year for header
+    val currentDateTime = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
+    val currentMonth = DateUtils.getMonthName(currentDateTime.monthNumber)
+    val currentYear = currentDateTime.year
 
     LaunchedEffect(Unit) {
         viewModel.onIntent(DashboardIntent.LoadDashboard)
@@ -74,6 +85,23 @@ fun DashboardScreen(
                     OrganizeProgressIndicatorFullScreen()
                 }
             } else {
+                // Month/Year Header
+                item {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = Spacing.md),
+                        horizontalArrangement = Arrangement.Start,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = "$currentMonth $currentYear",
+                            style = Typography.titleLarge,
+                            color = AppColorScheme.black
+                        )
+                    }
+                }
+                
                 // Personal Duties Section
                 item {
                     DutyCategorySection(

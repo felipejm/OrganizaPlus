@@ -19,7 +19,6 @@ import organizeplus.composeapp.generated.resources.close
 import organizeplus.composeapp.generated.resources.create_duty_cancel
 import organizeplus.composeapp.generated.resources.create_duty_save
 import organizeplus.composeapp.generated.resources.create_duty_title
-import organizeplus.composeapp.generated.resources.duty_saved_success
 import organizeplus.composeapp.generated.resources.duty_type_actionable
 import organizeplus.composeapp.generated.resources.duty_type_label
 import organizeplus.composeapp.generated.resources.duty_type_payable
@@ -43,11 +42,10 @@ fun CreateDutyScreen(
     val keyboardController = LocalSoftwareKeyboardController.current
 
     // Get string resources
-    val successMessage = stringResource(Res.string.duty_saved_success)
     val closeLabel = stringResource(Res.string.close)
     val errorMessage = stringResource(Res.string.error_saving)
 
-    // Handle success toast
+    // Handle success - navigate back immediately
     LaunchedEffect(uiState.showSuccessSnackbar) {
         if (uiState.showSuccessSnackbar) {
             onNavigateBack()
@@ -148,13 +146,6 @@ fun CreateDutyScreen(
             }
         }
     }
-
-    // Success Toast
-    AppToast(
-        message = successMessage,
-        isVisible = uiState.showSuccessSnackbar,
-        onDismiss = { /* Toast auto-dismisses */ }
-    )
 }
 
 @Composable

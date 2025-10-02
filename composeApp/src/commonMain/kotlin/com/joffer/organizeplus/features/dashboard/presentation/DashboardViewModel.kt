@@ -13,6 +13,7 @@ import com.joffer.organizeplus.features.duty.occurrence.domain.repositories.Duty
 import io.github.aakira.napier.Napier
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.async
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
@@ -25,9 +26,6 @@ class DashboardViewModel(
 
     private val _uiState = MutableStateFlow(DashboardUiState())
     val uiState: StateFlow<DashboardUiState> = _uiState.asStateFlow()
-
-    private val _userName = MutableStateFlow("Usuário")
-    val userName: StateFlow<String> = _userName.asStateFlow()
 
     init {
         loadDashboardData()
@@ -87,20 +85,20 @@ class DashboardViewModel(
 
                                 // Filter Personal duties
                                 val personalDuties = allDuties
-                                    .filter { it.categoryName == "Personal" }
+                                    .filter { it.categoryName == CategoryConstants.PERSONAL }
                                     .take(3)
 
                                 // Filter Company duties
                                 val companyDuties = allDuties
-                                    .filter { it.categoryName == "Company" }
+                                    .filter { it.categoryName == CategoryConstants.COMPANY }
                                     .take(3)
 
                                 // Convert to DutyWithLastOccurrence
                                 val personalDutiesWithOccurrence = personalDuties.map { duty ->
-                                    DutyWithLastOccurrence(duty = duty, lastOccurrence = null)
+                                    DutyWithLastOccurrence(duty = duty, lastOccurrence = null, hasCurrentMonthOccurrence = false)
                                 }
                                 val companyDutiesWithOccurrence = companyDuties.map { duty ->
-                                    DutyWithLastOccurrence(duty = duty, lastOccurrence = null)
+                                    DutyWithLastOccurrence(duty = duty, lastOccurrence = null, hasCurrentMonthOccurrence = false)
                                 }
 
                                 _uiState.value = _uiState.value.copy(
@@ -181,71 +179,103 @@ class DashboardViewModel(
 
     private fun loadMonthlySummaries() {
         viewModelScope.launch {
-            val currentDate = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
-            val currentMonth = currentDate.monthNumber
-            val currentYear = currentDate.year
+            try {
+                val currentDate = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
+                val currentMonth = currentDate.monthNumber
+                val currentYear = currentDate.year
 
-            // Load Personal summary
-            launch {
-                dutyOccurrenceRepository.getMonthlyOccurrences(
-                    CategoryConstants.PERSONAL,
-                    currentMonth,
-                    currentYear
-                )
-                    .fold(
-                        onSuccess = { occurrences ->
-                            val totalAmountPaid = occurrences
-                                .sumOf { it.paidAmount ?: 0.0 }
+                // Load all duties first to get accurate totals
+                val allDuties = dutyRepository.getAllDuties()
+                    .catch { error ->
+                        Napier.e("Failed to load duties for summary: ${error.message}")
+                        emit(Result.success(emptyList()))
+                    }
+                    .first() // Get the first emission
+                    .getOrElse { 
+                        Napier.e("Failed to get duties result for summary")
+                        emptyList()
+                    }
 
-                            val totalActionableCompleted = occurrences.size
+                // Calculate totals for each category
+                val personalDutiesCount = allDuties.count { it.categoryName == CategoryConstants.PERSONAL }
+                val companyDutiesCount = allDuties.count { it.categoryName == CategoryConstants.COMPANY }
 
-                            val personalSummary = MonthlySummary(
-                                totalAmountPaid = totalAmountPaid,
-                                totalActionableCompleted = totalActionableCompleted,
-                                currentMonth = currentMonth,
-                                year = currentYear
-                            )
-
-                            _uiState.value = _uiState.value.copy(
-                                personalSummary = personalSummary
-                            )
-                        },
-                        onFailure = { error ->
-                            Napier.e("Failed to load personal occurrences: ${error.message}")
-                        }
+                // Load summaries in parallel
+                val personalSummaryDeferred = async { 
+                    loadCategorySummary(
+                        categoryName = CategoryConstants.PERSONAL,
+                        totalTasks = personalDutiesCount,
+                        currentMonth = currentMonth,
+                        currentYear = currentYear
                     )
-            }
+                }
 
-            // Load Company summary
-            launch {
-                dutyOccurrenceRepository.getMonthlyOccurrences(
-                    CategoryConstants.COMPANY,
-                    currentMonth,
-                    currentYear
-                )
-                    .fold(
-                        onSuccess = { occurrences ->
-                            val totalAmountPaid = occurrences
-                                .sumOf { it.paidAmount ?: 0.0 }
-
-                            val totalActionableCompleted = occurrences.size
-
-                            val companySummary = MonthlySummary(
-                                totalAmountPaid = totalAmountPaid,
-                                totalActionableCompleted = totalActionableCompleted,
-                                currentMonth = currentMonth,
-                                year = currentYear
-                            )
-
-                            _uiState.value = _uiState.value.copy(
-                                companySummary = companySummary
-                            )
-                        },
-                        onFailure = { error ->
-                            Napier.e("Failed to load company occurrences: ${error.message}")
-                        }
+                val companySummaryDeferred = async { 
+                    loadCategorySummary(
+                        categoryName = CategoryConstants.COMPANY,
+                        totalTasks = companyDutiesCount,
+                        currentMonth = currentMonth,
+                        currentYear = currentYear
                     )
+                }
+
+                // Wait for both summaries to complete and update UI
+                val personalSummary = personalSummaryDeferred.await()
+                val companySummary = companySummaryDeferred.await()
+
+                _uiState.value = _uiState.value.copy(
+                    personalSummary = personalSummary,
+                    companySummary = companySummary
+                )
+
+            } catch (e: Exception) {
+                Napier.e("Failed to load monthly summaries: ${e.message}")
+                // Set empty summaries on error
+                _uiState.value = _uiState.value.copy(
+                    personalSummary = null,
+                    companySummary = null
+                )
             }
+        }
+    }
+
+    private suspend fun loadCategorySummary(
+        categoryName: String,
+        totalTasks: Int,
+        currentMonth: Int,
+        currentYear: Int
+    ): MonthlySummary? {
+        return try {
+            dutyOccurrenceRepository.getMonthlyOccurrences(
+                categoryName,
+                currentMonth,
+                currentYear
+            ).fold(
+                onSuccess = { occurrences ->
+                    val totalAmountPaid = occurrences
+                        .sumOf { it.paidAmount ?: 0.0 }
+
+                    val totalCompleted = occurrences
+                        .map { it.dutyId }
+                        .distinct()
+                        .size
+
+                    MonthlySummary(
+                        totalAmountPaid = totalAmountPaid,
+                        totalCompleted = totalCompleted,
+                        totalTasks = totalTasks,
+                        currentMonth = currentMonth,
+                        year = currentYear
+                    )
+                },
+                onFailure = { error ->
+                    Napier.e("Failed to load $categoryName occurrences: ${error.message}")
+                    null
+                }
+            )
+        } catch (e: Exception) {
+            Napier.e("Exception loading $categoryName summary: ${e.message}")
+            null
         }
     }
 }

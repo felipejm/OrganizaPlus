@@ -4,5 +4,6 @@ import com.joffer.organizeplus.features.duty.occurrence.domain.entities.DutyOccu
 
 data class DutyWithLastOccurrence(
     val duty: Duty,
-    val lastOccurrence: DutyOccurrence?
+    val lastOccurrence: DutyOccurrence?,
+    val hasCurrentMonthOccurrence: Boolean = false
 )

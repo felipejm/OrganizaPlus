@@ -300,7 +300,7 @@ private fun MonthlySummaryCard(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
-                        text = summary.totalActionableCompleted.toString(),
+                        text = "${summary.totalCompleted}/${summary.totalTasks}",
                         style = Typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
                         color = AppColorScheme.dutyMeta
                     )

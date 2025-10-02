@@ -10,12 +10,17 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import com.joffer.organizeplus.common.utils.DateUtils
 import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.components.ResultType
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.Typography
 import com.joffer.organizeplus.features.duty.list.components.DutyListItem
 import com.joffer.organizeplus.features.duty.list.domain.DutyCategoryFilter
+import kotlinx.datetime.Clock
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
 import org.jetbrains.compose.resources.stringResource
 import organizeplus.composeapp.generated.resources.Res
 import organizeplus.composeapp.generated.resources.add_duty
@@ -39,6 +44,11 @@ fun DutyListScreen(
     onNavigateToOccurrences: (Long) -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsState()
+
+    // Get current month and year for header
+    val currentDateTime = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
+    val currentMonth = DateUtils.getMonthName(currentDateTime.monthNumber)
+    val currentYear = currentDateTime.year
 
     LaunchedEffect(uiState.error) {
         if (uiState.error != null) {
@@ -95,7 +105,8 @@ fun DutyListScreen(
                         )
                         Spacer(modifier = Modifier.height(Spacing.sm))
                         Text(
-                            text = uiState.error ?: stringResource(Res.string.duty_list_error_subtitle),
+                            text = uiState.error
+                                ?: stringResource(Res.string.duty_list_error_subtitle),
                             style = Typography.bodyMedium,
                             color = AppColorScheme.formSecondaryText
                         )
@@ -131,11 +142,34 @@ fun DutyListScreen(
                     contentPadding = PaddingValues(Spacing.md),
                     verticalArrangement = Arrangement.spacedBy(Spacing.sm)
                 ) {
+                    // Month/Year Header
+                    item {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth().padding(Spacing.md),
+                            horizontalArrangement = Arrangement.Start,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Text(
+                                text = "$currentMonth $currentYear",
+                                style = Typography.titleLarge,
+                                color = AppColorScheme.black
+                            )
+                        }
+                        Spacer(modifier = Modifier.height(Spacing.sm))
+                    }
+
                     items(uiState.duties) { dutyWithOccurrence ->
                         DutyListItem(
                             dutyWithOccurrence = dutyWithOccurrence,
                             onViewOccurrences = onNavigateToOccurrences,
-                            onDelete = { dutyId -> viewModel.onIntent(DutyListIntent.DeleteDuty(dutyId)) }
+                            onDelete = { dutyId ->
+                                viewModel.onIntent(
+                                    DutyListIntent.DeleteDuty(
+                                        dutyId
+                                    )
+                                )
+                            }
                         )
                     }
                 }

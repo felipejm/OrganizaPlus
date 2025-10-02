@@ -16,6 +16,11 @@ import com.joffer.organizeplus.features.dashboard.domain.entities.DutyType
 import com.joffer.organizeplus.features.dashboard.domain.entities.DutyWithLastOccurrence
 import org.jetbrains.compose.resources.stringResource
 import organizeplus.composeapp.generated.resources.Res
+import organizeplus.composeapp.generated.resources.duty_list_delete_description
+import organizeplus.composeapp.generated.resources.duty_list_done
+import organizeplus.composeapp.generated.resources.duty_list_last_occurrence
+import organizeplus.composeapp.generated.resources.duty_list_paid
+import organizeplus.composeapp.generated.resources.duty_list_separator
 import organizeplus.composeapp.generated.resources.duty_type_actionable
 import organizeplus.composeapp.generated.resources.duty_type_payable
 import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
@@ -56,16 +61,43 @@ fun DutyListItem(
                     )
                 }
 
-                IconButton(
-                    onClick = { onDelete(duty.id) },
-                    modifier = Modifier.size(Spacing.xxl)
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(Spacing.xs)
                 ) {
-                    Icon(
-                        imageVector = Icons.Default.Delete,
-                        contentDescription = "Delete Duty",
-                        tint = AppColorScheme.error,
-                        modifier = Modifier.size(Spacing.Icon.sm)
-                    )
+                    if (dutyWithOccurrence.hasCurrentMonthOccurrence) {
+                        Spacer(modifier = Modifier.width(Spacing.sm))
+                        AssistChip(
+                            onClick = { },
+                            label = {
+                                Text(
+                                    text = when (duty.type) {
+                                        DutyType.PAYABLE -> stringResource(Res.string.duty_list_paid)
+                                        DutyType.ACTIONABLE -> stringResource(Res.string.duty_list_done)
+                                    },
+                                    style = Typography.chip,
+                                    color = AppColorScheme.success700
+                                )
+                            },
+                            modifier = modifier,
+                            colors = AssistChipDefaults.assistChipColors(
+                                containerColor = AppColorScheme.success100,
+                                labelColor = AppColorScheme.success700
+                            )
+                        )
+                    }
+
+                    IconButton(
+                        onClick = { onDelete(duty.id) },
+                        modifier = Modifier.size(Spacing.xxl)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Delete,
+                            contentDescription = stringResource(Res.string.duty_list_delete_description),
+                            tint = AppColorScheme.error,
+                            modifier = Modifier.size(Spacing.Icon.sm)
+                        )
+                    }
                 }
             }
 
@@ -82,7 +114,7 @@ fun DutyListItem(
                 )
 
                 Text(
-                    text = "•",
+                    text = stringResource(Res.string.duty_list_separator),
                     style = Typography.labelSmall,
                     color = AppColorScheme.formSecondaryText
                 )
@@ -103,9 +135,11 @@ fun DutyListItem(
             lastOccurrence?.let { occurrence ->
                 Spacer(modifier = Modifier.height(Spacing.xs))
                 Text(
-                    text = "Last: ${DateUtils.getMonthName(
-                        occurrence.completedDate.monthNumber
-                    )} ${occurrence.completedDate.year}",
+                    text = stringResource(
+                        Res.string.duty_list_last_occurrence,
+                        DateUtils.getMonthName(occurrence.completedDate.monthNumber),
+                        occurrence.completedDate.year
+                    ),
                     style = Typography.labelSmall,
                     color = AppColorScheme.primary
                 )

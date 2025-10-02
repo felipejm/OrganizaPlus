@@ -7,10 +7,10 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import com.joffer.organizeplus.designsystem.colors.SemanticColors
 import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
-import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -38,7 +38,7 @@ fun ProgressShowcaseScreen(
                 Text(
                     text = "Progress Indicators",
                     style = typography.displayLarge,
-                    color = AppColorScheme.onSurface
+                    color = SemanticColors.Foreground.primary
                 )
             }
 
@@ -46,7 +46,7 @@ fun ProgressShowcaseScreen(
                 Text(
                     text = "Different types of progress indicators for various use cases",
                     style = typography.bodyMedium,
-                    color = AppColorScheme.onSurfaceVariant
+                    color = SemanticColors.Foreground.secondary
                 )
             }
 
@@ -61,7 +61,7 @@ fun ProgressShowcaseScreen(
                         Text(
                             text = "Basic Progress Indicator",
                             style = typography.titleMedium,
-                            color = AppColorScheme.onSurface,
+                            color = SemanticColors.Foreground.primary,
                             fontWeight = FontWeight.SemiBold
                         )
 
@@ -70,7 +70,7 @@ fun ProgressShowcaseScreen(
                         Text(
                             text = "Standard progress indicator with customizable size and color",
                             style = typography.bodyMedium,
-                            color = AppColorScheme.onSurfaceVariant
+                            color = SemanticColors.Foreground.secondary
                         )
 
                         Spacer(modifier = Modifier.height(Spacing.md))
@@ -84,7 +84,7 @@ fun ProgressShowcaseScreen(
                             Text(
                                 text = "Default (40dp, Primary color)",
                                 style = typography.caption,
-                                color = AppColorScheme.onSurfaceVariant
+                                color = SemanticColors.Foreground.secondary
                             )
                         }
                     }
@@ -102,7 +102,7 @@ fun ProgressShowcaseScreen(
                         Text(
                             text = "Full Screen Progress",
                             style = typography.titleMedium,
-                            color = AppColorScheme.onSurface,
+                            color = SemanticColors.Foreground.primary,
                             fontWeight = FontWeight.SemiBold
                         )
 
@@ -111,7 +111,7 @@ fun ProgressShowcaseScreen(
                         Text(
                             text = "Centered progress indicator for loading states",
                             style = typography.bodyMedium,
-                            color = AppColorScheme.onSurfaceVariant
+                            color = SemanticColors.Foreground.secondary
                         )
 
                         Spacer(modifier = Modifier.height(Spacing.md))
@@ -138,7 +138,7 @@ fun ProgressShowcaseScreen(
                         Text(
                             text = "Inline Progress",
                             style = typography.titleMedium,
-                            color = AppColorScheme.onSurface,
+                            color = SemanticColors.Foreground.primary,
                             fontWeight = FontWeight.SemiBold
                         )
 
@@ -147,7 +147,7 @@ fun ProgressShowcaseScreen(
                         Text(
                             text = "Small progress indicator for buttons and compact spaces",
                             style = typography.bodyMedium,
-                            color = AppColorScheme.onSurfaceVariant
+                            color = SemanticColors.Foreground.secondary
                         )
 
                         Spacer(modifier = Modifier.height(Spacing.md))
@@ -165,18 +165,18 @@ fun ProgressShowcaseScreen(
                                     Text(
                                         text = "Default",
                                         style = typography.caption,
-                                        color = AppColorScheme.onSurfaceVariant
+                                        color = SemanticColors.Foreground.secondary
                                     )
                                 }
                                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                                     OrganizeProgressIndicatorInline(
                                         size = Spacing.lg, // 16.dp equivalent
-                                        color = AppColorScheme.onPrimary
+                                        color = SemanticColors.OnBackground.onBrand
                                     )
                                     Text(
                                         text = "16dp",
                                         style = typography.caption,
-                                        color = AppColorScheme.onSurfaceVariant
+                                        color = SemanticColors.Foreground.secondary
                                     )
                                 }
                             }

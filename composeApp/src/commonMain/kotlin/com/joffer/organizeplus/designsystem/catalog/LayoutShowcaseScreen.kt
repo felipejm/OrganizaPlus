@@ -10,10 +10,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.joffer.organizeplus.designsystem.colors.SemanticColors
 import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
-import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -41,7 +41,7 @@ fun LayoutShowcaseScreen(
                 Text(
                     text = "Layout Components",
                     style = typography.headlineMedium,
-                    color = AppColorScheme.onSurface
+                    color = SemanticColors.Foreground.primary
                 )
             }
 
@@ -67,13 +67,13 @@ private fun LayoutShowcaseItem(
             Text(
                 text = item.title,
                 style = typography.titleMedium,
-                color = AppColorScheme.onSurface
+                color = SemanticColors.Foreground.primary
             )
 
             Text(
                 text = item.description,
                 style = typography.bodyMedium,
-                color = AppColorScheme.onSurfaceVariant
+                color = SemanticColors.Foreground.secondary
             )
 
             Spacer(modifier = Modifier.height(Spacing.md))
@@ -92,7 +92,7 @@ private fun EmptyStateExamples() {
         Text(
             text = "Empty States",
             style = typography.titleSmall,
-            color = AppColorScheme.onSurface
+            color = SemanticColors.Foreground.primary
         )
 
         // No data empty state
@@ -140,7 +140,7 @@ private fun EmptyState(
             Icon(
                 imageVector = Icons.Default.Refresh,
                 contentDescription = null,
-                tint = AppColorScheme.onSurfaceVariant,
+                tint = SemanticColors.Foreground.secondary,
                 modifier = Modifier.size(48.dp)
             )
 
@@ -149,7 +149,7 @@ private fun EmptyState(
             Text(
                 text = title,
                 style = typography.headlineMedium,
-                color = AppColorScheme.onSurface
+                color = SemanticColors.Foreground.primary
             )
 
             Spacer(modifier = Modifier.height(Spacing.sm))
@@ -157,7 +157,7 @@ private fun EmptyState(
             Text(
                 text = message,
                 style = typography.bodyMedium,
-                color = AppColorScheme.onSurfaceVariant,
+                color = SemanticColors.Foreground.secondary,
                 modifier = Modifier.fillMaxWidth()
             )
 

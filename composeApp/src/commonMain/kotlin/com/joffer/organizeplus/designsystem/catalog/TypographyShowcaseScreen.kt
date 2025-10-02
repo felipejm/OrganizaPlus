@@ -8,11 +8,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.joffer.organizeplus.designsystem.colors.SemanticColors
 import com.joffer.organizeplus.designsystem.components.AppTopAppBarWithBackButton
 import com.joffer.organizeplus.designsystem.components.OrganizeCard
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
-import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -58,13 +58,13 @@ private fun TypographyCategorySection(
             Text(
                 text = category.title,
                 style = typography.headlineMedium,
-                color = AppColorScheme.onSurface
+                color = SemanticColors.Foreground.primary
             )
 
             Text(
                 text = category.description,
                 style = typography.bodyMedium,
-                color = AppColorScheme.onSurfaceVariant
+                color = SemanticColors.Foreground.secondary
             )
 
             Spacer(modifier = Modifier.height(Spacing.md))
@@ -96,7 +96,7 @@ private fun HeadingExamples() {
         Text(
             text = "Heading Styles",
             style = typography.titleSmall,
-            color = AppColorScheme.onSurface
+            color = SemanticColors.Foreground.primary
         )
 
         TypographyExample(
@@ -138,7 +138,7 @@ private fun BodyTextExamples() {
         Text(
             text = "Body Text Styles",
             style = typography.titleSmall,
-            color = AppColorScheme.onSurface
+            color = SemanticColors.Foreground.primary
         )
 
         TypographyExample(
@@ -173,7 +173,7 @@ private fun LabelExamples() {
         Text(
             text = "Label Styles",
             style = typography.titleSmall,
-            color = AppColorScheme.onSurface
+            color = SemanticColors.Foreground.primary
         )
 
         TypographyExample(
@@ -208,14 +208,14 @@ private fun FontWeightExamples() {
         Text(
             text = "Font Weight Variants",
             style = typography.titleSmall,
-            color = AppColorScheme.onSurface
+            color = SemanticColors.Foreground.primary
         )
 
         // Regular (400) examples
         Text(
             text = "Regular (400)",
             style = typography.caption,
-            color = AppColorScheme.onSurfaceVariant,
+            color = SemanticColors.Foreground.secondary,
             fontWeight = FontWeight.Medium
         )
 
@@ -239,7 +239,7 @@ private fun FontWeightExamples() {
         Text(
             text = "Medium (500)",
             style = typography.caption,
-            color = AppColorScheme.onSurfaceVariant,
+            color = SemanticColors.Foreground.secondary,
             fontWeight = FontWeight.Medium
         )
 
@@ -280,7 +280,7 @@ private fun TypographyExample(
             Text(
                 text = name,
                 style = typography.caption,
-                color = AppColorScheme.onSurfaceVariant,
+                color = SemanticColors.Foreground.secondary,
                 fontWeight = FontWeight.Medium,
                 modifier = Modifier.width(120.dp)
             )
@@ -288,7 +288,7 @@ private fun TypographyExample(
             Text(
                 text = description,
                 style = typography.caption,
-                color = AppColorScheme.onSurfaceVariant,
+                color = SemanticColors.Foreground.secondary,
                 modifier = Modifier.weight(1f)
             )
         }
@@ -296,7 +296,7 @@ private fun TypographyExample(
         Text(
             text = text,
             style = style,
-            color = AppColorScheme.onSurface
+            color = SemanticColors.Foreground.primary
         )
     }
 }

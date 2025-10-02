@@ -8,10 +8,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.joffer.organizeplus.designsystem.colors.SemanticColors
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.*
 import com.joffer.organizeplus.designsystem.typography.Typography
-import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 /**
  * Showcase screen for the robust typography system.
@@ -61,7 +61,7 @@ fun RobustTypographyShowcase(
                         Card(
                             modifier = Modifier.fillMaxWidth(),
                             colors = CardDefaults.cardColors(
-                                containerColor = AppColorScheme.primaryContainer
+                                containerColor = SemanticColors.Background.brandContainer
                             )
                         ) {
                             Column(
@@ -70,13 +70,13 @@ fun RobustTypographyShowcase(
                                 Text(
                                     text = "SF Pro Text",
                                     style = typography.titleMedium,
-                                    color = AppColorScheme.onPrimaryContainer
+                                    color = SemanticColors.OnBackground.onBrandContainer
                                 )
                                 Spacer(modifier = Modifier.height(Spacing.sm))
                                 Text(
                                     text = "A comprehensive font family with Regular, Medium, Semibold, and Bold weights",
                                     style = typography.bodyMedium,
-                                    color = AppColorScheme.onPrimaryContainer
+                                    color = SemanticColors.OnBackground.onBrandContainer
                                 )
                             }
                         }
@@ -268,13 +268,13 @@ private fun TypographySection(
         Text(
             text = title,
             style = typography.titleLarge,
-            color = AppColorScheme.onSurface
+            color = SemanticColors.Foreground.primary
         )
 
         Card(
             modifier = Modifier.fillMaxWidth(),
             colors = CardDefaults.cardColors(
-                containerColor = AppColorScheme.surface
+                containerColor = SemanticColors.Background.surface
             ),
             elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
         ) {
@@ -300,17 +300,17 @@ private fun TypographyExample(
         Text(
             text = label,
             style = style.copy(fontSize = 12.sp),
-            color = AppColorScheme.onSurfaceVariant
+            color = SemanticColors.Foreground.secondary
         )
         Text(
             text = sampleText,
             style = style,
-            color = AppColorScheme.onSurface
+            color = SemanticColors.Foreground.primary
         )
         Text(
             text = "${style.fontSize.value.toInt()}sp / ${style.lineHeight.value.toInt()}sp / ${style.fontWeight}",
             style = style.copy(fontSize = 10.sp),
-            color = AppColorScheme.outline
+            color = SemanticColors.Border.outline
         )
     }
 }
@@ -323,6 +323,6 @@ private fun FontWeightExample(
     Text(
         text = text,
         style = style,
-        color = AppColorScheme.onSurface
+        color = SemanticColors.Foreground.primary
     )
 }

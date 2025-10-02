@@ -9,6 +9,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import com.joffer.organizeplus.designsystem.colors.SemanticColors
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
 
@@ -30,7 +31,7 @@ fun EmptyState(
                 modifier = Modifier
                     .size(Spacing.listItemHeight)
                     .background(
-                        MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.3f),
+                        SemanticColors.OnBackground.tertiary.copy(alpha = 0.3f),
                         CircleShape
                     )
             )
@@ -41,7 +42,7 @@ fun EmptyState(
                 text = "Nenhuma obrigação criada ainda",
                 style = typography.titleMedium,
                 fontWeight = FontWeight.Medium,
-                color = MaterialTheme.colorScheme.onSurface,
+                color = SemanticColors.Foreground.primary,
                 textAlign = TextAlign.Center
             )
 
@@ -50,7 +51,7 @@ fun EmptyState(
             Text(
                 text = "Comece organizando suas obrigações financeiras e mantenha tudo sob controle.",
                 style = typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                color = SemanticColors.Foreground.secondary,
                 textAlign = TextAlign.Center
             )
 

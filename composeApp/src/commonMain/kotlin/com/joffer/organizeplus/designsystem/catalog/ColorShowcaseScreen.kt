@@ -13,6 +13,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.joffer.organizeplus.common.utils.formatString
+import com.joffer.organizeplus.designsystem.colors.SemanticColors
 import com.joffer.organizeplus.designsystem.components.AppTopAppBarWithBackButton
 import com.joffer.organizeplus.designsystem.components.OrganizeCard
 import com.joffer.organizeplus.designsystem.spacing.Spacing
@@ -63,13 +64,13 @@ private fun ColorPaletteSection(
             Text(
                 text = palette.title,
                 style = typography.headlineMedium,
-                color = AppColorScheme.onSurface
+                color = SemanticColors.Foreground.primary
             )
 
             Text(
                 text = palette.description,
                 style = typography.bodyMedium,
-                color = AppColorScheme.onSurfaceVariant
+                color = SemanticColors.Foreground.secondary
             )
 
             Spacer(modifier = Modifier.height(Spacing.md))
@@ -155,7 +156,7 @@ private fun SemanticColorGrid() {
         Text(
             text = "Danger",
             style = typography.titleSmall,
-            color = AppColorScheme.onSurface
+            color = SemanticColors.Foreground.primary
         )
         val dangerColors = listOf(
             "Danger 700" to AppColorScheme.danger700,
@@ -171,7 +172,7 @@ private fun SemanticColorGrid() {
         Text(
             text = "Warning",
             style = typography.titleSmall,
-            color = AppColorScheme.onSurface
+            color = SemanticColors.Foreground.primary
         )
         val warningColors = listOf(
             "Warning 700" to AppColorScheme.warning700,
@@ -187,7 +188,7 @@ private fun SemanticColorGrid() {
         Text(
             text = "Success",
             style = typography.titleSmall,
-            color = AppColorScheme.onSurface
+            color = SemanticColors.Foreground.primary
         )
         val successColors = listOf(
             "Success 700" to AppColorScheme.success700,
@@ -203,7 +204,7 @@ private fun SemanticColorGrid() {
         Text(
             text = "Info",
             style = typography.titleSmall,
-            color = AppColorScheme.onSurface
+            color = SemanticColors.Foreground.primary
         )
         val infoColors = listOf(
             "Info 700" to AppColorScheme.info700,
@@ -270,14 +271,14 @@ private fun ColorSwatch(
         Text(
             text = name,
             style = typography.caption,
-            color = AppColorScheme.onSurfaceVariant,
+            color = SemanticColors.Foreground.secondary,
             fontWeight = FontWeight.Medium
         )
 
         Text(
             text = color.toHexString(),
             style = typography.caption,
-            color = AppColorScheme.onSurfaceVariant
+            color = SemanticColors.Foreground.secondary
         )
     }
 }

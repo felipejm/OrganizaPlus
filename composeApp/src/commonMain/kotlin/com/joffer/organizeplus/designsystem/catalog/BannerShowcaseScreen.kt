@@ -7,10 +7,10 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.joffer.organizeplus.designsystem.colors.SemanticColors
 import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
-import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -38,7 +38,7 @@ fun BannerShowcaseScreen(
                 Text(
                     text = "Banner Components",
                     style = typography.headlineMedium,
-                    color = AppColorScheme.onSurface
+                    color = SemanticColors.Foreground.primary
                 )
             }
 
@@ -64,13 +64,13 @@ private fun BannerShowcaseItem(
             Text(
                 text = item.title,
                 style = typography.titleMedium,
-                color = AppColorScheme.onSurface
+                color = SemanticColors.Foreground.primary
             )
 
             Text(
                 text = item.description,
                 style = typography.bodyMedium,
-                color = AppColorScheme.onSurfaceVariant
+                color = SemanticColors.Foreground.secondary
             )
 
             Spacer(modifier = Modifier.height(Spacing.md))
@@ -102,7 +102,7 @@ private fun SuccessBannerExamples() {
         Text(
             text = "Success Banners",
             style = typography.titleSmall,
-            color = AppColorScheme.onSurface
+            color = SemanticColors.Foreground.primary
         )
 
         SuccessBanner(
@@ -124,7 +124,7 @@ private fun ErrorBannerExamples() {
         Text(
             text = "Error Banners",
             style = typography.titleSmall,
-            color = AppColorScheme.onSurface
+            color = SemanticColors.Foreground.primary
         )
 
         ErrorBanner(
@@ -150,7 +150,7 @@ private fun InfoBannerExamples() {
         Text(
             text = "Info Banners",
             style = typography.titleSmall,
-            color = AppColorScheme.onSurface
+            color = SemanticColors.Foreground.primary
         )
 
         InfoBanner(
@@ -174,7 +174,7 @@ private fun WarningBannerExamples() {
         Text(
             text = "Warning Banners",
             style = typography.titleSmall,
-            color = AppColorScheme.onSurface
+            color = SemanticColors.Foreground.primary
         )
 
         WarningBanner(
@@ -199,7 +199,7 @@ private fun InfoBanner(
     Card(
         modifier = modifier.fillMaxWidth(),
         colors = CardDefaults.cardColors(
-            containerColor = AppColorScheme.info100
+            containerColor = SemanticColors.Background.info
         ),
         elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
     ) {
@@ -212,7 +212,7 @@ private fun InfoBanner(
             Text(
                 text = message,
                 style = typography.bodyMedium,
-                color = AppColorScheme.info700,
+                color = SemanticColors.OnBackground.onInfo,
                 modifier = Modifier.weight(1f)
             )
 
@@ -224,7 +224,7 @@ private fun InfoBanner(
                 Text(
                     text = "×",
                     style = MaterialTheme.typography.bodyLarge,
-                    color = AppColorScheme.info700
+                    color = SemanticColors.OnBackground.onInfo
                 )
             }
         }
@@ -241,7 +241,7 @@ private fun WarningBanner(
     Card(
         modifier = modifier.fillMaxWidth(),
         colors = CardDefaults.cardColors(
-            containerColor = AppColorScheme.warning100
+            containerColor = SemanticColors.Background.warning
         ),
         elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
     ) {
@@ -254,7 +254,7 @@ private fun WarningBanner(
             Text(
                 text = message,
                 style = typography.bodyMedium,
-                color = AppColorScheme.warning700,
+                color = SemanticColors.OnBackground.onWarning,
                 modifier = Modifier.weight(1f)
             )
 
@@ -266,7 +266,7 @@ private fun WarningBanner(
                 Text(
                     text = "×",
                     style = MaterialTheme.typography.bodyLarge,
-                    color = AppColorScheme.warning700
+                    color = SemanticColors.OnBackground.onWarning
                 )
             }
         }

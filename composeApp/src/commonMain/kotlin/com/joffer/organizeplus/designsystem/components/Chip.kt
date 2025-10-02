@@ -4,6 +4,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import com.joffer.organizeplus.designsystem.colors.SemanticColors
 import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
 import org.jetbrains.compose.resources.stringResource
 import organizeplus.composeapp.generated.resources.Res
@@ -20,20 +21,20 @@ fun StatusChip(
     val (textResource, containerColor, contentColor) = when (status) {
         ObligationStatus.PENDING -> Triple(
             Res.string.status_pending,
-            MaterialTheme.colorScheme.tertiaryContainer,
-            MaterialTheme.colorScheme.onTertiaryContainer
+            SemanticColors.Background.warning,
+            SemanticColors.OnBackground.onWarning
         )
 
         ObligationStatus.PAID -> Triple(
             Res.string.status_paid,
-            MaterialTheme.colorScheme.primaryContainer,
-            MaterialTheme.colorScheme.onPrimaryContainer
+            SemanticColors.Background.success,
+            SemanticColors.OnBackground.onSuccess
         )
 
         ObligationStatus.OVERDUE -> Triple(
             Res.string.status_overdue,
-            MaterialTheme.colorScheme.errorContainer,
-            MaterialTheme.colorScheme.onErrorContainer
+            SemanticColors.Background.error,
+            SemanticColors.OnBackground.onError
         )
     }
 
@@ -63,23 +64,23 @@ fun PriorityChip(
     val typography = DesignSystemTypography()
     val (containerColor, contentColor) = when (priority) {
         ObligationPriority.LOW -> Pair(
-            MaterialTheme.colorScheme.surfaceVariant,
-            MaterialTheme.colorScheme.onSurfaceVariant
+            SemanticColors.Background.quaternary,
+            SemanticColors.OnBackground.tertiary
         )
 
         ObligationPriority.MEDIUM -> Pair(
-            MaterialTheme.colorScheme.secondaryContainer,
-            MaterialTheme.colorScheme.onSecondaryContainer
+            SemanticColors.Background.tertiary,
+            SemanticColors.OnBackground.secondary
         )
 
         ObligationPriority.HIGH -> Pair(
-            MaterialTheme.colorScheme.tertiaryContainer,
-            MaterialTheme.colorScheme.onTertiaryContainer
+            SemanticColors.Background.warning,
+            SemanticColors.OnBackground.onWarning
         )
 
         ObligationPriority.URGENT -> Pair(
-            MaterialTheme.colorScheme.errorContainer,
-            MaterialTheme.colorScheme.onErrorContainer
+            SemanticColors.Background.error,
+            SemanticColors.OnBackground.onError
         )
     }
 
@@ -103,7 +104,7 @@ fun PriorityChip(
 @Composable
 fun CategoryChip(
     category: String,
-    color: Color = MaterialTheme.colorScheme.primary,
+    color: Color = SemanticColors.Foreground.brand,
     modifier: Modifier = Modifier
 ) {
     val typography = DesignSystemTypography()
@@ -113,13 +114,13 @@ fun CategoryChip(
             Text(
                 text = category,
                 style = typography.labelMedium,
-                color = MaterialTheme.colorScheme.onPrimary
+                color = SemanticColors.OnBackground.onBrand
             )
         },
         modifier = modifier,
         colors = AssistChipDefaults.assistChipColors(
             containerColor = color,
-            labelColor = MaterialTheme.colorScheme.onPrimary
+            labelColor = SemanticColors.OnBackground.onBrand
         )
     )
 }

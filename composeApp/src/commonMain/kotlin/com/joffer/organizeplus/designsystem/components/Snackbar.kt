@@ -11,9 +11,9 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import com.joffer.organizeplus.designsystem.colors.SemanticColors
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
-import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 @Composable
 fun AppSnackbar(
@@ -26,14 +26,14 @@ fun AppSnackbar(
     val typography = DesignSystemTypography()
     Snackbar(
         modifier = modifier.padding(Spacing.lg),
-        containerColor = if (isError) AppColorScheme.error else AppColorScheme.surface,
-        contentColor = if (isError) AppColorScheme.onError else AppColorScheme.onSurface,
+        containerColor = if (isError) SemanticColors.Background.error else SemanticColors.Background.surface,
+        contentColor = if (isError) SemanticColors.OnBackground.onError else SemanticColors.OnBackground.onSurface,
         action = if (actionLabel != null && onActionClick != null) {
             {
                 TextButton(
                     onClick = onActionClick,
                     colors = ButtonDefaults.textButtonColors(
-                        contentColor = if (isError) AppColorScheme.onError else AppColorScheme.primary
+                        contentColor = if (isError) SemanticColors.OnBackground.onError else SemanticColors.Foreground.interactive
                     )
                 ) {
                     Text(
@@ -50,7 +50,7 @@ fun AppSnackbar(
         Text(
             text = message,
             style = typography.bodyMedium,
-            color = if (isError) AppColorScheme.onError else AppColorScheme.onSurface
+            color = if (isError) SemanticColors.OnBackground.onError else SemanticColors.OnBackground.onSurface
         )
     }
 }

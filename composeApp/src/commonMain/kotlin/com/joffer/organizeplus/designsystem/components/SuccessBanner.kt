@@ -8,9 +8,9 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.joffer.organizeplus.designsystem.colors.SemanticColors
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
-import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 @Composable
 fun SuccessBanner(
@@ -21,9 +21,9 @@ fun SuccessBanner(
     Card(
         modifier = modifier.fillMaxWidth(),
         colors = CardDefaults.cardColors(
-            containerColor = AppColorScheme.primaryContainer
+            containerColor = SemanticColors.Background.success
         ),
-        shape = RoundedCornerShape(Spacing.borderRadius)
+        shape = RoundedCornerShape(Spacing.Radius.md)
     ) {
         Row(
             modifier = Modifier
@@ -35,12 +35,12 @@ fun SuccessBanner(
             Icon(
                 imageVector = Icons.Default.CheckCircle,
                 contentDescription = "Success",
-                tint = AppColorScheme.onPrimaryContainer
+                tint = SemanticColors.OnBackground.onSuccess
             )
             Text(
                 text = message,
                 style = typography.bodyMedium,
-                color = AppColorScheme.onPrimaryContainer
+                color = SemanticColors.OnBackground.onSuccess
             )
         }
     }

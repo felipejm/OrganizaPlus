@@ -10,10 +10,10 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.joffer.organizeplus.designsystem.colors.SemanticColors
 import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
-import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -41,7 +41,7 @@ fun CardShowcaseScreen(
                 Text(
                     text = "Card Components",
                     style = typography.headlineMedium,
-                    color = AppColorScheme.onSurface
+                    color = SemanticColors.Foreground.primary
                 )
             }
 
@@ -67,13 +67,13 @@ private fun CardShowcaseItem(
             Text(
                 text = item.title,
                 style = typography.titleMedium,
-                color = AppColorScheme.onSurface
+                color = SemanticColors.Foreground.primary
             )
 
             Text(
                 text = item.description,
                 style = typography.bodyMedium,
-                color = AppColorScheme.onSurfaceVariant
+                color = SemanticColors.Foreground.secondary
             )
 
             Spacer(modifier = Modifier.height(Spacing.md))
@@ -104,14 +104,14 @@ private fun BasicCardExamples() {
         Text(
             text = "Basic Cards",
             style = typography.titleSmall,
-            color = AppColorScheme.onSurface
+            color = SemanticColors.Foreground.primary
         )
 
         OrganizeCard {
             Text(
                 text = "Simple card with just text content",
                 style = typography.bodyMedium,
-                color = AppColorScheme.onSurface,
+                color = SemanticColors.Foreground.primary,
                 modifier = Modifier.padding(Spacing.md)
             )
         }
@@ -123,12 +123,12 @@ private fun BasicCardExamples() {
                 Text(
                     text = "Card with Title",
                     style = typography.titleMedium,
-                    color = AppColorScheme.onSurface
+                    color = SemanticColors.Foreground.primary
                 )
                 Text(
                     text = "This card has a title and description",
                     style = typography.bodyMedium,
-                    color = AppColorScheme.onSurfaceVariant
+                    color = SemanticColors.Foreground.secondary
                 )
             }
         }
@@ -144,7 +144,7 @@ private fun InteractiveCardExamples() {
         Text(
             text = "Interactive Cards",
             style = typography.titleSmall,
-            color = AppColorScheme.onSurface
+            color = SemanticColors.Foreground.primary
         )
 
         OrganizeCard(
@@ -161,18 +161,18 @@ private fun InteractiveCardExamples() {
                     Text(
                         text = "Clickable Card",
                         style = typography.titleMedium,
-                        color = AppColorScheme.onSurface
+                        color = SemanticColors.Foreground.primary
                     )
                     Text(
                         text = "Tap to interact",
                         style = typography.bodyMedium,
-                        color = AppColorScheme.onSurfaceVariant
+                        color = SemanticColors.Foreground.secondary
                     )
                 }
                 Icon(
                     imageVector = Icons.Default.ArrowBackIosNew,
                     contentDescription = "Navigate forward",
-                    tint = AppColorScheme.primary
+                    tint = SemanticColors.Foreground.brand
                 )
             }
         }
@@ -188,7 +188,7 @@ private fun ContentCardExamples() {
         Text(
             text = "Content Cards",
             style = typography.titleSmall,
-            color = AppColorScheme.onSurface
+            color = SemanticColors.Foreground.primary
         )
 
         // Stats Card
@@ -199,7 +199,7 @@ private fun ContentCardExamples() {
                 Text(
                     text = "Statistics",
                     style = typography.titleSmall,
-                    color = AppColorScheme.onSurfaceVariant
+                    color = SemanticColors.Foreground.secondary
                 )
 
                 Spacer(modifier = Modifier.height(Spacing.sm))
@@ -234,7 +234,7 @@ private fun ContentCardExamples() {
                     Icon(
                         imageVector = Icons.Default.Star,
                         contentDescription = null,
-                        tint = AppColorScheme.warning500,
+                        tint = SemanticColors.Foreground.warning,
                         modifier = Modifier.size(Spacing.iconSize)
                     )
 
@@ -243,7 +243,7 @@ private fun ContentCardExamples() {
                     Text(
                         text = "Featured Item",
                         style = typography.titleMedium,
-                        color = AppColorScheme.onSurface
+                        color = SemanticColors.Foreground.primary
                     )
                 }
 
@@ -252,7 +252,7 @@ private fun ContentCardExamples() {
                 Text(
                     text = "This is a featured card with an icon and special styling to highlight important content.",
                     style = typography.bodyMedium,
-                    color = AppColorScheme.onSurface
+                    color = SemanticColors.Foreground.primary
                 )
 
                 Spacer(modifier = Modifier.height(Spacing.sm))
@@ -263,7 +263,7 @@ private fun ContentCardExamples() {
                     PriorityChip(text = "HIGH", priority = ObligationPriority.HIGH)
                     CategoryChip(
                         category = "Important",
-                        color = AppColorScheme.primary
+                        color = SemanticColors.Foreground.brand
                     )
                 }
             }
@@ -285,12 +285,12 @@ private fun StatItem(
         Text(
             text = value,
             style = typography.headlineLarge,
-            color = AppColorScheme.primary
+            color = SemanticColors.Foreground.brand
         )
         Text(
             text = label,
             style = typography.caption,
-            color = AppColorScheme.onSurfaceVariant
+            color = SemanticColors.Foreground.secondary
         )
     }
 }

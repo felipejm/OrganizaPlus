@@ -6,10 +6,10 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import com.joffer.organizeplus.designsystem.colors.SemanticColors
 import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
-import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -37,7 +37,7 @@ fun ChipShowcaseScreen(
                 Text(
                     text = "Chip Components",
                     style = typography.headlineMedium,
-                    color = AppColorScheme.onSurface
+                    color = SemanticColors.Foreground.primary
                 )
             }
 
@@ -63,13 +63,13 @@ private fun ChipShowcaseItem(
             Text(
                 text = item.title,
                 style = typography.titleMedium,
-                color = AppColorScheme.onSurface
+                color = SemanticColors.Foreground.primary
             )
 
             Text(
                 text = item.description,
                 style = typography.bodyMedium,
-                color = AppColorScheme.onSurfaceVariant
+                color = SemanticColors.Foreground.secondary
             )
 
             Spacer(modifier = Modifier.height(Spacing.md))
@@ -100,7 +100,7 @@ private fun PriorityChipExamples() {
         Text(
             text = "Priority Chips",
             style = typography.titleSmall,
-            color = AppColorScheme.onSurface
+            color = SemanticColors.Foreground.primary
         )
 
         Row(
@@ -124,7 +124,7 @@ private fun CategoryChipExamples() {
         Text(
             text = "Category Chips",
             style = typography.titleSmall,
-            color = AppColorScheme.onSurface
+            color = SemanticColors.Foreground.primary
         )
 
         Row(
@@ -133,19 +133,19 @@ private fun CategoryChipExamples() {
         ) {
             CategoryChip(
                 category = "Work",
-                color = AppColorScheme.primary
+                color = SemanticColors.Foreground.brand
             )
             CategoryChip(
                 category = "Personal",
-                color = AppColorScheme.secondary
+                color = SemanticColors.Foreground.brandSecondary
             )
             CategoryChip(
                 category = "Health",
-                color = AppColorScheme.success500
+                color = SemanticColors.Foreground.success
             )
             CategoryChip(
                 category = "Finance",
-                color = AppColorScheme.warning500
+                color = SemanticColors.Foreground.warning
             )
         }
     }
@@ -160,7 +160,7 @@ private fun StatusChipExamples() {
         Text(
             text = "Status Chips",
             style = typography.titleSmall,
-            color = AppColorScheme.onSurface
+            color = SemanticColors.Foreground.primary
         )
 
         Row(
@@ -191,9 +191,9 @@ private fun StatusChip(
 ) {
     val typography = DesignSystemTypography()
     val (containerColor, contentColor) = when (status) {
-        ObligationStatus.PENDING -> AppColorScheme.surfaceVariant to AppColorScheme.onSurfaceVariant
-        ObligationStatus.PAID -> AppColorScheme.success100 to AppColorScheme.success700
-        ObligationStatus.OVERDUE -> AppColorScheme.danger100 to AppColorScheme.danger700
+        ObligationStatus.PENDING -> SemanticColors.Background.quaternary to SemanticColors.OnBackground.tertiary
+        ObligationStatus.PAID -> SemanticColors.Background.success to SemanticColors.OnBackground.onSuccess
+        ObligationStatus.OVERDUE -> SemanticColors.Background.error to SemanticColors.OnBackground.onError
     }
 
     AssistChip(

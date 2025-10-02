@@ -5,7 +5,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
+import com.joffer.organizeplus.designsystem.colors.SemanticColors
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
 
@@ -20,9 +20,9 @@ fun ErrorBanner(
     Card(
         modifier = modifier.fillMaxWidth(),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.errorContainer
+            containerColor = SemanticColors.Background.error
         ),
-        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
+        elevation = CardDefaults.cardElevation(defaultElevation = Spacing.Elevation.none)
     ) {
         Row(
             modifier = Modifier
@@ -33,7 +33,7 @@ fun ErrorBanner(
             Text(
                 text = message,
                 style = typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onErrorContainer,
+                color = SemanticColors.OnBackground.onError,
                 modifier = Modifier.weight(1f)
             )
 
@@ -44,8 +44,8 @@ fun ErrorBanner(
             ) {
                 Text(
                     text = "↻",
-                    style = MaterialTheme.typography.bodyLarge,
-                    color = MaterialTheme.colorScheme.onErrorContainer
+                    style = typography.bodyLarge,
+                    color = SemanticColors.OnBackground.onError
                 )
             }
 
@@ -54,8 +54,8 @@ fun ErrorBanner(
             ) {
                 Text(
                     text = "×",
-                    style = MaterialTheme.typography.bodyLarge,
-                    color = MaterialTheme.colorScheme.onErrorContainer
+                    style = typography.bodyLarge,
+                    color = SemanticColors.OnBackground.onError
                 )
             }
         }

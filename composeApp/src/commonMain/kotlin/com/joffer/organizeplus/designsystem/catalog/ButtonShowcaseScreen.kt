@@ -11,10 +11,10 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.joffer.organizeplus.designsystem.colors.SemanticColors
 import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
-import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -42,7 +42,7 @@ fun ButtonShowcaseScreen(
                 Text(
                     text = "Button Variants",
                     style = typography.headlineMedium,
-                    color = AppColorScheme.onSurface
+                    color = SemanticColors.Foreground.primary
                 )
             }
 
@@ -68,13 +68,13 @@ private fun ButtonShowcaseItem(
             Text(
                 text = item.title,
                 style = typography.titleMedium,
-                color = AppColorScheme.onSurface
+                color = SemanticColors.Foreground.primary
             )
 
             Text(
                 text = item.description,
                 style = typography.bodyMedium,
-                color = AppColorScheme.onSurfaceVariant
+                color = SemanticColors.Foreground.secondary
             )
 
             Spacer(modifier = Modifier.height(Spacing.md))
@@ -152,7 +152,7 @@ private fun ButtonShowcaseItem(
                             modifier = Modifier
                                 .size(56.dp)
                                 .background(
-                                    color = AppColorScheme.primary,
+                                    color = SemanticColors.Foreground.brand,
                                     shape = androidx.compose.foundation.shape.CircleShape
                                 ),
                             contentAlignment = androidx.compose.ui.Alignment.Center
@@ -160,7 +160,7 @@ private fun ButtonShowcaseItem(
                             Icon(
                                 imageVector = Icons.Default.Add,
                                 contentDescription = "Add",
-                                tint = AppColorScheme.onPrimary
+                                tint = SemanticColors.OnBackground.onBrand
                             )
                         }
                     }

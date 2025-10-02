@@ -8,11 +8,11 @@ import androidx.compose.material.icons.filled.ArrowBackIosNew
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import com.joffer.organizeplus.designsystem.colors.SemanticColors
 import com.joffer.organizeplus.designsystem.components.AppTopAppBarWithBackButton
 import com.joffer.organizeplus.designsystem.components.OrganizeCard
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
-import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -41,7 +41,7 @@ fun DesignSystemCatalogScreen(
                 Text(
                     text = "Components",
                     style = typography.headlineMedium,
-                    color = AppColorScheme.onSurface
+                    color = SemanticColors.Foreground.primary
                 )
                 Spacer(modifier = Modifier.height(Spacing.sm))
             }
@@ -58,7 +58,7 @@ fun DesignSystemCatalogScreen(
                 Text(
                     text = "Design Tokens",
                     style = typography.headlineMedium,
-                    color = AppColorScheme.onSurface
+                    color = SemanticColors.Foreground.primary
                 )
                 Spacer(modifier = Modifier.height(Spacing.sm))
             }
@@ -103,19 +103,19 @@ private fun ComponentCategoryCard(
                 Text(
                     text = category.title,
                     style = typography.titleMedium,
-                    color = AppColorScheme.onSurface
+                    color = SemanticColors.Foreground.primary
                 )
                 Text(
                     text = category.description,
                     style = typography.bodyMedium,
-                    color = AppColorScheme.onSurfaceVariant
+                    color = SemanticColors.Foreground.secondary
                 )
             }
 
             Icon(
                 imageVector = Icons.Default.ArrowBackIosNew,
                 contentDescription = "Navigate forward",
-                tint = AppColorScheme.primary,
+                tint = SemanticColors.Foreground.brand,
                 modifier = Modifier.size(Spacing.iconSize)
             )
         }

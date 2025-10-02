@@ -57,7 +57,7 @@ fun MonthlyDutySection(
             ) {
                 Text(
                     text = stringResource(Res.string.duty_review_total),
-                    style = DesignSystemTypography().titleMedium,
+                    style = DesignSystemTypography().bodyMedium,
                     color = SemanticColors.Foreground.secondary
                 )
                 Spacer(modifier = Modifier.height(Spacing.sm))

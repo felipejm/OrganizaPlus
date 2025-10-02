@@ -11,9 +11,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import com.joffer.organizeplus.designsystem.colors.SemanticColors
 import com.joffer.organizeplus.designsystem.components.*
+import com.joffer.organizeplus.common.utils.DateUtils
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
 import com.joffer.organizeplus.features.duty.review.domain.entities.DutyReviewData
+import com.joffer.organizeplus.features.duty.review.domain.entities.MonthlyDutyReview
 import com.joffer.organizeplus.features.duty.review.presentation.components.MonthlyDutySection
 import org.jetbrains.compose.resources.stringResource
 import organizeplus.composeapp.generated.resources.Res
@@ -170,6 +172,15 @@ private fun DutyReviewDataContent(
                 Spacer(modifier = Modifier.height(Spacing.lg))
             }
 
+            // Monthly Amount Paid Chart
+            item {
+                DutyReviewChart(
+                    monthlyReviews = reviewData.monthlyReviews,
+                    modifier = Modifier.fillMaxWidth()
+                )
+                Spacer(modifier = Modifier.height(Spacing.lg))
+            }
+
             // Monthly sections
             items(
                 items = reviewData.monthlyReviews,
@@ -180,4 +191,33 @@ private fun DutyReviewDataContent(
             }
         }
     }
+}
+
+
+@Composable
+private fun DutyReviewChart(
+    monthlyReviews: List<MonthlyDutyReview>,
+    modifier: Modifier = Modifier
+) {
+    val chartData = monthlyReviews.map { review ->
+        ChartDataPoint(
+            label = DateUtils.getShortMonthName(review.monthNumber),
+            value = review.totalPaid.toFloat()
+        )
+    }
+
+    val chartConfig = ChartConfig(
+        barColors = listOf(SemanticColors.Foreground.brand),
+        showValues = true,
+        showLabels = true,
+        animate = true,
+        animationDuration = 1000
+    )
+
+    AppBarChart(
+        title = "Monthly Amount Paid",
+        data = chartData,
+        config = chartConfig,
+        modifier = modifier
+    )
 }

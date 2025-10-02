@@ -36,7 +36,7 @@ data class ChartConfig(
 )
 
 // Chart constants
-private val CHART_HEIGHT = 200.dp
+private val CHART_HEIGHT = 120.dp
 private val MIN_BAR_HEIGHT = 4.dp
 private val MAX_BAR_WIDTH = 30.dp
 private val BAR_SPACING = 2.dp
@@ -115,14 +115,24 @@ private fun ChartContent(
     val maxValue = data.maxOfOrNull { it.value }?.coerceAtLeast(1f) ?: 1f
     val barWidthProportion = 0.8f / data.size
 
-    // Animation for bars
+    // Animation for bars - restart animation when data changes or component is first composed
+    val animationKey = remember(data) { data.hashCode() }
+    var shouldAnimate by remember { mutableStateOf(false) }
+    
+    // Trigger animation restart when data changes or component is first composed
+    LaunchedEffect(animationKey) {
+        shouldAnimate = false
+        kotlinx.coroutines.delay(50) // Small delay to ensure state reset
+        shouldAnimate = true
+    }
+    
     val animationProgress by animateFloatAsState(
-        targetValue = if (config.animate) 1f else 1f,
+        targetValue = if (config.animate && shouldAnimate) 1f else 0f,
         animationSpec = tween(
             durationMillis = config.animationDuration,
             easing = EaseOutCubic
         ),
-        label = "bar_animation"
+        label = "bar_animation_$animationKey"
     )
     Row(
         modifier = modifier.fillMaxSize(),
@@ -159,10 +169,10 @@ private fun BarColumn(
 ) {
     val typography = DesignSystemTypography()
     val heightRatio = point.value / maxValue
-    val animatedHeight = (120.dp * heightRatio * animationProgress).coerceAtLeast(MIN_BAR_HEIGHT)
+    val animatedHeight = (CHART_HEIGHT * heightRatio * animationProgress).coerceAtLeast(MIN_BAR_HEIGHT)
 
     Column(
-        modifier = modifier,
+        modifier = modifier.height(CHART_HEIGHT + VALUE_PADDING + LABEL_PADDING + 24.dp), // Fixed height
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Bottom
     ) {

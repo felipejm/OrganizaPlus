@@ -86,11 +86,7 @@ fun DutyCard(
                                 .clip(CircleShape),
                             contentAlignment = Alignment.Center
                         ) {
-                            CategoryIcon(
-                                categoryName = duty.categoryName,
-                                size = Spacing.Icon.md,
-                                iconSize = Spacing.Icon.sm
-                            )
+                            CategoryIcon(categoryName = duty.categoryName)
                         }
                     } else {
                         // List style with default colors

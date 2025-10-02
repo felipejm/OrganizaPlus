@@ -9,6 +9,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.joffer.organizeplus.common.utils.DateUtils
 import com.joffer.organizeplus.common.utils.formatString
+import com.joffer.organizeplus.common.utils.toCurrencyFormat
 import com.joffer.organizeplus.designsystem.colors.SemanticColors
 import com.joffer.organizeplus.designsystem.components.OrganizeCard
 import com.joffer.organizeplus.designsystem.spacing.Spacing
@@ -61,7 +62,7 @@ fun MonthlyDutySection(
                 )
                 Spacer(modifier = Modifier.height(Spacing.sm))
                 Text(
-                    text = formatString("$%.2f", monthlyReview.totalPaid),
+                    text = monthlyReview.totalPaid.toCurrencyFormat(),
                     style = DesignSystemTypography().bodyLarge,
                     fontWeight = FontWeight.SemiBold,
                     color = SemanticColors.Foreground.success

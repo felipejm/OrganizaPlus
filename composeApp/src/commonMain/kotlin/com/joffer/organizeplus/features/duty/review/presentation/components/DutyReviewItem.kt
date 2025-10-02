@@ -6,8 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
-import com.joffer.organizeplus.common.utils.formatString
+import com.joffer.organizeplus.common.utils.toCurrencyFormat
 import com.joffer.organizeplus.designsystem.colors.SemanticColors
 import com.joffer.organizeplus.designsystem.components.CategoryIcon
 import com.joffer.organizeplus.designsystem.spacing.Spacing
@@ -32,10 +31,7 @@ fun DutyReviewItem(
             horizontalArrangement = Arrangement.spacedBy(Spacing.sm)
         ) {
             // Category icon using the design system component
-            CategoryIcon(
-                categoryName = item.categoryName,
-                size = 40.dp
-            )
+            CategoryIcon(categoryName = item.categoryName)
 
             // Duty info
             Column {
@@ -50,8 +46,8 @@ fun DutyReviewItem(
 
         // Right side - Amount
         Text(
-            text = formatString("$%.2f", item.paidAmount),
-            style = DesignSystemTypography().bodyLarge,
+            text = item.paidAmount.toCurrencyFormat(),
+            style = DesignSystemTypography().bodyMedium,
             fontWeight = FontWeight.Medium,
             color = SemanticColors.Foreground.primary
         )

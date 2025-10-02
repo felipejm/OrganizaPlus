@@ -1,5 +1,6 @@
 package com.joffer.organizeplus.features.duty.detail.components
 
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.joffer.organizeplus.common.utils.DateUtils
@@ -27,13 +28,14 @@ fun DutyBarChart(
     val title = when (chartData.dutyType) {
         DutyType.ACTIONABLE ->
             stringResource(Res.string.chart_occurrences_by_month)
+
         DutyType.PAYABLE ->
             stringResource(Res.string.chart_amount_paid_by_month)
     }
 
     AppBarChart(
-        data = chartPoints,
         title = title,
-        modifier = modifier
+        data = chartPoints,
+        modifier = modifier.fillMaxWidth()
     )
 }

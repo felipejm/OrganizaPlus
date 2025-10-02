@@ -249,11 +249,7 @@ fun AppNavigation(
             }
 
             composable("charts") {
-                com.joffer.organizeplus.designsystem.catalog.ChartShowcaseScreen(
-                    onNavigateBack = {
-                        navController.popBackStack()
-                    }
-                )
+                com.joffer.organizeplus.designsystem.catalog.ChartShowcaseScreen()
             }
         }
     }

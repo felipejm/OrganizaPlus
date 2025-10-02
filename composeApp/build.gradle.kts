@@ -63,6 +63,9 @@ kotlin {
             implementation(libs.androidx.lifecycle.viewmodelCompose)
             implementation(libs.androidx.lifecycle.runtimeCompose)
             
+            // Chart library
+            implementation(libs.koalaplot.core)
+            
             // Async libraries
             implementation(libs.kotlinx.datetime)
             implementation(libs.kotlinx.serialization.json)

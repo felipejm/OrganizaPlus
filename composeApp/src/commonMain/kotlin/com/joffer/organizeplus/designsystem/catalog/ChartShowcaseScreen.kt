@@ -2,57 +2,54 @@ package com.joffer.organizeplus.designsystem.catalog
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import com.joffer.organizeplus.designsystem.components.AppBarChart
-import com.joffer.organizeplus.designsystem.components.AppTopAppBarWithBackButton
-import com.joffer.organizeplus.designsystem.components.ChartDataPoint
+import com.joffer.organizeplus.designsystem.components.*
+import com.joffer.organizeplus.designsystem.colors.SemanticColors
 import com.joffer.organizeplus.designsystem.spacing.Spacing
+import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ChartShowcaseScreen(
-    onNavigateBack: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Scaffold(
-        topBar = {
-            AppTopAppBarWithBackButton(
-                title = "Chart Components",
-                onBackClick = onNavigateBack
-            )
-        }
-    ) { paddingValues ->
-        Column(
-            modifier = modifier
-                .fillMaxSize()
-                .padding(paddingValues)
-                .padding(Spacing.md),
-            verticalArrangement = Arrangement.spacedBy(Spacing.lg)
-        ) {
-            // Sample bar chart data
-            val sampleData = listOf(
-                ChartDataPoint("Jan", 45f),
-                ChartDataPoint("Feb", 32f),
-                ChartDataPoint("Mar", 67f),
-                ChartDataPoint("Apr", 23f),
-                ChartDataPoint("May", 89f),
-                ChartDataPoint("Jun", 56f)
-            )
+    val typography = DesignSystemTypography()
+    
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+            .padding(Spacing.md),
+        verticalArrangement = Arrangement.spacedBy(Spacing.lg)
+    ) {
+        Text(
+            text = "Charts",
+            style = typography.headlineMedium,
+            color = SemanticColors.Foreground.primary
+        )
+        
+        Text(
+            text = "Bar Chart",
+            style = typography.titleLarge,
+            color = SemanticColors.Foreground.primary
+        )
+        
+        Text(
+            text = "Vertical bar chart for comparing values",
+            style = typography.bodyMedium,
+            color = SemanticColors.Foreground.secondary
+        )
+        
+        val sampleData = listOf(
+            ChartDataPoint("Jan", 120f),
+            ChartDataPoint("Feb", 150f),
+            ChartDataPoint("Mar", 180f),
+            ChartDataPoint("Apr", 140f),
+            ChartDataPoint("May", 200f),
+            ChartDataPoint("Jun", 190f)
+        )
 
-            AppBarChart(
-                data = sampleData,
-                title = "Sample Data Chart",
-                modifier = Modifier.fillMaxWidth()
-            )
-
-            // Empty state chart
-            AppBarChart(
-                data = emptyList(),
-                title = "Empty Chart",
-                emptyStateText = "No data available",
-                modifier = Modifier.fillMaxWidth()
-            )
-        }
+        AppBarChart(
+            data = sampleData
+        )
     }
 }

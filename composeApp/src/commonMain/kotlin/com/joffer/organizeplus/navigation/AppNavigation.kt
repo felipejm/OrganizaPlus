@@ -56,6 +56,13 @@ fun AppNavigation(
                     },
                     onNavigateToSettings = {
                         navController.navigate(Settings)
+                    },
+                    onNavigateToCreateDuty = {
+                        navController.navigate(CreateDuty)
+                    },
+                    onNavigateToAllDuties = {
+                        // Navigate to a combined view or show a dialog to choose category
+                        navController.navigate(Duties(CategoryConstants.PERSONAL))
                     }
                 )
             }

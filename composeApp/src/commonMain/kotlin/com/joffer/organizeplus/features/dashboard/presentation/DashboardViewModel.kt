@@ -11,9 +11,9 @@ import com.joffer.organizeplus.features.dashboard.domain.repositories.DutyReposi
 import com.joffer.organizeplus.features.dashboard.domain.usecases.GetDashboardDataUseCase
 import com.joffer.organizeplus.features.duty.occurrence.domain.repositories.DutyOccurrenceRepository
 import io.github.aakira.napier.Napier
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.async
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
@@ -95,10 +95,18 @@ class DashboardViewModel(
 
                                 // Convert to DutyWithLastOccurrence
                                 val personalDutiesWithOccurrence = personalDuties.map { duty ->
-                                    DutyWithLastOccurrence(duty = duty, lastOccurrence = null, hasCurrentMonthOccurrence = false)
+                                    DutyWithLastOccurrence(
+                                        duty = duty,
+                                        lastOccurrence = null,
+                                        hasCurrentMonthOccurrence = false
+                                    )
                                 }
                                 val companyDutiesWithOccurrence = companyDuties.map { duty ->
-                                    DutyWithLastOccurrence(duty = duty, lastOccurrence = null, hasCurrentMonthOccurrence = false)
+                                    DutyWithLastOccurrence(
+                                        duty = duty,
+                                        lastOccurrence = null,
+                                        hasCurrentMonthOccurrence = false
+                                    )
                                 }
 
                                 _uiState.value = _uiState.value.copy(
@@ -191,7 +199,7 @@ class DashboardViewModel(
                         emit(Result.success(emptyList()))
                     }
                     .first() // Get the first emission
-                    .getOrElse { 
+                    .getOrElse {
                         Napier.e("Failed to get duties result for summary")
                         emptyList()
                     }
@@ -201,7 +209,7 @@ class DashboardViewModel(
                 val companyDutiesCount = allDuties.count { it.categoryName == CategoryConstants.COMPANY }
 
                 // Load summaries in parallel
-                val personalSummaryDeferred = async { 
+                val personalSummaryDeferred = async {
                     loadCategorySummary(
                         categoryName = CategoryConstants.PERSONAL,
                         totalTasks = personalDutiesCount,
@@ -210,7 +218,7 @@ class DashboardViewModel(
                     )
                 }
 
-                val companySummaryDeferred = async { 
+                val companySummaryDeferred = async {
                     loadCategorySummary(
                         categoryName = CategoryConstants.COMPANY,
                         totalTasks = companyDutiesCount,
@@ -227,7 +235,6 @@ class DashboardViewModel(
                     personalSummary = personalSummary,
                     companySummary = companySummary
                 )
-
             } catch (e: Exception) {
                 Napier.e("Failed to load monthly summaries: ${e.message}")
                 // Set empty summaries on error

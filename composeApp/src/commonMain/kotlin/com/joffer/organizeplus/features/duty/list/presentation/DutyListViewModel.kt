@@ -76,45 +76,49 @@ class DutyListViewModel(
 
                             // Load last occurrence and check current month occurrence for each duty
                             val dutiesWithOccurrences = mutableListOf<DutyWithLastOccurrence>()
-                            
+
                             filteredDuties.forEach { duty ->
                                 launch {
                                     // Load last occurrence
-                                    val lastOccurrenceResult = dutyOccurrenceRepository.getLastOccurrenceByDutyId(duty.id)
-                                    
+                                    val lastOccurrenceResult = dutyOccurrenceRepository.getLastOccurrenceByDutyId(
+                                        duty.id
+                                    )
+
                                     // Check if duty has occurrences in current month
                                     val currentMonthOccurrencesResult = dutyOccurrenceRepository.getMonthlyOccurrences(
-                                        duty.categoryName, currentMonth, currentYear
+                                        duty.categoryName,
+                                        currentMonth,
+                                        currentYear
                                     )
-                                    
+
                                     val hasCurrentMonthOccurrence = currentMonthOccurrencesResult
                                         .getOrNull()
                                         ?.any { occurrence -> occurrence.dutyId == duty.id } ?: false
-                                    
+
                                     val lastOccurrence = lastOccurrenceResult.getOrNull()
-                                    
+
                                     val dutyWithOccurrence = DutyWithLastOccurrence(
                                         duty = duty,
                                         lastOccurrence = lastOccurrence,
                                         hasCurrentMonthOccurrence = hasCurrentMonthOccurrence
                                     )
-                                    
+
                                     // Update the list with the new duty
                                     val updatedDuties = _uiState.value.duties.toMutableList()
                                     val existingIndex = updatedDuties.indexOfFirst { it.duty.id == duty.id }
-                                    
+
                                     if (existingIndex >= 0) {
                                         updatedDuties[existingIndex] = dutyWithOccurrence
                                     } else {
                                         updatedDuties.add(dutyWithOccurrence)
                                     }
-                                    
+
                                     // Sort duties: paid (current month occurrences) first, then by title
                                     val sortedDuties = updatedDuties.sortedWith(
                                         compareByDescending<DutyWithLastOccurrence> { it.hasCurrentMonthOccurrence }
                                             .thenBy { it.duty.title }
                                     )
-                                    
+
                                     _uiState.value = _uiState.value.copy(
                                         isLoading = false,
                                         duties = sortedDuties,
@@ -122,7 +126,7 @@ class DutyListViewModel(
                                     )
                                 }
                             }
-                            
+
                             // Initialize with empty list if no duties
                             if (filteredDuties.isEmpty()) {
                                 _uiState.value = _uiState.value.copy(

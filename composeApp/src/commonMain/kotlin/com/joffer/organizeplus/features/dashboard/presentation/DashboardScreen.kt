@@ -8,17 +8,17 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.joffer.organizeplus.common.utils.DateUtils
 import com.joffer.organizeplus.common.constants.CategoryConstants
-import kotlinx.datetime.Clock
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.toLocalDateTime
+import com.joffer.organizeplus.common.utils.DateUtils
 import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.components.ErrorBanner
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.Typography
 import com.joffer.organizeplus.features.dashboard.DashboardIntent
 import com.joffer.organizeplus.features.dashboard.components.DutyCategorySection
+import kotlinx.datetime.Clock
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
 import org.jetbrains.compose.resources.stringResource
 import organizeplus.composeapp.generated.resources.Res
 import organizeplus.composeapp.generated.resources.app_name
@@ -36,7 +36,7 @@ fun DashboardScreen(
     modifier: Modifier = Modifier
 ) {
     val uiState by viewModel.uiState.collectAsState()
-    
+
     // Get current month and year for header
     val currentDateTime = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
     val currentMonth = DateUtils.getMonthName(currentDateTime.monthNumber)
@@ -101,7 +101,7 @@ fun DashboardScreen(
                         )
                     }
                 }
-                
+
                 // Personal Duties Section
                 item {
                     DutyCategorySection(

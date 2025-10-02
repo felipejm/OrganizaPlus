@@ -127,7 +127,6 @@ fun DashboardScreen(
                                 color = AppColorScheme.formSecondaryText
                             )
                         }
-
                     }
                 }
 
@@ -198,27 +197,27 @@ private fun EmptyDashboardState(
                 tint = AppColorScheme.formSecondaryText
             )
         }
-        
+
         Spacer(modifier = Modifier.height(Spacing.lg))
-        
+
         Text(
             text = "Welcome to OrganizePlus",
             style = localTypography().headlineMedium,
             color = AppColorScheme.formText,
             fontWeight = FontWeight.Bold
         )
-        
+
         Spacer(modifier = Modifier.height(Spacing.sm))
-        
+
         Text(
             text = "Start organizing your duties by creating your first task. You can add personal or company-related duties to keep track of everything.",
             style = localTypography().bodyMedium,
             color = AppColorScheme.formSecondaryText,
             textAlign = androidx.compose.ui.text.style.TextAlign.Center
         )
-        
+
         Spacer(modifier = Modifier.height(Spacing.xl))
-        
+
         OrganizePrimaryButton(
             text = "Create Your First Duty",
             onClick = onNavigateToCreateDuty,

@@ -24,21 +24,21 @@ class RoomDutyRepository(
     }
 
     override suspend fun insertDuty(duty: Duty): Flow<Result<Unit>> {
-        return executeOperation { 
+        return executeOperation {
             val entity = DutyMapper.toRoomEntity(duty)
             dutyDao.insertDuty(entity)
         }
     }
 
     override suspend fun updateDuty(duty: Duty): Flow<Result<Unit>> {
-        return executeOperation { 
+        return executeOperation {
             val entity = DutyMapper.toRoomEntity(duty)
             dutyDao.updateDuty(entity)
         }
     }
 
     override suspend fun deleteDuty(id: Long): Flow<Result<Unit>> {
-        return executeOperation { 
+        return executeOperation {
             dutyDao.deleteDutyById(id)
         }
     }

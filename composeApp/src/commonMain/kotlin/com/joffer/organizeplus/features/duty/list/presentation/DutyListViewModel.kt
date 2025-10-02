@@ -3,6 +3,7 @@ package com.joffer.organizeplus.features.duty.list.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.joffer.organizeplus.common.constants.CategoryConstants
+import com.joffer.organizeplus.features.dashboard.domain.entities.Duty
 import com.joffer.organizeplus.features.dashboard.domain.entities.DutyWithLastOccurrence
 import com.joffer.organizeplus.features.dashboard.domain.repositories.DutyRepository
 import com.joffer.organizeplus.features.dashboard.domain.usecases.DeleteDutyUseCase
@@ -48,128 +49,123 @@ class DutyListViewModel(
 
             repository.getAllDuties()
                 .catch { exception ->
-                    Napier.e("Error loading duties", exception)
-                    _uiState.value = _uiState.value.copy(
-                        isLoading = false,
-                        error = exception.message ?: "error_loading_duties"
-                    )
+                    handleError("Error loading duties", exception)
                 }
                 .collect { result ->
                     result.fold(
-                        onSuccess = { duties ->
-                            // Filter duties by category
-                            val filteredDuties = when (categoryFilter) {
-                                DutyCategoryFilter.Personal -> duties.filter {
-                                    it.categoryName == CategoryConstants.PERSONAL
-                                }
-                                DutyCategoryFilter.Company -> duties.filter {
-                                    it.categoryName == CategoryConstants.COMPANY
-                                }
-                            }
-
-                            // Get current month and year
-                            val currentDateTime = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
-                            val currentMonth = currentDateTime.monthNumber
-                            val currentYear = currentDateTime.year
-
-                            // Load last occurrence and check current month occurrence for each duty
-                            val dutiesWithOccurrences = mutableListOf<DutyWithLastOccurrence>()
-
-                            filteredDuties.forEach { duty ->
-                                launch {
-                                    // Load last occurrence
-                                    val lastOccurrenceResult = dutyOccurrenceRepository.getLastOccurrenceByDutyId(
-                                        duty.id
-                                    )
-
-                                    // Check if duty has occurrences in current month
-                                    val currentMonthOccurrencesResult = dutyOccurrenceRepository.getMonthlyOccurrences(
-                                        duty.categoryName,
-                                        currentMonth,
-                                        currentYear
-                                    )
-
-                                    val hasCurrentMonthOccurrence = currentMonthOccurrencesResult
-                                        .getOrNull()
-                                        ?.any { occurrence -> occurrence.dutyId == duty.id } ?: false
-
-                                    val lastOccurrence = lastOccurrenceResult.getOrNull()
-
-                                    val dutyWithOccurrence = DutyWithLastOccurrence(
-                                        duty = duty,
-                                        lastOccurrence = lastOccurrence,
-                                        hasCurrentMonthOccurrence = hasCurrentMonthOccurrence
-                                    )
-
-                                    // Update the list with the new duty
-                                    val updatedDuties = _uiState.value.duties.toMutableList()
-                                    val existingIndex = updatedDuties.indexOfFirst { it.duty.id == duty.id }
-
-                                    if (existingIndex >= 0) {
-                                        updatedDuties[existingIndex] = dutyWithOccurrence
-                                    } else {
-                                        updatedDuties.add(dutyWithOccurrence)
-                                    }
-
-                                    // Sort duties: paid (current month occurrences) first, then by title
-                                    val sortedDuties = updatedDuties.sortedWith(
-                                        compareByDescending<DutyWithLastOccurrence> { it.hasCurrentMonthOccurrence }
-                                            .thenBy { it.duty.title }
-                                    )
-
-                                    _uiState.value = _uiState.value.copy(
-                                        isLoading = false,
-                                        duties = sortedDuties,
-                                        error = null
-                                    )
-                                }
-                            }
-
-                            // Initialize with empty list if no duties
-                            if (filteredDuties.isEmpty()) {
-                                _uiState.value = _uiState.value.copy(
-                                    isLoading = false,
-                                    duties = emptyList(),
-                                    error = null
-                                )
-                            }
-                        },
-                        onFailure = { exception ->
-                            Napier.e("Failed to load duties", exception)
-                            _uiState.value = _uiState.value.copy(
-                                isLoading = false,
-                                error = exception.message ?: "error_loading_duties"
-                            )
-                        }
+                        onSuccess = { duties -> processDuties(duties) },
+                        onFailure = { exception -> handleError("Failed to load duties", exception) }
                     )
                 }
         }
     }
 
-    private fun refreshDuties() {
-        loadDuties()
+    private suspend fun processDuties(duties: List<Duty>) {
+        val filteredDuties = filterDutiesByCategory(duties)
+        
+        if (filteredDuties.isEmpty()) {
+            _uiState.value = _uiState.value.copy(
+                isLoading = false,
+                duties = emptyList(),
+                error = null
+            )
+            return
+        }
+
+        val currentDate = getCurrentDate()
+        val dutiesWithOccurrences = mutableListOf<DutyWithLastOccurrence>()
+
+        filteredDuties.forEach { duty ->
+            viewModelScope.launch {
+                val dutyWithOccurrence = loadDutyWithOccurrence(duty, currentDate)
+                updateDutiesList(dutyWithOccurrence)
+            }
+        }
     }
+
+    private fun filterDutiesByCategory(duties: List<Duty>): List<Duty> {
+        return when (categoryFilter) {
+            DutyCategoryFilter.Personal -> duties.filter { it.categoryName == CategoryConstants.PERSONAL }
+            DutyCategoryFilter.Company -> duties.filter { it.categoryName == CategoryConstants.COMPANY }
+        }
+    }
+
+    private fun getCurrentDate(): CurrentDate {
+        val currentDateTime = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
+        return CurrentDate(
+            month = currentDateTime.monthNumber,
+            year = currentDateTime.year
+        )
+    }
+
+    private data class CurrentDate(
+        val month: Int,
+        val year: Int
+    )
+
+    private suspend fun loadDutyWithOccurrence(
+        duty: Duty,
+        currentDate: CurrentDate
+    ): DutyWithLastOccurrence {
+        val lastOccurrence = dutyOccurrenceRepository.getLastOccurrenceByDutyId(duty.id).getOrNull()
+        
+        val hasCurrentMonthOccurrence = dutyOccurrenceRepository.getMonthlyOccurrences(
+            duty.categoryName,
+            currentDate.month,
+            currentDate.year
+        ).getOrNull()?.any { it.dutyId == duty.id } ?: false
+
+        return DutyWithLastOccurrence(
+            duty = duty,
+            lastOccurrence = lastOccurrence,
+            hasCurrentMonthOccurrence = hasCurrentMonthOccurrence
+        )
+    }
+
+    private fun updateDutiesList(dutyWithOccurrence: DutyWithLastOccurrence) {
+        val updatedDuties = _uiState.value.duties.toMutableList()
+        val existingIndex = updatedDuties.indexOfFirst { it.duty.id == dutyWithOccurrence.duty.id }
+
+        if (existingIndex >= 0) {
+            updatedDuties[existingIndex] = dutyWithOccurrence
+        } else {
+            updatedDuties.add(dutyWithOccurrence)
+        }
+
+        val sortedDuties = sortDuties(updatedDuties)
+        _uiState.value = _uiState.value.copy(
+            isLoading = false,
+            duties = sortedDuties,
+            error = null
+        )
+    }
+
+    private fun sortDuties(duties: List<DutyWithLastOccurrence>): List<DutyWithLastOccurrence> {
+        return duties.sortedWith(
+            compareByDescending<DutyWithLastOccurrence> { it.hasCurrentMonthOccurrence }
+                .thenBy { it.duty.title }
+        )
+    }
+
+    private fun handleError(message: String, exception: Throwable) {
+        Napier.e(message, exception)
+        _uiState.value = _uiState.value.copy(
+            isLoading = false,
+            error = exception.message ?: "Unknown error"
+        )
+    }
+
+    private fun refreshDuties() = loadDuties()
 
     private fun deleteDuty(dutyId: Long) {
         viewModelScope.launch {
             try {
-                val result = deleteDutyUseCase(dutyId)
-                result.fold(
-                    onSuccess = {
-                        loadDuties() // Refresh the list
-                    },
-                    onFailure = { exception ->
-                        Napier.e("Failed to delete duty", exception)
-                        _uiState.value = _uiState.value.copy(
-                            error = exception.message ?: "error_deleting_duty"
-                        )
-                    }
+                deleteDutyUseCase(dutyId).fold(
+                    onSuccess = { loadDuties() },
+                    onFailure = { exception -> handleError("Failed to delete duty", exception) }
                 )
             } catch (exception: Exception) {
-                Napier.e("Error deleting duty", exception)
-                _uiState.value = _uiState.value.copy(
-                    error = exception.message ?: "error_deleting_duty"
-                )
+                handleError("Error deleting duty", exception)
             }
         }
     }
@@ -178,7 +174,5 @@ class DutyListViewModel(
         _uiState.value = _uiState.value.copy(error = null)
     }
 
-    private fun retry() {
-        loadDuties()
-    }
+    private fun retry() = loadDuties()
 }

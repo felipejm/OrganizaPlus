@@ -53,11 +53,6 @@ fun DutyListScreen(
         val currentMonth = DateUtils.getMonthName(currentDateTime.monthNumber)
         val currentYear = currentDateTime.year
 
-        LaunchedEffect(uiState.error) {
-            if (uiState.error != null) {
-                // Error will be shown in the UI below
-            }
-        }
 
         Scaffold(
             topBar = {
@@ -148,33 +143,12 @@ fun DutyListScreen(
                     ) {
                         // Month/Year Header
                         item {
-                            Row(
-                                modifier = Modifier
-                                    .fillMaxWidth().padding(Spacing.md),
-                                horizontalArrangement = Arrangement.Start,
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                val categoryName = when (categoryFilter) {
-                                    DutyCategoryFilter.Personal -> stringResource(Res.string.dashboard_personal_duties)
-                                    DutyCategoryFilter.Company -> stringResource(Res.string.dashboard_company_duties)
-                                }
-
-                                Column {
-                                    Text(
-                                        text = categoryName,
-                                        style = typography.headlineMedium,
-                                        color = AppColorScheme.black,
-                                        fontWeight = Black
-                                    )
-                                    Spacer(modifier = Modifier.height(Spacing.xs))
-                                    Text(
-                                        text = "$currentMonth $currentYear",
-                                        style = typography.titleLarge,
-                                        color = AppColorScheme.black,
-                                    )
-                                }
-                            }
-                            Spacer(modifier = Modifier.height(Spacing.sm))
+                            DutyListHeader(
+                                categoryFilter = categoryFilter,
+                                currentMonth = currentMonth,
+                                currentYear = currentYear,
+                                typography = typography
+                            )
                         }
 
                         items(uiState.duties) { dutyWithOccurrence ->
@@ -195,4 +169,41 @@ fun DutyListScreen(
             }
         }
     }
+}
+
+@Composable
+private fun DutyListHeader(
+    categoryFilter: DutyCategoryFilter,
+    currentMonth: String,
+    currentYear: Int,
+    typography: com.joffer.organizeplus.designsystem.typography.Typography
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(Spacing.md),
+        horizontalArrangement = Arrangement.Start,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        val categoryName = when (categoryFilter) {
+            DutyCategoryFilter.Personal -> stringResource(Res.string.dashboard_personal_duties)
+            DutyCategoryFilter.Company -> stringResource(Res.string.dashboard_company_duties)
+        }
+
+        Column {
+            Text(
+                text = categoryName,
+                style = typography.headlineMedium,
+                color = AppColorScheme.black,
+                fontWeight = Black
+            )
+            Spacer(modifier = Modifier.height(Spacing.xs))
+            Text(
+                text = "$currentMonth $currentYear",
+                style = typography.titleLarge,
+                color = AppColorScheme.black,
+            )
+        }
+    }
+    Spacer(modifier = Modifier.height(Spacing.sm))
 }

@@ -158,7 +158,7 @@ class DashboardViewModel(
     }
 
     private fun refreshDashboard() = loadDashboardData()
-    
+
     private fun clearError() {
         _uiState.value = _uiState.value.copy(error = null)
     }

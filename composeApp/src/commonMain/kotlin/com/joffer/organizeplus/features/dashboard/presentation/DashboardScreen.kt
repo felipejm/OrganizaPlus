@@ -7,7 +7,6 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -23,7 +22,6 @@ import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.localTypography
 import com.joffer.organizeplus.features.dashboard.DashboardIntent
 import com.joffer.organizeplus.features.dashboard.components.DutyCategorySection
-import com.joffer.organizeplus.features.dashboard.components.UpcomingSection
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
@@ -62,13 +60,6 @@ fun DashboardScreen(
         topBar = {
             AppTopAppBarWithActions(
                 actions = {
-                    IconButton(onClick = { viewModel.onIntent(DashboardIntent.RefreshDashboard) }) {
-                        Icon(
-                            imageVector = Icons.Default.Refresh,
-                            contentDescription = "Refresh",
-                            tint = AppColorScheme.black
-                        )
-                    }
                     IconButton(onClick = onNavigateToSettings) {
                         Icon(
                             imageVector = Icons.Default.Settings,
@@ -136,32 +127,7 @@ fun DashboardScreen(
                                 color = AppColorScheme.formSecondaryText
                             )
                         }
-                        
-                        // Quick stats
-                        Row(
-                            horizontalArrangement = Arrangement.spacedBy(Spacing.md)
-                        ) {
-                            QuickStatCard(
-                                title = "Personal",
-                                value = uiState.personalDuties.size.toString(),
-                                color = AppColorScheme.iconBlue
-                            )
-                            QuickStatCard(
-                                title = "Company", 
-                                value = uiState.companyDuties.size.toString(),
-                                color = AppColorScheme.iconOrange
-                            )
-                        }
-                    }
-                }
 
-                // Upcoming Duties Section
-                if (uiState.upcomingDuties.isNotEmpty()) {
-                    item {
-                        UpcomingSection(
-                            duties = uiState.upcomingDuties,
-                            onViewAll = onNavigateToAllDuties
-                        )
                     }
                 }
 
@@ -200,39 +166,6 @@ fun DashboardScreen(
                     }
                 }
             }
-        }
-    }
-}
-
-@Composable
-private fun QuickStatCard(
-    title: String,
-    value: String,
-    color: androidx.compose.ui.graphics.Color,
-    modifier: Modifier = Modifier
-) {
-    Card(
-        modifier = modifier,
-        colors = CardDefaults.cardColors(
-            containerColor = AppColorScheme.surface
-        ),
-        elevation = CardDefaults.cardElevation(defaultElevation = Spacing.Elevation.xs)
-    ) {
-        Column(
-            modifier = Modifier.padding(Spacing.sm),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Text(
-                text = value,
-                style = localTypography().headlineSmall,
-                color = color,
-                fontWeight = FontWeight.Bold
-            )
-            Text(
-                text = title,
-                style = localTypography().labelSmall,
-                color = AppColorScheme.formSecondaryText
-            )
         }
     }
 }

@@ -24,31 +24,22 @@ class RoomDutyRepository(
     }
 
     override suspend fun insertDuty(duty: Duty): Flow<Result<Unit>> {
-        return try {
+        return executeOperation { 
             val entity = DutyMapper.toRoomEntity(duty)
             dutyDao.insertDuty(entity)
-            flowOf(Result.success(Unit))
-        } catch (e: Exception) {
-            flowOf(Result.failure(e))
         }
     }
 
     override suspend fun updateDuty(duty: Duty): Flow<Result<Unit>> {
-        return try {
+        return executeOperation { 
             val entity = DutyMapper.toRoomEntity(duty)
             dutyDao.updateDuty(entity)
-            flowOf(Result.success(Unit))
-        } catch (e: Exception) {
-            flowOf(Result.failure(e))
         }
     }
 
     override suspend fun deleteDuty(id: Long): Flow<Result<Unit>> {
-        return try {
+        return executeOperation { 
             dutyDao.deleteDutyById(id)
-            flowOf(Result.success(Unit))
-        } catch (e: Exception) {
-            flowOf(Result.failure(e))
         }
     }
 
@@ -61,6 +52,15 @@ class RoomDutyRepository(
     override suspend fun getLatestDuties(limit: Int): Flow<Result<List<Duty>>> {
         return dutyDao.getAllDuties().map { entities ->
             Result.success(entities.take(limit).map { DutyMapper.toDomainEntity(it) })
+        }
+    }
+
+    private suspend fun executeOperation(operation: suspend () -> Unit): Flow<Result<Unit>> {
+        return try {
+            operation()
+            flowOf(Result.success(Unit))
+        } catch (e: Exception) {
+            flowOf(Result.failure(e))
         }
     }
 }

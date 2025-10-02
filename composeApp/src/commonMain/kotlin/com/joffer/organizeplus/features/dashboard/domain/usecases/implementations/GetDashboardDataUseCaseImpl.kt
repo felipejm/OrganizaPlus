@@ -13,10 +13,7 @@ class GetDashboardDataUseCaseImpl(
     override suspend operator fun invoke(): Flow<Result<DashboardData>> {
         return repository.getUpcomingDuties(7).map { result ->
             result.map { upcomingDuties ->
-                DashboardData(
-                    upcomingDuties = upcomingDuties,
-                    latestDuties = emptyList() // Will be populated separately
-                )
+                DashboardData(upcomingDuties = upcomingDuties)
             }
         }
     }

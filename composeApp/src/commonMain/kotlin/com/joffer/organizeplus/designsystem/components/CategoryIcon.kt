@@ -21,17 +21,18 @@ private const val CATEGORY_ICON_SIZE_RATIO = 0.6f
 
 /**
  * A circular icon component for displaying category icons
+ * Used consistently across dashboard, duty list, and duty review components
  *
  * @param categoryName The name of the category to display
  * @param size The size of the circular container (default: design system icon size)
- * @param iconSize The size of the icon inside the container (default: design system icon size)
+ * @param iconSize The size of the icon inside the container (default: 60% of container size)
  * @param modifier Modifier for the component
  */
 @Composable
 fun CategoryIcon(
     categoryName: String,
     size: Dp = Spacing.iconSize,
-    iconSize: Dp = Spacing.iconSize * CATEGORY_ICON_SIZE_RATIO,
+    iconSize: Dp = size * CATEGORY_ICON_SIZE_RATIO,
     modifier: Modifier = Modifier
 ) {
     val iconColor = when (categoryName) {
@@ -66,4 +67,13 @@ fun CategoryIcon(
             modifier = Modifier.size(iconSize)
         )
     }
+}
+
+/**
+ * Predefined size variants for CategoryIcon to ensure consistency across components
+ */
+object CategoryIconSize {
+    val Small = Spacing.iconSize
+    val Medium = Spacing.iconSize * 1.2f
+    val Large = Spacing.iconSize * 1.5f
 }

@@ -13,216 +13,63 @@ import organizeplus.composeapp.generated.resources.SF_Pro_Text_Medium
 import organizeplus.composeapp.generated.resources.SF_Pro_Text_Regular
 import organizeplus.composeapp.generated.resources.SF_Pro_Text_Semibold
 
-
+/**
+ * A comprehensive and generic typography system using SF Pro Text fonts.
+ * 
+ * This typography system provides:
+ * - Consistent font sizing and spacing
+ * - Proper font weight hierarchy
+ * - Semantic naming based on Material Design 3
+ * - Accessibility considerations
+ * - Generic tokens that can be used across any application
+ */
 @Immutable
-object Typography {
+data class RobustTypography(
+    // Font Family
+    val fontFamily: FontFamily,
+    
+    // ===== DISPLAY TYPOGRAPHY =====
+    // For large headings and hero text
+    val displayLarge: TextStyle,
+    val displayMedium: TextStyle,
+    val displaySmall: TextStyle,
+    
+    // ===== HEADLINE TYPOGRAPHY =====
+    // For section headings and important titles
+    val headlineLarge: TextStyle,
+    val headlineMedium: TextStyle,
+    val headlineSmall: TextStyle,
+    
+    // ===== TITLE TYPOGRAPHY =====
+    // For titles, headers, and prominent text
+    val titleLarge: TextStyle,
+    val titleMedium: TextStyle,
+    val titleSmall: TextStyle,
+    
+    // ===== BODY TYPOGRAPHY =====
+    // For main content and readable text
+    val bodyLarge: TextStyle,
+    val bodyMedium: TextStyle,
+    val bodySmall: TextStyle,
+    
+    // ===== LABEL TYPOGRAPHY =====
+    // For buttons, tags, and UI labels
+    val labelLarge: TextStyle,
+    val labelMedium: TextStyle,
+    val labelSmall: TextStyle,
+    
+    // ===== SEMANTIC TYPOGRAPHY =====
+    // For common UI elements
+    val button: TextStyle,
+    val caption: TextStyle,
+    val overline: TextStyle
+)
 
-    // SF Pro Text Font Family - will be created as a composable function
-    val defaultFontFamily = FontFamily.Default
-
-    // ===== NEW TYPE SCALE =====
-    // H1: 30px / 38px line height
-    val h1 = TextStyle(
-        fontFamily = defaultFontFamily,
-        fontWeight = FontWeight.Medium,
-        fontSize = 30.sp,
-        lineHeight = 38.sp,
-        letterSpacing = 0.sp
-    )
-
-    // H2: 24px / 32px line height
-    val h2 = TextStyle(
-        fontFamily = defaultFontFamily,
-        fontWeight = FontWeight.Medium,
-        fontSize = 24.sp,
-        lineHeight = 32.sp,
-        letterSpacing = 0.sp
-    )
-
-    // H3: 20px / 28px line height
-    val h3 = TextStyle(
-        fontFamily = defaultFontFamily,
-        fontWeight = FontWeight.Medium,
-        fontSize = 20.sp,
-        lineHeight = 28.sp,
-        letterSpacing = 0.sp
-    )
-
-    // Title: 18px / 26px line height
-    val title = TextStyle(
-        fontFamily = defaultFontFamily,
-        fontWeight = FontWeight.Medium,
-        fontSize = 18.sp,
-        lineHeight = 26.sp,
-        letterSpacing = 0.sp
-    )
-
-    // Subtitle: 16px / 24px line height
-    val subtitle = TextStyle(
-        fontFamily = defaultFontFamily,
-        fontWeight = FontWeight.Medium,
-        fontSize = 16.sp,
-        lineHeight = 24.sp,
-        letterSpacing = 0.sp
-    )
-
-    // Body: 14px / 22px line height
-    val body = TextStyle(
-        fontFamily = defaultFontFamily,
-        fontWeight = FontWeight.Normal,
-        fontSize = 14.sp,
-        lineHeight = 22.sp,
-        letterSpacing = 0.sp
-    )
-
-    // Caption: 12px / 19px line height
-    val caption = TextStyle(
-        fontFamily = defaultFontFamily,
-        fontWeight = FontWeight.Normal,
-        fontSize = 12.sp,
-        lineHeight = 19.sp,
-        letterSpacing = 0.sp
-    )
-
-    // ===== FONT WEIGHT VARIANTS =====
-    // Regular (400) variants
-    val h1Regular = h1.copy(fontWeight = FontWeight.Normal)
-    val h2Regular = h2.copy(fontWeight = FontWeight.Normal)
-    val h3Regular = h3.copy(fontWeight = FontWeight.Normal)
-    val titleRegular = title.copy(fontWeight = FontWeight.Normal)
-    val subtitleRegular = subtitle.copy(fontWeight = FontWeight.Normal)
-    val bodyRegular = body.copy(fontWeight = FontWeight.Normal)
-    val captionRegular = caption.copy(fontWeight = FontWeight.Normal)
-
-    // Medium (500) variants (default for most styles)
-    val h1Medium = h1
-    val h2Medium = h2
-    val h3Medium = h3
-    val titleMedium = title
-    val subtitleMedium = subtitle
-    val bodyMedium = body.copy(fontWeight = FontWeight.Medium)
-    val captionMedium = caption.copy(fontWeight = FontWeight.Medium)
-
-    // ===== MATERIAL DESIGN 3 COMPATIBILITY =====
-    val displayLarge = TextStyle(
-        fontFamily = defaultFontFamily,
-        fontWeight = FontWeight.Medium,
-        fontSize = 57.sp,
-        lineHeight = 64.sp,
-        letterSpacing = (-0.25).sp
-    )
-
-    val displayMedium = TextStyle(
-        fontFamily = defaultFontFamily,
-        fontWeight = FontWeight.Medium,
-        fontSize = 45.sp,
-        lineHeight = 52.sp,
-        letterSpacing = 0.sp
-    )
-
-    val displaySmall = TextStyle(
-        fontFamily = defaultFontFamily,
-        fontWeight = FontWeight.Medium,
-        fontSize = 36.sp,
-        lineHeight = 44.sp,
-        letterSpacing = 0.sp
-    )
-
-    val headlineLarge = TextStyle(
-        fontFamily = defaultFontFamily,
-        fontWeight = FontWeight.Medium,
-        fontSize = 32.sp,
-        lineHeight = 40.sp,
-        letterSpacing = 0.sp
-    )
-
-    val headlineMedium = TextStyle(
-        fontFamily = defaultFontFamily,
-        fontWeight = FontWeight.Medium,
-        fontSize = 28.sp,
-        lineHeight = 36.sp,
-        letterSpacing = 0.sp
-    )
-
-    val headlineSmall = h2
-
-    val titleLarge = TextStyle(
-        fontFamily = defaultFontFamily,
-        fontWeight = FontWeight.Medium,
-        fontSize = 22.sp,
-        lineHeight = 28.sp,
-        letterSpacing = 0.sp
-    )
-
-    val titleSmall = title
-
-    val bodyLarge = TextStyle(
-        fontFamily = defaultFontFamily,
-        fontWeight = FontWeight.Normal,
-        fontSize = 18.sp,
-        lineHeight = 26.sp,
-        letterSpacing = 0.5.sp
-    )
-
-    val bodySmall = body
-
-    val labelLarge = TextStyle(
-        fontFamily = defaultFontFamily,
-        fontWeight = FontWeight.Medium,
-        fontSize = 16.sp,
-        lineHeight = 22.sp,
-        letterSpacing = 0.1.sp
-    )
-
-    val labelMedium = TextStyle(
-        fontFamily = defaultFontFamily,
-        fontWeight = FontWeight.Medium,
-        fontSize = 14.sp,
-        lineHeight = 20.sp,
-        letterSpacing = 0.5.sp
-    )
-
-    val labelSmall = TextStyle(
-        fontFamily = defaultFontFamily,
-        fontWeight = FontWeight.Medium,
-        fontSize = 12.sp,
-        lineHeight = 18.sp,
-        letterSpacing = 0.5.sp
-    )
-
-    // ===== LEGACY STYLES (for backward compatibility) =====
-    val greeting = h2
-    val cardTitleSmall = title
-    val kpiNumber = TextStyle(
-        fontFamily = defaultFontFamily,
-        fontWeight = FontWeight.Medium,
-        fontSize = 32.sp,
-        lineHeight = 40.sp,
-        letterSpacing = 0.sp
-    )
-    val listItemTitle = subtitle
-    val secondaryText = body
-    val chipText = caption
-    val cardTitle = h3
-    val cardSubtitle = subtitle
-    val counter = TextStyle(
-        fontFamily = defaultFontFamily,
-        fontWeight = FontWeight.Medium,
-        fontSize = 28.sp,
-        lineHeight = 36.sp,
-        letterSpacing = 0.sp
-    )
-    val chip = TextStyle(
-        fontFamily = defaultFontFamily,
-        fontWeight = FontWeight.Medium,
-        fontSize = 14.sp,
-        lineHeight = 20.sp,
-        letterSpacing = 0.5.sp
-    )
-}
-
+/**
+ * Creates a FontFamily using SF Pro Text fonts with proper weight mapping.
+ */
 @Composable
-fun createSfProTextFontFamily(): FontFamily {
+fun createRobustSfProTextFontFamily(): FontFamily {
     return FontFamily(
         Font(Res.font.SF_Pro_Text_Regular, FontWeight.Normal),
         Font(Res.font.SF_Pro_Text_Medium, FontWeight.Medium),
@@ -230,3 +77,193 @@ fun createSfProTextFontFamily(): FontFamily {
         Font(Res.font.SF_Pro_Text_Bold, FontWeight.Bold)
     )
 }
+
+/**
+ * Creates a generic typography system using SF Pro Text fonts.
+ * 
+ * This function provides a complete typography system with:
+ * - Proper font sizing scale (based on 4px grid system)
+ * - Consistent line heights for readability
+ * - Appropriate letter spacing for different sizes
+ * - Generic semantic naming that can be used across any application
+ */
+@Composable
+fun createRobustTypography(): RobustTypography {
+    val fontFamily = createRobustSfProTextFontFamily()
+    
+    return RobustTypography(
+        fontFamily = fontFamily,
+        
+        // ===== DISPLAY TYPOGRAPHY =====
+        displayLarge = TextStyle(
+            fontFamily = fontFamily,
+            fontWeight = FontWeight.Medium,
+            fontSize = 57.sp,
+            lineHeight = 64.sp,
+            letterSpacing = (-0.25).sp
+        ),
+        
+        displayMedium = TextStyle(
+            fontFamily = fontFamily,
+            fontWeight = FontWeight.Medium,
+            fontSize = 45.sp,
+            lineHeight = 52.sp,
+            letterSpacing = 0.sp
+        ),
+        
+        displaySmall = TextStyle(
+            fontFamily = fontFamily,
+            fontWeight = FontWeight.Medium,
+            fontSize = 36.sp,
+            lineHeight = 44.sp,
+            letterSpacing = 0.sp
+        ),
+        
+        // ===== HEADLINE TYPOGRAPHY =====
+        headlineLarge = TextStyle(
+            fontFamily = fontFamily,
+            fontWeight = FontWeight.Medium,
+            fontSize = 32.sp,
+            lineHeight = 40.sp,
+            letterSpacing = 0.sp
+        ),
+        
+        headlineMedium = TextStyle(
+            fontFamily = fontFamily,
+            fontWeight = FontWeight.Medium,
+            fontSize = 28.sp,
+            lineHeight = 36.sp,
+            letterSpacing = 0.sp
+        ),
+        
+        headlineSmall = TextStyle(
+            fontFamily = fontFamily,
+            fontWeight = FontWeight.Medium,
+            fontSize = 24.sp,
+            lineHeight = 32.sp,
+            letterSpacing = 0.sp
+        ),
+        
+        // ===== TITLE TYPOGRAPHY =====
+        titleLarge = TextStyle(
+            fontFamily = fontFamily,
+            fontWeight = FontWeight.Medium,
+            fontSize = 22.sp,
+            lineHeight = 28.sp,
+            letterSpacing = 0.sp
+        ),
+        
+        titleMedium = TextStyle(
+            fontFamily = fontFamily,
+            fontWeight = FontWeight.Medium,
+            fontSize = 18.sp,
+            lineHeight = 26.sp,
+            letterSpacing = 0.15.sp
+        ),
+        
+        titleSmall = TextStyle(
+            fontFamily = fontFamily,
+            fontWeight = FontWeight.Medium,
+            fontSize = 16.sp,
+            lineHeight = 24.sp,
+            letterSpacing = 0.1.sp
+        ),
+        
+        // ===== BODY TYPOGRAPHY =====
+        bodyLarge = TextStyle(
+            fontFamily = fontFamily,
+            fontWeight = FontWeight.Normal,
+            fontSize = 16.sp,
+            lineHeight = 24.sp,
+            letterSpacing = 0.5.sp
+        ),
+        
+        bodyMedium = TextStyle(
+            fontFamily = fontFamily,
+            fontWeight = FontWeight.Normal,
+            fontSize = 14.sp,
+            lineHeight = 20.sp,
+            letterSpacing = 0.25.sp
+        ),
+        
+        bodySmall = TextStyle(
+            fontFamily = fontFamily,
+            fontWeight = FontWeight.Normal,
+            fontSize = 12.sp,
+            lineHeight = 16.sp,
+            letterSpacing = 0.4.sp
+        ),
+        
+        // ===== LABEL TYPOGRAPHY =====
+        labelLarge = TextStyle(
+            fontFamily = fontFamily,
+            fontWeight = FontWeight.Medium,
+            fontSize = 14.sp,
+            lineHeight = 20.sp,
+            letterSpacing = 0.1.sp
+        ),
+        
+        labelMedium = TextStyle(
+            fontFamily = fontFamily,
+            fontWeight = FontWeight.Medium,
+            fontSize = 12.sp,
+            lineHeight = 16.sp,
+            letterSpacing = 0.5.sp
+        ),
+        
+        labelSmall = TextStyle(
+            fontFamily = fontFamily,
+            fontWeight = FontWeight.Medium,
+            fontSize = 11.sp,
+            lineHeight = 16.sp,
+            letterSpacing = 0.5.sp
+        ),
+        
+        // ===== SEMANTIC TYPOGRAPHY =====
+        button = TextStyle(
+            fontFamily = fontFamily,
+            fontWeight = FontWeight.Medium,
+            fontSize = 14.sp,
+            lineHeight = 20.sp,
+            letterSpacing = 0.1.sp
+        ),
+        
+        caption = TextStyle(
+            fontFamily = fontFamily,
+            fontWeight = FontWeight.Normal,
+            fontSize = 12.sp,
+            lineHeight = 16.sp,
+            letterSpacing = 0.4.sp
+        ),
+        
+        overline = TextStyle(
+            fontFamily = fontFamily,
+            fontWeight = FontWeight.Medium,
+            fontSize = 10.sp,
+            lineHeight = 16.sp,
+            letterSpacing = 1.5.sp
+        )
+    )
+}
+
+/**
+ * Extension functions for easy access to typography styles
+ */
+val RobustTypography.defaultFontFamily: FontFamily
+    get() = fontFamily
+
+// Convenience accessors for common typography patterns
+val RobustTypography.display: TextStyle
+    get() = displayMedium
+
+val RobustTypography.headline: TextStyle
+    get() = headlineMedium
+
+val RobustTypography.title: TextStyle
+    get() = titleMedium
+
+val RobustTypography.body: TextStyle
+    get() = bodyMedium
+
+val RobustTypography.label: TextStyle
+    get() = labelMedium

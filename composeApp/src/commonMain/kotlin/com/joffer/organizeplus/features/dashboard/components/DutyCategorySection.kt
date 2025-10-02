@@ -3,7 +3,6 @@ package com.joffer.organizeplus.features.dashboard.components
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
@@ -12,7 +11,6 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
@@ -31,10 +29,11 @@ import org.jetbrains.compose.resources.stringResource
 import organizeplus.composeapp.generated.resources.Res
 import organizeplus.composeapp.generated.resources.dashboard_amount_paid
 import organizeplus.composeapp.generated.resources.dashboard_company_duties
-import organizeplus.composeapp.generated.resources.dashboard_last_occurrence
 import organizeplus.composeapp.generated.resources.dashboard_monthly_summary
 import organizeplus.composeapp.generated.resources.dashboard_personal_duties
 import organizeplus.composeapp.generated.resources.dashboard_tasks_done
+import organizeplus.composeapp.generated.resources.duty_list_done
+import organizeplus.composeapp.generated.resources.duty_list_paid
 import organizeplus.composeapp.generated.resources.duty_type_actionable
 import organizeplus.composeapp.generated.resources.duty_type_payable
 import organizeplus.composeapp.generated.resources.view_all_duties
@@ -66,7 +65,7 @@ fun DutyCategorySection(
         colors = CardDefaults.cardColors(
             containerColor = config.backgroundColor
         ),
-        elevation = CardDefaults.cardElevation(defaultElevation = Spacing.Elevation.sm)
+        elevation = CardDefaults.cardElevation(defaultElevation = Spacing.Elevation.none)
     ) {
         Column(
             modifier = Modifier
@@ -139,19 +138,11 @@ fun DutyCategorySection(
             }
 
             Spacer(modifier = Modifier.height(Spacing.md))
-
-            TextButton(
-                onClick = onViewAll,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(Spacing.buttonHeight + Spacing.sm)
-            ) {
-                Text(
-                    text = stringResource(Res.string.view_all_duties),
-                    style = typography.bodyMedium,
-                    color = config.accentColor
-                )
-            }
+            OrganizeSecondaryButton(
+                modifier = Modifier.fillMaxWidth().padding(horizontal = Spacing.lg),
+                text = stringResource(Res.string.view_all_duties),
+                onClick = onViewAll
+            )
         }
     }
 }
@@ -166,7 +157,6 @@ private fun DutyCategoryItem(
 ) {
     val typography = localTypography()
     val duty = dutyWithOccurrence.duty
-    val lastOccurrence = dutyWithOccurrence.lastOccurrence
 
     Card(
         modifier = modifier
@@ -183,25 +173,11 @@ private fun DutyCategoryItem(
                 .padding(Spacing.md),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            // Circular icon with accent background
-            Box(
-                modifier = Modifier
-                    .size(Spacing.Icon.xl)
-                    .background(accentLight, CircleShape)
-                    .clip(CircleShape),
-                contentAlignment = Alignment.Center
-            ) {
-                Icon(
-                    imageVector = if (duty.categoryName == CategoryConstants.PERSONAL) {
-                        Icons.Default.Person
-                    } else {
-                        Icons.Default.Home
-                    },
-                    contentDescription = null,
-                    tint = accentColor,
-                    modifier = Modifier.size(Spacing.Icon.md)
-                )
-            }
+            // Category icon using the design system component
+            CategoryIcon(
+                categoryName = duty.categoryName,
+                size = Spacing.Icon.xl
+            )
 
             Spacer(modifier = Modifier.width(Spacing.md))
 
@@ -209,12 +185,41 @@ private fun DutyCategoryItem(
             Column(
                 modifier = Modifier.weight(1f)
             ) {
-                // Duty title
-                Text(
-                    text = duty.title,
-                    style = typography.titleSmall,
-                    color = AppColorScheme.dutyTitle
-                )
+                // Duty title and status tag row
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    // Duty title
+                    Text(
+                        text = duty.title,
+                        style = typography.titleMedium,
+                        color = AppColorScheme.dutyTitle,
+                        modifier = Modifier.weight(1f)
+                    )
+
+                    // Status tag if completed this month
+                    if (dutyWithOccurrence.hasCurrentMonthOccurrence) {
+                        AssistChip(
+                            onClick = { },
+                            label = {
+                                Text(
+                                    text = when (duty.type) {
+                                        DutyType.PAYABLE -> stringResource(Res.string.duty_list_paid)
+                                        DutyType.ACTIONABLE -> stringResource(Res.string.duty_list_done)
+                                    },
+                                    style = typography.labelMedium,
+                                    color = AppColorScheme.success700
+                                )
+                            },
+                            colors = AssistChipDefaults.assistChipColors(
+                                containerColor = AppColorScheme.success100,
+                                labelColor = AppColorScheme.success700
+                            )
+                        )
+                    }
+                }
 
                 Spacer(modifier = Modifier.height(Spacing.xs))
 
@@ -226,23 +231,9 @@ private fun DutyCategoryItem(
                             DutyType.ACTIONABLE -> stringResource(Res.string.duty_type_actionable)
                         }
                     }",
-                    style = typography.bodySmall,
+                    style = typography.bodyMedium,
                     color = AppColorScheme.dutyMeta
                 )
-
-                // Last occurrence info
-                lastOccurrence?.let { occurrence ->
-                    Spacer(modifier = Modifier.height(Spacing.xs))
-                    Text(
-                        text = stringResource(
-                            Res.string.dashboard_last_occurrence,
-                            DateUtils.getMonthName(occurrence.completedDate.monthNumber),
-                            occurrence.completedDate.year
-                        ),
-                        style = typography.caption,
-                        color = AppColorScheme.lastOccurrence
-                    )
-                }
             }
         }
     }
@@ -257,7 +248,7 @@ private fun MonthlySummaryCard(
     Card(
         modifier = modifier.fillMaxWidth(),
         colors = CardDefaults.cardColors(
-            containerColor = AppColorScheme.summaryBackground
+            containerColor = AppColorScheme.background
         ),
         shape = RoundedCornerShape(Spacing.Radius.md)
     ) {
@@ -272,7 +263,7 @@ private fun MonthlySummaryCard(
                     summary.year
                 ),
                 style = typography.bodyMedium,
-                color = AppColorScheme.summaryMonthLabel
+                color = AppColorScheme.dutyTitle
             )
 
             Spacer(modifier = Modifier.height(Spacing.md))
@@ -334,7 +325,7 @@ private fun getCategoryConfig(categoryName: String): CategoryConfig {
         CategoryConstants.COMPANY -> CategoryConfig(
             accentColor = AppColorScheme.companyAccent,
             accentLight = AppColorScheme.companyAccentLight,
-            backgroundColor = AppColorScheme.background,
+            backgroundColor = AppColorScheme.surface,
             sectionIcon = Icons.Default.Home,
             titleResource = Res.string.dashboard_company_duties
         )
@@ -342,7 +333,7 @@ private fun getCategoryConfig(categoryName: String): CategoryConfig {
         else -> CategoryConfig(
             accentColor = AppColorScheme.personalAccent,
             accentLight = AppColorScheme.personalAccentLight,
-            backgroundColor = AppColorScheme.background,
+            backgroundColor = AppColorScheme.surface,
             sectionIcon = Icons.Default.Person,
             titleResource = Res.string.dashboard_personal_duties
         )

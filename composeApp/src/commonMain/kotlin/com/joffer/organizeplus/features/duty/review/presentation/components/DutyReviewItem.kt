@@ -1,0 +1,60 @@
+package com.joffer.organizeplus.features.duty.review.presentation.components
+
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import com.joffer.organizeplus.common.utils.formatString
+import com.joffer.organizeplus.designsystem.colors.ColorScheme
+import com.joffer.organizeplus.designsystem.components.CategoryIcon
+import com.joffer.organizeplus.designsystem.spacing.Spacing
+import com.joffer.organizeplus.designsystem.typography.localTypography
+import com.joffer.organizeplus.features.duty.review.domain.entities.DutyReviewItem
+import com.joffer.organizeplus.utils.formatDateForDisplay
+
+@Composable
+fun DutyReviewItem(
+    item: DutyReviewItem,
+    modifier: Modifier = Modifier
+) {
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(horizontal = Spacing.md, vertical = Spacing.sm),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        // Left side - Icon and duty info
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(Spacing.sm)
+        ) {
+            // Category icon using the design system component
+            CategoryIcon(
+                categoryName = item.categoryName,
+                size = 40.dp
+            )
+
+            // Duty info
+            Column {
+                Text(
+                    text = item.dutyTitle,
+                    style = localTypography().titleMedium,
+                    fontWeight = FontWeight.Medium,
+                    color = ColorScheme.onSurface
+                )
+            }
+        }
+
+        // Right side - Amount
+        Text(
+            text = formatString("$%.2f", item.paidAmount),
+            style = localTypography().bodyLarge,
+            fontWeight = FontWeight.Medium,
+            color = ColorScheme.onSurface
+        )
+    }
+}

@@ -239,4 +239,15 @@
     <string name="navigation_duties">Duties</string>
     <string name="navigation_edit_duty">Edit Duty</string>
 
+    <!-- Duty Review -->
+    <string name="duty_review_title">History</string>
+    <string name="duty_review_empty_title">No payments found</string>
+    <string name="duty_review_empty_subtitle">Complete some tasks to see your payment history</string>
+    <string name="duty_review_error_title">Error loading history</string>
+    <string name="duty_review_error_subtitle">Try again</string>
+    <string name="duty_review_retry">Try again</string>
+    <string name="duty_review_date">Date</string>
+    <string name="duty_review_total">Total</string>
+    <string name="duty_review_search">Search</string>
+
 </resources>

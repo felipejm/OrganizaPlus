@@ -30,4 +30,4 @@ object Settings
 object DesignSystemCatalog
 
 @Serializable
-object DutyReview
+data class DutyReview(val category: String)

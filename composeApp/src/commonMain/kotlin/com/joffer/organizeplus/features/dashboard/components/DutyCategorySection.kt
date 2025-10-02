@@ -1,7 +1,6 @@
 package com.joffer.organizeplus.features.dashboard.components
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -22,7 +21,6 @@ import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.localTypography
 import com.joffer.organizeplus.features.dashboard.MonthlySummary
-import com.joffer.organizeplus.features.dashboard.domain.entities.DutyType
 import com.joffer.organizeplus.features.dashboard.domain.entities.DutyWithLastOccurrence
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
@@ -32,10 +30,6 @@ import organizeplus.composeapp.generated.resources.dashboard_company_duties
 import organizeplus.composeapp.generated.resources.dashboard_monthly_summary
 import organizeplus.composeapp.generated.resources.dashboard_personal_duties
 import organizeplus.composeapp.generated.resources.dashboard_tasks_done
-import organizeplus.composeapp.generated.resources.duty_list_done
-import organizeplus.composeapp.generated.resources.duty_list_paid
-import organizeplus.composeapp.generated.resources.duty_type_actionable
-import organizeplus.composeapp.generated.resources.duty_type_payable
 import organizeplus.composeapp.generated.resources.view_all_duties
 import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
@@ -155,88 +149,16 @@ private fun DutyCategoryItem(
     accentLight: Color,
     modifier: Modifier = Modifier
 ) {
-    val typography = localTypography()
-    val duty = dutyWithOccurrence.duty
-
-    Card(
+    DutyCard(
+        dutyWithOccurrence = dutyWithOccurrence,
+        onDutyClick = onDutyClick,
+        showDeleteButton = false,
+        showPaidChip = true,
+        showCategoryInfo = true,
+        accentColor = accentColor,
+        accentLight = accentLight,
         modifier = modifier
-            .fillMaxWidth()
-            .clickable { onDutyClick() },
-        colors = CardDefaults.cardColors(
-            containerColor = AppColorScheme.cardBackground
-        ),
-        shape = RoundedCornerShape(Spacing.Radius.md)
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(Spacing.md),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            // Category icon using the design system component
-            CategoryIcon(
-                categoryName = duty.categoryName,
-                size = Spacing.Icon.xl
-            )
-
-            Spacer(modifier = Modifier.width(Spacing.md))
-
-            // Content
-            Column(
-                modifier = Modifier.weight(1f)
-            ) {
-                // Duty title and status tag row
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    // Duty title
-                    Text(
-                        text = duty.title,
-                        style = typography.titleMedium,
-                        color = AppColorScheme.dutyTitle,
-                        modifier = Modifier.weight(1f)
-                    )
-
-                    // Status tag if completed this month
-                    if (dutyWithOccurrence.hasCurrentMonthOccurrence) {
-                        AssistChip(
-                            onClick = { },
-                            label = {
-                                Text(
-                                    text = when (duty.type) {
-                                        DutyType.PAYABLE -> stringResource(Res.string.duty_list_paid)
-                                        DutyType.ACTIONABLE -> stringResource(Res.string.duty_list_done)
-                                    },
-                                    style = typography.labelMedium,
-                                    color = AppColorScheme.success700
-                                )
-                            },
-                            colors = AssistChipDefaults.assistChipColors(
-                                containerColor = AppColorScheme.success100,
-                                labelColor = AppColorScheme.success700
-                            )
-                        )
-                    }
-                }
-
-                Spacer(modifier = Modifier.height(Spacing.xs))
-
-                // Meta info (category and type)
-                Text(
-                    text = "${duty.categoryName} • ${
-                        when (duty.type) {
-                            DutyType.PAYABLE -> stringResource(Res.string.duty_type_payable)
-                            DutyType.ACTIONABLE -> stringResource(Res.string.duty_type_actionable)
-                        }
-                    }",
-                    style = typography.bodyMedium,
-                    color = AppColorScheme.dutyMeta
-                )
-            }
-        }
-    }
+    )
 }
 
 @Composable

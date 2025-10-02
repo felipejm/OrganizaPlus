@@ -4,5 +4,5 @@ import com.joffer.organizeplus.features.duty.review.domain.entities.DutyReviewDa
 import kotlinx.coroutines.flow.Flow
 
 interface DutyReviewRepository {
-    suspend fun getDutyReviewData(): Flow<Result<DutyReviewData>>
+    suspend fun getDutyReviewData(categoryFilter: String?): Flow<Result<DutyReviewData>>
 }

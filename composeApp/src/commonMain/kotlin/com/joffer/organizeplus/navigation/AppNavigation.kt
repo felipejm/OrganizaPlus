@@ -105,7 +105,7 @@ fun AppNavigation(
                         navController.navigate(DutyOccurrences(dutyId))
                     },
                     onNavigateToReview = {
-                        navController.navigate(DutyReview)
+                        navController.navigate(DutyReview(duties.category))
                     }
                 )
             }
@@ -151,8 +151,9 @@ fun AppNavigation(
                 )
             }
 
-            composable<DutyReview> {
-                val dutyReviewViewModel: DutyReviewViewModel = koinInject()
+            composable<DutyReview> { backStackEntry ->
+                val dutyReview = backStackEntry.toRoute<DutyReview>()
+                val dutyReviewViewModel: DutyReviewViewModel = koinInject { parametersOf(dutyReview.category) }
                 DutyReviewScreen(
                     viewModel = dutyReviewViewModel,
                     onNavigateBack = {

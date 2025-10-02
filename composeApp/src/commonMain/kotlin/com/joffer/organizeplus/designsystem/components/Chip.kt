@@ -8,10 +8,6 @@ import androidx.compose.ui.graphics.Color
 import com.joffer.organizeplus.designsystem.typography.localTypography
 import org.jetbrains.compose.resources.stringResource
 import organizeplus.composeapp.generated.resources.Res
-import organizeplus.composeapp.generated.resources.priority_high
-import organizeplus.composeapp.generated.resources.priority_low
-import organizeplus.composeapp.generated.resources.priority_medium
-import organizeplus.composeapp.generated.resources.priority_urgent
 import organizeplus.composeapp.generated.resources.status_overdue
 import organizeplus.composeapp.generated.resources.status_paid
 import organizeplus.composeapp.generated.resources.status_pending
@@ -28,11 +24,13 @@ fun StatusChip(
             MaterialTheme.colorScheme.tertiaryContainer,
             MaterialTheme.colorScheme.onTertiaryContainer
         )
+
         ObligationStatus.PAID -> Triple(
             Res.string.status_paid,
             MaterialTheme.colorScheme.primaryContainer,
             MaterialTheme.colorScheme.onPrimaryContainer
         )
+
         ObligationStatus.OVERDUE -> Triple(
             Res.string.status_overdue,
             MaterialTheme.colorScheme.errorContainer,
@@ -60,27 +58,27 @@ fun StatusChip(
 @Composable
 fun PriorityChip(
     priority: ObligationPriority,
+    text: String,
     modifier: Modifier = Modifier
 ) {
     val typography = localTypography()
-    val (textResource, containerColor, contentColor) = when (priority) {
-        ObligationPriority.LOW -> Triple(
-            Res.string.priority_low,
+    val (containerColor, contentColor) = when (priority) {
+        ObligationPriority.LOW -> Pair(
             MaterialTheme.colorScheme.surfaceVariant,
             MaterialTheme.colorScheme.onSurfaceVariant
         )
-        ObligationPriority.MEDIUM -> Triple(
-            Res.string.priority_medium,
+
+        ObligationPriority.MEDIUM -> Pair(
             MaterialTheme.colorScheme.secondaryContainer,
             MaterialTheme.colorScheme.onSecondaryContainer
         )
-        ObligationPriority.HIGH -> Triple(
-            Res.string.priority_high,
+
+        ObligationPriority.HIGH -> Pair(
             MaterialTheme.colorScheme.tertiaryContainer,
             MaterialTheme.colorScheme.onTertiaryContainer
         )
-        ObligationPriority.URGENT -> Triple(
-            Res.string.priority_urgent,
+
+        ObligationPriority.URGENT -> Pair(
             MaterialTheme.colorScheme.errorContainer,
             MaterialTheme.colorScheme.onErrorContainer
         )
@@ -90,7 +88,7 @@ fun PriorityChip(
         onClick = { },
         label = {
             Text(
-                text = stringResource(textResource),
+                text = text,
                 style = typography.labelMedium,
                 color = contentColor
             )

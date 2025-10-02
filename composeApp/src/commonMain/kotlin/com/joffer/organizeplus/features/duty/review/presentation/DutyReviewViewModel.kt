@@ -23,7 +23,9 @@ data class DutyReviewUiState(
     val error: String? = null
 )
 
-class DutyReviewViewModel : ViewModel(), KoinComponent {
+class DutyReviewViewModel(
+    private val categoryFilter: String? = null
+) : ViewModel(), KoinComponent {
 
     private val repository: DutyReviewRepository by inject()
 
@@ -49,7 +51,7 @@ class DutyReviewViewModel : ViewModel(), KoinComponent {
 
     private fun loadData() {
         viewModelScope.launch {
-            repository.getDutyReviewData().collect { result ->
+            repository.getDutyReviewData(categoryFilter).collect { result ->
                 result.fold(
                     onSuccess = { data ->
                         _uiState.value = DutyReviewUiState(

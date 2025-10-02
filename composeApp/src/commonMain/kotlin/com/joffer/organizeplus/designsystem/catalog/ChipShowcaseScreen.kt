@@ -78,9 +78,11 @@ private fun ChipShowcaseItem(
                 ChipShowcaseItem.PRIORITY -> {
                     PriorityChipExamples()
                 }
+
                 ChipShowcaseItem.CATEGORY -> {
                     CategoryChipExamples()
                 }
+
                 ChipShowcaseItem.STATUS -> {
                     StatusChipExamples()
                 }
@@ -105,10 +107,10 @@ private fun PriorityChipExamples() {
             horizontalArrangement = Arrangement.spacedBy(Spacing.sm),
             verticalAlignment = androidx.compose.ui.Alignment.CenterVertically
         ) {
-            PriorityChip(priority = ObligationPriority.LOW)
-            PriorityChip(priority = ObligationPriority.MEDIUM)
-            PriorityChip(priority = ObligationPriority.HIGH)
-            PriorityChip(priority = ObligationPriority.URGENT)
+            PriorityChip(text = "LOW", priority = ObligationPriority.LOW)
+            PriorityChip(text = "MEDIUM", priority = ObligationPriority.MEDIUM)
+            PriorityChip(text = "HIGH", priority = ObligationPriority.HIGH)
+            PriorityChip(text = "URGENT", priority = ObligationPriority.URGENT)
         }
     }
 }

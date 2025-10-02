@@ -15,23 +15,28 @@ class RoomDutyReviewRepository(
     private val dutyOccurrenceDao: DutyOccurrenceDao
 ) : DutyReviewRepository {
 
-    override suspend fun getDutyReviewData(): Flow<Result<DutyReviewData>> {
+    override suspend fun getDutyReviewData(categoryFilter: String?): Flow<Result<DutyReviewData>> {
         return flow {
             try {
                 val occurrences = dutyOccurrenceDao.getAllDutyOccurrencesWithDutyInfo()
 
-                val reviewItems = occurrences.map { occurrence ->
-                    val completedDate = Instant.fromEpochMilliseconds(occurrence.completedDateMillis)
-                        .toLocalDateTime(TimeZone.currentSystemDefault()).date
+                val reviewItems = occurrences
+                    .filter { occurrence ->
+                        // Filter by category if provided
+                        categoryFilter == null || occurrence.categoryName == categoryFilter
+                    }
+                    .map { occurrence ->
+                        val completedDate = Instant.fromEpochMilliseconds(occurrence.completedDateMillis)
+                            .toLocalDateTime(TimeZone.currentSystemDefault()).date
 
-                    DutyReviewItem(
-                        dutyId = occurrence.dutyId,
-                        dutyTitle = occurrence.dutyTitle,
-                        categoryName = occurrence.categoryName,
-                        paidAmount = occurrence.paidAmount,
-                        completedDate = completedDate
-                    )
-                }
+                        DutyReviewItem(
+                            dutyId = occurrence.dutyId,
+                            dutyTitle = occurrence.dutyTitle,
+                            categoryName = occurrence.categoryName,
+                            paidAmount = occurrence.paidAmount,
+                            completedDate = completedDate
+                        )
+                    }
 
                 // Group by year-month directly from the LocalDate
                 val monthlyGroups = reviewItems.groupBy { item ->

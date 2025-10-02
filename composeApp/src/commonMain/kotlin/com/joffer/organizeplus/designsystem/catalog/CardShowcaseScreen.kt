@@ -82,9 +82,11 @@ private fun CardShowcaseItem(
                 CardShowcaseItem.BASIC -> {
                     BasicCardExamples()
                 }
+
                 CardShowcaseItem.INTERACTIVE -> {
                     InteractiveCardExamples()
                 }
+
                 CardShowcaseItem.CONTENT -> {
                     ContentCardExamples()
                 }
@@ -258,7 +260,7 @@ private fun ContentCardExamples() {
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(Spacing.sm)
                 ) {
-                    PriorityChip(priority = ObligationPriority.HIGH)
+                    PriorityChip(text = "HIGH", priority = ObligationPriority.HIGH)
                     CategoryChip(
                         category = "Important",
                         color = AppColorScheme.primary

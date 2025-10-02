@@ -13,7 +13,6 @@ import com.joffer.organizeplus.designsystem.components.CategoryIcon
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.localTypography
 import com.joffer.organizeplus.features.duty.review.domain.entities.DutyReviewItem
-import com.joffer.organizeplus.utils.formatDateForDisplay
 
 @Composable
 fun DutyReviewItem(

@@ -22,7 +22,7 @@ import com.joffer.organizeplus.common.utils.CurrencyUtils
 import com.joffer.organizeplus.common.utils.DateUtils
 import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.spacing.Spacing
-import com.joffer.organizeplus.designsystem.typography.Typography
+import com.joffer.organizeplus.designsystem.typography.localTypography
 import com.joffer.organizeplus.features.dashboard.MonthlySummary
 import com.joffer.organizeplus.features.dashboard.domain.entities.DutyType
 import com.joffer.organizeplus.features.dashboard.domain.entities.DutyWithLastOccurrence
@@ -58,6 +58,7 @@ fun DutyCategorySection(
     sectionTitle: String? = null,
     monthlySummary: MonthlySummary? = null
 ) {
+    val typography = localTypography()
     val config = getCategoryConfig(categoryName)
 
     Card(
@@ -100,7 +101,7 @@ fun DutyCategorySection(
                 // Section title
                 Text(
                     text = sectionTitle ?: stringResource(config.titleResource),
-                    style = Typography.title,
+                    style = typography.titleMedium,
                     color = AppColorScheme.sectionHeader
                 )
             }
@@ -147,7 +148,7 @@ fun DutyCategorySection(
             ) {
                 Text(
                     text = stringResource(Res.string.view_all_duties),
-                    style = Typography.bodyMedium,
+                    style = typography.bodyMedium,
                     color = config.accentColor
                 )
             }
@@ -163,6 +164,7 @@ private fun DutyCategoryItem(
     accentLight: Color,
     modifier: Modifier = Modifier
 ) {
+    val typography = localTypography()
     val duty = dutyWithOccurrence.duty
     val lastOccurrence = dutyWithOccurrence.lastOccurrence
 
@@ -210,7 +212,7 @@ private fun DutyCategoryItem(
                 // Duty title
                 Text(
                     text = duty.title,
-                    style = Typography.subtitle,
+                    style = typography.titleSmall,
                     color = AppColorScheme.dutyTitle
                 )
 
@@ -224,7 +226,7 @@ private fun DutyCategoryItem(
                             DutyType.ACTIONABLE -> stringResource(Res.string.duty_type_actionable)
                         }
                     }",
-                    style = Typography.body,
+                    style = typography.bodySmall,
                     color = AppColorScheme.dutyMeta
                 )
 
@@ -237,7 +239,7 @@ private fun DutyCategoryItem(
                             DateUtils.getMonthName(occurrence.completedDate.monthNumber),
                             occurrence.completedDate.year
                         ),
-                        style = Typography.captionMedium,
+                        style = typography.caption,
                         color = AppColorScheme.lastOccurrence
                     )
                 }
@@ -251,6 +253,7 @@ private fun MonthlySummaryCard(
     summary: MonthlySummary,
     modifier: Modifier = Modifier
 ) {
+    val typography = localTypography()
     Card(
         modifier = modifier.fillMaxWidth(),
         colors = CardDefaults.cardColors(
@@ -268,7 +271,7 @@ private fun MonthlySummaryCard(
                     DateUtils.getMonthName(summary.currentMonth),
                     summary.year
                 ),
-                style = Typography.bodyMedium,
+                style = typography.bodyMedium,
                 color = AppColorScheme.summaryMonthLabel
             )
 
@@ -285,12 +288,12 @@ private fun MonthlySummaryCard(
                 ) {
                     Text(
                         text = CurrencyUtils.formatCurrency(summary.totalAmountPaid),
-                        style = Typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
+                        style = typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
                         color = if (summary.totalAmountPaid > 0) AppColorScheme.amountPaid else AppColorScheme.dutyMeta
                     )
                     Text(
                         text = stringResource(Res.string.dashboard_amount_paid),
-                        style = Typography.caption,
+                        style = typography.caption,
                         color = AppColorScheme.dutyMeta
                     )
                 }
@@ -301,12 +304,12 @@ private fun MonthlySummaryCard(
                 ) {
                     Text(
                         text = "${summary.totalCompleted}/${summary.totalTasks}",
-                        style = Typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
+                        style = typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
                         color = AppColorScheme.dutyMeta
                     )
                     Text(
                         text = stringResource(Res.string.dashboard_tasks_done),
-                        style = Typography.caption,
+                        style = typography.caption,
                         color = AppColorScheme.dutyMeta
                     )
                 }

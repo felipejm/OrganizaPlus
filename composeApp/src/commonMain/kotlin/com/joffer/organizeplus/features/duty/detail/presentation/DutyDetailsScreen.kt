@@ -16,7 +16,8 @@ import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.components.ErrorBanner
 import com.joffer.organizeplus.designsystem.components.ResultType
 import com.joffer.organizeplus.designsystem.spacing.Spacing
-import com.joffer.organizeplus.designsystem.typography.Typography
+import com.joffer.organizeplus.designsystem.typography.ProvideSfProTypography
+import com.joffer.organizeplus.designsystem.typography.localTypography
 import com.joffer.organizeplus.features.duty.detail.components.DutyBarChart
 import com.joffer.organizeplus.features.duty.detail.components.DutyHeaderCard
 import com.joffer.organizeplus.features.duty.detail.components.DutyOccurrenceListItem
@@ -43,8 +44,10 @@ fun DutyDetailsScreen(
     onEditDuty: (Long) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val uiState by viewModel.uiState.collectAsState()
-    var showAddOccurrenceBottomSheet by remember { mutableStateOf(false) }
+    ProvideSfProTypography {
+        val uiState by viewModel.uiState.collectAsState()
+        val typography = localTypography()
+        var showAddOccurrenceBottomSheet by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
         viewModel.onIntent(DutyDetailsListIntent.LoadRecords)
@@ -134,7 +137,7 @@ fun DutyDetailsScreen(
                             ) {
                                 Text(
                                     text = stringResource(Res.string.duty_occurrence_list_title),
-                                    style = Typography.headlineSmall,
+                                    style = typography.headlineSmall,
                                     color = AppColorScheme.onSurface,
                                     fontWeight = FontWeight.Bold
                                 )
@@ -176,5 +179,6 @@ fun DutyDetailsScreen(
                 }
             )
         }
+    }
     }
 }

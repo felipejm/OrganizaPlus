@@ -9,7 +9,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.spacing.Spacing
-import com.joffer.organizeplus.designsystem.typography.Typography
+import com.joffer.organizeplus.designsystem.typography.ProvideSfProTypography
+import com.joffer.organizeplus.designsystem.typography.localTypography
 import org.jetbrains.compose.resources.stringResource
 import organizeplus.composeapp.generated.resources.Res
 import organizeplus.composeapp.generated.resources.settings_design_system
@@ -26,7 +27,9 @@ fun SettingsScreen(
     onNavigateToDesignSystem: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val uiState by viewModel.uiState.collectAsState()
+    ProvideSfProTypography {
+        val uiState by viewModel.uiState.collectAsState()
+        val typography = localTypography()
 
     Column(
         modifier = modifier.fillMaxSize()
@@ -46,7 +49,7 @@ fun SettingsScreen(
             Column {
                 Text(
                     text = stringResource(Res.string.settings_design_system),
-                    style = Typography.titleMedium,
+                    style = typography.titleMedium,
                     color = AppColorScheme.onSurface,
                     fontWeight = FontWeight.SemiBold
                 )
@@ -65,12 +68,13 @@ fun SettingsScreen(
                         Spacer(modifier = Modifier.height(Spacing.sm))
                         Text(
                             text = stringResource(Res.string.settings_design_system_description),
-                            style = Typography.body,
+                            style = typography.bodyMedium,
                             color = AppColorScheme.onSurfaceVariant
                         )
                     }
                 }
             }
         }
+    }
     }
 }

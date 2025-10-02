@@ -80,7 +80,7 @@ object ColorScheme {
 
     // ===== MATERIAL DESIGN 3 MAPPING =====
     // Primary colors mapped to new primary palette
-    val primary = primary500
+    val primary = black
     val onPrimary = white
     val primaryContainer = primary100
     val onPrimaryContainer = primary700

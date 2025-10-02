@@ -13,7 +13,8 @@ import com.joffer.organizeplus.common.utils.DateUtils
 import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.components.ErrorBanner
 import com.joffer.organizeplus.designsystem.spacing.Spacing
-import com.joffer.organizeplus.designsystem.typography.Typography
+import com.joffer.organizeplus.designsystem.typography.ProvideSfProTypography
+import com.joffer.organizeplus.designsystem.typography.localTypography
 import com.joffer.organizeplus.features.dashboard.DashboardIntent
 import com.joffer.organizeplus.features.dashboard.components.DutyCategorySection
 import kotlinx.datetime.Clock
@@ -31,97 +32,100 @@ fun DashboardScreen(
     viewModel: DashboardViewModel,
     onNavigateToPersonalDuties: () -> Unit,
     onNavigateToCompanyDuties: () -> Unit,
-    onNavigateToEditDuty: (Long) -> Unit,
+    onNavigateToDutyDetails: (Long) -> Unit,
     onNavigateToSettings: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val uiState by viewModel.uiState.collectAsState()
+    ProvideSfProTypography {
+        val uiState by viewModel.uiState.collectAsState()
+        val typography = localTypography()
 
-    // Get current month and year for header
-    val currentDateTime = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
-    val currentMonth = DateUtils.getMonthName(currentDateTime.monthNumber)
-    val currentYear = currentDateTime.year
+        // Get current month and year for header
+        val currentDateTime = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
+        val currentMonth = DateUtils.getMonthName(currentDateTime.monthNumber)
+        val currentYear = currentDateTime.year
 
-    LaunchedEffect(Unit) {
-        viewModel.onIntent(DashboardIntent.LoadDashboard)
-    }
-
-    Scaffold(
-        modifier = modifier,
-        topBar = {
-            AppTopAppBarWithActions(
-                title = stringResource(Res.string.app_name),
-                actions = {
-                    IconButton(onClick = onNavigateToSettings) {
-                        Icon(
-                            imageVector = Icons.Default.Settings,
-                            contentDescription = stringResource(Res.string.settings_button_description),
-                            tint = AppColorScheme.formIcon
-                        )
-                    }
-                }
-            )
+        LaunchedEffect(Unit) {
+            viewModel.onIntent(DashboardIntent.LoadDashboard)
         }
-    ) { paddingValues ->
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(paddingValues),
-            contentPadding = PaddingValues(Spacing.Screen.padding),
-            verticalArrangement = Arrangement.spacedBy(Spacing.Screen.contentSpacing)
-        ) {
-            if (uiState.error != null) {
-                item {
-                    ErrorBanner(
-                        message = uiState.error!!,
-                        onRetry = { viewModel.onIntent(DashboardIntent.Retry) },
-                        onDismiss = { viewModel.onIntent(DashboardIntent.ClearError) }
-                    )
-                }
-            }
 
-            if (uiState.isLoading) {
-                item {
-                    OrganizeProgressIndicatorFullScreen()
-                }
-            } else {
-                // Month/Year Header
-                item {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = Spacing.md),
-                        horizontalArrangement = Arrangement.Start,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Text(
-                            text = "$currentMonth $currentYear",
-                            style = Typography.titleLarge,
-                            color = AppColorScheme.black
+        Scaffold(
+            modifier = modifier,
+            topBar = {
+                AppTopAppBarWithActions(
+                    title = stringResource(Res.string.app_name),
+                    actions = {
+                        IconButton(onClick = onNavigateToSettings) {
+                            Icon(
+                                imageVector = Icons.Default.Settings,
+                                contentDescription = stringResource(Res.string.settings_button_description),
+                                tint = AppColorScheme.formIcon
+                            )
+                        }
+                    }
+                )
+            }
+        ) { paddingValues ->
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(paddingValues),
+                contentPadding = PaddingValues(Spacing.Screen.padding),
+                verticalArrangement = Arrangement.spacedBy(Spacing.Screen.contentSpacing)
+            ) {
+                if (uiState.error != null) {
+                    item {
+                        ErrorBanner(
+                            message = uiState.error!!,
+                            onRetry = { viewModel.onIntent(DashboardIntent.Retry) },
+                            onDismiss = { viewModel.onIntent(DashboardIntent.ClearError) }
                         )
                     }
                 }
 
-                // Personal Duties Section
-                item {
-                    DutyCategorySection(
-                        duties = uiState.personalDuties,
-                        onViewAll = onNavigateToPersonalDuties,
-                        onDutyClick = onNavigateToEditDuty,
-                        categoryName = CategoryConstants.PERSONAL,
-                        monthlySummary = uiState.personalSummary
-                    )
-                }
+                if (uiState.isLoading) {
+                    item {
+                        OrganizeProgressIndicatorFullScreen()
+                    }
+                } else {
+                    // Month/Year Header
+                    item {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = Spacing.md),
+                            horizontalArrangement = Arrangement.Start,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Text(
+                                text = "$currentMonth $currentYear",
+                                style = typography.titleLarge,
+                                color = AppColorScheme.black
+                            )
+                        }
+                    }
 
-                // Company Duties Section
-                item {
-                    DutyCategorySection(
-                        duties = uiState.companyDuties,
-                        onViewAll = onNavigateToCompanyDuties,
-                        onDutyClick = onNavigateToEditDuty,
-                        categoryName = CategoryConstants.COMPANY,
-                        monthlySummary = uiState.companySummary
-                    )
+                    // Personal Duties Section
+                    item {
+                        DutyCategorySection(
+                            duties = uiState.personalDuties,
+                            onViewAll = onNavigateToPersonalDuties,
+                            onDutyClick = onNavigateToDutyDetails,
+                            categoryName = CategoryConstants.PERSONAL,
+                            monthlySummary = uiState.personalSummary
+                        )
+                    }
+
+                    // Company Duties Section
+                    item {
+                        DutyCategorySection(
+                            duties = uiState.companyDuties,
+                            onViewAll = onNavigateToCompanyDuties,
+                            onDutyClick = onNavigateToDutyDetails,
+                            categoryName = CategoryConstants.COMPANY,
+                            monthlySummary = uiState.companySummary
+                        )
+                    }
                 }
             }
         }

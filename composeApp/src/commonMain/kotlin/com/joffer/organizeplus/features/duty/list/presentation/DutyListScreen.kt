@@ -14,7 +14,8 @@ import com.joffer.organizeplus.common.utils.DateUtils
 import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.components.ResultType
 import com.joffer.organizeplus.designsystem.spacing.Spacing
-import com.joffer.organizeplus.designsystem.typography.Typography
+import com.joffer.organizeplus.designsystem.typography.ProvideSfProTypography
+import com.joffer.organizeplus.designsystem.typography.localTypography
 import com.joffer.organizeplus.features.duty.list.components.DutyListItem
 import com.joffer.organizeplus.features.duty.list.domain.DutyCategoryFilter
 import kotlinx.datetime.Clock
@@ -42,12 +43,14 @@ fun DutyListScreen(
     onNavigateBack: () -> Unit,
     onNavigateToOccurrences: (Long) -> Unit
 ) {
-    val uiState by viewModel.uiState.collectAsState()
+    ProvideSfProTypography {
+        val uiState by viewModel.uiState.collectAsState()
+        val typography = localTypography()
 
-    // Get current month and year for header
-    val currentDateTime = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
-    val currentMonth = DateUtils.getMonthName(currentDateTime.monthNumber)
-    val currentYear = currentDateTime.year
+        // Get current month and year for header
+        val currentDateTime = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
+        val currentMonth = DateUtils.getMonthName(currentDateTime.monthNumber)
+        val currentYear = currentDateTime.year
 
     LaunchedEffect(uiState.error) {
         if (uiState.error != null) {
@@ -99,14 +102,14 @@ fun DutyListScreen(
                     ) {
                         Text(
                             text = stringResource(Res.string.duty_list_error_title),
-                            style = Typography.titleMedium,
+                            style = typography.titleMedium,
                             color = AppColorScheme.error
                         )
                         Spacer(modifier = Modifier.height(Spacing.sm))
                         Text(
                             text = uiState.error
                                 ?: stringResource(Res.string.duty_list_error_subtitle),
-                            style = Typography.bodyMedium,
+                            style = typography.bodyMedium,
                             color = AppColorScheme.formSecondaryText
                         )
                         Spacer(modifier = Modifier.height(Spacing.md))
@@ -151,7 +154,7 @@ fun DutyListScreen(
                         ) {
                             Text(
                                 text = "$currentMonth $currentYear",
-                                style = Typography.titleLarge,
+                                style = typography.titleLarge,
                                 color = AppColorScheme.black
                             )
                         }
@@ -174,5 +177,6 @@ fun DutyListScreen(
                 }
             }
         }
+    }
     }
 }

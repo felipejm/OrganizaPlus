@@ -10,7 +10,7 @@ import com.joffer.organizeplus.common.utils.DateUtils
 import com.joffer.organizeplus.common.utils.toCurrencyFormat
 import com.joffer.organizeplus.designsystem.components.OrganizeCard
 import com.joffer.organizeplus.designsystem.spacing.Spacing
-import com.joffer.organizeplus.designsystem.typography.Typography
+import com.joffer.organizeplus.designsystem.typography.localTypography
 import com.joffer.organizeplus.features.duty.occurrence.domain.entities.DutyOccurrence
 import org.jetbrains.compose.resources.stringResource
 import organizeplus.composeapp.generated.resources.Res
@@ -23,6 +23,7 @@ fun DutyOccurrenceListItem(
     onDelete: (Long) -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val typography = localTypography()
     OrganizeCard(
         modifier = modifier.fillMaxWidth()
     ) {
@@ -44,7 +45,7 @@ fun DutyOccurrenceListItem(
 
                     Text(
                         text = monthYearText,
-                        style = Typography.labelLarge,
+                        style = typography.labelLarge,
                         color = AppColorScheme.formSecondaryText,
                         fontWeight = FontWeight.Bold
                     )
@@ -54,7 +55,7 @@ fun DutyOccurrenceListItem(
                         Spacer(modifier = Modifier.height(Spacing.xs))
                         Text(
                             text = occurrence.paidAmount.toCurrencyFormat(),
-                            style = Typography.labelLarge,
+                            style = typography.labelLarge,
                             color = AppColorScheme.formSecondaryText,
                             fontWeight = FontWeight.Medium
                         )

@@ -1,14 +1,23 @@
 package com.joffer.organizeplus.designsystem.typography
 
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
+import org.jetbrains.compose.resources.Font
+import organizeplus.composeapp.generated.resources.Res
+import organizeplus.composeapp.generated.resources.SF_Pro_Text_Bold
+import organizeplus.composeapp.generated.resources.SF_Pro_Text_Medium
+import organizeplus.composeapp.generated.resources.SF_Pro_Text_Regular
+import organizeplus.composeapp.generated.resources.SF_Pro_Text_Semibold
+
 
 @Immutable
 object Typography {
 
+    // SF Pro Text Font Family - will be created as a composable function
     val defaultFontFamily = FontFamily.Default
 
     // ===== NEW TYPE SCALE =====
@@ -209,5 +218,15 @@ object Typography {
         fontSize = 14.sp,
         lineHeight = 20.sp,
         letterSpacing = 0.5.sp
+    )
+}
+
+@Composable
+fun createSfProTextFontFamily(): FontFamily {
+    return FontFamily(
+        Font(Res.font.SF_Pro_Text_Regular, FontWeight.Normal),
+        Font(Res.font.SF_Pro_Text_Medium, FontWeight.Medium),
+        Font(Res.font.SF_Pro_Text_Semibold, FontWeight.SemiBold),
+        Font(Res.font.SF_Pro_Text_Bold, FontWeight.Bold)
     )
 }

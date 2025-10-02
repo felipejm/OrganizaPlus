@@ -8,7 +8,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import com.joffer.organizeplus.designsystem.components.OrganizeCard
 import com.joffer.organizeplus.designsystem.spacing.Spacing
-import com.joffer.organizeplus.designsystem.typography.Typography
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.unit.sp
 import com.joffer.organizeplus.features.dashboard.domain.entities.Duty
 import com.joffer.organizeplus.features.dashboard.domain.entities.DutyType
 import org.jetbrains.compose.resources.stringResource
@@ -62,13 +63,13 @@ fun DutyInfoItem(
     ) {
         Text(
             text = label,
-            style = Typography.labelLarge,
+            style = TextStyle(fontSize = 14.sp),
             color = AppColorScheme.formSecondaryText,
             fontWeight = FontWeight.Light
         )
         Text(
             text = value,
-            style = Typography.bodyLarge,
+            style = TextStyle(fontSize = 16.sp),
             color = AppColorScheme.onSurface,
             fontWeight = FontWeight.Bold
         )

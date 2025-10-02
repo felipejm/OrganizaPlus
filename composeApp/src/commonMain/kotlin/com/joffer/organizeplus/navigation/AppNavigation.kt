@@ -47,8 +47,8 @@ fun AppNavigation(
                 onNavigateToCompanyDuties = {
                     navController.navigate(Duties(CategoryConstants.COMPANY))
                 },
-                onNavigateToEditDuty = { dutyId ->
-                    navController.navigate(EditDuty(dutyId))
+                onNavigateToDutyDetails = { dutyId ->
+                    navController.navigate(DutyOccurrences(dutyId))
                 },
                 onNavigateToSettings = {
                     navController.navigate(Settings)

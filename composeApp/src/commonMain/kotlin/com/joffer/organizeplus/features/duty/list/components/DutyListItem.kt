@@ -11,7 +11,7 @@ import com.joffer.organizeplus.common.utils.DateUtils
 import com.joffer.organizeplus.designsystem.components.CategoryIcon
 import com.joffer.organizeplus.designsystem.components.OrganizeCard
 import com.joffer.organizeplus.designsystem.spacing.Spacing
-import com.joffer.organizeplus.designsystem.typography.Typography
+import com.joffer.organizeplus.designsystem.typography.localTypography
 import com.joffer.organizeplus.features.dashboard.domain.entities.DutyType
 import com.joffer.organizeplus.features.dashboard.domain.entities.DutyWithLastOccurrence
 import org.jetbrains.compose.resources.stringResource
@@ -32,6 +32,7 @@ fun DutyListItem(
     onDelete: (Long) -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val typography = localTypography()
     val duty = dutyWithOccurrence.duty
     val lastOccurrence = dutyWithOccurrence.lastOccurrence
     OrganizeCard(
@@ -54,11 +55,11 @@ fun DutyListItem(
                         categoryName = duty.categoryName
                     )
                     Spacer(modifier = Modifier.width(Spacing.sm))
-                    Text(
-                        text = duty.title,
-                        style = Typography.listItemTitle,
-                        color = AppColorScheme.formText
-                    )
+                        Text(
+                            text = duty.title,
+                            style = typography.titleSmall,
+                            color = AppColorScheme.formText
+                        )
                 }
 
                 Row(
@@ -70,14 +71,14 @@ fun DutyListItem(
                         AssistChip(
                             onClick = { },
                             label = {
-                                Text(
-                                    text = when (duty.type) {
-                                        DutyType.PAYABLE -> stringResource(Res.string.duty_list_paid)
-                                        DutyType.ACTIONABLE -> stringResource(Res.string.duty_list_done)
-                                    },
-                                    style = Typography.chip,
-                                    color = AppColorScheme.success700
-                                )
+                                    Text(
+                                        text = when (duty.type) {
+                                            DutyType.PAYABLE -> stringResource(Res.string.duty_list_paid)
+                                            DutyType.ACTIONABLE -> stringResource(Res.string.duty_list_done)
+                                        },
+                                        style = typography.labelMedium,
+                                        color = AppColorScheme.success700
+                                    )
                             },
                             modifier = modifier,
                             colors = AssistChipDefaults.assistChipColors(
@@ -107,26 +108,26 @@ fun DutyListItem(
             Row(
                 horizontalArrangement = Arrangement.spacedBy(Spacing.sm)
             ) {
-                Text(
-                    text = duty.categoryName,
-                    style = Typography.labelSmall,
-                    color = AppColorScheme.formSecondaryText
-                )
+                    Text(
+                        text = duty.categoryName,
+                        style = typography.labelSmall,
+                        color = AppColorScheme.formSecondaryText
+                    )
 
-                Text(
-                    text = stringResource(Res.string.duty_list_separator),
-                    style = Typography.labelSmall,
-                    color = AppColorScheme.formSecondaryText
-                )
+                    Text(
+                        text = stringResource(Res.string.duty_list_separator),
+                        style = typography.labelSmall,
+                        color = AppColorScheme.formSecondaryText
+                    )
 
-                Text(
-                    text = when (duty.type) {
-                        DutyType.PAYABLE -> stringResource(Res.string.duty_type_payable)
-                        DutyType.ACTIONABLE -> stringResource(Res.string.duty_type_actionable)
-                    },
-                    style = Typography.labelSmall,
-                    color = AppColorScheme.formSecondaryText
-                )
+                    Text(
+                        text = when (duty.type) {
+                            DutyType.PAYABLE -> stringResource(Res.string.duty_type_payable)
+                            DutyType.ACTIONABLE -> stringResource(Res.string.duty_type_actionable)
+                        },
+                        style = typography.labelSmall,
+                        color = AppColorScheme.formSecondaryText
+                    )
             }
 
             Spacer(modifier = Modifier.height(Spacing.xs))
@@ -134,15 +135,15 @@ fun DutyListItem(
             // Last occurrence info
             lastOccurrence?.let { occurrence ->
                 Spacer(modifier = Modifier.height(Spacing.xs))
-                Text(
-                    text = stringResource(
-                        Res.string.duty_list_last_occurrence,
-                        DateUtils.getMonthName(occurrence.completedDate.monthNumber),
-                        occurrence.completedDate.year
-                    ),
-                    style = Typography.labelSmall,
-                    color = AppColorScheme.primary
-                )
+                    Text(
+                        text = stringResource(
+                            Res.string.duty_list_last_occurrence,
+                            DateUtils.getMonthName(occurrence.completedDate.monthNumber),
+                            occurrence.completedDate.year
+                        ),
+                        style = typography.labelSmall,
+                        color = AppColorScheme.primary
+                    )
             }
         }
     }

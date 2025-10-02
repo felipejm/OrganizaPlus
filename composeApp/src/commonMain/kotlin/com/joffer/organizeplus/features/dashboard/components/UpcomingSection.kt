@@ -8,7 +8,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.spacing.Spacing
-import com.joffer.organizeplus.designsystem.typography.Typography
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.unit.sp
 import com.joffer.organizeplus.features.dashboard.domain.entities.Duty
 import com.joffer.organizeplus.features.dashboard.domain.entities.DutyType
 import org.jetbrains.compose.resources.stringResource
@@ -37,7 +38,7 @@ fun UpcomingSection(
         ) {
             Text(
                 text = stringResource(Res.string.upcoming_7_days),
-                style = Typography.cardTitle,
+                style = TextStyle(fontSize = 18.sp),
                 color = AppColorScheme.formText
             )
 
@@ -46,7 +47,7 @@ fun UpcomingSection(
             if (duties.isEmpty()) {
                 Text(
                     text = stringResource(Res.string.no_duties_next_7_days),
-                    style = Typography.bodyMedium,
+                    style = TextStyle(fontSize = 14.sp),
                     color = AppColorScheme.formSecondaryText,
                     modifier = Modifier.fillMaxWidth()
                 )
@@ -108,7 +109,7 @@ private fun UpcomingDutyItem(
             ) {
                 Text(
                     text = duty.title,
-                    style = Typography.listItemTitle,
+                        style = TextStyle(fontSize = 16.sp),
                     color = AppColorScheme.formText
                 )
 
@@ -117,7 +118,7 @@ private fun UpcomingDutyItem(
                         DutyType.PAYABLE -> stringResource(Res.string.duty_type_payable)
                         DutyType.ACTIONABLE -> stringResource(Res.string.duty_type_actionable)
                     },
-                    style = Typography.secondaryText,
+                    style = TextStyle(fontSize = 12.sp),
                     color = AppColorScheme.formSecondaryText
                 )
             }

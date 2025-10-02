@@ -14,7 +14,7 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.KeyboardType
 import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.spacing.Spacing
-import com.joffer.organizeplus.designsystem.typography.Typography
+import com.joffer.organizeplus.designsystem.typography.localTypography
 import com.joffer.organizeplus.features.dashboard.domain.entities.DutyType
 import com.joffer.organizeplus.features.duty.occurrence.domain.entities.DutyOccurrenceFormField
 import com.joffer.organizeplus.features.duty.occurrence.domain.validation.ValidationError
@@ -45,6 +45,7 @@ fun AddDutyOccurrenceBottomSheet(
     onDismiss: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val typography = localTypography()
     val formState by viewModel.formState.collectAsState()
     val uiState by viewModel.uiState.collectAsState()
     var showDatePicker by remember { mutableStateOf(false) }
@@ -76,7 +77,7 @@ fun AddDutyOccurrenceBottomSheet(
             ) {
                 Text(
                     text = stringResource(Res.string.add_duty_occurrence_title),
-                    style = Typography.titleLarge,
+                    style = typography.titleLarge,
                     color = AppColorScheme.onSurface
                 )
                 IconButton(onClick = onDismiss) {

@@ -77,6 +77,9 @@ fun DutyDetailsScreen(
             uiState = uiState,
             viewModel = viewModel,
             onShowAddOccurrence = { showAddOccurrenceBottomSheet = true },
+            onDeleteRecord = { recordId ->
+                viewModel.onIntent(DutyDetailsListIntent.ShowDeleteConfirmation(recordId))
+            },
             modifier = Modifier.padding(paddingValues)
         )
 
@@ -94,6 +97,20 @@ fun DutyDetailsScreen(
                 }
             )
         }
+        
+        // Confirmation dialog
+        if (uiState.showDeleteConfirmation) {
+            DeleteOccurrenceConfirmationDialog(
+                onConfirm = {
+                    uiState.occurrenceToDelete?.let { recordId ->
+                        viewModel.onIntent(DutyDetailsListIntent.ConfirmDeleteRecord(recordId))
+                    }
+                },
+                onDismiss = {
+                    viewModel.onIntent(DutyDetailsListIntent.HideDeleteConfirmation)
+                }
+            )
+        }
     }
 }
 
@@ -102,6 +119,7 @@ private fun DutyDetailsContent(
     uiState: DutyDetailsListUiState,
     viewModel: DutyDetailsListViewModel,
     onShowAddOccurrence: () -> Unit,
+    onDeleteRecord: (Long) -> Unit,
     modifier: Modifier = Modifier
 ) {
     when {
@@ -122,13 +140,7 @@ private fun DutyDetailsContent(
             DutyDetailsDataContent(
                 uiState = uiState,
                 onShowAddOccurrence = onShowAddOccurrence,
-                onDeleteRecord = { recordId ->
-                    viewModel.onIntent(
-                        DutyDetailsListIntent.DeleteRecord(
-                            recordId
-                        )
-                    )
-                },
+                onDeleteRecord = onDeleteRecord,
                 modifier = modifier
             )
         }

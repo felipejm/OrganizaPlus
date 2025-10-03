@@ -166,17 +166,27 @@ fun DutyListScreen(
                                 dutyWithOccurrence = dutyWithOccurrence,
                                 onViewOccurrences = onNavigateToOccurrences,
                                 onDelete = { dutyId ->
-                                    viewModel.onIntent(
-                                        DutyListIntent.DeleteDuty(
-                                            dutyId
-                                        )
-                                    )
+                                    viewModel.onIntent(DutyListIntent.ShowDeleteConfirmation(dutyId))
                                 }
                             )
                         }
                     }
                 }
             }
+        }
+        
+        // Confirmation dialog
+        if (uiState.showDeleteConfirmation) {
+            DeleteDutyConfirmationDialog(
+                onConfirm = {
+                    uiState.dutyToDelete?.let { dutyId ->
+                        viewModel.onIntent(DutyListIntent.ConfirmDeleteDuty(dutyId))
+                    }
+                },
+                onDismiss = {
+                    viewModel.onIntent(DutyListIntent.HideDeleteConfirmation)
+                }
+            )
         }
     }
 }

@@ -37,7 +37,9 @@ class DutyListViewModel(
         when (intent) {
             DutyListIntent.LoadDuties -> loadDuties()
             DutyListIntent.RefreshDuties -> refreshDuties()
-            is DutyListIntent.DeleteDuty -> deleteDuty(intent.dutyId)
+            is DutyListIntent.ShowDeleteConfirmation -> showDeleteConfirmation(intent.dutyId)
+            DutyListIntent.HideDeleteConfirmation -> hideDeleteConfirmation()
+            is DutyListIntent.ConfirmDeleteDuty -> confirmDeleteDuty(intent.dutyId)
             DutyListIntent.ClearError -> clearError()
             DutyListIntent.Retry -> retry()
         }
@@ -175,4 +177,23 @@ class DutyListViewModel(
     }
 
     private fun retry() = loadDuties()
+    
+    private fun showDeleteConfirmation(dutyId: Long) {
+        _uiState.value = _uiState.value.copy(
+            showDeleteConfirmation = true,
+            dutyToDelete = dutyId
+        )
+    }
+    
+    private fun hideDeleteConfirmation() {
+        _uiState.value = _uiState.value.copy(
+            showDeleteConfirmation = false,
+            dutyToDelete = null
+        )
+    }
+    
+    private fun confirmDeleteDuty(dutyId: Long) {
+        hideDeleteConfirmation()
+        deleteDuty(dutyId)
+    }
 }

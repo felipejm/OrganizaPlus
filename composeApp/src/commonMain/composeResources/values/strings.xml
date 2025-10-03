@@ -257,6 +257,15 @@
 
     <!-- Dashboard Chart -->
     <string name="dashboard_chart_title">Completion Rate</string>
+    
+    <!-- Confirmation Dialog -->
+    <string name="confirmation_dialog_title">Confirm Action</string>
+    <string name="confirmation_dialog_delete_duty_title">Delete Duty</string>
+    <string name="confirmation_dialog_delete_duty_message">Are you sure you want to delete this duty? This action cannot be undone.</string>
+    <string name="confirmation_dialog_delete_occurrence_title">Delete Occurrence</string>
+    <string name="confirmation_dialog_delete_occurrence_message">Are you sure you want to delete this occurrence? This action cannot be undone.</string>
+    <string name="confirmation_dialog_cancel">Cancel</string>
+    <string name="confirmation_dialog_confirm">Confirm</string>
     <string name="dashboard_chart_personal">Personal</string>
     <string name="dashboard_chart_company">Company</string>
     <string name="dashboard_chart_total">Total</string>

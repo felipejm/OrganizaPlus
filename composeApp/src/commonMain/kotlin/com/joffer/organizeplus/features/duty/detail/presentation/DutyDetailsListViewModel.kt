@@ -28,7 +28,9 @@ class DutyDetailsListViewModel(
         when (intent) {
             DutyDetailsListIntent.LoadRecords -> loadRecords()
             DutyDetailsListIntent.RefreshRecords -> refreshRecords()
-            is DutyDetailsListIntent.DeleteRecord -> deleteRecord(intent.recordId)
+            is DutyDetailsListIntent.ShowDeleteConfirmation -> showDeleteConfirmation(intent.recordId)
+            DutyDetailsListIntent.HideDeleteConfirmation -> hideDeleteConfirmation()
+            is DutyDetailsListIntent.ConfirmDeleteRecord -> confirmDeleteRecord(intent.recordId)
             DutyDetailsListIntent.ClearError -> clearError()
             DutyDetailsListIntent.Retry -> retry()
         }
@@ -128,5 +130,24 @@ class DutyDetailsListViewModel(
             isLoading = false,
             error = exception.message ?: "Unknown error"
         )
+    }
+    
+    private fun showDeleteConfirmation(recordId: Long) {
+        _uiState.value = _uiState.value.copy(
+            showDeleteConfirmation = true,
+            occurrenceToDelete = recordId
+        )
+    }
+    
+    private fun hideDeleteConfirmation() {
+        _uiState.value = _uiState.value.copy(
+            showDeleteConfirmation = false,
+            occurrenceToDelete = null
+        )
+    }
+    
+    private fun confirmDeleteRecord(recordId: Long) {
+        hideDeleteConfirmation()
+        deleteRecord(recordId)
     }
 }

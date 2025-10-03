@@ -9,5 +9,7 @@ data class DutyDetailsListUiState(
     val records: List<DutyOccurrence> = emptyList(),
     val duty: Duty? = null,
     val chartData: ChartData? = null,
-    val error: String? = null
+    val error: String? = null,
+    val showDeleteConfirmation: Boolean = false,
+    val occurrenceToDelete: Long? = null,
 )

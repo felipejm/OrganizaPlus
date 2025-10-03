@@ -5,23 +5,16 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.drawscope.DrawScope
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.rememberTextMeasurer
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import com.joffer.organizeplus.common.utils.formatString
 import com.joffer.organizeplus.designsystem.colors.SemanticColors
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
@@ -29,8 +22,7 @@ import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
 @Composable
 fun BarChart(
     data: BarChartData,
-    modifier: Modifier = Modifier,
-    onBarClick: ((BarDataPoint) -> Unit)? = null
+    modifier: Modifier = Modifier
 ) {
     if (!data.isValid) {
         EmptyChartState(modifier = modifier)
@@ -87,10 +79,6 @@ fun BarChart(
                 drawBarChart(
                     data = data,
                     animationProgress = animationProgress.value,
-                    textMeasurer = textMeasurer,
-                    density = density,
-                    typography = typography,
-                    onBarClick = onBarClick
                 )
             }
         }
@@ -187,14 +175,9 @@ private fun EmptyChartState(
     }
 }
 
-@Suppress("UNUSED_PARAMETER")
 private fun DrawScope.drawBarChart(
     data: BarChartData,
     animationProgress: Float,
-    textMeasurer: androidx.compose.ui.text.TextMeasurer,
-    density: androidx.compose.ui.unit.Density,
-    typography: com.joffer.organizeplus.designsystem.typography.Typography,
-    onBarClick: ((BarDataPoint) -> Unit)?
 ) {
     val chartWidth = size.width
     val chartHeight = size.height
@@ -218,8 +201,7 @@ private fun DrawScope.drawBarChart(
             startX = padding,
             endX = chartWidth - padding,
             startY = padding,
-            endY = chartHeight - padding,
-            maxValue = maxValue
+            endY = chartHeight - padding
         )
     }
 
@@ -236,62 +218,14 @@ private fun DrawScope.drawBarChart(
             topLeft = Offset(barX, barY),
             size = Size(barWidth, barHeight)
         )
-
-        // Draw value label if enabled
-        if (data.config.showValues && barHeight > 20f) {
-            val valueText = formatValue(dataPoint.value)
-            val textStyle = TextStyle(
-                fontSize = 12.sp,
-                fontWeight = FontWeight.Medium,
-                color = SemanticColors.Foreground.primary
-            )
-
-            val textLayoutResult = textMeasurer.measure(
-                text = valueText,
-                style = textStyle
-            )
-
-            val textX = barX + (barWidth - textLayoutResult.size.width) / 2
-            val textY = barY - textLayoutResult.size.height - 4f
-
-            // TODO: Fix drawText issue
-            // drawText(
-            //     textLayoutResult = textLayoutResult,
-            //     topLeft = Offset(textX, textY)
-            // )
-        }
-
-        // Draw bar label
-        val labelText = dataPoint.label
-        val labelStyle = TextStyle(
-            fontSize = 10.sp,
-            color = SemanticColors.Foreground.secondary,
-            textAlign = TextAlign.Center
-        )
-
-        val labelLayoutResult = textMeasurer.measure(
-            text = labelText,
-            style = labelStyle
-        )
-
-        val labelX = barX + (barWidth - labelLayoutResult.size.width) / 2
-        val labelY = chartHeight - padding + 16f
-
-        // TODO: Fix drawText issue
-        // drawText(
-        //     textLayoutResult = labelLayoutResult,
-        //     topLeft = Offset(labelX, labelY)
-        // )
     }
 }
 
-@Suppress("UNUSED_PARAMETER")
 private fun DrawScope.drawGridLines(
     startX: Float,
     endX: Float,
     startY: Float,
-    endY: Float,
-    maxValue: Float
+    endY: Float
 ) {
     val gridColor = SemanticColors.Border.secondary.copy(alpha = 0.3f)
     val strokeWidth = 1f
@@ -330,13 +264,4 @@ private fun getDefaultBarColor(index: Int): Color {
         SemanticColors.Foreground.info
     )
     return colors[index % colors.size]
-}
-
-private fun formatValue(value: Float): String {
-    return when {
-        value >= 1000000 -> "${(value / 1000000).toInt()}M"
-        value >= 1000 -> "${(value / 1000).toInt()}K"
-        value == value.toInt().toFloat() -> value.toInt().toString()
-        else -> formatString("%.1f", value)
-    }
 }

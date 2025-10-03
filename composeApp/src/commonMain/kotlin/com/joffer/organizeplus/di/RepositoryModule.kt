@@ -18,4 +18,3 @@ val repositoryModule = module {
     single<DutyOccurrenceRepository> { RoomDutyOccurrenceRepository(get()) }
     single<DutyReviewRepository> { RoomDutyReviewRepository(get()) }
 }
-

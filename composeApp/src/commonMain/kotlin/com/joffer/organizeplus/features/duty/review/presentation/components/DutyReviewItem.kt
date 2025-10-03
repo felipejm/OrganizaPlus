@@ -27,7 +27,6 @@ fun DutyReviewItem(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-
         // Category icon using the design system component
         CategoryIcon(categoryName = item.categoryName)
 

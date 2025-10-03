@@ -38,10 +38,8 @@ class DutyOccurrenceValidator {
         errors: MutableMap<DutyOccurrenceFormField, ValidationError>
     ) {
         // Suppress unused parameter warnings since these are required by interface
-        @Suppress("UNUSED_PARAMETER")
         val unusedForm = form
 
-        @Suppress("UNUSED_PARAMETER")
         val unusedErrors = errors
         // Date validation can be added here if needed
         // For now, we assume the date is always valid as it comes from a date picker

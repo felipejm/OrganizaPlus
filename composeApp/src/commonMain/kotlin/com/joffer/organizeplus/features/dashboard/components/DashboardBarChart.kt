@@ -1,6 +1,7 @@
 package com.joffer.organizeplus.features.dashboard.components
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -77,13 +78,13 @@ fun DashboardBarChart(
  */
 private fun getDayColor(dayIndex: Int): Color {
     val colors = listOf(
-        Color(0xFF4CAF50), // Monday - Green
-        Color(0xFF2196F3), // Tuesday - Blue
-        Color(0xFFFF9800), // Wednesday - Orange
-        Color(0xFF9C27B0), // Thursday - Purple
-        Color(0xFFF44336), // Friday - Red
-        Color(0xFF00BCD4), // Saturday - Cyan
-        Color(0xFF607D8B) // Sunday - Blue Grey
+        SemanticColors.Foreground.success, // Monday - Green
+        SemanticColors.Foreground.brand, // Tuesday - Blue
+        SemanticColors.Foreground.warning, // Wednesday - Orange
+        SemanticColors.Legacy.companyAccent, // Thursday - Purple
+        SemanticColors.Legacy.personalAccent, // Friday - Red
+        SemanticColors.Foreground.brand, // Saturday - Cyan
+        SemanticColors.Foreground.secondary // Sunday - Blue Grey
     )
     return colors[dayIndex % colors.size]
 }

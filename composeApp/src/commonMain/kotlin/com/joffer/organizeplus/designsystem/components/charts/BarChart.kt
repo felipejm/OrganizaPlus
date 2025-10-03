@@ -3,18 +3,23 @@ package com.joffer.organizeplus.designsystem.components.charts
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.*
+import androidx.compose.ui.graphics.drawscope.DrawScope
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.joffer.organizeplus.designsystem.colors.SemanticColors
 import com.joffer.organizeplus.designsystem.spacing.Spacing
@@ -181,13 +186,14 @@ private fun EmptyChartState(
     }
 }
 
+@Suppress("UNUSED_PARAMETER")
 private fun DrawScope.drawBarChart(
     data: BarChartData,
     animationProgress: Float,
     textMeasurer: androidx.compose.ui.text.TextMeasurer,
-    _: androidx.compose.ui.unit.Density,
+    density: androidx.compose.ui.unit.Density,
     typography: com.joffer.organizeplus.designsystem.typography.Typography,
-    _: ((BarDataPoint) -> Unit)?
+    onBarClick: ((BarDataPoint) -> Unit)?
 ) {
     val chartWidth = size.width
     val chartHeight = size.height
@@ -247,10 +253,11 @@ private fun DrawScope.drawBarChart(
             val textX = barX + (barWidth - textLayoutResult.size.width) / 2
             val textY = barY - textLayoutResult.size.height - 4f
 
-            drawText(
-                textLayoutResult = textLayoutResult,
-                topLeft = Offset(textX, textY)
-            )
+            // TODO: Fix drawText issue
+            // drawText(
+            //     textLayoutResult = textLayoutResult,
+            //     topLeft = Offset(textX, textY)
+            // )
         }
 
         // Draw bar label
@@ -269,19 +276,21 @@ private fun DrawScope.drawBarChart(
         val labelX = barX + (barWidth - labelLayoutResult.size.width) / 2
         val labelY = chartHeight - padding + 16f
 
-        drawText(
-            textLayoutResult = labelLayoutResult,
-            topLeft = Offset(labelX, labelY)
-        )
+        // TODO: Fix drawText issue
+        // drawText(
+        //     textLayoutResult = labelLayoutResult,
+        //     topLeft = Offset(labelX, labelY)
+        // )
     }
 }
 
+@Suppress("UNUSED_PARAMETER")
 private fun DrawScope.drawGridLines(
     startX: Float,
     endX: Float,
     startY: Float,
     endY: Float,
-    _: Float
+    maxValue: Float
 ) {
     val gridColor = SemanticColors.Border.secondary.copy(alpha = 0.3f)
     val strokeWidth = 1f

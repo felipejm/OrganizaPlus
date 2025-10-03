@@ -7,6 +7,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.joffer.organizeplus.common.utils.toCurrencyFormat
 import com.joffer.organizeplus.designsystem.colors.SemanticColors
 import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.spacing.Spacing
@@ -160,6 +161,61 @@ fun ChartShowcaseScreen(
                     ),
                     modifier = Modifier.fillMaxWidth()
                 )
+            }
+
+            item {
+                Spacer(modifier = Modifier.height(Spacing.lg))
+
+                Text(
+                    text = "Currency Formatting",
+                    style = typography.titleLarge,
+                    color = SemanticColors.Foreground.primary,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+
+            item {
+                Text(
+                    text = "Demonstration of currency formatting with thousands separator",
+                    style = typography.bodyMedium,
+                    color = SemanticColors.Foreground.secondary
+                )
+            }
+
+            item {
+                val testValues = listOf(
+                    100.0,
+                    1000.0,
+                    10000.0,
+                    100000.0,
+                    1000000.0,
+                    1234.56,
+                    12345.67,
+                    123456.78
+                )
+
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(Spacing.sm)
+                ) {
+                    testValues.forEach { value ->
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
+                            Text(
+                                text = "R$ ${value.toInt()}",
+                                style = typography.bodyMedium,
+                                color = SemanticColors.Foreground.secondary
+                            )
+                            Text(
+                                text = value.toCurrencyFormat(),
+                                style = typography.bodyMedium,
+                                color = SemanticColors.Foreground.primary,
+                                fontWeight = FontWeight.Medium
+                            )
+                        }
+                    }
+                }
             }
         }
     }

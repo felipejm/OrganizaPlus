@@ -2,11 +2,13 @@ package com.joffer.organizeplus.features.demo.presentation
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import com.joffer.organizeplus.designsystem.colors.SemanticColors
 import com.joffer.organizeplus.designsystem.components.charts.BarChart
@@ -28,12 +30,12 @@ fun BarChartDemoScreen(
     // Sample data for different chart examples
     val monthlyRevenueData = BarChartData(
         dataPoints = listOf(
-            BarDataPoint("Jan", 12000f, Color(0xFF4CAF50)),
-            BarDataPoint("Feb", 15000f, Color(0xFF4CAF50)),
-            BarDataPoint("Mar", 18000f, Color(0xFF4CAF50)),
-            BarDataPoint("Apr", 22000f, Color(0xFF4CAF50)),
-            BarDataPoint("May", 19000f, Color(0xFF4CAF50)),
-            BarDataPoint("Jun", 25000f, Color(0xFF4CAF50))
+            BarDataPoint("Jan", 12000f, SemanticColors.Foreground.success),
+            BarDataPoint("Feb", 15000f, SemanticColors.Foreground.success),
+            BarDataPoint("Mar", 18000f, SemanticColors.Foreground.success),
+            BarDataPoint("Apr", 22000f, SemanticColors.Foreground.success),
+            BarDataPoint("May", 19000f, SemanticColors.Foreground.success),
+            BarDataPoint("Jun", 25000f, SemanticColors.Foreground.success)
         ),
         config = BarChartConfig(
             showValues = true,
@@ -72,10 +74,10 @@ fun BarChartDemoScreen(
 
     val categoryDistributionData = BarChartData(
         dataPoints = listOf(
-            BarDataPoint("Work", 45f, Color(0xFF2196F3)),
-            BarDataPoint("Personal", 30f, Color(0xFF4CAF50)),
-            BarDataPoint("Health", 15f, Color(0xFFFF9800)),
-            BarDataPoint("Learning", 10f, Color(0xFF9C27B0))
+            BarDataPoint("Work", 45f, SemanticColors.Foreground.brand),
+            BarDataPoint("Personal", 30f, SemanticColors.Foreground.success),
+            BarDataPoint("Health", 15f, SemanticColors.Foreground.warning),
+            BarDataPoint("Learning", 10f, SemanticColors.Legacy.companyAccent)
         ),
         config = BarChartConfig(
             showValues = true,

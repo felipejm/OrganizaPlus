@@ -33,7 +33,11 @@ fun AppSnackbar(
                 TextButton(
                     onClick = onActionClick,
                     colors = ButtonDefaults.textButtonColors(
-                        contentColor = if (isError) SemanticColors.OnBackground.onError else SemanticColors.Foreground.interactive
+                        contentColor = if (isError) {
+                            SemanticColors.OnBackground.onError
+                        } else {
+                            SemanticColors.Foreground.interactive
+                        }
                     )
                 ) {
                     Text(

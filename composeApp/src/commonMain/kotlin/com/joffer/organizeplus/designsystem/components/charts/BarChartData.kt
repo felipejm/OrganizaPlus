@@ -17,7 +17,11 @@ data class BarDataPoint(
     val value: Float,
     val color: Color? = null,
     val description: String? = null
-)
+) : Comparable<BarDataPoint> {
+    override fun compareTo(other: BarDataPoint): Int {
+        return value.compareTo(other.value)
+    }
+}
 
 /**
  * Configuration for bar chart styling and behavior.

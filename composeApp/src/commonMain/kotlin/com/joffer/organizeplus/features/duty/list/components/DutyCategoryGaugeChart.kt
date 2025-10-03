@@ -13,6 +13,7 @@ import org.jetbrains.compose.resources.stringResource
 import organizeplus.composeapp.generated.resources.Res
 import organizeplus.composeapp.generated.resources.dashboard_chart_company
 import organizeplus.composeapp.generated.resources.dashboard_chart_personal
+import organizeplus.composeapp.generated.resources.dashboard_chart_title
 
 /**
  * Gauge chart component specifically for duty category completion rates.

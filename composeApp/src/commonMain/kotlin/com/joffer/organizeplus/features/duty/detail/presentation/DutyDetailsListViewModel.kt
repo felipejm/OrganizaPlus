@@ -81,7 +81,9 @@ class DutyDetailsListViewModel(
         }
     }
 
-    private fun sortOccurrencesByDate(occurrences: List<com.joffer.organizeplus.features.duty.occurrence.domain.entities.DutyOccurrence>): List<com.joffer.organizeplus.features.duty.occurrence.domain.entities.DutyOccurrence> {
+    private fun sortOccurrencesByDate(
+        occurrences: List<com.joffer.organizeplus.features.duty.occurrence.domain.entities.DutyOccurrence>
+    ): List<com.joffer.organizeplus.features.duty.occurrence.domain.entities.DutyOccurrence> {
         return occurrences.sortedByDescending { it.completedDate }
     }
 

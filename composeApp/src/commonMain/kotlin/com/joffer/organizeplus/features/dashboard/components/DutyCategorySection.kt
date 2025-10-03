@@ -202,7 +202,11 @@ private fun MonthlySummaryCard(
                     Text(
                         text = CurrencyUtils.formatCurrency(summary.totalAmountPaid),
                         style = typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
-                        color = if (summary.totalAmountPaid > 0) SemanticColors.Foreground.success else SemanticColors.Foreground.secondary
+                        color = if (summary.totalAmountPaid > 0) {
+                            SemanticColors.Foreground.success
+                        } else {
+                            SemanticColors.Foreground.secondary
+                        }
                     )
                     Text(
                         text = stringResource(Res.string.dashboard_amount_paid),

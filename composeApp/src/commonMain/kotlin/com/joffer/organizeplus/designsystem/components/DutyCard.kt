@@ -101,7 +101,7 @@ fun DutyCard(
                     Text(
                         text = duty.title,
                         style = if (accentColor != null) typography.titleMedium else typography.titleSmall,
-                        color = if (accentColor != null) SemanticColors.Foreground.primary else SemanticColors.Foreground.primary,
+                        color = SemanticColors.Foreground.primary,
                         modifier = Modifier.weight(1f)
                     )
                 }

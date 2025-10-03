@@ -12,7 +12,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
 import com.joffer.organizeplus.common.constants.CategoryConstants
 import com.joffer.organizeplus.common.utils.DateUtils
 import com.joffer.organizeplus.designsystem.colors.SemanticColors
@@ -170,7 +169,7 @@ private fun EmptyDashboardState(
         // Empty state illustration
         Box(
             modifier = Modifier
-                .size(120.dp)
+                .size(Spacing.xxl * 2)
                 .background(
                     SemanticColors.Background.surfaceVariant,
                     androidx.compose.foundation.shape.CircleShape
@@ -180,7 +179,7 @@ private fun EmptyDashboardState(
             Icon(
                 imageVector = Icons.Default.Add,
                 contentDescription = null,
-                modifier = Modifier.size(48.dp),
+                modifier = Modifier.size(Spacing.xl * 2),
                 tint = SemanticColors.Foreground.secondary
             )
         }

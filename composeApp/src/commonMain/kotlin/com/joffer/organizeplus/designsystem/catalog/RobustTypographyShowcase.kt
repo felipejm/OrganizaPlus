@@ -74,7 +74,8 @@ fun RobustTypographyShowcase(
                                 )
                                 Spacer(modifier = Modifier.height(Spacing.sm))
                                 Text(
-                                    text = "A comprehensive font family with Regular, Medium, Semibold, and Bold weights",
+                                    text = "A comprehensive font family with Regular, Medium, " +
+                                        "Semibold, and Bold weights",
                                     style = typography.bodyMedium,
                                     color = SemanticColors.OnBackground.onBrandContainer
                                 )

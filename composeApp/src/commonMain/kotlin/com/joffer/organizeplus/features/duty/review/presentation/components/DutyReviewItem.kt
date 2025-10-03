@@ -6,6 +6,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import com.joffer.organizeplus.common.utils.toCurrencyFormat
 import com.joffer.organizeplus.designsystem.colors.SemanticColors
 import com.joffer.organizeplus.designsystem.components.CategoryIcon
@@ -25,25 +27,23 @@ fun DutyReviewItem(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        // Left side - Icon and duty info
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(Spacing.sm)
-        ) {
-            // Category icon using the design system component
-            CategoryIcon(categoryName = item.categoryName)
 
-            // Duty info
-            Column {
-                Text(
-                    text = item.dutyTitle,
-                    style = DesignSystemTypography().titleMedium,
-                    fontWeight = FontWeight.Medium,
-                    color = SemanticColors.Foreground.primary
-                )
-            }
-        }
+        // Category icon using the design system component
+        CategoryIcon(categoryName = item.categoryName)
 
+        Spacer(modifier = Modifier.width(Spacing.sm))
+        // Duty info
+        Text(
+            modifier = Modifier.weight(1f),
+            text = item.dutyTitle,
+            style = DesignSystemTypography().titleMedium,
+            textAlign = TextAlign.Start,
+            fontWeight = FontWeight.Medium,
+            overflow = TextOverflow.Ellipsis,
+            color = SemanticColors.Foreground.primary
+        )
+
+        Spacer(modifier = Modifier.width(Spacing.sm))
         // Right side - Amount
         Text(
             text = item.paidAmount.toCurrencyFormat(),

@@ -6,6 +6,7 @@ import com.joffer.organizeplus.features.duty.review.domain.entities.DutyReviewIt
 import com.joffer.organizeplus.features.duty.review.domain.entities.MonthlyDutyReview
 import com.joffer.organizeplus.features.duty.review.domain.repositories.DutyReviewRepository
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.datetime.Instant
 import kotlinx.datetime.TimeZone
@@ -17,23 +18,21 @@ class RoomDutyReviewRepository(
 
     override suspend fun getDutyReviewData(categoryFilter: String?): Flow<Result<DutyReviewData>> {
         return flow {
-            try {
-                val occurrences = dutyOccurrenceDao.getAllDutyOccurrencesWithDutyInfo()
-                val reviewItems = processOccurrences(occurrences, categoryFilter)
-                val monthlyReviews = groupItemsByMonth(reviewItems)
-                val grandTotal = calculateGrandTotal(monthlyReviews)
+            val occurrences = dutyOccurrenceDao.getAllDutyOccurrencesWithDutyInfo()
+            val reviewItems = processOccurrences(occurrences, categoryFilter)
+            val monthlyReviews = groupItemsByMonth(reviewItems)
+            val grandTotal = calculateGrandTotal(monthlyReviews)
 
-                emit(
-                    Result.success(
-                        DutyReviewData(
-                            monthlyReviews = monthlyReviews,
-                            grandTotal = grandTotal
-                        )
+            emit(
+                Result.success(
+                    DutyReviewData(
+                        monthlyReviews = monthlyReviews,
+                        grandTotal = grandTotal
                     )
                 )
-            } catch (e: Exception) {
-                emit(Result.failure(e))
-            }
+            )
+        }.catch { e ->
+            emit(Result.failure(e as Exception))
         }
     }
 

@@ -21,6 +21,7 @@ import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.joffer.organizeplus.common.utils.formatString
 import com.joffer.organizeplus.designsystem.colors.SemanticColors
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
@@ -336,6 +337,6 @@ private fun formatValue(value: Float): String {
         value >= 1000000 -> "${(value / 1000000).toInt()}M"
         value >= 1000 -> "${(value / 1000).toInt()}K"
         value == value.toInt().toFloat() -> value.toInt().toString()
-        else -> String.format("%.1f", value)
+        else -> formatString("%.1f", value)
     }
 }

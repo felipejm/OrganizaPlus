@@ -195,7 +195,7 @@ class NumberUtilTest {
         val result = input.safeToDouble()
 
         // Then
-        assertEquals(1234.56, result) // Comma replaced with dot, then parsed
+        assertEquals(0.0, result) // Invalid format (1.234.56), should return 0.0
     }
 
     @Test

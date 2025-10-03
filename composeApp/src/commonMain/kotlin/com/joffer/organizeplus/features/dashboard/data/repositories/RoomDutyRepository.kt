@@ -44,14 +44,16 @@ class RoomDutyRepository(
     }
 
     override suspend fun getUpcomingDuties(days: Int): Flow<Result<List<Duty>>> {
-        return dutyDao.getAllDuties().map { entities ->
+        // Note: Since DutyEntity doesn't have dueDate, we return all duties
+        // In a real app, you would filter by due date if available
+        return dutyDao.getUpcomingDuties().map { entities ->
             Result.success(entities.map { DutyMapper.toDomainEntity(it) })
         }
     }
 
     override suspend fun getLatestDuties(limit: Int): Flow<Result<List<Duty>>> {
-        return dutyDao.getAllDuties().map { entities ->
-            Result.success(entities.take(limit).map { DutyMapper.toDomainEntity(it) })
+        return dutyDao.getLatestDuties(limit).map { entities ->
+            Result.success(entities.map { DutyMapper.toDomainEntity(it) })
         }
     }
 

@@ -69,7 +69,7 @@ object Spacing {
         val barWidth: Dp = 15.dp
         val stepSize: Dp = xl
         val strokeWidth: Dp = 14.dp
-        val animationDuration: Int = 1200
+        const val animationDuration: Int = 1200
     }
 
     object Card {

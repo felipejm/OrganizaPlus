@@ -21,9 +21,6 @@ import com.joffer.organizeplus.designsystem.colors.SemanticColors
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
 import kotlinx.coroutines.delay
-import kotlin.math.PI
-import kotlin.math.cos
-import kotlin.math.sin
 
 data class GaugeChartData(
     val value: Float,
@@ -50,7 +47,7 @@ data class GaugeChartConfig(
 
 // Chart constants
 private val GAUGE_SIZE = 100.dp
-private val MIN_GAUGE_ANGLE = 5f // Minimum angle to show a gauge segment
+private const val MIN_GAUGE_ANGLE = 5f // Minimum angle to show a gauge segment
 
 @Composable
 fun AppGaugeChart(

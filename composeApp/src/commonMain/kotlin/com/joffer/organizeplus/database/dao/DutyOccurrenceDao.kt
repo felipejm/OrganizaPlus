@@ -42,9 +42,9 @@ interface DutyOccurrenceDao {
 
     @Query(
         """
-        SELECT duty_occurrences.* FROM duty_occurrences 
+        SELECT duty_occurrences.* FROM duty_occurrences
         INNER JOIN duties ON duty_occurrences.dutyId = duties.id
-        WHERE duties.categoryName = :categoryName 
+        WHERE duties.categoryName = :categoryName
         AND strftime('%m', duty_occurrences.completedDateMillis/1000, 'unixepoch') = :monthStr
         AND strftime('%Y', duty_occurrences.completedDateMillis/1000, 'unixepoch') = :yearStr
         ORDER BY duty_occurrences.completedDateMillis DESC
@@ -58,14 +58,14 @@ interface DutyOccurrenceDao {
 
     @Query(
         """
-        SELECT 
+        SELECT
             duty_occurrences.id,
             duty_occurrences.dutyId,
             duty_occurrences.paidAmount,
             duty_occurrences.completedDateMillis,
             duties.title as dutyTitle,
             duties.categoryName
-        FROM duty_occurrences 
+        FROM duty_occurrences
         INNER JOIN duties ON duty_occurrences.dutyId = duties.id
         WHERE duty_occurrences.paidAmount > 0
         ORDER BY duty_occurrences.completedDateMillis DESC

@@ -11,10 +11,8 @@ import com.joffer.organizeplus.features.dashboard.domain.entities.DutyWithLastOc
 import com.joffer.organizeplus.features.duty.list.domain.DutyCategoryFilter
 import org.jetbrains.compose.resources.stringResource
 import organizeplus.composeapp.generated.resources.Res
-import organizeplus.composeapp.generated.resources.dashboard_chart_personal
 import organizeplus.composeapp.generated.resources.dashboard_chart_company
-import organizeplus.composeapp.generated.resources.dashboard_chart_title
-import kotlin.math.roundToInt
+import organizeplus.composeapp.generated.resources.dashboard_chart_personal
 
 /**
  * Gauge chart component specifically for duty category completion rates.
@@ -36,7 +34,7 @@ fun DutyCategoryGaugeChart(
     val totalDuties = duties.size
     val completedDuties = duties.count { it.hasCurrentMonthOccurrence }
     val completionPercentage = if (totalDuties > 0) {
-        (completedDuties.toFloat() / totalDuties.toFloat()) * 100f
+        completedDuties.toFloat() / totalDuties.toFloat() * 100f
     } else {
         0f
     }

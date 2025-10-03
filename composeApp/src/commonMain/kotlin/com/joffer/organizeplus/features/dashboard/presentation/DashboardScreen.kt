@@ -117,7 +117,6 @@ fun DashboardScreen(
                     }
                 }
 
-
                 // Check if there are any duties at all
                 if (uiState.personalDuties.isEmpty() && uiState.companyDuties.isEmpty()) {
                     item {

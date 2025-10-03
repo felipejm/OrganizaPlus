@@ -39,10 +39,18 @@ actual fun formatString(format: String, vararg args: Any?): String {
 
 private fun formatDouble(value: Double, precision: Int): String {
     val multiplier = when (precision) {
-        0 -> 1.0
-        1 -> 10.0
-        2 -> 100.0
-        3 -> 1000.0
+        0 -> {
+            1.0
+        }
+        1 -> {
+            10.0
+        }
+        2 -> {
+            100.0
+        }
+        3 -> {
+            1000.0
+        }
         else -> {
             var m = 1.0
             repeat(precision) { m *= 10.0 }

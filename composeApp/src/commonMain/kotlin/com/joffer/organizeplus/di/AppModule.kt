@@ -8,6 +8,8 @@ import org.koin.dsl.module
 val appModule = module {
     // Database module
     includes(databaseModule)
+    // Repository module
+    includes(repositoryModule)
 
     // Feature modules
     includes(dashboardModule)

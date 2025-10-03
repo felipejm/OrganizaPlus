@@ -51,7 +51,7 @@ data class CircleChartConfig(
 
 // Chart constants
 private val CHART_SIZE = 160.dp
-private val MIN_SEGMENT_ANGLE = 0.02f // Minimum angle to show a segment (about 1.15 degrees)
+private const val MIN_SEGMENT_ANGLE = 0.02f // Minimum angle to show a segment (about 1.15 degrees)
 
 /**
  * A customizable circle chart component with design system integration.
@@ -213,7 +213,7 @@ private fun CircleChartCanvas(
         var currentAngle = -90f // Start from top
 
         data.forEach { segment ->
-            val segmentAngle = (segment.value / totalValue) * 360f * animationProgress
+            val segmentAngle = segment.value / totalValue * 360f * animationProgress
 
             // Only draw segment if it has meaningful size
             if (segmentAngle >= MIN_SEGMENT_ANGLE) {

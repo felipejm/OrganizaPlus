@@ -29,4 +29,10 @@ interface DutyDao {
 
     @Query("DELETE FROM duties WHERE id = :id")
     suspend fun deleteDutyById(id: Long)
+
+    @Query("SELECT * FROM duties ORDER BY createdAt DESC LIMIT :limit")
+    fun getLatestDuties(limit: Int): Flow<List<DutyEntity>>
+
+    @Query("SELECT * FROM duties ORDER BY createdAt DESC")
+    fun getUpcomingDuties(): Flow<List<DutyEntity>>
 }

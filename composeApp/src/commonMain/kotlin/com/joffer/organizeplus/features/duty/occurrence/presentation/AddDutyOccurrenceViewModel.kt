@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.joffer.organizeplus.features.dashboard.domain.repositories.DutyRepository
 import com.joffer.organizeplus.features.duty.occurrence.domain.entities.DutyOccurrenceForm
 import com.joffer.organizeplus.features.duty.occurrence.domain.entities.DutyOccurrenceFormField
-import com.joffer.organizeplus.features.duty.occurrence.domain.usecases.SaveDutyOccurrenceUseCase
+import com.joffer.organizeplus.features.duty.occurrence.domain.repositories.DutyOccurrenceRepository
 import com.joffer.organizeplus.features.duty.occurrence.domain.validation.DutyOccurrenceValidator
 import com.joffer.organizeplus.features.duty.occurrence.domain.validation.ValidationError
 import io.github.aakira.napier.Napier
@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
 import kotlinx.datetime.LocalDate
 
 class AddDutyOccurrenceViewModel(
-    private val saveRecordUseCase: SaveDutyOccurrenceUseCase,
+    private val dutyOccurrenceRepository: DutyOccurrenceRepository,
     private val dutyRepository: DutyRepository,
     private val dutyId: Long
 ) : ViewModel() {
@@ -109,7 +109,7 @@ class AddDutyOccurrenceViewModel(
     private fun performSave(form: DutyOccurrenceForm) {
         viewModelScope.launch {
             try {
-                saveRecordUseCase(form.toDutyOccurrence()).fold(
+                dutyOccurrenceRepository.saveDutyOccurrence(form.toDutyOccurrence()).fold(
                     onSuccess = { handleSaveSuccess() },
                     onFailure = { exception -> handleSaveError(exception) }
                 )

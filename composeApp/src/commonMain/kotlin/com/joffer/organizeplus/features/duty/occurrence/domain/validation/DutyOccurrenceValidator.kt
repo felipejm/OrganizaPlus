@@ -34,8 +34,8 @@ class DutyOccurrenceValidator {
     }
 
     private fun validateCompletedDate(
-        form: DutyOccurrenceForm,
-        errors: MutableMap<DutyOccurrenceFormField, ValidationError>
+        _: DutyOccurrenceForm,
+        _: MutableMap<DutyOccurrenceFormField, ValidationError>
     ) {
         // Date validation can be added here if needed
         // For now, we assume the date is always valid as it comes from a date picker

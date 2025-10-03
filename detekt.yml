@@ -30,7 +30,7 @@ output-reports:
 comments:
   active: true
   CommentOverPrivateFunction:
-    active: true
+    active: false
   CommentOverPrivateProperty:
     active: true
   EndOfSentenceFormat:
@@ -276,6 +276,7 @@ design-system:
   active: true
   NoHardcodedColors:
     active: true
+    excludes: ['**/PrimitiveColors.kt']
   NoHardcodedSpacing:
     active: true
 

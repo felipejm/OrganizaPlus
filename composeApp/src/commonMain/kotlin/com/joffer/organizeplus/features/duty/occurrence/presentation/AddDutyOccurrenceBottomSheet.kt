@@ -146,7 +146,10 @@ fun AddDutyOccurrenceBottomSheet(
                     )
                 )
                 showDatePicker = false
-            }
+            },
+            title = "Select Date",
+            doneText = "Done",
+            cancelText = "Cancel"
         )
     }
 }

@@ -9,7 +9,10 @@ import java.util.Calendar
 @Composable
 actual fun showDatePickerDialog(
     initialDate: LocalDate?,
-    onDateSelected: (LocalDate) -> Unit
+    onDateSelected: (LocalDate) -> Unit,
+    title: String,
+    doneText: String,
+    cancelText: String
 ) {
     val context = LocalContext.current
     val calendar = Calendar.getInstance()

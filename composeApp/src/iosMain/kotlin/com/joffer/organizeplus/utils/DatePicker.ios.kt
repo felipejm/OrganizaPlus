@@ -8,13 +8,16 @@ import platform.UIKit.*
 @Composable
 actual fun showDatePickerDialog(
     initialDate: LocalDate?,
-    onDateSelected: (LocalDate) -> Unit
+    onDateSelected: (LocalDate) -> Unit,
+    title: String,
+    doneText: String,
+    cancelText: String
 ) {
     val datePicker = UIDatePicker().apply {
         datePickerMode = UIDatePickerMode.UIDatePickerModeDate
         preferredDatePickerStyle = UIDatePickerStyle.UIDatePickerStyleWheels
         translatesAutoresizingMaskIntoConstraints = false
-        
+
         // Set initial date if provided
         initialDate?.let { localDate ->
             // Convert LocalDate to NSDate using proper epoch conversion
@@ -23,7 +26,7 @@ actual fun showDatePickerDialog(
             components.year = localDate.year.toLong()
             components.month = localDate.monthNumber.toLong()
             components.day = localDate.dayOfMonth.toLong()
-            
+
             val nsDate = calendar.dateFromComponents(components)
             if (nsDate != null) {
                 date = nsDate
@@ -32,7 +35,7 @@ actual fun showDatePickerDialog(
     }
 
     val alertController = UIAlertController.alertControllerWithTitle(
-        title = "Select Date",
+        title = title,
         message = "\n\n\n\n\n\n\n",
         preferredStyle = UIAlertControllerStyleAlert
     ).apply {
@@ -48,7 +51,7 @@ actual fun showDatePickerDialog(
 
     alertController.addAction(
         UIAlertAction.actionWithTitle(
-            title = "Done",
+            title = doneText,
             style = UIAlertActionStyleDefault
         ) { _ ->
             val selectedNSDate = datePicker.date
@@ -57,7 +60,7 @@ actual fun showDatePickerDialog(
                 NSCalendarUnitYear or NSCalendarUnitMonth or NSCalendarUnitDay,
                 fromDate = selectedNSDate
             )
-            
+
             val localDate = LocalDate(
                 year = components.year.toInt(),
                 monthNumber = components.month.toInt(),
@@ -69,7 +72,7 @@ actual fun showDatePickerDialog(
 
     alertController.addAction(
         UIAlertAction.actionWithTitle(
-            title = "Cancel",
+            title = cancelText,
             style = UIAlertActionStyleCancel
         ) { _ ->
             // Do nothing on cancel

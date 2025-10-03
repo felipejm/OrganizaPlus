@@ -5,8 +5,6 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -15,7 +13,6 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.center
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
-import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
@@ -24,8 +21,6 @@ import com.joffer.organizeplus.designsystem.colors.SemanticColors
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
 import kotlinx.coroutines.delay
-import kotlin.math.cos
-import kotlin.math.sin
 
 /**
  * Data class representing a segment in the circle chart
@@ -134,18 +129,18 @@ private fun CircleChartContent(
     modifier: Modifier = Modifier
 ) {
     val totalValue = data.sumOf { it.value.toDouble() }.toFloat()
-    
+
     // Animation for chart - restart animation when data changes
     val animationKey = remember(data) { data.hashCode() }
     var shouldAnimate by remember { mutableStateOf(false) }
-    
+
     // Trigger animation restart when data changes or component is first composed
     LaunchedEffect(animationKey) {
         shouldAnimate = false
         delay(50) // Small delay to ensure state reset
         shouldAnimate = true
     }
-    
+
     val animationProgress by animateFloatAsState(
         targetValue = if (config.animate && shouldAnimate) 1f else 0f,
         animationSpec = tween(
@@ -171,13 +166,13 @@ private fun CircleChartContent(
                 config = config,
                 animationProgress = animationProgress
             )
-            
+
             // Center text
             if (config.showCenterText) {
                 val centerText = config.centerText.ifEmpty {
-                    "Total\n ${totalValue}"
+                    "Total\n $totalValue"
                 }
-                
+
                 Text(
                     text = centerText,
                     style = DesignSystemTypography().bodyMedium,
@@ -219,7 +214,7 @@ private fun CircleChartCanvas(
 
         data.forEach { segment ->
             val segmentAngle = (segment.value / totalValue) * 360f * animationProgress
-            
+
             // Only draw segment if it has meaningful size
             if (segmentAngle >= MIN_SEGMENT_ANGLE) {
                 drawArc(
@@ -240,7 +235,7 @@ private fun CircleChartCanvas(
                         cap = StrokeCap.Round
                     )
                 )
-                
+
                 currentAngle += segmentAngle
             }
         }
@@ -256,7 +251,7 @@ private fun CircleChartLegend(
     modifier: Modifier = Modifier
 ) {
     val typography = DesignSystemTypography()
-    
+
     Column(
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(Spacing.xs)
@@ -275,14 +270,14 @@ private fun CircleChartLegend(
                             shape = RoundedCornerShape(2.dp)
                         )
                 )
-                
+
                 // Label
                 Text(
                     text = segment.label,
                     style = typography.bodySmall,
                     color = SemanticColors.Foreground.primary
                 )
-                
+
                 // Value
                 Text(
                     text = "(${segment.value})",
@@ -322,4 +317,3 @@ private fun EmptyCircleChartState(
         }
     }
 }
-

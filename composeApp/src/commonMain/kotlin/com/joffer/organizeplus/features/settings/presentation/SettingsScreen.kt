@@ -11,15 +11,12 @@ import com.joffer.organizeplus.designsystem.colors.SemanticColors
 import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
-import com.joffer.organizeplus.designsystem.typography.ProvideSfProTypography
 import org.jetbrains.compose.resources.stringResource
 import organizeplus.composeapp.generated.resources.Res
-import organizeplus.composeapp.generated.resources.duty_review_title
 import organizeplus.composeapp.generated.resources.settings_design_system
 import organizeplus.composeapp.generated.resources.settings_design_system_catalog
 import organizeplus.composeapp.generated.resources.settings_design_system_description
 import organizeplus.composeapp.generated.resources.settings_title
-import com.joffer.organizeplus.designsystem.colors.ColorScheme as AppColorScheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

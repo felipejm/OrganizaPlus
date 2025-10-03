@@ -19,6 +19,7 @@ import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
 import com.joffer.organizeplus.designsystem.typography.ProvideSfProTypography
 import com.joffer.organizeplus.features.duty.list.components.DutyListItem
+import com.joffer.organizeplus.features.duty.list.components.DutyCategoryGaugeChart
 import com.joffer.organizeplus.features.duty.list.domain.DutyCategoryFilter
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
@@ -148,6 +149,15 @@ fun DutyListScreen(
                                 currentMonth = currentMonth,
                                 currentYear = currentYear,
                                 typography = typography
+                            )
+                        }
+
+                        // Category Completion Gauge Chart
+                        item {
+                            DutyCategoryGaugeChart(
+                                duties = uiState.duties,
+                                categoryFilter = categoryFilter,
+                                modifier = Modifier.fillMaxWidth()
                             )
                         }
 

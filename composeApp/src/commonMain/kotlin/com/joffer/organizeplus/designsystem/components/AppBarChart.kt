@@ -14,17 +14,15 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.min
+import com.joffer.organizeplus.common.utils.toCurrencyFormat
 import com.joffer.organizeplus.designsystem.colors.SemanticColors
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
-import com.joffer.organizeplus.common.utils.formatString
-import com.joffer.organizeplus.common.utils.toCurrencyFormat
 
 data class ChartDataPoint(
     val label: String,
     val value: Float
 )
-
 
 data class ChartConfig(
     val barColors: List<Color> = listOf(SemanticColors.Foreground.brand),
@@ -118,14 +116,14 @@ private fun ChartContent(
     // Animation for bars - restart animation when data changes or component is first composed
     val animationKey = remember(data) { data.hashCode() }
     var shouldAnimate by remember { mutableStateOf(false) }
-    
+
     // Trigger animation restart when data changes or component is first composed
     LaunchedEffect(animationKey) {
         shouldAnimate = false
         kotlinx.coroutines.delay(50) // Small delay to ensure state reset
         shouldAnimate = true
     }
-    
+
     val animationProgress by animateFloatAsState(
         targetValue = if (config.animate && shouldAnimate) 1f else 0f,
         animationSpec = tween(
@@ -258,4 +256,3 @@ private fun EmptyChartState(
         }
     }
 }
-

@@ -22,7 +22,6 @@ import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
 import com.joffer.organizeplus.features.dashboard.DashboardIntent
 import com.joffer.organizeplus.features.dashboard.components.DutyCategorySection
-import com.joffer.organizeplus.features.dashboard.components.DashboardDutyChart
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
@@ -118,15 +117,6 @@ fun DashboardScreen(
                     }
                 }
 
-                // Duties Completed Chart
-                if (uiState.personalSummary?.totalCompleted != null || uiState.companySummary?.totalCompleted != null) {
-                    item {
-                        DashboardDutyChart(
-                            personalSummary = uiState.personalSummary,
-                            companySummary = uiState.companySummary
-                        )
-                    }
-                }
 
                 // Check if there are any duties at all
                 if (uiState.personalDuties.isEmpty() && uiState.companyDuties.isEmpty()) {

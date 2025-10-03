@@ -261,4 +261,9 @@
     <string name="dashboard_chart_company">Empresa</string>
     <string name="dashboard_chart_total">Total</string>
     <string name="dashboard_chart_complete">Completo!</string>
+
+    <!-- Date Picker -->
+    <string name="date_picker_title">Selecionar Data</string>
+    <string name="date_picker_done">Concluído</string>
+    <string name="date_picker_cancel">Cancelar</string>
 </resources>

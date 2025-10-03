@@ -7,8 +7,8 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.colors.SemanticColors
+import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
 
@@ -19,7 +19,7 @@ fun ChartShowcaseScreen(
     modifier: Modifier = Modifier
 ) {
     val typography = DesignSystemTypography()
-    
+
     Scaffold(
         modifier = modifier.fillMaxSize(),
         containerColor = SemanticColors.Background.primary,
@@ -46,7 +46,7 @@ fun ChartShowcaseScreen(
                     fontWeight = FontWeight.Bold
                 )
             }
-            
+
             item {
                 Text(
                     text = "Vertical bar chart for comparing values across categories",
@@ -54,7 +54,7 @@ fun ChartShowcaseScreen(
                     color = SemanticColors.Foreground.secondary
                 )
             }
-            
+
             item {
                 val sampleData = listOf(
                     ChartDataPoint("Jan", 120f),
@@ -80,10 +80,10 @@ fun ChartShowcaseScreen(
                     modifier = Modifier.fillMaxWidth()
                 )
             }
-            
+
             item {
                 Spacer(modifier = Modifier.height(Spacing.lg))
-                
+
                 Text(
                     text = "Circle Chart",
                     style = typography.titleLarge,
@@ -91,7 +91,7 @@ fun ChartShowcaseScreen(
                     fontWeight = FontWeight.Bold
                 )
             }
-            
+
             item {
                 Text(
                     text = "Circular chart for showing proportions and percentages",
@@ -99,7 +99,7 @@ fun ChartShowcaseScreen(
                     color = SemanticColors.Foreground.secondary
                 )
             }
-            
+
             item {
                 val circleData = listOf(
                     CircleChartSegment("Mobile", 45f, SemanticColors.Foreground.brand),
@@ -116,6 +116,47 @@ fun ChartShowcaseScreen(
                         showCenterText = true,
                         centerText = "Total\n100%",
                         animationDuration = 1500
+                    ),
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
+
+            item {
+                Spacer(modifier = Modifier.height(Spacing.lg))
+
+                Text(
+                    text = "Gauge Chart",
+                    style = typography.titleLarge,
+                    color = SemanticColors.Foreground.primary,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+
+            item {
+                Text(
+                    text = "Gauge chart for displaying single values with min/max ranges",
+                    style = typography.bodyMedium,
+                    color = SemanticColors.Foreground.secondary
+                )
+            }
+
+            item {
+                val gaugeData = GaugeChartData(
+                    value = 75f,
+                    minValue = 0f,
+                    maxValue = 100f,
+                    unit = "%",
+                    color = SemanticColors.Foreground.success,
+                    backgroundColor = SemanticColors.Background.surfaceVariant,
+                    label = "Completion Rate",
+                    subtitle = "Progress towards goal"
+                )
+
+                AppGaugeChart(
+                    data = gaugeData,
+                    config = GaugeChartConfig(
+                        strokeWidth = 20.dp,
+                        animationDuration = 1800
                     ),
                     modifier = Modifier.fillMaxWidth()
                 )

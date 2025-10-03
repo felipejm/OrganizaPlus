@@ -262,4 +262,9 @@
     <string name="dashboard_chart_total">Total</string>
     <string name="dashboard_chart_complete">Complete!</string>
 
+    <!-- Date Picker -->
+    <string name="date_picker_title">Select Date</string>
+    <string name="date_picker_done">Done</string>
+    <string name="date_picker_cancel">Cancel</string>
+
 </resources>

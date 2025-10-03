@@ -9,9 +9,9 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import com.joffer.organizeplus.common.utils.DateUtils
 import com.joffer.organizeplus.designsystem.colors.SemanticColors
 import com.joffer.organizeplus.designsystem.components.*
-import com.joffer.organizeplus.common.utils.DateUtils
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
 import com.joffer.organizeplus.features.duty.review.domain.entities.DutyReviewData
@@ -192,7 +192,6 @@ private fun DutyReviewDataContent(
         }
     }
 }
-
 
 @Composable
 private fun DutyReviewChart(

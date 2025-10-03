@@ -1,8 +1,6 @@
 package com.joffer.organizeplus.designsystem.components
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.interaction.PressInteraction
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -37,19 +35,12 @@ fun DateInputField(
         Spacer(modifier = Modifier.height(Spacing.xs))
 
         OutlinedTextField(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable { onDatePickerClick() },
             value = value,
-            interactionSource = remember { MutableInteractionSource() }
-                .also { interactionSource ->
-                    LaunchedEffect(interactionSource) {
-                        interactionSource.interactions.collect {
-                            if (it is PressInteraction.Release) {
-                                onDatePickerClick()
-                            }
-                        }
-                    }
-                },
-            onValueChange = { onValueChange(it) },
             readOnly = true,
+            onValueChange = { onValueChange(it) },
             placeholder = {
                 Text(
                     text = placeholder,
@@ -60,14 +51,10 @@ fun DateInputField(
                 Icon(
                     imageVector = Icons.Default.DateRange,
                     contentDescription = "Select Date",
-                    tint = AppColorScheme.formPlaceholder
+                    tint = AppColorScheme.formPlaceholder,
+                    modifier = Modifier.clickable { onDatePickerClick() }
                 )
             },
-            modifier = Modifier
-                .fillMaxWidth()
-                .clickable {
-                    onDatePickerClick()
-                },
             colors = OutlinedTextFieldDefaults.colors(
                 focusedBorderColor = if (isError) AppColorScheme.error else AppColorScheme.primary,
                 unfocusedBorderColor = if (isError) AppColorScheme.error else AppColorScheme.formBorder,

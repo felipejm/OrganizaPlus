@@ -62,11 +62,7 @@ fun DashboardBarChart(
             modifier = Modifier.padding(Spacing.lg)
         ) {
             BarChart(
-                data = chartData,
-                onBarClick = { dataPoint ->
-                    // Handle bar click - could navigate to day details
-                    // or show more information
-                }
+                data = chartData
             )
         }
     }

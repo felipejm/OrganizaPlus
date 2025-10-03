@@ -17,6 +17,7 @@ import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
 import com.joffer.organizeplus.features.dashboard.domain.entities.DutyType
+import com.joffer.organizeplus.features.duty.occurrence.domain.entities.DutyOccurrenceForm
 import com.joffer.organizeplus.features.duty.occurrence.domain.entities.DutyOccurrenceFormField
 import com.joffer.organizeplus.features.duty.occurrence.domain.validation.ValidationError
 import com.joffer.organizeplus.utils.formatDateForDisplay
@@ -231,7 +232,7 @@ private fun AddOccurrencePaidAmountField(
 
 @Composable
 private fun AddOccurrenceDateField(
-    formState: com.joffer.organizeplus.features.duty.occurrence.domain.entities.DutyOccurrenceForm,
+    formState: DutyOccurrenceForm,
     uiState: AddDutyOccurrenceUiState,
     viewModel: AddDutyOccurrenceViewModel,
     onShowDatePicker: () -> Unit

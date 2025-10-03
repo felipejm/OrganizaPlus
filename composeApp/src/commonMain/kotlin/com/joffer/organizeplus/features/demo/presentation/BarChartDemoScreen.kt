@@ -168,10 +168,7 @@ fun BarChartDemoScreen(
                         )
                         Spacer(modifier = Modifier.height(Spacing.md))
                         BarChart(
-                            data = monthlyRevenueData,
-                            onBarClick = { dataPoint ->
-                                // Handle bar click
-                            }
+                            data = monthlyRevenueData
                         )
                     }
                 }
@@ -197,10 +194,7 @@ fun BarChartDemoScreen(
                         )
                         Spacer(modifier = Modifier.height(Spacing.md))
                         BarChart(
-                            data = taskCompletionData,
-                            onBarClick = { dataPoint ->
-                                // Handle bar click
-                            }
+                            data = taskCompletionData
                         )
                     }
                 }
@@ -226,10 +220,7 @@ fun BarChartDemoScreen(
                         )
                         Spacer(modifier = Modifier.height(Spacing.md))
                         BarChart(
-                            data = categoryDistributionData,
-                            onBarClick = { dataPoint ->
-                                // Handle bar click
-                            }
+                            data = categoryDistributionData
                         )
                     }
                 }

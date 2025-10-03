@@ -30,8 +30,6 @@ fun BarChart(
     }
 
     val typography = DesignSystemTypography()
-    val density = LocalDensity.current
-    val textMeasurer = rememberTextMeasurer()
 
     // Animation state
     val animationProgress = remember { Animatable(0f) }

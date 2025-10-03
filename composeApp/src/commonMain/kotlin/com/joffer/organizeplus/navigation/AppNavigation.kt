@@ -22,7 +22,6 @@ import com.joffer.organizeplus.features.duty.list.presentation.DutyListViewModel
 import com.joffer.organizeplus.features.duty.review.presentation.DutyReviewScreen
 import com.joffer.organizeplus.features.duty.review.presentation.DutyReviewViewModel
 import com.joffer.organizeplus.features.settings.presentation.SettingsScreen
-import com.joffer.organizeplus.features.settings.presentation.SettingsViewModel
 import org.koin.compose.koinInject
 import org.koin.core.parameter.parametersOf
 
@@ -94,7 +93,8 @@ fun AppNavigation(
                     CategoryConstants.PERSONAL -> DutyCategoryFilter.Personal
                     else -> DutyCategoryFilter.Company
                 }
-                val dutyListViewModel: DutyListViewModel = koinInject { parametersOf(categoryFilter) }
+                val dutyListViewModel: DutyListViewModel =
+                    koinInject { parametersOf(categoryFilter) }
                 DutyListScreen(
                     viewModel = dutyListViewModel,
                     categoryFilter = categoryFilter,
@@ -142,9 +142,7 @@ fun AppNavigation(
             }
 
             composable<Settings> {
-                val settingsViewModel: SettingsViewModel = koinInject()
                 SettingsScreen(
-                    viewModel = settingsViewModel,
                     onNavigateBack = {
                         navController.popBackStack()
                     },
@@ -156,7 +154,8 @@ fun AppNavigation(
 
             composable<DutyReview> { backStackEntry ->
                 val dutyReview = backStackEntry.toRoute<DutyReview>()
-                val dutyReviewViewModel: DutyReviewViewModel = koinInject { parametersOf(dutyReview.category) }
+                val dutyReviewViewModel: DutyReviewViewModel =
+                    koinInject { parametersOf(dutyReview.category) }
                 DutyReviewScreen(
                     viewModel = dutyReviewViewModel,
                     onNavigateBack = {
@@ -249,7 +248,11 @@ fun AppNavigation(
             }
 
             composable("charts") {
-                com.joffer.organizeplus.designsystem.catalog.ChartShowcaseScreen()
+                com.joffer.organizeplus.designsystem.catalog.ChartShowcaseScreen(
+                    onNavigateBack = {
+                        navController.popBackStack()
+                    }
+                )
             }
         }
     }

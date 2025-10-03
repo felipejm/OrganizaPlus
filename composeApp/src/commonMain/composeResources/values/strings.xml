@@ -255,4 +255,11 @@
     <string name="duty_review_total">Total</string>
     <string name="duty_review_search">Search</string>
 
+    <!-- Dashboard Chart -->
+    <string name="dashboard_chart_title">Completion Rate</string>
+    <string name="dashboard_chart_personal">Personal</string>
+    <string name="dashboard_chart_company">Company</string>
+    <string name="dashboard_chart_total">Total</string>
+    <string name="dashboard_chart_complete">Complete!</string>
+
 </resources>

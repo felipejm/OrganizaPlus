@@ -22,6 +22,7 @@ import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
 import com.joffer.organizeplus.features.dashboard.DashboardIntent
 import com.joffer.organizeplus.features.dashboard.components.DutyCategorySection
+import com.joffer.organizeplus.features.dashboard.components.DashboardDutyChart
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
@@ -114,6 +115,16 @@ fun DashboardScreen(
                                 color = SemanticColors.Foreground.secondary
                             )
                         }
+                    }
+                }
+
+                // Duties Completed Chart
+                if (uiState.personalSummary?.totalCompleted != null || uiState.companySummary?.totalCompleted != null) {
+                    item {
+                        DashboardDutyChart(
+                            personalSummary = uiState.personalSummary,
+                            companySummary = uiState.companySummary
+                        )
                     }
                 }
 

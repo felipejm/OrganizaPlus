@@ -183,7 +183,6 @@ private fun BarColumn(
                 style = typography.bodySmall,
                 color = SemanticColors.Foreground.secondary,
                 textAlign = TextAlign.Center,
-                modifier = Modifier.padding(bottom = VALUE_PADDING)
             )
         }
 

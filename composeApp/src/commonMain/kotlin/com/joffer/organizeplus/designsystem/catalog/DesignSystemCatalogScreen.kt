@@ -24,10 +24,7 @@ fun DesignSystemCatalogScreen(
     val typography = DesignSystemTypography()
     Scaffold(
         topBar = {
-            AppTopAppBarWithBackButton(
-                title = "Design System Catalog",
-                onBackClick = onNavigateBack
-            )
+            AppTopAppBarWithBackButton(onBackClick = onNavigateBack)
         }
     ) { paddingValues ->
         LazyColumn(
@@ -46,7 +43,7 @@ fun DesignSystemCatalogScreen(
                 Spacer(modifier = Modifier.height(Spacing.sm))
             }
 
-            items(ComponentCategory.values()) { category ->
+            items(ComponentCategory.entries.toTypedArray()) { category ->
                 ComponentCategoryCard(
                     category = category,
                     onNavigateToComponent = onNavigateToComponent

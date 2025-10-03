@@ -254,4 +254,11 @@
     <string name="placeholder_category">Selecionar categoria</string>
     <string name="placeholder_date">Selecionar data</string>
     <string name="status_snoozed">Adiado</string>
+
+    <!-- Dashboard Chart -->
+    <string name="dashboard_chart_title">Taxa de Conclusão</string>
+    <string name="dashboard_chart_personal">Pessoal</string>
+    <string name="dashboard_chart_company">Empresa</string>
+    <string name="dashboard_chart_total">Total</string>
+    <string name="dashboard_chart_complete">Completo!</string>
 </resources>

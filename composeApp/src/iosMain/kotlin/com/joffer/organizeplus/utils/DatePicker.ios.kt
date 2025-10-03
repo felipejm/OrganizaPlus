@@ -2,9 +2,7 @@ package com.joffer.organizeplus.utils
 
 import androidx.compose.runtime.Composable
 import kotlinx.datetime.LocalDate
-import platform.Foundation.NSDate
-import platform.Foundation.NSTimeInterval
-import platform.Foundation.timeIntervalSince1970
+import platform.Foundation.*
 import platform.UIKit.*
 
 @Composable
@@ -16,11 +14,20 @@ actual fun showDatePickerDialog(
         datePickerMode = UIDatePickerMode.UIDatePickerModeDate
         preferredDatePickerStyle = UIDatePickerStyle.UIDatePickerStyleWheels
         translatesAutoresizingMaskIntoConstraints = false
-        initialDate?.let {
-            // Convert LocalDate to NSDate
-            val epochDays = it.toEpochDays()
-            val timeInterval: NSTimeInterval = epochDays * 24.0 * 60.0 * 60.0
-            date = NSDate(timeIntervalSinceReferenceDate = timeInterval - 978307200.0) // NSDate epoch is Jan 1, 2001
+        
+        // Set initial date if provided
+        initialDate?.let { localDate ->
+            // Convert LocalDate to NSDate using proper epoch conversion
+            val calendar = NSCalendar.currentCalendar
+            val components = NSDateComponents()
+            components.year = localDate.year.toLong()
+            components.month = localDate.monthNumber.toLong()
+            components.day = localDate.dayOfMonth.toLong()
+            
+            val nsDate = calendar.dateFromComponents(components)
+            if (nsDate != null) {
+                date = nsDate
+            }
         }
     }
 
@@ -30,11 +37,11 @@ actual fun showDatePickerDialog(
         preferredStyle = UIAlertControllerStyleAlert
     ).apply {
         view.addSubview(datePicker)
-        view.addConstraints(
+        NSLayoutConstraint.activateConstraints(
             listOf(
                 datePicker.centerXAnchor.constraintEqualToAnchor(view.centerXAnchor),
-                datePicker.topAnchor.constraintEqualToAnchor(view.topAnchor, constant = 10.0),
-                datePicker.widthAnchor.constraintEqualToAnchor(view.widthAnchor, constant = -20.0)
+                datePicker.topAnchor.constraintEqualToAnchor(view.topAnchor, constant = 60.0),
+                datePicker.widthAnchor.constraintEqualToAnchor(view.widthAnchor, constant = -40.0)
             )
         )
     }
@@ -45,10 +52,17 @@ actual fun showDatePickerDialog(
             style = UIAlertActionStyleDefault
         ) { _ ->
             val selectedNSDate = datePicker.date
-            // Access the property directly - timeIntervalSince1970 is a Double property
-            val timeIntervalSeconds = selectedNSDate.timeIntervalSince1970
-            val daysSinceEpoch = (timeIntervalSeconds / (24.0 * 60.0 * 60.0)).toInt()
-            val localDate = LocalDate.fromEpochDays(daysSinceEpoch)
+            val calendar = NSCalendar.currentCalendar
+            val components = calendar.components(
+                NSCalendarUnitYear or NSCalendarUnitMonth or NSCalendarUnitDay,
+                fromDate = selectedNSDate
+            )
+            
+            val localDate = LocalDate(
+                year = components.year.toInt(),
+                monthNumber = components.month.toInt(),
+                dayOfMonth = components.day.toInt()
+            )
             onDateSelected(localDate)
         }
     )
@@ -62,7 +76,9 @@ actual fun showDatePickerDialog(
         }
     )
 
-    UIApplication.sharedApplication.keyWindow?.rootViewController?.presentViewController(
+    // Get the current view controller and present the alert
+    val rootViewController = UIApplication.sharedApplication.keyWindow?.rootViewController
+    rootViewController?.presentViewController(
         alertController,
         animated = true,
         completion = null

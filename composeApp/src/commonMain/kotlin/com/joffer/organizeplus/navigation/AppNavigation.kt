@@ -142,7 +142,9 @@ fun AppNavigation(
             }
 
                 composable<Settings> {
+                    val settingsViewModel: com.joffer.organizeplus.features.settings.presentation.SettingsViewModel = koinInject()
                     SettingsScreen(
+                        viewModel = settingsViewModel,
                         onNavigateBack = {
                             navController.popBackStack()
                         },

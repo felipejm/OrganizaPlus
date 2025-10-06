@@ -11,6 +11,7 @@ import com.joffer.organizeplus.designsystem.colors.SemanticColors
 import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
+import com.joffer.organizeplus.features.settings.domain.StorageMode
 import org.jetbrains.compose.resources.stringResource
 import organizeplus.composeapp.generated.resources.Res
 import organizeplus.composeapp.generated.resources.settings_design_system
@@ -25,10 +26,12 @@ import organizeplus.composeapp.generated.resources.settings_title
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsScreen(
+    viewModel: SettingsViewModel,
     onNavigateBack: () -> Unit,
     onNavigateToDesignSystem: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val uiState by viewModel.uiState.collectAsState()
     val typography = DesignSystemTypography()
 
     Scaffold(
@@ -57,6 +60,67 @@ fun SettingsScreen(
             )
             Spacer(modifier = Modifier.height(Spacing.lg))
 
+            // Storage Mode Section
+            Column {
+                Text(
+                    text = stringResource(Res.string.settings_storage_mode),
+                    style = typography.titleMedium,
+                    color = SemanticColors.Foreground.primary,
+                    fontWeight = FontWeight.SemiBold
+                )
+
+                Spacer(modifier = Modifier.height(Spacing.sm))
+
+                OrganizeCard {
+                    Column(
+                        modifier = Modifier.padding(Spacing.md)
+                    ) {
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = androidx.compose.ui.Alignment.CenterVertically
+                        ) {
+                            Text(
+                                text = stringResource(Res.string.settings_storage_mode_local),
+                                style = typography.bodyLarge,
+                                color = SemanticColors.Foreground.primary
+                            )
+                            RadioButton(
+                                selected = uiState.storageMode == StorageMode.LOCAL,
+                                onClick = { viewModel.updateStorageMode(StorageMode.LOCAL) }
+                            )
+                        }
+
+                        Spacer(modifier = Modifier.height(Spacing.sm))
+
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = androidx.compose.ui.Alignment.CenterVertically
+                        ) {
+                            Text(
+                                text = stringResource(Res.string.settings_storage_mode_remote),
+                                style = typography.bodyLarge,
+                                color = SemanticColors.Foreground.primary
+                            )
+                            RadioButton(
+                                selected = uiState.storageMode == StorageMode.REMOTE,
+                                onClick = { viewModel.updateStorageMode(StorageMode.REMOTE) }
+                            )
+                        }
+
+                        Spacer(modifier = Modifier.height(Spacing.sm))
+
+                        Text(
+                            text = stringResource(Res.string.settings_storage_mode_description),
+                            style = typography.bodyMedium,
+                            color = SemanticColors.Foreground.secondary
+                        )
+                    }
+                }
+            }
+
+            Spacer(modifier = Modifier.height(Spacing.lg))
 
             // Design System
             Column {

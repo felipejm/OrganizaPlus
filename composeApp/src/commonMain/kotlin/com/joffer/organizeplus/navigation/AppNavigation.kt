@@ -141,16 +141,16 @@ fun AppNavigation(
                 )
             }
 
-            composable<Settings> {
-                SettingsScreen(
-                    onNavigateBack = {
-                        navController.popBackStack()
-                    },
-                    onNavigateToDesignSystem = {
-                        navController.navigate(DesignSystemCatalog)
-                    }
-                )
-            }
+                composable<Settings> {
+                    SettingsScreen(
+                        onNavigateBack = {
+                            navController.popBackStack()
+                        },
+                        onNavigateToDesignSystem = {
+                            navController.navigate(DesignSystemCatalog)
+                        }
+                    )
+                }
 
             composable<DutyReview> { backStackEntry ->
                 val dutyReview = backStackEntry.toRoute<DutyReview>()

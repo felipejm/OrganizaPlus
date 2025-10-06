@@ -150,6 +150,11 @@
     <string name="settings_design_system">Design System</string>
     <string name="settings_design_system_catalog">Design System Catalog</string>
     <string name="settings_design_system_description">Explore components, colors, and typography</string>
+    
+    <string name="settings_storage_mode">Storage Mode</string>
+    <string name="settings_storage_mode_local">Local Storage</string>
+    <string name="settings_storage_mode_remote">Remote Storage</string>
+    <string name="settings_storage_mode_description">Choose between local device storage or remote cloud storage</string>
 
     <!-- Duty Occurrence -->
     <string name="duty_occurrence_list_title">Occurrences</string>

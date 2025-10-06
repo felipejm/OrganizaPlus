@@ -16,6 +16,10 @@ import organizeplus.composeapp.generated.resources.Res
 import organizeplus.composeapp.generated.resources.settings_design_system
 import organizeplus.composeapp.generated.resources.settings_design_system_catalog
 import organizeplus.composeapp.generated.resources.settings_design_system_description
+import organizeplus.composeapp.generated.resources.settings_storage_mode
+import organizeplus.composeapp.generated.resources.settings_storage_mode_description
+import organizeplus.composeapp.generated.resources.settings_storage_mode_local
+import organizeplus.composeapp.generated.resources.settings_storage_mode_remote
 import organizeplus.composeapp.generated.resources.settings_title
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -52,6 +56,7 @@ fun SettingsScreen(
                 fontWeight = FontWeight.Black
             )
             Spacer(modifier = Modifier.height(Spacing.lg))
+
 
             // Design System
             Column {

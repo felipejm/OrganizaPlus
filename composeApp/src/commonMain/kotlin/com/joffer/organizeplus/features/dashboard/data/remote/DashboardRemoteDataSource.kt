@@ -4,6 +4,7 @@ import io.github.aakira.napier.Napier
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.request.*
+import io.ktor.client.statement.HttpResponse
 import io.ktor.http.*
 
 interface DashboardRemoteDataSource {
@@ -29,11 +30,11 @@ class DashboardRemoteDataSourceImpl(
         }
     }
 
-    private suspend fun handleResponse(response: io.ktor.client.statement.HttpResponse): Result<DashboardRemoteResponse> {
+    private suspend fun handleResponse(response: HttpResponse): Result<DashboardRemoteResponse> {
         return parseResponse(response)
     }
 
-    private suspend fun parseResponse(response: io.ktor.client.statement.HttpResponse): Result<DashboardRemoteResponse> {
+    private suspend fun parseResponse(response: HttpResponse): Result<DashboardRemoteResponse> {
         return try {
             val dashboardData = response.body<DashboardRemoteResponse>()
             Result.success(dashboardData)

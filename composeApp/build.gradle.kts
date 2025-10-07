@@ -72,35 +72,36 @@ kotlin {
             
             // UI libraries
             // Navigation library
-            implementation("org.jetbrains.androidx.navigation:navigation-compose:2.9.0")
+            implementation(libs.compose.navigation)
             implementation(libs.kamel)
             implementation(libs.material.icons.extended)
-            
+
             // DI library
             implementation(libs.koin.core)
             implementation(libs.koin.compose)
-            
+
             // HTTP libraries
             implementation(libs.ktor.client.core)
             implementation(libs.ktor.client.json)
             implementation(libs.ktor.client.logging)
+            implementation(libs.ktor.client.content.negotiation)
             implementation(libs.ktor.serialization.kotlinx.json)
-            
+
             // DB library
             implementation(libs.sqldelight.runtime)
             implementation(libs.sqldelight.coroutines.extensions)
-            
+
             // Room library (KMP compatible)
             implementation(libs.room.runtime)
             implementation(libs.room.common)
             implementation(libs.sqlite.bundled)
-            
+
             // Logging library
             implementation(libs.napier)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
-            implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+            implementation(libs.kotlinx.coroutines.test)
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
@@ -195,3 +196,5 @@ detekt {
         "src/iosMain/kotlin"
     )
 }
+
+

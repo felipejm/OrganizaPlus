@@ -7,9 +7,9 @@ import com.joffer.organizeplus.features.settings.di.settingsModule
 import org.koin.dsl.module
 
 val appModule = module {
-    // Database module
+    // Core modules
+    includes(networkModule)
     includes(databaseModule)
-    // Repository module
     includes(repositoryModule)
 
     // Feature modules

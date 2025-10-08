@@ -2,6 +2,11 @@ package com.joffer.organizeplus.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -21,7 +26,13 @@ import com.joffer.organizeplus.features.duty.list.presentation.DutyListScreen
 import com.joffer.organizeplus.features.duty.list.presentation.DutyListViewModel
 import com.joffer.organizeplus.features.duty.review.presentation.DutyReviewScreen
 import com.joffer.organizeplus.features.duty.review.presentation.DutyReviewViewModel
+import com.joffer.organizeplus.features.onboarding.domain.usecases.CheckAuthStatusUseCase
+import com.joffer.organizeplus.features.onboarding.signin.presentation.SignInScreen
+import com.joffer.organizeplus.features.onboarding.signin.presentation.SignInViewModel
+import com.joffer.organizeplus.features.onboarding.signup.presentation.SignUpScreen
+import com.joffer.organizeplus.features.onboarding.signup.presentation.SignUpViewModel
 import com.joffer.organizeplus.features.settings.presentation.SettingsScreen
+import kotlinx.coroutines.launch
 import org.koin.compose.koinInject
 import org.koin.core.parameter.parametersOf
 
@@ -31,16 +42,65 @@ fun AppNavigation(
     onNavHostReady: suspend (NavController) -> Unit = {}
 ) {
     val dashboardViewModel: DashboardViewModel = koinInject()
+    val checkAuthStatusUseCase: CheckAuthStatusUseCase = koinInject()
+    val coroutineScope = rememberCoroutineScope()
+
+    var startDestination by remember { mutableStateOf<Any?>(null) }
 
     LaunchedEffect(navController) {
         onNavHostReady(navController)
+        coroutineScope.launch {
+            val isSignedIn = checkAuthStatusUseCase()
+            startDestination = if (isSignedIn) Dashboard else SignIn
+        }
+    }
+
+    if (startDestination == null) {
+        // Loading while checking auth status
+        return
     }
 
     ProvideSfProTypography {
         NavHost(
             navController = navController,
-            startDestination = Dashboard
+            startDestination = startDestination!!
         ) {
+            // Onboarding Routes
+            composable<SignIn> {
+                val signInViewModel: SignInViewModel = koinInject()
+                SignInScreen(
+                    viewModel = signInViewModel,
+                    onNavigateToSignUp = {
+                        navController.navigate(SignUp) {
+                            popUpTo(SignIn) { inclusive = true }
+                        }
+                    },
+                    onNavigateToDashboard = {
+                        navController.navigate(Dashboard) {
+                            popUpTo(SignIn) { inclusive = true }
+                        }
+                    }
+                )
+            }
+
+            composable<SignUp> {
+                val signUpViewModel: SignUpViewModel = koinInject()
+                SignUpScreen(
+                    viewModel = signUpViewModel,
+                    onNavigateToSignIn = {
+                        navController.navigate(SignIn) {
+                            popUpTo(SignUp) { inclusive = true }
+                        }
+                    },
+                    onNavigateToDashboard = {
+                        navController.navigate(Dashboard) {
+                            popUpTo(SignUp) { inclusive = true }
+                        }
+                    }
+                )
+            }
+
+            // Main App Routes
             composable<Dashboard> {
                 DashboardScreen(
                     viewModel = dashboardViewModel,

@@ -25,6 +25,8 @@ val secretProperties = Properties().apply {
 
 val apiKey = secretProperties.getProperty("API_KEY", "")
 val baseUrl = secretProperties.getProperty("API_BASE_URL", "")
+val userPoolId = secretProperties.getProperty("USER_POOL_ID", "")
+val userPoolClientId = secretProperties.getProperty("USER_POOL_CLIENT_ID", "")
 
 buildkonfig {
     packageName = "com.joffer.organizeplus"
@@ -36,6 +38,8 @@ buildkonfig {
         buildConfigField(FieldSpec.Type.STRING, "ENVIRONMENT", "Prod")
         buildConfigField(FieldSpec.Type.STRING, "API_BASE_URL", baseUrl)
         buildConfigField(FieldSpec.Type.STRING, "API_KEY", apiKey)
+        buildConfigField(FieldSpec.Type.STRING, "USER_POOL_ID", userPoolId)
+        buildConfigField(FieldSpec.Type.STRING, "USER_POOL_CLIENT_ID", userPoolClientId)
     }
 }
 

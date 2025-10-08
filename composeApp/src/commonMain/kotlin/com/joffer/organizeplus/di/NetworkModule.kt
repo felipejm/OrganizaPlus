@@ -3,6 +3,7 @@ package com.joffer.organizeplus.di
 import com.joffer.organizeplus.BuildConfig
 import io.github.aakira.napier.Napier
 import io.ktor.client.*
+import io.ktor.client.plugins.HttpTimeout
 import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.plugins.defaultRequest
 import io.ktor.client.plugins.logging.*
@@ -27,6 +28,12 @@ val networkModule = module {
                         isLenient = true
                     }
                 )
+            }
+
+            install(HttpTimeout) {
+                requestTimeoutMillis = 60000 // 60 seconds for Lambda cold starts
+                connectTimeoutMillis = 30000 // 30 seconds to connect
+                socketTimeoutMillis = 60000 // 60 seconds for socket
             }
 
             install(Logging) {

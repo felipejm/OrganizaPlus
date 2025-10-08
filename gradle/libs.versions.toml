@@ -45,6 +45,7 @@ napier = "2.7.1"
 
 # Build Config library
 kmp-build-config = "1.0.9"
+buildkonfig = "0.17.1"
 
 
 # Notification library
@@ -157,3 +158,4 @@ sqldelight = { id = "app.cash.sqldelight", version.ref = "sqldelight" }
 ksp = { id = "com.google.devtools.ksp", version = "2.2.20-2.0.3" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 kmp-build-config = { id = "io.github.kmbisset89.kmpbuildconfig.plugin", version.ref = "kmp-build-config" }
+buildkonfig = { id = "com.codingfeline.buildkonfig", version.ref = "buildkonfig" }

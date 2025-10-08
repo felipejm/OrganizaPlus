@@ -174,7 +174,7 @@ fun DutyListScreen(
                 }
             }
         }
-        
+
         // Confirmation dialog
         if (uiState.showDeleteConfirmation) {
             DeleteDutyConfirmationDialog(

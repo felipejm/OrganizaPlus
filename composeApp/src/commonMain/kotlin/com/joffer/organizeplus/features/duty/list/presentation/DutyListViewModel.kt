@@ -177,21 +177,21 @@ class DutyListViewModel(
     }
 
     private fun retry() = loadDuties()
-    
+
     private fun showDeleteConfirmation(dutyId: Long) {
         _uiState.value = _uiState.value.copy(
             showDeleteConfirmation = true,
             dutyToDelete = dutyId
         )
     }
-    
+
     private fun hideDeleteConfirmation() {
         _uiState.value = _uiState.value.copy(
             showDeleteConfirmation = false,
             dutyToDelete = null
         )
     }
-    
+
     private fun confirmDeleteDuty(dutyId: Long) {
         hideDeleteConfirmation()
         deleteDuty(dutyId)

@@ -1,4 +1,6 @@
+import com.codingfeline.buildkonfig.compiler.FieldSpec
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import java.util.Properties
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -10,6 +12,36 @@ plugins {
     alias(libs.plugins.sqldelight)
     alias(libs.plugins.ksp)
     alias(libs.plugins.detekt)
+    alias(libs.plugins.buildkonfig)
+}
+
+// Load secret.properties
+val secretProperties = Properties().apply {
+    val secretPropertiesFile = rootProject.file("secret.properties")
+    if (secretPropertiesFile.exists()) {
+        secretPropertiesFile.inputStream().use { load(it) }
+    }
+}
+
+val apiKey = secretProperties.getProperty("API_KEY", "")
+val baseUrl = secretProperties.getProperty("API_BASE_URL", "")
+
+buildkonfig {
+    packageName = "com.joffer.organizeplus"
+    objectName = "BuildConfig"
+    exposeObjectWithName = "BuildConfig"
+    
+    defaultConfigs {
+        buildConfigField(FieldSpec.Type.STRING, "VERSION", "1.0.0")
+        buildConfigField(FieldSpec.Type.STRING, "ENVIRONMENT", "Prod")
+        buildConfigField(FieldSpec.Type.STRING, "API_BASE_URL", baseUrl)
+        buildConfigField(FieldSpec.Type.STRING, "API_KEY", apiKey)
+    }
+}
+
+// Fix task dependencies
+tasks.matching { it.name.startsWith("ksp") }.configureEach {
+    dependsOn("generateBuildKonfig")
 }
 
 kotlin {

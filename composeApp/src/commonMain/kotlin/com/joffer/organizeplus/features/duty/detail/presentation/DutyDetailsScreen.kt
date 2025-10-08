@@ -97,7 +97,7 @@ fun DutyDetailsScreen(
                 }
             )
         }
-        
+
         // Confirmation dialog
         if (uiState.showDeleteConfirmation) {
             DeleteOccurrenceConfirmationDialog(

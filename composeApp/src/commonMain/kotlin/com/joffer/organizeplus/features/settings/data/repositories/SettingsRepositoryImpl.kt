@@ -7,14 +7,14 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
 class SettingsRepositoryImpl : SettingsRepository {
-    
+
     private val _storageMode = MutableStateFlow(StorageMode.LOCAL)
     val storageModeFlow: StateFlow<StorageMode> = _storageMode.asStateFlow()
-    
+
     override suspend fun getStorageMode(): StorageMode {
         return _storageMode.value
     }
-    
+
     override suspend fun setStorageMode(mode: StorageMode) {
         _storageMode.value = mode
     }

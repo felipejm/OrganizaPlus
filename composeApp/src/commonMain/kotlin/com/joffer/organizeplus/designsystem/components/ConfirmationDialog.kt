@@ -4,7 +4,6 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.joffer.organizeplus.designsystem.colors.SemanticColors
-import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
 import org.jetbrains.compose.resources.stringResource
 import organizeplus.composeapp.generated.resources.Res
@@ -14,7 +13,6 @@ import organizeplus.composeapp.generated.resources.confirmation_dialog_delete_du
 import organizeplus.composeapp.generated.resources.confirmation_dialog_delete_duty_title
 import organizeplus.composeapp.generated.resources.confirmation_dialog_delete_occurrence_message
 import organizeplus.composeapp.generated.resources.confirmation_dialog_delete_occurrence_title
-import organizeplus.composeapp.generated.resources.confirmation_dialog_title
 
 @Composable
 fun ConfirmationDialog(
@@ -27,7 +25,7 @@ fun ConfirmationDialog(
     modifier: Modifier = Modifier
 ) {
     val typography = DesignSystemTypography()
-    
+
     AlertDialog(
         onDismissRequest = onDismiss,
         title = {

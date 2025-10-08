@@ -131,21 +131,21 @@ class DutyDetailsListViewModel(
             error = exception.message ?: "Unknown error"
         )
     }
-    
+
     private fun showDeleteConfirmation(recordId: Long) {
         _uiState.value = _uiState.value.copy(
             showDeleteConfirmation = true,
             occurrenceToDelete = recordId
         )
     }
-    
+
     private fun hideDeleteConfirmation() {
         _uiState.value = _uiState.value.copy(
             showDeleteConfirmation = false,
             occurrenceToDelete = null
         )
     }
-    
+
     private fun confirmDeleteRecord(recordId: Long) {
         hideDeleteConfirmation()
         deleteRecord(recordId)

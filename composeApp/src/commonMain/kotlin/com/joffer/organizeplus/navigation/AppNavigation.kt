@@ -141,18 +141,19 @@ fun AppNavigation(
                 )
             }
 
-                composable<Settings> {
-                    val settingsViewModel: com.joffer.organizeplus.features.settings.presentation.SettingsViewModel = koinInject()
-                    SettingsScreen(
-                        viewModel = settingsViewModel,
-                        onNavigateBack = {
-                            navController.popBackStack()
-                        },
-                        onNavigateToDesignSystem = {
-                            navController.navigate(DesignSystemCatalog)
-                        }
-                    )
-                }
+            composable<Settings> {
+                val settingsViewModel: com.joffer.organizeplus.features.settings.presentation.SettingsViewModel =
+                    koinInject()
+                SettingsScreen(
+                    viewModel = settingsViewModel,
+                    onNavigateBack = {
+                        navController.popBackStack()
+                    },
+                    onNavigateToDesignSystem = {
+                        navController.navigate(DesignSystemCatalog)
+                    }
+                )
+            }
 
             composable<DutyReview> { backStackEntry ->
                 val dutyReview = backStackEntry.toRoute<DutyReview>()

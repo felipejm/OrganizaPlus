@@ -11,7 +11,6 @@ import com.joffer.organizeplus.features.onboarding.domain.usecases.SignInUseCase
 import com.joffer.organizeplus.features.onboarding.domain.usecases.SignUpUseCase
 import com.joffer.organizeplus.features.onboarding.signin.presentation.SignInViewModel
 import com.joffer.organizeplus.features.onboarding.signup.presentation.SignUpViewModel
-import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 
 val onboardingModule = module {
@@ -22,8 +21,8 @@ val onboardingModule = module {
     // Repository
     single<AuthRepository> {
         AuthRepositoryImpl(
-            remoteDataSource = get(),
-            localDataSource = get()
+            get<AuthRemoteDataSource>(),
+            get<AuthLocalDataSource>()
         )
     }
 
@@ -33,6 +32,6 @@ val onboardingModule = module {
     single { CheckAuthStatusUseCase(authRepository = get()) }
 
     // ViewModels
-    viewModel { SignUpViewModel(signUpUseCase = get()) }
-    viewModel { SignInViewModel(signInUseCase = get()) }
+    single { SignUpViewModel(signUpUseCase = get()) }
+    single { SignInViewModel(signInUseCase = get()) }
 }

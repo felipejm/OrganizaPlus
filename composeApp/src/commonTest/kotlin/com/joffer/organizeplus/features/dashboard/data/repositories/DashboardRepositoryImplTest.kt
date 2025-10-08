@@ -156,16 +156,26 @@ class DashboardRepositoryImplTest {
                             title = "Gym Membership",
                             type = "PAYABLE",
                             categoryName = "Personal",
-                            createdAt = "2024-01-15T10:00:00Z"
+                            createdAt = "2024-01-15T10:00:00Z",
+                            frequency = "MONTHLY",
+                            estimatedAmount = 49.99
                         ),
                         lastOccurrence = null,
                         hasCurrentMonthOccurrence = false,
-                        status = "PENDING",
+                        status = DutyStatusRemote(
+                            isCompleted = false,
+                            isPaid = false,
+                            statusText = "PENDING",
+                            statusColor = "#FFC107"
+                        ),
                         nextDueDate = null,
                         isOverdue = false,
                         displayInfo = DutyDisplayInfoRemote(
-                            iconName = "payable",
-                            colorHex = "#2196F3"
+                            priority = "NORMAL",
+                            categoryColor = "#2196F3",
+                            categoryIcon = "payable",
+                            typeDisplayName = "Payable",
+                            shortDescription = null
                         )
                     )
                 ),
@@ -176,25 +186,72 @@ class DashboardRepositoryImplTest {
                             title = "Office Rent",
                             type = "PAYABLE",
                             categoryName = "Company",
-                            createdAt = "2024-01-01T08:00:00Z"
+                            createdAt = "2024-01-01T08:00:00Z",
+                            frequency = "MONTHLY",
+                            estimatedAmount = 2500.0
                         ),
                         lastOccurrence = null,
                         hasCurrentMonthOccurrence = false,
-                        status = "PENDING",
+                        status = DutyStatusRemote(
+                            isCompleted = false,
+                            isPaid = false,
+                            statusText = "PENDING",
+                            statusColor = "#FFC107"
+                        ),
                         nextDueDate = null,
                         isOverdue = false,
                         displayInfo = DutyDisplayInfoRemote(
-                            iconName = "payable",
-                            colorHex = "#2196F3"
+                            priority = "HIGH",
+                            categoryColor = "#2196F3",
+                            categoryIcon = "payable",
+                            typeDisplayName = "Payable",
+                            shortDescription = null
                         )
                     )
                 ),
-                personalSummary = EnhancedMonthlySummaryRemote(0.0, 0, 0, 10, 2024),
-                companySummary = EnhancedMonthlySummaryRemote(0.0, 0, 0, 10, 2024),
-                overallStats = OverallStatsRemote(2, 0, 0.0, false)
+                personalSummary = EnhancedMonthlySummaryRemote(
+                    totalAmountPaid = 0.0,
+                    totalCompleted = 0,
+                    totalTasks = 0,
+                    currentMonth = 10,
+                    year = 2024,
+                    formattedAmount = "$0.00",
+                    completionRate = 0.0,
+                    monthName = "October",
+                    comparisonWithPreviousMonth = null
+                ),
+                companySummary = EnhancedMonthlySummaryRemote(
+                    totalAmountPaid = 0.0,
+                    totalCompleted = 0,
+                    totalTasks = 0,
+                    currentMonth = 10,
+                    year = 2024,
+                    formattedAmount = "$0.00",
+                    completionRate = 0.0,
+                    monthName = "October",
+                    comparisonWithPreviousMonth = null
+                ),
+                overallStats = OverallStatsRemote(
+                    totalDuties = 2,
+                    completedThisMonth = 0,
+                    pendingDuties = 2,
+                    overdueDuties = 0,
+                    totalAmountPaidThisMonth = 0.0,
+                    formattedTotalAmount = "$0.00",
+                    completionRate = 0.0,
+                    hasOverdueItems = false,
+                    needsAttention = emptyList()
+                )
             ),
             metadata = DashboardMetadataRemote(
-                "2024-10-15T10:00:00Z", 10, 2024, "October", true, false
+                generatedAt = "2024-10-15T10:00:00Z",
+                currentMonth = 10,
+                currentYear = 2024,
+                monthName = "October",
+                timezone = "UTC",
+                version = "1.0.0",
+                hasData = true,
+                isEmpty = false
             )
         )
     }
@@ -204,12 +261,49 @@ class DashboardRepositoryImplTest {
             dashboard = DashboardDataRemote(
                 personalDuties = emptyList(),
                 companyDuties = emptyList(),
-                personalSummary = EnhancedMonthlySummaryRemote(0.0, 0, 0, 10, 2024),
-                companySummary = EnhancedMonthlySummaryRemote(0.0, 0, 0, 10, 2024),
-                overallStats = OverallStatsRemote(0, 0, 0.0, false)
+                personalSummary = EnhancedMonthlySummaryRemote(
+                    totalAmountPaid = 0.0,
+                    totalCompleted = 0,
+                    totalTasks = 0,
+                    currentMonth = 10,
+                    year = 2024,
+                    formattedAmount = "$0.00",
+                    completionRate = 0.0,
+                    monthName = "October",
+                    comparisonWithPreviousMonth = null
+                ),
+                companySummary = EnhancedMonthlySummaryRemote(
+                    totalAmountPaid = 0.0,
+                    totalCompleted = 0,
+                    totalTasks = 0,
+                    currentMonth = 10,
+                    year = 2024,
+                    formattedAmount = "$0.00",
+                    completionRate = 0.0,
+                    monthName = "October",
+                    comparisonWithPreviousMonth = null
+                ),
+                overallStats = OverallStatsRemote(
+                    totalDuties = 0,
+                    completedThisMonth = 0,
+                    pendingDuties = 0,
+                    overdueDuties = 0,
+                    totalAmountPaidThisMonth = 0.0,
+                    formattedTotalAmount = "$0.00",
+                    completionRate = 0.0,
+                    hasOverdueItems = false,
+                    needsAttention = emptyList()
+                )
             ),
             metadata = DashboardMetadataRemote(
-                "2024-10-15T10:00:00Z", 10, 2024, "October", false, true
+                generatedAt = "2024-10-15T10:00:00Z",
+                currentMonth = 10,
+                currentYear = 2024,
+                monthName = "October",
+                timezone = "UTC",
+                version = "1.0.0",
+                hasData = false,
+                isEmpty = true
             )
         )
     }

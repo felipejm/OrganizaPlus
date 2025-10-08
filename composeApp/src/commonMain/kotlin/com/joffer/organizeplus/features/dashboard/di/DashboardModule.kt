@@ -6,9 +6,7 @@ import com.joffer.organizeplus.features.dashboard.data.local.DashboardLocalDataS
 import com.joffer.organizeplus.features.dashboard.data.remote.DashboardRemoteDataSource
 import com.joffer.organizeplus.features.dashboard.data.remote.DashboardRemoteDataSourceImpl
 import com.joffer.organizeplus.features.dashboard.data.repositories.DashboardRepositoryImpl
-import com.joffer.organizeplus.features.dashboard.data.repositories.RoomDutyRepository
 import com.joffer.organizeplus.features.dashboard.domain.repositories.DashboardRepository
-import com.joffer.organizeplus.features.dashboard.domain.repositories.DutyRepository
 import com.joffer.organizeplus.features.dashboard.domain.usecases.GetDashboardDataUseCase
 import com.joffer.organizeplus.features.dashboard.domain.usecases.implementations.GetDashboardDataUseCaseImpl
 import com.joffer.organizeplus.features.dashboard.presentation.DashboardViewModel
@@ -32,7 +30,6 @@ val dashboardModule = module {
     }
 
     // Repositories
-    single<DutyRepository> { RoomDutyRepository(get()) }
     single<DashboardRepository> {
         DashboardRepositoryImpl(
             remoteDataSource = get(),

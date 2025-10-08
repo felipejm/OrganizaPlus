@@ -11,7 +11,6 @@ val appModule = module {
     // Core modules
     includes(networkModule)
     includes(databaseModule)
-    includes(repositoryModule)
 
     // Feature modules
     includes(onboardingModule)

@@ -24,7 +24,6 @@ class AuthRemoteDataSourceImpl(
     override suspend fun signUp(email: String, password: String): Result<User> {
         return try {
             val response: HttpResponse = httpClient.post("$baseUrl/auth/signup") {
-                contentType(ContentType.Application.Json)
                 setBody(SignUpRequestRemote(email, password))
             }
 

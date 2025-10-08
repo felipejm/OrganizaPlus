@@ -53,20 +53,33 @@ class DashboardRemoteDataSourceTest {
                     totalCompleted = 0,
                     totalTasks = 0,
                     currentMonth = 10,
-                    year = 2024
+                    year = 2024,
+                    formattedAmount = "$0.00",
+                    completionRate = 0.0,
+                    monthName = "October",
+                    comparisonWithPreviousMonth = null
                 ),
                 companySummary = EnhancedMonthlySummaryRemote(
                     totalAmountPaid = 0.0,
                     totalCompleted = 0,
                     totalTasks = 0,
                     currentMonth = 10,
-                    year = 2024
+                    year = 2024,
+                    formattedAmount = "$0.00",
+                    completionRate = 0.0,
+                    monthName = "October",
+                    comparisonWithPreviousMonth = null
                 ),
                 overallStats = OverallStatsRemote(
                     totalDuties = 0,
-                    totalCompletedThisMonth = 0,
+                    completedThisMonth = 0,
+                    pendingDuties = 0,
+                    overdueDuties = 0,
                     totalAmountPaidThisMonth = 0.0,
-                    hasOverdueItems = false
+                    formattedTotalAmount = "$0.00",
+                    completionRate = 0.0,
+                    hasOverdueItems = false,
+                    needsAttention = emptyList()
                 )
             ),
             metadata = DashboardMetadataRemote(
@@ -74,6 +87,8 @@ class DashboardRemoteDataSourceTest {
                 currentMonth = 10,
                 currentYear = 2024,
                 monthName = "October",
+                timezone = "UTC",
+                version = "1.0.0",
                 hasData = false,
                 isEmpty = true
             )
@@ -101,22 +116,35 @@ class DashboardRemoteDataSourceTest {
                             title = "Gym Membership",
                             type = "PAYABLE",
                             categoryName = "Personal",
-                            createdAt = "2024-01-15T10:00:00Z"
+                            createdAt = "2024-01-15T10:00:00Z",
+                            frequency = "MONTHLY",
+                            estimatedAmount = 49.99
                         ),
                         lastOccurrence = EnhancedDutyOccurrenceRemote(
                             id = 1L,
                             dutyId = 1L,
                             amountPaid = 49.99,
                             completedAt = "2024-10-01T14:30:00Z",
-                            notes = "Monthly gym membership payment"
+                            notes = "Monthly gym membership payment",
+                            formattedAmount = "$49.99",
+                            daysAgo = 14,
+                            isRecent = true
                         ),
                         hasCurrentMonthOccurrence = true,
-                        status = "COMPLETED",
+                        status = DutyStatusRemote(
+                            isCompleted = true,
+                            isPaid = true,
+                            statusText = "COMPLETED",
+                            statusColor = "#4CAF50"
+                        ),
                         nextDueDate = "2024-11-01",
                         isOverdue = false,
                         displayInfo = DutyDisplayInfoRemote(
-                            iconName = "paid",
-                            colorHex = "#4CAF50"
+                            priority = "NORMAL",
+                            categoryColor = "#4CAF50",
+                            categoryIcon = "paid",
+                            typeDisplayName = "Payable",
+                            shortDescription = null
                         )
                     )
                 ),
@@ -127,22 +155,35 @@ class DashboardRemoteDataSourceTest {
                             title = "Office Rent",
                             type = "PAYABLE",
                             categoryName = "Company",
-                            createdAt = "2024-01-01T08:00:00Z"
+                            createdAt = "2024-01-01T08:00:00Z",
+                            frequency = "MONTHLY",
+                            estimatedAmount = 2500.00
                         ),
                         lastOccurrence = EnhancedDutyOccurrenceRemote(
                             id = 4L,
                             dutyId = 4L,
                             amountPaid = 2500.00,
                             completedAt = "2024-10-01T09:00:00Z",
-                            notes = "Monthly office rent payment"
+                            notes = "Monthly office rent payment",
+                            formattedAmount = "$2,500.00",
+                            daysAgo = 14,
+                            isRecent = true
                         ),
                         hasCurrentMonthOccurrence = true,
-                        status = "COMPLETED",
+                        status = DutyStatusRemote(
+                            isCompleted = true,
+                            isPaid = true,
+                            statusText = "COMPLETED",
+                            statusColor = "#4CAF50"
+                        ),
                         nextDueDate = "2024-11-01",
                         isOverdue = false,
                         displayInfo = DutyDisplayInfoRemote(
-                            iconName = "paid",
-                            colorHex = "#4CAF50"
+                            priority = "HIGH",
+                            categoryColor = "#4CAF50",
+                            categoryIcon = "paid",
+                            typeDisplayName = "Payable",
+                            shortDescription = null
                         )
                     )
                 ),
@@ -151,20 +192,33 @@ class DashboardRemoteDataSourceTest {
                     totalCompleted = 2,
                     totalTasks = 3,
                     currentMonth = 10,
-                    year = 2024
+                    year = 2024,
+                    formattedAmount = "$175.49",
+                    completionRate = 66.67,
+                    monthName = "October",
+                    comparisonWithPreviousMonth = "+15% from last month"
                 ),
                 companySummary = EnhancedMonthlySummaryRemote(
                     totalAmountPaid = 2500.00,
                     totalCompleted = 1,
                     totalTasks = 2,
                     currentMonth = 10,
-                    year = 2024
+                    year = 2024,
+                    formattedAmount = "$2,500.00",
+                    completionRate = 50.0,
+                    monthName = "October",
+                    comparisonWithPreviousMonth = null
                 ),
                 overallStats = OverallStatsRemote(
                     totalDuties = 5,
-                    totalCompletedThisMonth = 3,
+                    completedThisMonth = 3,
+                    pendingDuties = 2,
+                    overdueDuties = 0,
                     totalAmountPaidThisMonth = 2675.49,
-                    hasOverdueItems = false
+                    formattedTotalAmount = "$2,675.49",
+                    completionRate = 60.0,
+                    hasOverdueItems = false,
+                    needsAttention = emptyList()
                 )
             ),
             metadata = DashboardMetadataRemote(
@@ -172,6 +226,8 @@ class DashboardRemoteDataSourceTest {
                 currentMonth = 10,
                 currentYear = 2024,
                 monthName = "October",
+                timezone = "UTC",
+                version = "1.0.0",
                 hasData = true,
                 isEmpty = false
             )

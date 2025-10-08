@@ -15,8 +15,6 @@ class AuthRepositoryImpl(
         val result = remoteDataSource.signUp(credentials.email, credentials.password)
 
         return result.onSuccess { user ->
-            // Note: Cognito signup doesn't return tokens immediately
-            // User needs to verify email and then sign in
             localDataSource.saveUserSession(user.id, user.email, "", "")
         }
     }
@@ -25,7 +23,6 @@ class AuthRepositoryImpl(
         val result = remoteDataSource.signIn(credentials.email, credentials.password)
 
         return result.map { tokens ->
-            // Extract user info from ID token or use email
             val user = User(
                 id = extractUserIdFromToken(tokens.idToken),
                 email = credentials.email
@@ -65,8 +62,6 @@ class AuthRepositoryImpl(
     }
 
     private fun extractUserIdFromToken(idToken: String): String {
-        // Simple extraction - in production, you'd decode the JWT
-        // For now, generate a simple ID
         return "user_${idToken.hashCode()}"
     }
 }

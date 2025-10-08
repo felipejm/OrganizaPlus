@@ -10,6 +10,7 @@ import io.ktor.client.plugins.logging.*
 import io.ktor.client.request.header
 import io.ktor.http.ContentType
 import io.ktor.http.HttpHeaders
+import io.ktor.http.contentType
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.serialization.json.Json
 import org.koin.dsl.module
@@ -49,6 +50,7 @@ val networkModule = module {
             defaultRequest {
                 header(HttpHeaders.Accept, ContentType.Application.Json.toString())
                 header(API_KEY_HEADER, BuildConfig.API_KEY)
+                contentType(ContentType.Application.Json)
             }
         }
     }

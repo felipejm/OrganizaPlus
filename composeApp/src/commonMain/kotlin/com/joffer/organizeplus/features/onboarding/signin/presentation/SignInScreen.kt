@@ -70,46 +70,52 @@ private fun SignInContent(
 ) {
     val scrollState = rememberScrollState()
 
-    Box(
-        modifier = modifier
-            .fillMaxSize()
-            .padding(Spacing.md)
-    ) {
-        Column(
+    Scaffold(
+        modifier = modifier.fillMaxSize(),
+        containerColor = SemanticColors.Background.primary
+    ) { paddingValues ->
+        Box(
             modifier = Modifier
                 .fillMaxSize()
-                .verticalScroll(scrollState),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+                .padding(paddingValues)
+                .padding(Spacing.md)
         ) {
-            HeaderSection()
-            Spacer(modifier = Modifier.height(Spacing.xl))
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .verticalScroll(scrollState),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                HeaderSection()
+                Spacer(modifier = Modifier.height(Spacing.xl))
 
-            ErrorSection(
-                errorResId = uiState.errorResId,
-                onDismiss = { onIntent(SignInIntent.ClearError) },
-                onRetry = { onIntent(SignInIntent.SignIn) }
-            )
+                ErrorSection(
+                    errorResId = uiState.errorResId,
+                    onDismiss = { onIntent(SignInIntent.ClearError) },
+                    onRetry = { onIntent(SignInIntent.SignIn) }
+                )
 
-            FormSection(
-                uiState = uiState,
-                onIntent = onIntent
-            )
+                FormSection(
+                    uiState = uiState,
+                    onIntent = onIntent
+                )
 
-            Spacer(modifier = Modifier.height(Spacing.xl))
+                Spacer(modifier = Modifier.height(Spacing.xl))
 
-            ActionButtons(
-                isLoading = uiState.isLoading,
-                onSignIn = { onIntent(SignInIntent.SignIn) },
-                onNavigateToSignUp = { onIntent(SignInIntent.NavigateToSignUp) }
-            )
-        }
+                ActionButtons(
+                    isLoading = uiState.isLoading,
+                    onSignIn = { onIntent(SignInIntent.SignIn) },
+                    onNavigateToSignUp = { onIntent(SignInIntent.NavigateToSignUp) }
+                )
+            }
 
-        if (uiState.isLoading) {
-            CircularProgressIndicator(
-                modifier = Modifier.align(Alignment.Center),
-                color = SemanticColors.Background.brand
-            )
+            if (uiState.isLoading) {
+                CircularProgressIndicator(
+                    modifier = Modifier.align(Alignment.Center),
+                    color = SemanticColors.Background.brand
+                )
+            }
         }
     }
 }

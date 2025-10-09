@@ -87,6 +87,9 @@ kotlin {
             // Android-specific Room dependencies
             implementation(libs.room.ktx)
             
+            // Security library
+            implementation(libs.androidx.security.crypto)
+            
         }
         commonMain.dependencies {
             // Compose Multiplatform

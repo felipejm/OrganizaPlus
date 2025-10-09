@@ -15,14 +15,16 @@ import org.koin.dsl.module
 
 val onboardingModule = module {
     // Data Sources
-    single<AuthLocalDataSource> { AuthLocalDataSourceImpl() }
+    single<AuthLocalDataSource> {
+        AuthLocalDataSourceImpl(secureStorage = get())
+    }
     single<AuthRemoteDataSource> { AuthRemoteDataSourceImpl(httpClient = get()) }
 
     // Repository
     single<AuthRepository> {
         AuthRepositoryImpl(
-            get<AuthRemoteDataSource>(),
-            get<AuthLocalDataSource>()
+            remoteDataSource = get(),
+            localDataSource = get()
         )
     }
 

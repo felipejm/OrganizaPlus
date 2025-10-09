@@ -1,5 +1,6 @@
 package com.joffer.organizeplus.di
 
+import com.joffer.organizeplus.core.di.platformSecureStorageModule
 import com.joffer.organizeplus.features.dashboard.di.dashboardModule
 import com.joffer.organizeplus.features.duty.di.dutyModule
 import com.joffer.organizeplus.features.duty.review.di.dutyReviewModule
@@ -11,6 +12,7 @@ val appModule = module {
     // Core modules
     includes(networkModule)
     includes(databaseModule)
+    includes(platformSecureStorageModule)
 
     // Feature modules
     includes(onboardingModule)

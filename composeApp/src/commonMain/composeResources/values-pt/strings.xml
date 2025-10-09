@@ -146,7 +146,13 @@
     <!-- Settings -->
     <string name="settings_title">Configurações</string>
     <string name="settings_button_description">Configurações</string>
-
+    <string name="settings_storage_mode">Modo de Armazenamento</string>
+    <string name="settings_storage_mode_description">Escolha onde armazenar seus dados</string>
+    <string name="settings_storage_mode_local">Local (Dispositivo)</string>
+    <string name="settings_storage_mode_remote">Remoto (Nuvem)</string>
+    <string name="settings_account">Conta</string>
+    <string name="settings_logout">Sair</string>
+    <string name="settings_logout_description">Sair da sua conta</string>
     <string name="settings_design_system">Sistema de Design</string>
     <string name="settings_design_system_catalog">Catálogo do Sistema de Design</string>
     <string name="settings_design_system_description">Explore componentes, cores e tipografia</string>

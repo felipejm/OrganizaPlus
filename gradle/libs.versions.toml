@@ -47,6 +47,9 @@ napier = "2.7.1"
 kmp-build-config = "1.0.9"
 buildkonfig = "0.17.1"
 
+# Security library
+androidx-security-crypto = "1.1.0-alpha06"
+
 
 # Notification library
 # alarmee = "2.4.2"
@@ -124,6 +127,9 @@ multiplatform-settings-no-arg = { module = "com.russhwolf:multiplatform-settings
 
 # Logging library
 napier = { module = "io.github.aakira:napier", version.ref = "napier" }
+
+# Security library
+androidx-security-crypto = { module = "androidx.security:security-crypto", version.ref = "androidx-security-crypto" }
 
 
 # Notification library

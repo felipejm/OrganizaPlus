@@ -176,15 +176,16 @@
     <!-- Settings -->
     <string name="settings_title">Settings</string>
     <string name="settings_button_description">Settings</string>
-
+    <string name="settings_storage_mode">Storage Mode</string>
+    <string name="settings_storage_mode_description">Choose where to store your data</string>
+    <string name="settings_storage_mode_local">Local (Device)</string>
+    <string name="settings_storage_mode_remote">Remote (Cloud)</string>
+    <string name="settings_account">Account</string>
+    <string name="settings_logout">Sign Out</string>
+    <string name="settings_logout_description">Sign out from your account</string>
     <string name="settings_design_system">Design System</string>
     <string name="settings_design_system_catalog">Design System Catalog</string>
     <string name="settings_design_system_description">Explore components, colors, and typography</string>
-    
-    <string name="settings_storage_mode">Storage Mode</string>
-    <string name="settings_storage_mode_local">Local Storage</string>
-    <string name="settings_storage_mode_remote">Remote Storage</string>
-    <string name="settings_storage_mode_description">Choose between local device storage or remote cloud storage</string>
 
     <!-- Duty Occurrence -->
     <string name="duty_occurrence_list_title">Occurrences</string>

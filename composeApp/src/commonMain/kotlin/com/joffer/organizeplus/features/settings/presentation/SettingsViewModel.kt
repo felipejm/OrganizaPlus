@@ -2,6 +2,7 @@ package com.joffer.organizeplus.features.settings.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.joffer.organizeplus.features.onboarding.domain.repositories.AuthRepository
 import com.joffer.organizeplus.features.settings.domain.StorageMode
 import com.joffer.organizeplus.features.settings.domain.repositories.SettingsRepository
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -10,11 +11,15 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class SettingsViewModel(
-    private val settingsRepository: SettingsRepository
+    private val settingsRepository: SettingsRepository,
+    private val authRepository: AuthRepository
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(SettingsUiState())
     val uiState: StateFlow<SettingsUiState> = _uiState.asStateFlow()
+
+    private val _navigationEvent = MutableStateFlow<SettingsNavigationEvent?>(null)
+    val navigationEvent: StateFlow<SettingsNavigationEvent?> = _navigationEvent.asStateFlow()
 
     init {
         loadStorageMode()
@@ -33,8 +38,23 @@ class SettingsViewModel(
             _uiState.value = _uiState.value.copy(storageMode = newMode)
         }
     }
+
+    fun logout() {
+        viewModelScope.launch {
+            authRepository.signOut()
+            _navigationEvent.value = SettingsNavigationEvent.NavigateToSignIn
+        }
+    }
+
+    fun clearNavigationEvent() {
+        _navigationEvent.value = null
+    }
 }
 
 data class SettingsUiState(
     val storageMode: StorageMode = StorageMode.LOCAL
 )
+
+sealed class SettingsNavigationEvent {
+    data object NavigateToSignIn : SettingsNavigationEvent()
+}

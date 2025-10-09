@@ -24,5 +24,7 @@ class FakeDashboardRepository : DashboardRepository {
         dashboardData = null
         shouldThrowError = false
     }
+
+    fun reset() = clear()
 }
 

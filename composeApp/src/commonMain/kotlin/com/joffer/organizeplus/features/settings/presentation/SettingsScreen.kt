@@ -14,9 +14,12 @@ import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
 import com.joffer.organizeplus.features.settings.domain.StorageMode
 import org.jetbrains.compose.resources.stringResource
 import organizeplus.composeapp.generated.resources.Res
+import organizeplus.composeapp.generated.resources.settings_account
 import organizeplus.composeapp.generated.resources.settings_design_system
 import organizeplus.composeapp.generated.resources.settings_design_system_catalog
 import organizeplus.composeapp.generated.resources.settings_design_system_description
+import organizeplus.composeapp.generated.resources.settings_logout
+import organizeplus.composeapp.generated.resources.settings_logout_description
 import organizeplus.composeapp.generated.resources.settings_storage_mode
 import organizeplus.composeapp.generated.resources.settings_storage_mode_description
 import organizeplus.composeapp.generated.resources.settings_storage_mode_local
@@ -29,9 +32,22 @@ fun SettingsScreen(
     viewModel: SettingsViewModel,
     onNavigateBack: () -> Unit,
     onNavigateToDesignSystem: () -> Unit,
+    onNavigateToSignIn: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val uiState by viewModel.uiState.collectAsState()
+    val navigationEvent by viewModel.navigationEvent.collectAsState()
+
+    LaunchedEffect(navigationEvent) {
+        when (navigationEvent) {
+            SettingsNavigationEvent.NavigateToSignIn -> {
+                viewModel.clearNavigationEvent()
+                onNavigateToSignIn()
+            }
+            null -> {}
+        }
+    }
+
     val typography = DesignSystemTypography()
 
     Scaffold(
@@ -113,6 +129,38 @@ fun SettingsScreen(
 
                         Text(
                             text = stringResource(Res.string.settings_storage_mode_description),
+                            style = typography.bodyMedium,
+                            color = SemanticColors.Foreground.secondary
+                        )
+                    }
+                }
+            }
+
+            Spacer(modifier = Modifier.height(Spacing.lg))
+
+            // Account Section
+            Column {
+                Text(
+                    text = stringResource(Res.string.settings_account),
+                    style = typography.titleMedium,
+                    color = SemanticColors.Foreground.primary,
+                    fontWeight = FontWeight.SemiBold
+                )
+
+                Spacer(modifier = Modifier.height(Spacing.sm))
+
+                OrganizeCard {
+                    Column(
+                        modifier = Modifier.padding(Spacing.md)
+                    ) {
+                        OrganizeSecondaryButton(
+                            onClick = { viewModel.logout() },
+                            text = stringResource(Res.string.settings_logout),
+                            modifier = Modifier.fillMaxWidth()
+                        )
+                        Spacer(modifier = Modifier.height(Spacing.sm))
+                        Text(
+                            text = stringResource(Res.string.settings_logout_description),
                             style = typography.bodyMedium,
                             color = SemanticColors.Foreground.secondary
                         )

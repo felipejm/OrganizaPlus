@@ -24,6 +24,7 @@ fun FormField(
     errorMessage: String? = null,
     modifier: Modifier = Modifier,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
+    singleLine: Boolean = false,
     visualTransformation: VisualTransformation = VisualTransformation.None,
     trailingIcon: @Composable (() -> Unit)? = null
 ) {
@@ -42,6 +43,7 @@ fun FormField(
             value = value,
             onValueChange = onValueChange,
             keyboardOptions = keyboardOptions,
+            singleLine = singleLine,
             visualTransformation = visualTransformation,
             placeholder = {
                 Text(

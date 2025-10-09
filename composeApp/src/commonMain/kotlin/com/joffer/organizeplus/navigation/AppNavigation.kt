@@ -211,6 +211,11 @@ fun AppNavigation(
                     },
                     onNavigateToDesignSystem = {
                         navController.navigate(DesignSystemCatalog)
+                    },
+                    onNavigateToSignIn = {
+                        navController.navigate(SignIn) {
+                            popUpTo(0) { inclusive = true }
+                        }
                     }
                 )
             }

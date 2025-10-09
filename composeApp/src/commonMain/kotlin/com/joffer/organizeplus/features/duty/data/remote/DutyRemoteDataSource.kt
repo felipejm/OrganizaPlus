@@ -51,7 +51,20 @@ class DutyRemoteDataSourceImpl(
                 contentType(ContentType.Application.Json)
                 setBody(request)
             }
-            parseResponse(response)
+
+            if (response.status.isSuccess()) {
+                try {
+                    val createResponse = response.body<CreateDutyResponse>()
+                    Result.success(createResponse.duty)
+                } catch (e: Exception) {
+                    Napier.e("Failed to parse createDuty response: ${e.message}", e, tag = TAG)
+                    Result.failure(Exception("Failed to parse response: ${e.message}"))
+                }
+            } else {
+                val error = "createDuty failed: ${response.status.description}"
+                Napier.e(error, tag = TAG)
+                Result.failure(Exception(error))
+            }
         } catch (e: Exception) {
             handleException(e, "createDuty")
         }

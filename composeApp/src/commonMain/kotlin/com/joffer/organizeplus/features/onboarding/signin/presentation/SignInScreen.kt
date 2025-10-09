@@ -83,7 +83,6 @@ private fun SignInContent(
                 .fillMaxSize()
                 .padding(paddingValues)
                 .padding(Spacing.md)
-                .verticalScroll(scrollState)
                 .clickable(
                     interactionSource = remember { MutableInteractionSource() },
                     indication = null
@@ -93,6 +92,7 @@ private fun SignInContent(
         ) {
             Column(
                 modifier = Modifier
+                    .verticalScroll(scrollState)
                     .fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
@@ -204,6 +204,7 @@ private fun EmailField(
         isRequired = true,
         isError = error != null,
         errorMessage = error,
+        singleLine = true,
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
         modifier = Modifier.fillMaxWidth()
     )
@@ -225,6 +226,7 @@ private fun PasswordField(
         isRequired = true,
         isError = error != null,
         errorMessage = error,
+        singleLine = true,
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
         visualTransformation = if (isVisible) VisualTransformation.None else PasswordVisualTransformation(),
         modifier = Modifier.fillMaxWidth(),

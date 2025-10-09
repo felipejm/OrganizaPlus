@@ -35,7 +35,6 @@ class DashboardViewModel(
     fun onIntent(intent: DashboardIntent) {
         when (intent) {
             is DashboardIntent.LoadDashboard -> loadDashboardData()
-            is DashboardIntent.RefreshDashboard -> refreshDashboard()
             is DashboardIntent.ClearError -> clearError()
             is DashboardIntent.Retry -> retry()
         }
@@ -156,8 +155,6 @@ class DashboardViewModel(
                 )
         }
     }
-
-    private fun refreshDashboard() = loadDashboardData()
 
     private fun clearError() {
         _uiState.value = _uiState.value.copy(error = null)

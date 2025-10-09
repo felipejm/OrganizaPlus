@@ -83,7 +83,6 @@ private fun SignUpContent(
                 .fillMaxSize()
                 .padding(paddingValues)
                 .padding(Spacing.md)
-                .verticalScroll(scrollState)
                 .clickable(
                     interactionSource = remember { MutableInteractionSource() },
                     indication = null
@@ -92,7 +91,7 @@ private fun SignUpContent(
                 }
         ) {
             Column(
-                modifier = Modifier
+                modifier = Modifier.verticalScroll(scrollState)
                     .fillMaxSize(),
 
                 horizontalAlignment = Alignment.CenterHorizontally,
@@ -214,6 +213,7 @@ private fun EmailField(
         placeholder = stringResource(Res.string.onboarding_email_placeholder),
         isRequired = true,
         isError = error != null,
+        singleLine = true,
         errorMessage = error,
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
         modifier = Modifier.fillMaxWidth()
@@ -236,6 +236,7 @@ private fun PasswordField(
         isRequired = true,
         isError = error != null,
         errorMessage = error,
+        singleLine = true,
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
         visualTransformation = if (isVisible) VisualTransformation.None else PasswordVisualTransformation(),
         modifier = Modifier.fillMaxWidth(),
@@ -260,6 +261,7 @@ private fun ConfirmPasswordField(
         label = stringResource(Res.string.onboarding_confirm_password_label),
         value = value,
         onValueChange = onChange,
+        singleLine = true,
         placeholder = stringResource(Res.string.onboarding_confirm_password_placeholder),
         isRequired = true,
         isError = error != null,

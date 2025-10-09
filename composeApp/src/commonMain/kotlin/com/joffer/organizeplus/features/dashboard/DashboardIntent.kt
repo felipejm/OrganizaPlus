@@ -5,7 +5,6 @@ package com.joffer.organizeplus.features.dashboard
  */
 sealed class DashboardIntent {
     object LoadDashboard : DashboardIntent()
-    object RefreshDashboard : DashboardIntent()
     object ClearError : DashboardIntent()
     object Retry : DashboardIntent()
 }

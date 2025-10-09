@@ -38,3 +38,8 @@ data class CreateDutyRequest(
     @SerialName("type") val type: String,
     @SerialName("categoryName") val categoryName: String
 )
+
+@Serializable
+data class CreateDutyResponse(
+    @SerialName("duty") val duty: DutyRemoteDto
+)

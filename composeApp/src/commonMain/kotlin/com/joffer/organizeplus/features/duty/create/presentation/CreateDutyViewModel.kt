@@ -22,7 +22,7 @@ class CreateDutyViewModel(
     private val saveCreateDutyUseCase: SaveCreateDutyUseCase,
     private val dutyRepository: DutyRepository,
     private val dutyId: Long? = null,
-    private val categoryName: String
+    private val categoryName: String?
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(CreateDutyUiState())
@@ -32,7 +32,7 @@ class CreateDutyViewModel(
     val formState: StateFlow<CreateDutyForm> = _formState.asStateFlow()
 
     init {
-        _formState.value = _formState.value.copy(categoryName = categoryName)
+        _formState.value = _formState.value.copy(categoryName = categoryName ?: "")
 
         // Automatically load existing duty if dutyId is provided
         dutyId?.let { id ->

@@ -14,8 +14,20 @@ class AuthRepositoryImpl(
     override suspend fun signUp(credentials: AuthCredentials): Result<User> {
         val result = remoteDataSource.signUp(credentials.email, credentials.password)
 
-        return result.onSuccess { user ->
-            localDataSource.saveUserSession(user.id, user.email, "", "")
+        return result.map { tokens ->
+            val user = User(
+                id = tokens.userId,
+                email = tokens.email
+            )
+
+            localDataSource.saveUserSession(
+                userId = tokens.userId,
+                email = tokens.email,
+                accessToken = tokens.accessToken,
+                refreshToken = tokens.refreshToken
+            )
+
+            user
         }
     }
 
@@ -24,13 +36,13 @@ class AuthRepositoryImpl(
 
         return result.map { tokens ->
             val user = User(
-                id = extractUserIdFromToken(tokens.idToken),
-                email = credentials.email
+                id = tokens.userId,
+                email = tokens.email
             )
 
             localDataSource.saveUserSession(
-                userId = user.id,
-                email = user.email,
+                userId = tokens.userId,
+                email = tokens.email,
                 accessToken = tokens.accessToken,
                 refreshToken = tokens.refreshToken
             )
@@ -59,9 +71,5 @@ class AuthRepositoryImpl(
                 email = it.email
             )
         }
-    }
-
-    private fun extractUserIdFromToken(idToken: String): String {
-        return "user_${idToken.hashCode()}"
     }
 }

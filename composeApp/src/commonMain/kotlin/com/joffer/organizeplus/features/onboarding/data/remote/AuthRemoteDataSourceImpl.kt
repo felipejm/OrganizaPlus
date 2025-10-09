@@ -3,7 +3,6 @@ package com.joffer.organizeplus.features.onboarding.data.remote
 import com.joffer.organizeplus.BuildConfig
 import com.joffer.organizeplus.features.onboarding.domain.entities.SignInError
 import com.joffer.organizeplus.features.onboarding.domain.entities.SignUpError
-import com.joffer.organizeplus.features.onboarding.domain.entities.User
 import com.joffer.organizeplus.features.onboarding.domain.usecases.SignInException
 import com.joffer.organizeplus.features.onboarding.domain.usecases.SignUpException
 import io.github.aakira.napier.Napier
@@ -21,7 +20,7 @@ class AuthRemoteDataSourceImpl(
     private val baseUrl: String = BuildConfig.API_BASE_URL
 ) : AuthRemoteDataSource {
 
-    override suspend fun signUp(email: String, password: String): Result<User> {
+    override suspend fun signUp(email: String, password: String): Result<AuthTokens> {
         return try {
             val response: HttpResponse = httpClient.post("$baseUrl/auth/signup") {
                 setBody(SignUpRequestRemote(email, password))
@@ -30,9 +29,13 @@ class AuthRemoteDataSourceImpl(
             if (response.status.value in 200..299) {
                 val authResponse = response.body<AuthResponseRemote>()
                 Result.success(
-                    User(
-                        id = authResponse.userId ?: "",
-                        email = authResponse.email ?: email
+                    AuthTokens(
+                        userId = authResponse.userId ?: "",
+                        email = authResponse.email ?: email,
+                        accessToken = authResponse.accessToken ?: "",
+                        refreshToken = authResponse.refreshToken ?: "",
+                        idToken = authResponse.idToken ?: "",
+                        expiresIn = authResponse.expiresIn ?: 3600
                     )
                 )
             } else {
@@ -66,6 +69,8 @@ class AuthRemoteDataSourceImpl(
                 val authResponse = response.body<AuthResponseRemote>()
                 Result.success(
                     AuthTokens(
+                        userId = authResponse.userId ?: "",
+                        email = authResponse.email ?: email,
                         accessToken = authResponse.accessToken ?: "",
                         refreshToken = authResponse.refreshToken ?: "",
                         idToken = authResponse.idToken ?: "",
@@ -103,6 +108,8 @@ class AuthRemoteDataSourceImpl(
                 val authResponse = response.body<AuthResponseRemote>()
                 Result.success(
                     AuthTokens(
+                        userId = authResponse.userId ?: "",
+                        email = authResponse.email ?: "",
                         accessToken = authResponse.accessToken ?: "",
                         refreshToken = refreshToken, // Keep the same refresh token
                         idToken = authResponse.idToken ?: "",

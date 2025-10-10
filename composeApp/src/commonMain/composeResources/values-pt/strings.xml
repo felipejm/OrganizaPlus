@@ -113,6 +113,12 @@
     <string name="category_personal">Pessoal</string>
     <string name="category_enterprise">Empresa</string>
 
+    <!-- Navigation -->
+    <string name="nav_home">Início</string>
+    <string name="nav_personal_review">Pessoal</string>
+    <string name="nav_company_review">Empresa</string>
+    <string name="nav_profile">Perfil</string>
+
     <!-- Dashboard Section -->
     <string name="dashboard_title">Dashboard</string>
     <string name="dashboard_welcome_title">Bem-vindo ao OrganizePlus</string>

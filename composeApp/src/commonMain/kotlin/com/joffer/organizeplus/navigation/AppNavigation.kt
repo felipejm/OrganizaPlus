@@ -15,8 +15,6 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.joffer.organizeplus.common.constants.CategoryConstants
 import com.joffer.organizeplus.designsystem.typography.ProvideSfProTypography
-import com.joffer.organizeplus.features.dashboard.presentation.DashboardScreen
-import com.joffer.organizeplus.features.dashboard.presentation.DashboardViewModel
 import com.joffer.organizeplus.features.duty.create.presentation.CreateDutyScreen
 import com.joffer.organizeplus.features.duty.create.presentation.CreateDutyViewModel
 import com.joffer.organizeplus.features.duty.detail.presentation.DutyDetailsListViewModel
@@ -31,7 +29,6 @@ import com.joffer.organizeplus.features.onboarding.signin.presentation.SignInScr
 import com.joffer.organizeplus.features.onboarding.signin.presentation.SignInViewModel
 import com.joffer.organizeplus.features.onboarding.signup.presentation.SignUpScreen
 import com.joffer.organizeplus.features.onboarding.signup.presentation.SignUpViewModel
-import com.joffer.organizeplus.features.settings.presentation.SettingsScreen
 import kotlinx.coroutines.launch
 import org.koin.compose.koinInject
 import org.koin.core.parameter.parametersOf
@@ -41,7 +38,6 @@ fun AppNavigation(
     navController: NavHostController = rememberNavController(),
     onNavHostReady: suspend (NavController) -> Unit = {}
 ) {
-    val dashboardViewModel: DashboardViewModel = koinInject()
     val checkAuthStatusUseCase: CheckAuthStatusUseCase = koinInject()
     val coroutineScope = rememberCoroutineScope()
 
@@ -102,23 +98,8 @@ fun AppNavigation(
 
             // Main App Routes
             composable<Dashboard> {
-                DashboardScreen(
-                    viewModel = dashboardViewModel,
-                    onNavigateToPersonalDuties = {
-                        navController.navigate(Duties(CategoryConstants.PERSONAL))
-                    },
-                    onNavigateToCompanyDuties = {
-                        navController.navigate(Duties(CategoryConstants.COMPANY))
-                    },
-                    onNavigateToDutyDetails = { dutyId ->
-                        navController.navigate(DutyOccurrences(dutyId))
-                    },
-                    onNavigateToSettings = {
-                        navController.navigate(Settings)
-                    },
-                    onNavigateToCreateDuty = {
-                        navController.navigate(CreateDuty)
-                    },
+                MainNavigationContainer(
+                    mainNavController = navController
                 )
             }
 
@@ -197,25 +178,6 @@ fun AppNavigation(
                     },
                     onEditDuty = { editDutyId, categoryName ->
                         navController.navigate(EditDuty(editDutyId, categoryName))
-                    }
-                )
-            }
-
-            composable<Settings> {
-                val settingsViewModel: com.joffer.organizeplus.features.settings.presentation.SettingsViewModel =
-                    koinInject()
-                SettingsScreen(
-                    viewModel = settingsViewModel,
-                    onNavigateBack = {
-                        navController.popBackStack()
-                    },
-                    onNavigateToDesignSystem = {
-                        navController.navigate(DesignSystemCatalog)
-                    },
-                    onNavigateToSignIn = {
-                        navController.navigate(SignIn) {
-                            popUpTo(0) { inclusive = true }
-                        }
                     }
                 )
             }

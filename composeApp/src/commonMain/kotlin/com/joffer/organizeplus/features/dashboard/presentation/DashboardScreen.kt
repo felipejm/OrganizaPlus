@@ -4,19 +4,18 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.text.font.FontWeight
 import com.joffer.organizeplus.common.constants.CategoryConstants
 import com.joffer.organizeplus.common.utils.DateUtils
 import com.joffer.organizeplus.designsystem.colors.SemanticColors
 import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.components.ErrorBanner
+import com.joffer.organizeplus.designsystem.icons.OrganizeIcons
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
 import com.joffer.organizeplus.features.dashboard.DashboardIntent
@@ -58,24 +57,15 @@ fun DashboardScreen(
 
     Scaffold(
         contentColor = SemanticColors.Background.primary,
-        topBar = {
-            AppTopAppBarWithActions(
-                actions = {
-                    IconButton(onClick = onNavigateToSettings) {
-                        Icon(
-                            imageVector = Icons.Default.Settings,
-                            contentDescription = stringResource(Res.string.settings_button_description),
-                            tint = SemanticColors.Foreground.primary
-                        )
-                    }
-                }
-            )
-        },
     ) { paddingValues ->
         LazyColumn(
             state = listState,
-            modifier = modifier.fillMaxSize().padding(paddingValues),
-            contentPadding = PaddingValues(horizontal = Spacing.Screen.padding),
+            modifier = modifier.fillMaxSize().padding(top = paddingValues.calculateTopPadding()),
+            contentPadding = PaddingValues(
+                start = Spacing.Screen.padding,
+                end = Spacing.Screen.padding,
+                bottom = Spacing.Screen.padding
+            ),
             verticalArrangement = Arrangement.spacedBy(Spacing.Screen.contentSpacing)
         ) {
             if (uiState.error != null) {
@@ -177,7 +167,7 @@ private fun EmptyDashboardState(
             contentAlignment = Alignment.Center
         ) {
             Icon(
-                imageVector = Icons.Default.Add,
+                imageVector = OrganizeIcons.Actions.Plus,
                 contentDescription = null,
                 modifier = Modifier.size(Spacing.xl * 2),
                 tint = SemanticColors.Foreground.secondary
@@ -207,7 +197,7 @@ private fun EmptyDashboardState(
         OrganizePrimaryButton(
             text = stringResource(Res.string.dashboard_create_first_duty),
             onClick = onNavigateToCreateDuty,
-            icon = Icons.Default.Add
+            icon = OrganizeIcons.Actions.Plus
         )
     }
 }

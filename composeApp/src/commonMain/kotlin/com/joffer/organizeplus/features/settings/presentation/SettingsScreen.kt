@@ -53,9 +53,6 @@ fun SettingsScreen(
     Scaffold(
         modifier = modifier.fillMaxSize(),
         containerColor = SemanticColors.Background.primary,
-        topBar = {
-            AppTopAppBarWithBackButton(onBackClick = onNavigateBack)
-        }
     ) { paddingValues ->
         Column(
             modifier = Modifier

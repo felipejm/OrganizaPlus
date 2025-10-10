@@ -21,7 +21,6 @@ kotlinx-serialization-json = "1.7.3"
 
 # UI libraries
 compose-navigation = "2.9.0"
-coil-compose = "2.6.0"
 kamel = "0.9.0"
 material-icons-extended = "1.7.3"
 koalaplot-core = "0.9.1"
@@ -88,7 +87,6 @@ kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serializa
 
 # UI libraries
 compose-navigation = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "compose-navigation" }
-coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil-compose" }
 kamel = { module = "media.kamel:kamel-image", version.ref = "kamel" }
 material-icons-extended = { module = "org.jetbrains.compose.material:material-icons-extended", version.ref = "material-icons-extended" }
 koalaplot-core = { module = "io.github.koalaplot:koalaplot-core", version.ref = "koalaplot-core" }

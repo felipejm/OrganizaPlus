@@ -33,6 +33,12 @@ data class AddDutyOccurrence(val dutyId: Long)
 object Settings
 
 @Serializable
+object PersonalReview
+
+@Serializable
+object CompanyReview
+
+@Serializable
 object DesignSystemCatalog
 
 @Serializable

@@ -34,21 +34,23 @@ val dashboardModule = module {
         DashboardRepositoryImpl(
             remoteDataSource = get(),
             localDataSource = get(),
-            settingsRepository = get()
+            settingsRepository = get(),
+            dutyRepository = get(),
+            dutyOccurrenceRepository = get()
         )
     }
 
     // Use Cases
     single<GetDashboardDataUseCase> {
-        GetDashboardDataUseCaseImpl(repository = get<DashboardRepository>())
+        GetDashboardDataUseCaseImpl(
+            dashboardRepository = get<DashboardRepository>()
+        )
     }
 
     // ViewModels
     single {
         DashboardViewModel(
-            getDashboardDataUseCase = get(),
-            dutyRepository = get(),
-            dutyOccurrenceRepository = get()
+            getDashboardDataUseCase = get()
         )
     }
 }

@@ -5,11 +5,19 @@ import com.joffer.organizeplus.features.dashboard.domain.repositories.DashboardR
 import com.joffer.organizeplus.features.dashboard.domain.usecases.GetDashboardDataUseCase
 import kotlinx.coroutines.flow.Flow
 
+/**
+ * Use case that retrieves complete dashboard data
+ * 
+ * Following clean architecture principles:
+ * - Use case only interacts with its domain repository
+ * - Repository layer handles all data coordination
+ * - Business logic is properly separated by layers
+ */
 class GetDashboardDataUseCaseImpl(
-    private val repository: DashboardRepository
+    private val dashboardRepository: DashboardRepository
 ) : GetDashboardDataUseCase {
 
     override suspend operator fun invoke(): Flow<Result<DashboardData>> {
-        return repository.getDashboardData()
+        return dashboardRepository.getDashboardData()
     }
 }

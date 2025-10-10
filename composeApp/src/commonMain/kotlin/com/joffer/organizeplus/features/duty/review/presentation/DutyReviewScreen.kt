@@ -31,7 +31,8 @@ import organizeplus.composeapp.generated.resources.duty_review_title
 fun DutyReviewScreen(
     viewModel: DutyReviewViewModel,
     onNavigateBack: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    showBackButton: Boolean = true
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
@@ -39,9 +40,11 @@ fun DutyReviewScreen(
         modifier = modifier.fillMaxSize(),
         containerColor = SemanticColors.Background.primary,
         topBar = {
-            AppTopAppBarWithBackButton(
-                onBackClick = onNavigateBack,
-            )
+            if (showBackButton) {
+                AppTopAppBarWithBackButton(
+                    onBackClick = onNavigateBack,
+                )
+            }
         },
     ) { paddingValues ->
         DutyReviewContent(

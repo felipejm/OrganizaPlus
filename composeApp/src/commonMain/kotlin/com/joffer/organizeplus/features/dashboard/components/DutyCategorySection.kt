@@ -3,9 +3,6 @@ package com.joffer.organizeplus.features.dashboard.components
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -19,6 +16,7 @@ import com.joffer.organizeplus.common.utils.CurrencyUtils
 import com.joffer.organizeplus.common.utils.DateUtils
 import com.joffer.organizeplus.designsystem.colors.SemanticColors
 import com.joffer.organizeplus.designsystem.components.*
+import com.joffer.organizeplus.designsystem.icons.OrganizeIcons
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
 import com.joffer.organizeplus.features.dashboard.MonthlySummary
@@ -246,13 +244,14 @@ private data class CategoryConfig(
     val titleResource: StringResource
 )
 
+@Composable
 private fun getCategoryConfig(categoryName: String): CategoryConfig {
     return when (categoryName) {
         CategoryConstants.COMPANY -> CategoryConfig(
             accentColor = SemanticColors.Legacy.companyAccent,
             accentLight = SemanticColors.Legacy.companyAccentLight,
             backgroundColor = SemanticColors.Background.surface,
-            sectionIcon = Icons.Default.Home,
+            sectionIcon = OrganizeIcons.Navigation.Building,
             titleResource = Res.string.dashboard_company_duties
         )
 
@@ -260,7 +259,7 @@ private fun getCategoryConfig(categoryName: String): CategoryConfig {
             accentColor = SemanticColors.Legacy.personalAccent,
             accentLight = SemanticColors.Legacy.personalAccentLight,
             backgroundColor = SemanticColors.Background.surface,
-            sectionIcon = Icons.Default.Person,
+            sectionIcon = OrganizeIcons.Navigation.User,
             titleResource = Res.string.dashboard_personal_duties
         )
     }

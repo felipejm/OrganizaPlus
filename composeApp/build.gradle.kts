@@ -80,7 +80,6 @@ kotlin {
             implementation(libs.koin.androidx.compose)
             implementation(libs.ktor.client.okhttp)
             implementation(libs.sqldelight.android.driver)
-            implementation(libs.coil.compose)
             implementation(libs.androidx.work.runtime)
             implementation(libs.mlkit.text.recognition)
             

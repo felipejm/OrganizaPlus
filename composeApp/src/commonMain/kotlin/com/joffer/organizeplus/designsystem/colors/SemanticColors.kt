@@ -37,7 +37,7 @@ object SemanticColors {
         // Interactive backgrounds
         val hover = PrimitiveColors.neutral200
         val pressed = PrimitiveColors.neutral300
-        val selected = PrimitiveColors.primary100
+        val selected = PrimitiveColors.lightGrey
         val disabled = PrimitiveColors.neutral200
     }
 

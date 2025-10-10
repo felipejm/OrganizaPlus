@@ -94,4 +94,11 @@ object Spacing {
         val padding: Dp = lg
         val contentSpacing: Dp = lg
     }
+
+    // Navigation components
+    object NavigationBar {
+        val height: Dp = 80.dp
+        val iconSize: Dp = Icon.md
+        val labelSpacing: Dp = xs
+    }
 }

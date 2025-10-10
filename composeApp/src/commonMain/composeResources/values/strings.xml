@@ -115,6 +115,10 @@
     <string name="month_dec">Dec</string>
     
     <!-- Navigation -->
+    <string name="nav_home">Home</string>
+    <string name="nav_personal_review">Personal</string>
+    <string name="nav_company_review">Company</string>
+    <string name="nav_profile">Profile</string>
 
     <!-- Duty form strings -->
 

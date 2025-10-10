@@ -2,18 +2,10 @@ package com.joffer.organizeplus.navigation
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountCircle
-import androidx.compose.material.icons.filled.Business
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.outlined.AccountCircle
-import androidx.compose.material.icons.outlined.Business
-import androidx.compose.material.icons.outlined.Home
-import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavHostController
@@ -21,14 +13,17 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
 import com.joffer.organizeplus.common.constants.CategoryConstants
 import com.joffer.organizeplus.designsystem.colors.SemanticColors
 import com.joffer.organizeplus.designsystem.components.OrganizeBottomNavigationBar
 import com.joffer.organizeplus.designsystem.components.BottomNavItem
+import com.joffer.organizeplus.designsystem.icons.OrganizeIcons
 import com.joffer.organizeplus.features.dashboard.presentation.DashboardScreen
 import com.joffer.organizeplus.features.dashboard.presentation.DashboardViewModel
-import com.joffer.organizeplus.features.duty.review.presentation.DutyReviewScreen
-import com.joffer.organizeplus.features.duty.review.presentation.DutyReviewViewModel
+import com.joffer.organizeplus.features.duty.list.domain.DutyCategoryFilter
+import com.joffer.organizeplus.features.duty.list.presentation.DutyListScreen
+import com.joffer.organizeplus.features.duty.list.presentation.DutyListViewModel
 import com.joffer.organizeplus.features.settings.presentation.SettingsScreen
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.koinInject
@@ -48,30 +43,34 @@ fun MainNavigationContainer(
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
 
-    // Define bottom navigation items
+    // Define routes for bottom nav tabs
+    val personalDutiesRoute = Duties(CategoryConstants.PERSONAL)
+    val companyDutiesRoute = Duties(CategoryConstants.COMPANY)
+    
+    // Define bottom navigation items with custom icons
     val bottomNavItems = listOf(
         BottomNavItem(
             label = stringResource(Res.string.nav_home),
-            icon = Icons.Outlined.Home,
-            selectedIcon = Icons.Filled.Home,
+            icon = OrganizeIcons.Navigation.Home,
+            selectedIcon = OrganizeIcons.Navigation.HomeFilled,
             route = Dashboard
         ),
         BottomNavItem(
             label = stringResource(Res.string.nav_personal_review),
-            icon = Icons.Outlined.Person,
-            selectedIcon = Icons.Filled.Person,
-            route = PersonalReview
+            icon = OrganizeIcons.Navigation.User,
+            selectedIcon = OrganizeIcons.Navigation.UserFilled,
+            route = personalDutiesRoute
         ),
         BottomNavItem(
             label = stringResource(Res.string.nav_company_review),
-            icon = Icons.Outlined.Business,
-            selectedIcon = Icons.Filled.Business,
-            route = CompanyReview
+            icon = OrganizeIcons.Navigation.Building,
+            selectedIcon = OrganizeIcons.Navigation.BuildingFilled,
+            route = companyDutiesRoute
         ),
         BottomNavItem(
             label = stringResource(Res.string.nav_profile),
-            icon = Icons.Outlined.AccountCircle,
-            selectedIcon = Icons.Filled.AccountCircle,
+            icon = OrganizeIcons.Navigation.UserCircle,
+            selectedIcon = OrganizeIcons.Navigation.UserCircleFilled,
             route = Settings
         )
     )
@@ -79,15 +78,21 @@ fun MainNavigationContainer(
     // Determine current route for bottom nav selection
     val currentRoute = when {
         currentDestination?.hasRoute(Dashboard::class) == true -> Dashboard
-        currentDestination?.hasRoute(PersonalReview::class) == true -> PersonalReview
-        currentDestination?.hasRoute(CompanyReview::class) == true -> CompanyReview
+        currentDestination?.hasRoute(Duties::class) == true -> {
+            val currentDuties = navBackStackEntry?.toRoute<Duties>()
+            when (currentDuties?.category) {
+                CategoryConstants.PERSONAL -> personalDutiesRoute
+                CategoryConstants.COMPANY -> companyDutiesRoute
+                else -> Dashboard
+            }
+        }
         currentDestination?.hasRoute(Settings::class) == true -> Settings
         else -> Dashboard
     }
 
     Scaffold(
         modifier = modifier.fillMaxSize(),
-        containerColor = SemanticColors.Background.primary,
+        containerColor = SemanticColors.Background.surface,
         bottomBar = {
             OrganizeBottomNavigationBar(
                 items = bottomNavItems,
@@ -96,12 +101,10 @@ fun MainNavigationContainer(
                     navController.navigate(item.route) {
                         // Pop up to the start destination to avoid building up a large stack
                         popUpTo(Dashboard) {
-                            saveState = true
+                            saveState = false
                         }
-                        // Avoid multiple copies of the same destination
                         launchSingleTop = true
-                        // Restore state when reselecting a previously selected item
-                        restoreState = true
+                        restoreState = false
                     }
                 }
             )
@@ -117,10 +120,20 @@ fun MainNavigationContainer(
                 DashboardScreen(
                     viewModel = dashboardViewModel,
                     onNavigateToPersonalDuties = {
-                        mainNavController.navigate(Duties(CategoryConstants.PERSONAL))
+                        // Switch to Personal Duties tab
+                        navController.navigate(Duties(CategoryConstants.PERSONAL)) {
+                            popUpTo(Dashboard) { saveState = true }
+                            launchSingleTop = true
+                            restoreState = true
+                        }
                     },
                     onNavigateToCompanyDuties = {
-                        mainNavController.navigate(Duties(CategoryConstants.COMPANY))
+                        // Switch to Company Duties tab
+                        navController.navigate(Duties(CategoryConstants.COMPANY)) {
+                            popUpTo(Dashboard) { saveState = true }
+                            launchSingleTop = true
+                            restoreState = true
+                        }
                     },
                     onNavigateToDutyDetails = { dutyId ->
                         mainNavController.navigate(DutyOccurrences(dutyId))
@@ -134,26 +147,29 @@ fun MainNavigationContainer(
                 )
             }
 
-            composable<PersonalReview> {
-                val dutyReviewViewModel: DutyReviewViewModel = koinInject {
-                    parametersOf(CategoryConstants.PERSONAL)
+            composable<Duties> { backStackEntry ->
+                val duties = backStackEntry.toRoute<Duties>()
+                val categoryFilter = when (duties.category) {
+                    CategoryConstants.PERSONAL -> DutyCategoryFilter.Personal
+                    CategoryConstants.COMPANY -> DutyCategoryFilter.Company
+                    else -> DutyCategoryFilter.Personal // Default fallback
                 }
-                DutyReviewScreen(
-                    viewModel = dutyReviewViewModel,
+                val dutyListViewModel: DutyListViewModel = koinInject { parametersOf(categoryFilter) }
+                
+                DutyListScreen(
+                    viewModel = dutyListViewModel,
+                    categoryFilter = categoryFilter,
+                    onNavigateToCreateDuty = {
+                        mainNavController.navigate(CreateDutyWithCategory(duties.category))
+                    },
                     onNavigateBack = {
                         navController.navigate(Dashboard)
-                    }
-                )
-            }
-
-            composable<CompanyReview> {
-                val dutyReviewViewModel: DutyReviewViewModel = koinInject {
-                    parametersOf(CategoryConstants.COMPANY)
-                }
-                DutyReviewScreen(
-                    viewModel = dutyReviewViewModel,
-                    onNavigateBack = {
-                        navController.navigate(Dashboard)
+                    },
+                    onNavigateToOccurrences = { dutyId ->
+                        mainNavController.navigate(DutyOccurrences(dutyId))
+                    },
+                    onNavigateToReview = {
+                        mainNavController.navigate(DutyReview(duties.category))
                     }
                 )
             }

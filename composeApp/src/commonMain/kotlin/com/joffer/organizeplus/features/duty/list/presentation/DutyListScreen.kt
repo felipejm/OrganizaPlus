@@ -56,20 +56,6 @@ fun DutyListScreen(
 
         Scaffold(
             contentColor = SemanticColors.Background.primary,
-            topBar = {
-                AppTopAppBarWithBackButton(
-                    onBackClick = onNavigateBack,
-                    actions = {
-                        IconButton(onClick = onNavigateToReview) {
-                            Icon(
-                                imageVector = Icons.Default.AddChart,
-                                contentDescription = "View Review",
-                                tint = SemanticColors.Foreground.primary
-                            )
-                        }
-                    }
-                )
-            },
             floatingActionButton = {
                 FloatingActionButton(
                     onClick = onNavigateToCreateDuty,

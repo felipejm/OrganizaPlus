@@ -11,10 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.CheckCircle
-import androidx.compose.material.icons.filled.Info
-import androidx.compose.material.icons.filled.Warning
+import com.joffer.organizeplus.designsystem.icons.OrganizeIcons
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -59,10 +56,10 @@ fun OrganizeResult(
     }
 
     val (colors, iconVector) = when (type) {
-        ResultType.SUCCESS -> SuccessColors to (icon ?: Icons.Default.CheckCircle)
-        ResultType.ERROR -> ErrorColors to (icon ?: Icons.Default.Warning)
-        ResultType.WARNING -> WarningColors to (icon ?: Icons.Default.Warning)
-        ResultType.INFO -> InfoColors to (icon ?: Icons.Default.Info)
+        ResultType.SUCCESS -> SuccessColors to (icon ?: OrganizeIcons.Duty.CheckCircleFilled)
+        ResultType.ERROR -> ErrorColors to (icon ?: OrganizeIcons.System.Warning)
+        ResultType.WARNING -> WarningColors to (icon ?: OrganizeIcons.System.Warning)
+        ResultType.INFO -> InfoColors to (icon ?: OrganizeIcons.System.Info)
     }
 
     Box(

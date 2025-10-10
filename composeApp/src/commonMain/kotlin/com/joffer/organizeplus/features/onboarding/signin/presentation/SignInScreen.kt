@@ -6,9 +6,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Visibility
-import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -18,9 +15,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.text.style.TextAlign
 import com.joffer.organizeplus.designsystem.colors.SemanticColors
 import com.joffer.organizeplus.designsystem.components.*
+import com.joffer.organizeplus.designsystem.icons.OrganizeIcons
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
 import kotlinx.coroutines.flow.collectLatest
@@ -92,13 +89,14 @@ private fun SignInContent(
         ) {
             Column(
                 modifier = Modifier
-                    .verticalScroll(scrollState)
-                    .fillMaxSize(),
+                    .fillMaxSize()
+                    .verticalScroll(scrollState),
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
+                verticalArrangement = Arrangement.spacedBy(Spacing.lg, Alignment.CenterVertically)
             ) {
-                HeaderSection()
-                Spacer(modifier = Modifier.height(Spacing.xl))
+                Spacer(modifier = Modifier.weight(1f))
+                
+                OnboardingHeader(subtitle = stringResource(Res.string.onboarding_signin_subtitle))
 
                 ErrorSection(
                     errorResId = uiState.errorResId,
@@ -111,13 +109,13 @@ private fun SignInContent(
                     onIntent = onIntent
                 )
 
-                Spacer(modifier = Modifier.height(Spacing.xl))
-
                 ActionButtons(
                     isLoading = uiState.isLoading,
                     onSignIn = { onIntent(SignInIntent.SignIn) },
                     onNavigateToSignUp = { onIntent(SignInIntent.NavigateToSignUp) }
                 )
+                
+                Spacer(modifier = Modifier.weight(1f))
             }
 
             if (uiState.isLoading) {
@@ -128,28 +126,6 @@ private fun SignInContent(
             }
         }
     }
-}
-
-@Composable
-private fun HeaderSection() {
-    val typography = DesignSystemTypography()
-
-    Text(
-        text = stringResource(Res.string.onboarding_app_name),
-        style = typography.displaySmall,
-        color = SemanticColors.Foreground.primary,
-        fontWeight = FontWeight.Bold,
-        textAlign = TextAlign.Center
-    )
-
-    Spacer(modifier = Modifier.height(Spacing.xs))
-
-    Text(
-        text = stringResource(Res.string.onboarding_signin_subtitle),
-        style = typography.bodyLarge,
-        color = SemanticColors.Foreground.secondary,
-        textAlign = TextAlign.Center
-    )
 }
 
 @Composable
@@ -246,7 +222,7 @@ private fun PasswordVisibilityToggle(
 ) {
     IconButton(onClick = onToggle) {
         Icon(
-            imageVector = if (isVisible) Icons.Filled.Visibility else Icons.Filled.VisibilityOff,
+            imageVector = if (isVisible) OrganizeIcons.Actions.Visibility else OrganizeIcons.Actions.VisibilityOff,
             contentDescription = if (isVisible) {
                 stringResource(Res.string.onboarding_hide_password)
             } else {
@@ -272,8 +248,6 @@ private fun ActionButtons(
         modifier = Modifier.fillMaxWidth()
     )
 
-    Spacer(modifier = Modifier.height(Spacing.md))
-
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.Center,
@@ -284,8 +258,6 @@ private fun ActionButtons(
             style = typography.bodyMedium,
             color = SemanticColors.Foreground.secondary
         )
-
-        Spacer(modifier = Modifier.width(Spacing.xs))
 
         OrganizeTextButton(
             text = stringResource(Res.string.onboarding_signup_button),

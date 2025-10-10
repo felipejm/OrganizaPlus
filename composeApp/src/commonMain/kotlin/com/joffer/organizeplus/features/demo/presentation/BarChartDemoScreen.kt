@@ -3,8 +3,7 @@ package com.joffer.organizeplus.features.demo.presentation
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import com.joffer.organizeplus.designsystem.icons.OrganizeIcons
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -111,7 +110,7 @@ fun BarChartDemoScreen(
                 navigationIcon = {
                     IconButton(onClick = onNavigateBack) {
                         Icon(
-                            imageVector = Icons.Default.ArrowBack,
+                            imageVector = OrganizeIcons.System.ArrowBack,
                             contentDescription = "Back"
                         )
                     }

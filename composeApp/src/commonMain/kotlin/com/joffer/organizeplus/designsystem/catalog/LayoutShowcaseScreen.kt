@@ -3,8 +3,7 @@ package com.joffer.organizeplus.designsystem.catalog
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Refresh
+import com.joffer.organizeplus.designsystem.icons.OrganizeIcons
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -138,7 +137,7 @@ private fun EmptyState(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Icon(
-                imageVector = Icons.Default.Refresh,
+                imageVector = OrganizeIcons.System.Refresh,
                 contentDescription = null,
                 tint = SemanticColors.Foreground.secondary,
                 modifier = Modifier.size(48.dp)

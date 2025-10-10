@@ -15,6 +15,7 @@ import com.joffer.organizeplus.common.utils.DateUtils
 import com.joffer.organizeplus.designsystem.colors.SemanticColors
 import com.joffer.organizeplus.designsystem.components.*
 import com.joffer.organizeplus.designsystem.components.ResultType
+import com.joffer.organizeplus.designsystem.icons.OrganizeIcons
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
 import com.joffer.organizeplus.designsystem.typography.ProvideSfProTypography
@@ -61,7 +62,7 @@ fun DutyListScreen(
                     contentColor = SemanticColors.OnBackground.onBrand
                 ) {
                     Icon(
-                        imageVector = Icons.Default.Add,
+                        imageVector = OrganizeIcons.Actions.Plus,
                         contentDescription = "Add Duty"
                     )
                 }

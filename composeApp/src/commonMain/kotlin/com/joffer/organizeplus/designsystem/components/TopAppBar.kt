@@ -2,8 +2,7 @@ package com.joffer.organizeplus.designsystem.components
 
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBackIosNew
+import com.joffer.organizeplus.designsystem.icons.OrganizeIcons
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -77,7 +76,7 @@ fun AppTopAppBarWithBackButton(
         navigationIcon = {
             IconButton(onClick = onBackClick) {
                 Icon(
-                    imageVector = backIcon ?: Icons.Default.ArrowBackIosNew,
+                    imageVector = backIcon ?: OrganizeIcons.System.ArrowBackIos,
                     contentDescription = "Back",
                     tint = navigationIconContentColor,
                     modifier = Modifier.size(Spacing.Icon.xs)

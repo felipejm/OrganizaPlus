@@ -42,6 +42,9 @@ object OrganizeIcons {
         val Search: ImageVector = Icons.Outlined.Search
         val Filter: ImageVector = Icons.Outlined.FilterList
         val Sort: ImageVector = Icons.Outlined.Sort
+        
+        val Visibility: ImageVector = Icons.Filled.Visibility
+        val VisibilityOff: ImageVector = Icons.Filled.VisibilityOff
     }
     
     object Duty {
@@ -71,8 +74,14 @@ object OrganizeIcons {
         val MoreHoriz: ImageVector = Icons.Outlined.MoreHoriz
         
         val ArrowBack: ImageVector = Icons.Outlined.ArrowBack
+        val ArrowBackIos: ImageVector = Icons.Outlined.ArrowBackIosNew
         val ArrowForward: ImageVector = Icons.Outlined.ArrowForward
         val ArrowUp: ImageVector = Icons.Outlined.ArrowUpward
         val ArrowDown: ImageVector = Icons.Outlined.ArrowDownward
+        
+        val Refresh: ImageVector = Icons.Outlined.Refresh
+        
+        val Star: ImageVector = Icons.Outlined.Star
+        val StarFilled: ImageVector = Icons.Filled.Star
     }
 }

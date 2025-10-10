@@ -3,8 +3,7 @@ package com.joffer.organizeplus.designsystem.components
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.DateRange
+import com.joffer.organizeplus.designsystem.icons.OrganizeIcons
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -49,7 +48,7 @@ fun DateInputField(
             },
             trailingIcon = {
                 Icon(
-                    imageVector = Icons.Default.DateRange,
+                    imageVector = OrganizeIcons.Duty.Calendar,
                     contentDescription = "Select Date",
                     tint = AppColorScheme.formPlaceholder,
                     modifier = Modifier.clickable { onDatePickerClick() }

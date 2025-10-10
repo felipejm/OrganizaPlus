@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import com.joffer.organizeplus.designsystem.colors.SemanticColors
+import com.joffer.organizeplus.designsystem.icons.OrganizeIcons
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
 import com.joffer.organizeplus.features.dashboard.domain.entities.DutyType
@@ -78,7 +79,6 @@ fun DutyCard(
                 ) {
                     // Category icon with optional accent colors for dashboard
                     if (accentColor != null && accentLight != null) {
-                        // Dashboard style with accent colors
                         Box(
                             modifier = Modifier
                                 .size(Spacing.Icon.xl)
@@ -129,7 +129,7 @@ fun DutyCard(
                             modifier = Modifier.size(Spacing.xxl)
                         ) {
                             Icon(
-                                imageVector = Icons.Default.Delete,
+                                imageVector = OrganizeIcons.Actions.Delete,
                                 contentDescription = stringResource(Res.string.duty_list_delete_description),
                                 tint = SemanticColors.Foreground.primary,
                                 modifier = Modifier.size(Spacing.Icon.sm)

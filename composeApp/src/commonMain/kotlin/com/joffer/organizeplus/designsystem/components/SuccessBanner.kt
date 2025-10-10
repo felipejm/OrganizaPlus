@@ -2,8 +2,7 @@ package com.joffer.organizeplus.designsystem.components
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.CheckCircle
+import com.joffer.organizeplus.designsystem.icons.OrganizeIcons
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -33,7 +32,7 @@ fun SuccessBanner(
             horizontalArrangement = Arrangement.spacedBy(Spacing.sm)
         ) {
             Icon(
-                imageVector = Icons.Default.CheckCircle,
+                imageVector = OrganizeIcons.Duty.CheckCircleFilled,
                 contentDescription = "Success",
                 tint = SemanticColors.OnBackground.onSuccess
             )

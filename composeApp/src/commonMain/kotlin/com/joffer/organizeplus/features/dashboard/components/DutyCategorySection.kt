@@ -102,7 +102,7 @@ fun DutyCategorySection(
             // Monthly Summary
             monthlySummary?.let { summary ->
                 MonthlySummaryCard(summary = summary)
-                Spacer(modifier = Modifier.height(Spacing.lg))
+                Spacer(modifier = Modifier.height(Spacing.sm))
             }
 
             Column(
@@ -129,12 +129,32 @@ fun DutyCategorySection(
                 }
             }
 
-            Spacer(modifier = Modifier.height(Spacing.md))
-            OrganizeSecondaryButton(
-                modifier = Modifier.fillMaxWidth().padding(horizontal = Spacing.lg),
-                text = stringResource(Res.string.view_all_duties),
-                onClick = onViewAll
-            )
+            Spacer(modifier = Modifier.height(Spacing.lg))
+            
+            // Progress bar showing completion
+            monthlySummary?.let { summary ->
+                CategoryProgressBar(
+                    summary = summary,
+                    categoryColor = config.accentColor,
+                    modifier = Modifier.fillMaxWidth()
+                )
+                Spacer(modifier = Modifier.height(Spacing.md))
+            }
+
+            // View All button - primary for personal, secondary for company
+            if (categoryName == CategoryConstants.PERSONAL) {
+                OrganizePrimaryButton(
+                    modifier = Modifier.fillMaxWidth().padding(horizontal = Spacing.lg),
+                    text = stringResource(Res.string.view_all_duties),
+                    onClick = onViewAll
+                )
+            } else {
+                OrganizeSecondaryButton(
+                    modifier = Modifier.fillMaxWidth().padding(horizontal = Spacing.lg),
+                    text = stringResource(Res.string.view_all_duties),
+                    onClick = onViewAll
+                )
+            }
         }
     }
 }
@@ -157,6 +177,65 @@ private fun DutyCategoryItem(
         accentLight = accentLight,
         modifier = modifier
     )
+}
+
+@Composable
+private fun CategoryProgressBar(
+    summary: MonthlySummary,
+    categoryColor: Color,
+    modifier: Modifier = Modifier
+) {
+    val typography = DesignSystemTypography()
+    val progress = if (summary.totalTasks > 0) {
+        summary.totalCompleted.toFloat() / summary.totalTasks.toFloat()
+    } else {
+        0f
+    }
+    
+    Column(
+        modifier = modifier.padding(horizontal = Spacing.lg)
+    ) {
+        // Progress label
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = stringResource(Res.string.dashboard_tasks_done),
+                style = typography.bodySmall,
+                color = SemanticColors.Foreground.secondary
+            )
+            Text(
+                text = "${summary.totalCompleted}/${summary.totalTasks}",
+                style = typography.bodySmall.copy(fontWeight = FontWeight.SemiBold),
+                color = SemanticColors.Foreground.primary
+            )
+        }
+        
+        Spacer(modifier = Modifier.height(Spacing.xs))
+        
+        // Progress bar
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(8.dp)
+                .background(
+                    color = categoryColor.copy(alpha = 0.15f),
+                    shape = RoundedCornerShape(Spacing.Radius.sm)
+                )
+        ) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth(progress)
+                    .fillMaxHeight()
+                    .background(
+                        color = categoryColor,
+                        shape = RoundedCornerShape(Spacing.Radius.sm)
+                    )
+            )
+        }
+    }
 }
 
 @Composable

@@ -4,9 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Settings
+import com.joffer.organizeplus.designsystem.icons.OrganizeIcons
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -92,7 +90,7 @@ private fun ButtonShowcaseItem(
                         OrganizePrimaryButton(
                             text = "With Icon",
                             onClick = { },
-                            icon = Icons.Default.Add
+                            icon = OrganizeIcons.Actions.Plus
                         )
                         OrganizePrimaryButton(
                             text = "Disabled",
@@ -108,7 +106,7 @@ private fun ButtonShowcaseItem(
                         OrganizeSecondaryButton(
                             text = "With Icon",
                             onClick = { },
-                            icon = Icons.Default.Settings
+                            icon = OrganizeIcons.Navigation.Settings
                         )
                         OrganizeSecondaryButton(
                             text = "Disabled",
@@ -132,7 +130,7 @@ private fun ButtonShowcaseItem(
                             onClick = { }
                         ) {
                             Icon(
-                                imageVector = Icons.Default.Settings,
+                                imageVector = OrganizeIcons.Navigation.Settings,
                                 contentDescription = "Settings"
                             )
                         }
@@ -141,7 +139,7 @@ private fun ButtonShowcaseItem(
                             enabled = false
                         ) {
                             Icon(
-                                imageVector = Icons.Default.Add,
+                                imageVector = OrganizeIcons.Actions.Plus,
                                 contentDescription = "Add"
                             )
                         }
@@ -158,7 +156,7 @@ private fun ButtonShowcaseItem(
                             contentAlignment = androidx.compose.ui.Alignment.Center
                         ) {
                             Icon(
-                                imageVector = Icons.Default.Add,
+                                imageVector = OrganizeIcons.Actions.Plus,
                                 contentDescription = "Add",
                                 tint = SemanticColors.OnBackground.onBrand
                             )

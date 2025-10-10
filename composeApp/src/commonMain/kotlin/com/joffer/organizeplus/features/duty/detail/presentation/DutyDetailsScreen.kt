@@ -3,9 +3,7 @@ package com.joffer.organizeplus.features.duty.detail.presentation
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Edit
+import com.joffer.organizeplus.designsystem.icons.OrganizeIcons
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -64,7 +62,7 @@ fun DutyDetailsScreen(
                         }
                     }) {
                         Icon(
-                            imageVector = Icons.Default.Edit,
+                            imageVector = OrganizeIcons.Actions.Edit,
                             contentDescription = stringResource(Res.string.duty_detail_edit),
                             tint = SemanticColors.Foreground.brand
                         )
@@ -262,7 +260,7 @@ private fun DutyDetailsRecordsHeader(
 
         IconButton(onClick = onShowAddOccurrence) {
             Icon(
-                imageVector = Icons.Default.Add,
+                imageVector = OrganizeIcons.Actions.Plus,
                 contentDescription = stringResource(Res.string.duty_occurrence_list_add_occurrence),
                 tint = SemanticColors.Foreground.brand
             )

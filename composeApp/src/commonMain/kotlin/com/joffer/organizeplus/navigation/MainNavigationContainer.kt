@@ -162,15 +162,9 @@ fun MainNavigationContainer(
                     onNavigateToCreateDuty = {
                         mainNavController.navigate(CreateDutyWithCategory(duties.category))
                     },
-                    onNavigateBack = {
-                        navController.navigate(Dashboard)
-                    },
                     onNavigateToOccurrences = { dutyId ->
                         mainNavController.navigate(DutyOccurrences(dutyId))
                     },
-                    onNavigateToReview = {
-                        mainNavController.navigate(DutyReview(duties.category))
-                    }
                 )
             }
 

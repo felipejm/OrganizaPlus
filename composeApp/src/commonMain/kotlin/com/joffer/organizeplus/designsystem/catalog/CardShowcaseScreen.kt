@@ -3,9 +3,7 @@ package com.joffer.organizeplus.designsystem.catalog
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBackIosNew
-import androidx.compose.material.icons.filled.Star
+import com.joffer.organizeplus.designsystem.icons.OrganizeIcons
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -170,7 +168,7 @@ private fun InteractiveCardExamples() {
                     )
                 }
                 Icon(
-                    imageVector = Icons.Default.ArrowBackIosNew,
+                    imageVector = OrganizeIcons.System.ArrowBackIos,
                     contentDescription = "Navigate forward",
                     tint = SemanticColors.Foreground.brand
                 )
@@ -232,7 +230,7 @@ private fun ContentCardExamples() {
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Icon(
-                        imageVector = Icons.Default.Star,
+                        imageVector = OrganizeIcons.System.StarFilled,
                         contentDescription = null,
                         tint = SemanticColors.Foreground.warning,
                         modifier = Modifier.size(Spacing.iconSize)

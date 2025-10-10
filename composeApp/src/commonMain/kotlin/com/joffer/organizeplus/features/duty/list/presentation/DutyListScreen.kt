@@ -3,6 +3,7 @@ package com.joffer.organizeplus.features.duty.list.presentation
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -54,11 +55,11 @@ fun DutyListScreen(
         Scaffold(
             contentColor = SemanticColors.Background.primary,
             topBar = {
-                AppTopAppBarWithBackButton(
+                AppTopAppBarWithActions(
                     actions = {
                         IconButton(onClick = onNavigateToReview) {
                             Icon(
-                                imageVector = Icons.Default.AddChart,
+                                imageVector = OrganizeIcons.Actions.History,
                                 contentDescription = "View Review",
                                 tint = SemanticColors.Foreground.primary
                             )

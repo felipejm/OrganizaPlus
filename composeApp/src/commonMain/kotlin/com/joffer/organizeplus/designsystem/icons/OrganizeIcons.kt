@@ -45,6 +45,8 @@ object OrganizeIcons {
 
         val Visibility: ImageVector = Icons.Filled.Visibility
         val VisibilityOff: ImageVector = Icons.Filled.VisibilityOff
+
+        val History: ImageVector = Icons.Outlined.History
     }
 
     object Duty {

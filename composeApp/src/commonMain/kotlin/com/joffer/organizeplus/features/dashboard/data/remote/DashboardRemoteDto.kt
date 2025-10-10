@@ -75,7 +75,7 @@ data class OverallStatsRemote(
     @SerialName("formattedTotalAmount") val formattedTotalAmount: String,
     @SerialName("completionRate") val completionRate: Double,
     @SerialName("hasOverdueItems") val hasOverdueItems: Boolean,
-    @SerialName("needsAttention") val needsAttention: List<String>
+    @SerialName("needsAttention") val needsAttention: List<Long>
 )
 
 @Serializable

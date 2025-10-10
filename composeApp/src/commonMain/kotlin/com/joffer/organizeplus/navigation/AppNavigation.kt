@@ -142,15 +142,9 @@ fun AppNavigation(
                     onNavigateToCreateDuty = {
                         navController.navigate(CreateDutyWithCategory(duties.category))
                     },
-                    onNavigateBack = {
-                        navController.popBackStack()
-                    },
                     onNavigateToOccurrences = { dutyId ->
                         navController.navigate(DutyOccurrences(dutyId))
                     },
-                    onNavigateToReview = {
-                        navController.navigate(DutyReview(duties.category))
-                    }
                 )
             }
 

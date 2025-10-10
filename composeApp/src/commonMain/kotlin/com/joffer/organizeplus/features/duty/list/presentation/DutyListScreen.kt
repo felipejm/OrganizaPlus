@@ -41,9 +41,7 @@ fun DutyListScreen(
     viewModel: DutyListViewModel,
     categoryFilter: DutyCategoryFilter,
     onNavigateToCreateDuty: () -> Unit,
-    onNavigateBack: () -> Unit,
     onNavigateToOccurrences: (Long) -> Unit,
-    onNavigateToReview: () -> Unit = {}
 ) {
     ProvideSfProTypography {
         val uiState by viewModel.uiState.collectAsState()

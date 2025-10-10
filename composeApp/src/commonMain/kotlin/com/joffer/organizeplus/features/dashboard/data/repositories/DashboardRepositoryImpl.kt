@@ -95,12 +95,12 @@ class DashboardRepositoryImpl(
 
         val personalDuties = allDuties
             .filter { it.categoryName == CategoryConstants.PERSONAL }
-            .take(3)
+            .take(1)
             .map { duty -> enrichDutyWithLastOccurrence(duty) }
 
         val companyDuties = allDuties
             .filter { it.categoryName == CategoryConstants.COMPANY }
-            .take(3)
+            .take(1)
             .map { duty -> enrichDutyWithLastOccurrence(duty) }
 
         return Pair(personalDuties, companyDuties)

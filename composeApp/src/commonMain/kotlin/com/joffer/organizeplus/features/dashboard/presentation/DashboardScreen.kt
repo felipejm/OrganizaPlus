@@ -8,7 +8,6 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.text.font.FontWeight
 import com.joffer.organizeplus.common.constants.CategoryConstants
 import com.joffer.organizeplus.common.utils.DateUtils
@@ -29,7 +28,6 @@ import organizeplus.composeapp.generated.resources.dashboard_create_first_duty
 import organizeplus.composeapp.generated.resources.dashboard_title
 import organizeplus.composeapp.generated.resources.dashboard_welcome_subtitle
 import organizeplus.composeapp.generated.resources.dashboard_welcome_title
-import organizeplus.composeapp.generated.resources.settings_button_description
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -38,7 +36,7 @@ fun DashboardScreen(
     onNavigateToPersonalDuties: () -> Unit,
     onNavigateToCompanyDuties: () -> Unit,
     onNavigateToDutyDetails: (Long) -> Unit,
-    onNavigateToSettings: () -> Unit,
+    @Suppress("UNUSED_PARAMETER") onNavigateToSettings: () -> Unit,
     onNavigateToCreateDuty: () -> Unit,
     modifier: Modifier = Modifier
 ) {

@@ -11,7 +11,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
@@ -95,7 +94,7 @@ private fun SignInContent(
                 verticalArrangement = Arrangement.spacedBy(Spacing.lg, Alignment.CenterVertically)
             ) {
                 Spacer(modifier = Modifier.weight(1f))
-                
+
                 OnboardingHeader(subtitle = stringResource(Res.string.onboarding_signin_subtitle))
 
                 ErrorSection(
@@ -114,7 +113,7 @@ private fun SignInContent(
                     onSignIn = { onIntent(SignInIntent.SignIn) },
                     onNavigateToSignUp = { onIntent(SignInIntent.NavigateToSignUp) }
                 )
-                
+
                 Spacer(modifier = Modifier.weight(1f))
             }
 

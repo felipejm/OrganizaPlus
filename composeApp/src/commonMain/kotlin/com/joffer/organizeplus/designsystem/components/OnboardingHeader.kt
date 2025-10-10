@@ -19,11 +19,11 @@ import organizeplus.composeapp.generated.resources.onboarding_app_name
 
 /**
  * Reusable onboarding header component
- * 
+ *
  * Displays:
  * - App name "Organize+"
  * - Subtitle below the app name
- * 
+ *
  * @param subtitle The subtitle text to display
  * @param modifier Modifier for the component
  */
@@ -33,7 +33,7 @@ fun OnboardingHeader(
     modifier: Modifier = Modifier
 ) {
     val typography = DesignSystemTypography()
-    
+
     Column(
         modifier = modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -46,9 +46,9 @@ fun OnboardingHeader(
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center
         )
-        
+
         Spacer(modifier = Modifier.height(Spacing.xs))
-        
+
         // Subtitle
         Text(
             text = subtitle,

@@ -3,9 +3,6 @@ package com.joffer.organizeplus.features.duty.list.presentation
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.AddChart
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -43,6 +40,7 @@ fun DutyListScreen(
     categoryFilter: DutyCategoryFilter,
     onNavigateToCreateDuty: () -> Unit,
     onNavigateToOccurrences: (Long) -> Unit,
+    onNavigateToReview: () -> Unit = {}
 ) {
     ProvideSfProTypography {
         val uiState by viewModel.uiState.collectAsState()
@@ -55,6 +53,19 @@ fun DutyListScreen(
 
         Scaffold(
             contentColor = SemanticColors.Background.primary,
+            topBar = {
+                AppTopAppBarWithBackButton(
+                    actions = {
+                        IconButton(onClick = onNavigateToReview) {
+                            Icon(
+                                imageVector = Icons.Default.AddChart,
+                                contentDescription = "View Review",
+                                tint = SemanticColors.Foreground.primary
+                            )
+                        }
+                    }
+                )
+            },
             floatingActionButton = {
                 FloatingActionButton(
                     onClick = onNavigateToCreateDuty,

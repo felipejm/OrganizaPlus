@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 
 /**
  * Use case that retrieves complete dashboard data
- * 
+ *
  * Following clean architecture principles:
  * - Use case only interacts with its domain repository
  * - Repository layer handles all data coordination

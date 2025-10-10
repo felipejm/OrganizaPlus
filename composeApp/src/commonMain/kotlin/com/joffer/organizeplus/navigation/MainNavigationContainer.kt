@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavHostController
@@ -16,8 +15,8 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.joffer.organizeplus.common.constants.CategoryConstants
 import com.joffer.organizeplus.designsystem.colors.SemanticColors
-import com.joffer.organizeplus.designsystem.components.OrganizeBottomNavigationBar
 import com.joffer.organizeplus.designsystem.components.BottomNavItem
+import com.joffer.organizeplus.designsystem.components.OrganizeBottomNavigationBar
 import com.joffer.organizeplus.designsystem.icons.OrganizeIcons
 import com.joffer.organizeplus.features.dashboard.presentation.DashboardScreen
 import com.joffer.organizeplus.features.dashboard.presentation.DashboardViewModel
@@ -46,7 +45,7 @@ fun MainNavigationContainer(
     // Define routes for bottom nav tabs
     val personalDutiesRoute = Duties(CategoryConstants.PERSONAL)
     val companyDutiesRoute = Duties(CategoryConstants.COMPANY)
-    
+
     // Define bottom navigation items with custom icons
     val bottomNavItems = listOf(
         BottomNavItem(
@@ -77,7 +76,9 @@ fun MainNavigationContainer(
 
     // Determine current route for bottom nav selection
     val currentRoute = when {
-        currentDestination?.hasRoute(Dashboard::class) == true -> Dashboard
+        currentDestination?.hasRoute(Dashboard::class) == true -> {
+            Dashboard
+        }
         currentDestination?.hasRoute(Duties::class) == true -> {
             val currentDuties = navBackStackEntry?.toRoute<Duties>()
             when (currentDuties?.category) {
@@ -86,8 +87,12 @@ fun MainNavigationContainer(
                 else -> Dashboard
             }
         }
-        currentDestination?.hasRoute(Settings::class) == true -> Settings
-        else -> Dashboard
+        currentDestination?.hasRoute(Settings::class) == true -> {
+            Settings
+        }
+        else -> {
+            Dashboard
+        }
     }
 
     Scaffold(
@@ -155,7 +160,7 @@ fun MainNavigationContainer(
                     else -> DutyCategoryFilter.Personal // Default fallback
                 }
                 val dutyListViewModel: DutyListViewModel = koinInject { parametersOf(categoryFilter) }
-                
+
                 DutyListScreen(
                     viewModel = dutyListViewModel,
                     categoryFilter = categoryFilter,
@@ -169,7 +174,8 @@ fun MainNavigationContainer(
             }
 
             composable<Settings> {
-                val settingsViewModel: com.joffer.organizeplus.features.settings.presentation.SettingsViewModel = koinInject()
+                val settingsViewModel: com.joffer.organizeplus.features.settings.presentation.SettingsViewModel =
+                    koinInject()
                 SettingsScreen(
                     viewModel = settingsViewModel,
                     onNavigateBack = {
@@ -188,4 +194,3 @@ fun MainNavigationContainer(
         }
     }
 }
-

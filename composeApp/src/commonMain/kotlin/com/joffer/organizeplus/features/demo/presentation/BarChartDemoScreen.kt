@@ -3,7 +3,6 @@ package com.joffer.organizeplus.features.demo.presentation
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
-import com.joffer.organizeplus.designsystem.icons.OrganizeIcons
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -14,6 +13,7 @@ import com.joffer.organizeplus.designsystem.components.charts.BarChart
 import com.joffer.organizeplus.designsystem.components.charts.BarChartConfig
 import com.joffer.organizeplus.designsystem.components.charts.BarChartData
 import com.joffer.organizeplus.designsystem.components.charts.BarDataPoint
+import com.joffer.organizeplus.designsystem.icons.OrganizeIcons
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
 

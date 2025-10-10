@@ -4,6 +4,8 @@ import com.joffer.organizeplus.database.entities.DutyEntity
 import com.joffer.organizeplus.database.entities.DutyOccurrenceEntity
 import com.joffer.organizeplus.features.dashboard.data.local.FakeDashboardLocalDataSource
 import com.joffer.organizeplus.features.dashboard.data.remote.*
+import com.joffer.organizeplus.features.duty.data.FakeDutyRepository
+import com.joffer.organizeplus.features.duty.occurrence.data.FakeDutyOccurrenceRepository
 import com.joffer.organizeplus.features.settings.data.FakeSettingsRepository
 import com.joffer.organizeplus.features.settings.domain.StorageMode
 import kotlinx.coroutines.flow.first
@@ -20,6 +22,8 @@ class DashboardRepositoryImplTest {
     private lateinit var fakeRemoteDataSource: FakeDashboardRemoteDataSource
     private lateinit var fakeLocalDataSource: FakeDashboardLocalDataSource
     private lateinit var fakeSettingsRepository: FakeSettingsRepository
+    private lateinit var fakeDutyRepository: FakeDutyRepository
+    private lateinit var fakeDutyOccurrenceRepository: FakeDutyOccurrenceRepository
     private lateinit var repository: DashboardRepositoryImpl
 
     @BeforeTest
@@ -27,11 +31,15 @@ class DashboardRepositoryImplTest {
         fakeRemoteDataSource = FakeDashboardRemoteDataSource()
         fakeLocalDataSource = FakeDashboardLocalDataSource()
         fakeSettingsRepository = FakeSettingsRepository()
-        
+        fakeDutyRepository = FakeDutyRepository()
+        fakeDutyOccurrenceRepository = FakeDutyOccurrenceRepository()
+
         repository = DashboardRepositoryImpl(
             remoteDataSource = fakeRemoteDataSource,
             localDataSource = fakeLocalDataSource,
-            settingsRepository = fakeSettingsRepository
+            settingsRepository = fakeSettingsRepository,
+            dutyRepository = fakeDutyRepository,
+            dutyOccurrenceRepository = fakeDutyOccurrenceRepository
         )
     }
 

@@ -18,25 +18,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.dp
-import com.joffer.organizeplus.designsystem.colors.PrimitiveColors
 import com.joffer.organizeplus.designsystem.colors.SemanticColors
 import com.joffer.organizeplus.designsystem.spacing.Spacing
 import com.joffer.organizeplus.designsystem.typography.DesignSystemTypography
 
-/**
- * Data class representing a bottom navigation item
- *
- * @param label The text label for the navigation item
- * @param icon The icon to display (used when unselected)
- * @param selectedIcon Optional alternative icon for selected state
- * @param route The navigation route associated with this item
- */
 data class BottomNavItem(
     val label: String,
     val icon: ImageVector,
@@ -44,21 +33,6 @@ data class BottomNavItem(
     val route: Any
 )
 
-/**
- * OrganizePlus bottom navigation bar component with design system styling
- *
- * Features:
- * - Consistent semantic colors from design system
- * - Proper typography and spacing
- * - Selected/unselected icon states
- * - Brand color highlighting for active items
- * - Accessibility support
- *
- * @param items List of navigation items to display
- * @param currentRoute The currently active route for selection state
- * @param onItemClick Callback when a navigation item is clicked
- * @param modifier Optional modifier for customization
- */
 @Composable
 fun OrganizeBottomNavigationBar(
     items: List<BottomNavItem>,
@@ -68,10 +42,11 @@ fun OrganizeBottomNavigationBar(
 ) {
     Surface(
         shape = MaterialTheme.shapes.medium,
-        shadowElevation = 8.dp
+        shadowElevation = Spacing.Elevation.md
     ) {
         NavigationBar(
-            containerColor = PrimitiveColors.white,
+            modifier = modifier,
+            containerColor = SemanticColors.Background.surface,
         ) {
             items.forEach { item ->
                 OrganizeBottomNavigationBarItem(
@@ -84,15 +59,6 @@ fun OrganizeBottomNavigationBar(
     }
 }
 
-/**
- * Individual navigation bar item with design system styling and micro animations
- *
- * Animations include:
- * - Scale animation on icon (spring bounce effect)
- * - Alpha fade for text
- * - Color transitions
- * - Subtle rotation for playfulness
- */
 @Composable
 private fun RowScope.OrganizeBottomNavigationBarItem(
     item: BottomNavItem,
@@ -204,4 +170,3 @@ private fun RowScope.OrganizeBottomNavigationBarItem(
         alwaysShowLabel = true
     )
 }
-

@@ -30,7 +30,7 @@ import organizeplus.composeapp.generated.resources.settings_title
 @Composable
 fun SettingsScreen(
     viewModel: SettingsViewModel,
-    onNavigateBack: () -> Unit,
+    @Suppress("UNUSED_PARAMETER") onNavigateBack: () -> Unit,
     onNavigateToDesignSystem: () -> Unit,
     onNavigateToSignIn: () -> Unit,
     modifier: Modifier = Modifier

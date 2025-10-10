@@ -130,7 +130,7 @@ fun DutyCategorySection(
             }
 
             Spacer(modifier = Modifier.height(Spacing.lg))
-            
+
             // Progress bar showing completion
             monthlySummary?.let { summary ->
                 CategoryProgressBar(
@@ -191,7 +191,7 @@ private fun CategoryProgressBar(
     } else {
         0f
     }
-    
+
     Column(
         modifier = modifier.padding(horizontal = Spacing.lg)
     ) {
@@ -212,9 +212,9 @@ private fun CategoryProgressBar(
                 color = SemanticColors.Foreground.primary
             )
         }
-        
+
         Spacer(modifier = Modifier.height(Spacing.xs))
-        
+
         // Progress bar
         Box(
             modifier = Modifier

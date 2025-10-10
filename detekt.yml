@@ -272,14 +272,6 @@ formatting:
   NoWildcardImports:
     active: false
 
-design-system:
-  active: true
-  NoHardcodedColors:
-    active: true
-    excludes: ['**/PrimitiveColors.kt']
-  NoHardcodedSpacing:
-    active: true
-
 style:
   active: true
   AlsoCouldBeApply:

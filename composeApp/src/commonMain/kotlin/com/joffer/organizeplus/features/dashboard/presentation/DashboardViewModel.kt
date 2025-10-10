@@ -10,13 +10,13 @@ import kotlinx.coroutines.launch
 
 /**
  * Dashboard ViewModel following clean architecture principles
- * 
+ *
  * Responsibilities:
  * - Manage UI state
  * - Handle user intents
  * - Call use cases
  * - Map domain data to UI state
- * 
+ *
  * All business logic and repository coordination is delegated to the use case layer
  */
 class DashboardViewModel(

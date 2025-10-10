@@ -24,7 +24,7 @@ import kotlinx.datetime.toLocalDateTime
 
 /**
  * Dashboard repository implementation that coordinates data from multiple sources
- * 
+ *
  * Responsibilities:
  * - Aggregate data from duty and duty occurrence repositories
  * - Handle storage mode (local/remote) switching
@@ -41,7 +41,7 @@ class DashboardRepositoryImpl(
     override suspend fun getDashboardData(): Flow<Result<DashboardData>> = flow {
         try {
             val storageMode = settingsRepository.getStorageMode()
-            
+
             when (storageMode) {
                 StorageMode.REMOTE -> {
                     // Use consolidated dashboard endpoint - everything in one call!
@@ -59,21 +59,21 @@ class DashboardRepositoryImpl(
             emit(Result.failure(exception))
         }
     }
-    
+
     private suspend fun loadLocalDashboardData(): Flow<Result<DashboardData>> = flow {
         try {
             // Load all data in parallel for better performance
             coroutineScope {
                 val upcomingDutiesDeferred = async { loadUpcomingDutiesLocal() }
                 val categorizedDutiesDeferred = async { loadCategorizedDutiesLocal() }
-                
+
                 val upcomingDuties = upcomingDutiesDeferred.await()
                 val (personalDuties, companyDuties) = categorizedDutiesDeferred.await()
-                
+
                 // Load summaries after we have the duty counts
                 val summariesDeferred = async { loadMonthlySummariesLocal() }
                 val (personalSummary, companySummary) = summariesDeferred.await()
-                
+
                 emit(
                     Result.success(
                         DashboardData(
@@ -229,12 +229,6 @@ class DashboardRepositoryImpl(
             Napier.e("Exception loading $categoryName summary: ${e.message}")
             null
         }
-    }
-
-    private suspend fun getRemoteDashboardData(): Flow<Result<DashboardData>> = flow {
-        val result = remoteDataSource.getDashboardData()
-            .map { remoteResponse -> DashboardRemoteMapper.toDomain(remoteResponse) }
-        emit(result)
     }
 
     private suspend fun getLocalDashboardData(): Flow<Result<DashboardData>> {

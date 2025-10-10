@@ -40,16 +40,38 @@ class DashboardRepositoryImpl(
 
     override suspend fun getDashboardData(): Flow<Result<DashboardData>> = flow {
         try {
+            val storageMode = settingsRepository.getStorageMode()
+            
+            when (storageMode) {
+                StorageMode.REMOTE -> {
+                    // Use consolidated dashboard endpoint - everything in one call!
+                    val result = remoteDataSource.getDashboardData()
+                        .map { remoteResponse -> DashboardRemoteMapper.toDomain(remoteResponse) }
+                    emit(result)
+                }
+                StorageMode.LOCAL -> {
+                    // Load from local database
+                    loadLocalDashboardData().collect { emit(it) }
+                }
+            }
+        } catch (exception: Exception) {
+            Napier.e("Error loading dashboard data: ${exception.message}", exception)
+            emit(Result.failure(exception))
+        }
+    }
+    
+    private suspend fun loadLocalDashboardData(): Flow<Result<DashboardData>> = flow {
+        try {
             // Load all data in parallel for better performance
             coroutineScope {
-                val upcomingDutiesDeferred = async { loadUpcomingDuties() }
-                val categorizedDutiesDeferred = async { loadCategorizedDuties() }
+                val upcomingDutiesDeferred = async { loadUpcomingDutiesLocal() }
+                val categorizedDutiesDeferred = async { loadCategorizedDutiesLocal() }
                 
                 val upcomingDuties = upcomingDutiesDeferred.await()
                 val (personalDuties, companyDuties) = categorizedDutiesDeferred.await()
                 
                 // Load summaries after we have the duty counts
-                val summariesDeferred = async { loadMonthlySummaries() }
+                val summariesDeferred = async { loadMonthlySummariesLocal() }
                 val (personalSummary, companySummary) = summariesDeferred.await()
                 
                 emit(
@@ -65,26 +87,24 @@ class DashboardRepositoryImpl(
                 )
             }
         } catch (exception: Exception) {
-            Napier.e("Error loading dashboard data: ${exception.message}", exception)
+            Napier.e("Error loading local dashboard data: ${exception.message}", exception)
             emit(Result.failure(exception))
         }
     }
 
-    private suspend fun loadUpcomingDuties(): List<Duty> {
-        return when (settingsRepository.getStorageMode()) {
-            StorageMode.REMOTE -> getRemoteDashboardData()
-            StorageMode.LOCAL -> getLocalDashboardData()
-        }.catch { exception ->
-            Napier.e("Error loading upcoming duties: ${exception.message}")
-            emit(Result.success(DashboardData()))
-        }
-        .first()
-        .getOrNull()
-        ?.upcomingDuties
-        ?: emptyList()
+    private suspend fun loadUpcomingDutiesLocal(): List<Duty> {
+        return getLocalDashboardData()
+            .catch { exception ->
+                Napier.e("Error loading upcoming duties: ${exception.message}")
+                emit(Result.success(DashboardData()))
+            }
+            .first()
+            .getOrNull()
+            ?.upcomingDuties
+            ?: emptyList()
     }
 
-    private suspend fun loadCategorizedDuties(): Pair<List<DutyWithLastOccurrence>, List<DutyWithLastOccurrence>> {
+    private suspend fun loadCategorizedDutiesLocal(): Pair<List<DutyWithLastOccurrence>, List<DutyWithLastOccurrence>> {
         val allDuties = dutyRepository.getAllDuties()
             .catch { exception ->
                 Napier.e("Error loading duties: ${exception.message}")
@@ -117,7 +137,7 @@ class DashboardRepositoryImpl(
         )
     }
 
-    private suspend fun loadMonthlySummaries(): Pair<MonthlySummary?, MonthlySummary?> = coroutineScope {
+    private suspend fun loadMonthlySummariesLocal(): Pair<MonthlySummary?, MonthlySummary?> = coroutineScope {
         try {
             val currentDate = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
             val currentMonth = currentDate.monthNumber

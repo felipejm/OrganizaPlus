@@ -54,8 +54,7 @@ fun DashboardScreen(
     }
 
     Scaffold(
-        containerColor = SemanticColors.Background.primary, // Dark background
-        contentColor = SemanticColors.Foreground.primary, // White text
+        contentColor = SemanticColors.Background.primary,
     ) { paddingValues ->
         LazyColumn(
             state = listState,
@@ -82,22 +81,26 @@ fun DashboardScreen(
                     OrganizeProgressIndicatorFullScreen()
                 }
             } else {
-                // Month/Year Header (Matching image design)
+                // Month/Year Header
                 item {
-                    Column(
+                    Row(
                         modifier = Modifier.fillMaxWidth(),
-                        verticalArrangement = Arrangement.spacedBy(Spacing.xs)
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Text(
-                            text = "$currentMonth $currentYear",
-                            style = typography.headlineLarge, // 24sp, Bold
-                            color = SemanticColors.Foreground.primary, // White
-                        )
-                        Text(
-                            text = stringResource(Res.string.dashboard_title),
-                            style = typography.bodySmall, // 14sp, Normal
-                            color = SemanticColors.Foreground.secondary // Light grey
-                        )
+                        Column {
+                            Text(
+                                text = "$currentMonth $currentYear",
+                                style = typography.headlineLarge,
+                                color = SemanticColors.Foreground.primary,
+                                fontWeight = FontWeight.Black
+                            )
+                            Text(
+                                text = stringResource(Res.string.dashboard_title),
+                                style = typography.titleMedium,
+                                color = SemanticColors.Foreground.secondary
+                            )
+                        }
                     }
                 }
 

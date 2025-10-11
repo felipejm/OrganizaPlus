@@ -40,10 +40,14 @@ fun OrganizeBottomNavigationBar(
     onItemClick: (BottomNavItem) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    NavigationBar(
-        modifier = modifier,
-        containerColor = SemanticColors.Background.surface, // Dark surface background
+    Surface(
+        shape = MaterialTheme.shapes.medium,
+        shadowElevation = Spacing.Elevation.md
     ) {
+        NavigationBar(
+            modifier = modifier,
+            containerColor = SemanticColors.Background.surface,
+        ) {
             items.forEach { item ->
                 OrganizeBottomNavigationBarItem(
                     item = item,
@@ -52,6 +56,7 @@ fun OrganizeBottomNavigationBar(
                 )
             }
         }
+    }
 }
 
 @Composable
@@ -82,12 +87,12 @@ private fun RowScope.OrganizeBottomNavigationBarItem(
         label = "text_alpha"
     )
 
-    // Animate icon color transition (matching image)
+    // Animate icon color transition
     val iconColor by animateColorAsState(
         targetValue = if (isSelected) {
-            SemanticColors.Legacy.personalAccent // Blue for selected
+            SemanticColors.Foreground.brand
         } else {
-            SemanticColors.Foreground.secondary // Light grey for unselected
+            SemanticColors.Foreground.secondary
         },
         animationSpec = tween(
             durationMillis = 200,
@@ -96,12 +101,12 @@ private fun RowScope.OrganizeBottomNavigationBarItem(
         label = "icon_color"
     )
 
-    // Animate text color transition (matching image)
+    // Animate text color transition
     val textColor by animateColorAsState(
         targetValue = if (isSelected) {
-            SemanticColors.Legacy.personalAccent // Blue for selected
+            SemanticColors.Foreground.brand
         } else {
-            SemanticColors.Foreground.secondary // Light grey for unselected
+            SemanticColors.Foreground.secondary
         },
         animationSpec = tween(
             durationMillis = 200,
@@ -144,8 +149,8 @@ private fun RowScope.OrganizeBottomNavigationBarItem(
         label = {
             Text(
                 text = item.label,
-                style = typography.bodySmall.copy( // 12sp matching image
-                    fontWeight = if (isSelected) FontWeight.SemiBold else FontWeight.Normal
+                style = typography.labelMedium.copy(
+                    fontWeight = if (isSelected) FontWeight.SemiBold else FontWeight.Medium
                 ),
                 color = textColor,
                 maxLines = 1,

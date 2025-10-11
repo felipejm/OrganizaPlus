@@ -66,10 +66,7 @@ fun <T> DropdownField(
                     unfocusedBorderColor = if (isError) AppColorScheme.error else AppColorScheme.formBorder,
                     focusedContainerColor = Color.Transparent,
                     unfocusedContainerColor = Color.Transparent,
-                    errorBorderColor = AppColorScheme.error,
-                    focusedTextColor = AppColorScheme.formText, // White text
-                    unfocusedTextColor = AppColorScheme.formText, // White text
-                    errorTextColor = AppColorScheme.error
+                    errorBorderColor = AppColorScheme.error
                 ),
                 shape = RoundedCornerShape(Spacing.borderRadius),
                 isError = isError

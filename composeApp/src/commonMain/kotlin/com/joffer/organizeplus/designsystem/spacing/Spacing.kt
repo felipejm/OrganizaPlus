@@ -73,11 +73,9 @@ object Spacing {
     }
 
     object Card {
-        val padding: Dp = 16.dp // Matching image card padding
-        val margin: Dp = 16.dp // Gap between cards
-        val contentSpacing: Dp = 12.dp // Internal spacing
-        val borderRadius: Dp = 12.dp // Matching image rounded corners
-        val accentWidth: Dp = 4.dp // Left accent line width
+        val padding: Dp = lg
+        val margin: Dp = md
+        val contentSpacing: Dp = md
     }
 
     object Button {

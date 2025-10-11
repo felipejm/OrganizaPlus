@@ -20,7 +20,7 @@ import organizeplus.composeapp.generated.resources.Res
 import organizeplus.composeapp.generated.resources.nav_home
 
 class DashboardNavigationProvider : FeatureNavigationProvider {
-    
+
     @Composable
     override fun getBottomNavConfiguration(): BottomNavConfiguration {
         return BottomNavConfiguration(
@@ -31,14 +31,14 @@ class DashboardNavigationProvider : FeatureNavigationProvider {
             order = 0
         )
     }
-    
+
     override fun NavGraphBuilder.registerScreens(
         mainNavController: NavHostController,
         tabNavController: NavHostController
     ) {
         composable<Dashboard> {
             val viewModel: DashboardViewModel = koinInject()
-            
+
             DashboardScreen(
                 viewModel = viewModel,
                 onNavigateToPersonalDuties = {
@@ -68,4 +68,3 @@ class DashboardNavigationProvider : FeatureNavigationProvider {
         }
     }
 }
-

@@ -18,7 +18,7 @@ import com.joffer.organizeplus.navigation.DesignSystemCatalog
 import com.joffer.organizeplus.navigation.config.MainNavigationProvider
 
 class DesignSystemNavigationProvider : MainNavigationProvider {
-    
+
     override fun NavGraphBuilder.registerMainScreens(navController: NavHostController) {
         composable<DesignSystemCatalog> {
             DesignSystemCatalogScreen(
@@ -112,4 +112,3 @@ class DesignSystemNavigationProvider : MainNavigationProvider {
         }
     }
 }
-

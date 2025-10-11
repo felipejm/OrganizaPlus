@@ -17,4 +17,3 @@ interface MainNavigationProvider {
         navController: NavHostController
     )
 }
-

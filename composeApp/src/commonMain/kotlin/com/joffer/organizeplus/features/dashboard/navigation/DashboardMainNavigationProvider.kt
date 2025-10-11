@@ -11,7 +11,7 @@ import org.koin.compose.koinInject
 import org.koin.core.qualifier.named
 
 class DashboardMainNavigationProvider : MainNavigationProvider {
-    
+
     override fun NavGraphBuilder.registerMainScreens(navController: NavHostController) {
         composable<Dashboard> {
             val featureProviders: List<FeatureNavigationProvider> = koinInject(named("featureProviders"))
@@ -22,4 +22,3 @@ class DashboardMainNavigationProvider : MainNavigationProvider {
         }
     }
 }
-

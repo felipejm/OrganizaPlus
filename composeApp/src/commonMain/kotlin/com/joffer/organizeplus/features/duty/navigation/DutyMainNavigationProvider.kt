@@ -21,7 +21,7 @@ import org.koin.compose.koinInject
 import org.koin.core.parameter.parametersOf
 
 class DutyMainNavigationProvider : MainNavigationProvider {
-    
+
     override fun NavGraphBuilder.registerMainScreens(navController: NavHostController) {
         composable<CreateDuty> {
             val viewModel: CreateDutyViewModel = koinInject {
@@ -107,4 +107,3 @@ class DutyMainNavigationProvider : MainNavigationProvider {
         }
     }
 }
-

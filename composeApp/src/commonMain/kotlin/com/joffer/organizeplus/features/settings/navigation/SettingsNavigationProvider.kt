@@ -18,7 +18,7 @@ import organizeplus.composeapp.generated.resources.Res
 import organizeplus.composeapp.generated.resources.nav_profile
 
 class SettingsNavigationProvider : FeatureNavigationProvider {
-    
+
     @Composable
     override fun getBottomNavConfiguration(): BottomNavConfiguration {
         return BottomNavConfiguration(
@@ -29,14 +29,14 @@ class SettingsNavigationProvider : FeatureNavigationProvider {
             order = 3
         )
     }
-    
+
     override fun NavGraphBuilder.registerScreens(
         mainNavController: NavHostController,
         tabNavController: NavHostController
     ) {
         composable<Settings> {
             val viewModel: SettingsViewModel = koinInject()
-            
+
             SettingsScreen(
                 viewModel = viewModel,
                 onNavigateBack = {
@@ -54,4 +54,3 @@ class SettingsNavigationProvider : FeatureNavigationProvider {
         }
     }
 }
-

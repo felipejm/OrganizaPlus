@@ -25,7 +25,7 @@ import organizeplus.composeapp.generated.resources.nav_personal_review
  * Navigation provider for personal duties feature
  */
 class PersonalDutyNavigationProvider : FeatureNavigationProvider {
-    
+
     @Composable
     override fun getBottomNavConfiguration(): BottomNavConfiguration {
         return BottomNavConfiguration(
@@ -36,7 +36,7 @@ class PersonalDutyNavigationProvider : FeatureNavigationProvider {
             order = 1
         )
     }
-    
+
     override fun NavGraphBuilder.registerScreens(
         mainNavController: NavHostController,
         tabNavController: NavHostController
@@ -58,7 +58,7 @@ class PersonalDutyNavigationProvider : FeatureNavigationProvider {
             )
         }
     }
-    
+
     private fun mapCategoryToCategoryFilter(category: String): DutyCategoryFilter {
         return when (category) {
             CategoryConstants.PERSONAL -> DutyCategoryFilter.Personal
@@ -72,7 +72,7 @@ class PersonalDutyNavigationProvider : FeatureNavigationProvider {
  * Navigation provider for company duties feature
  */
 class CompanyDutyNavigationProvider : FeatureNavigationProvider {
-    
+
     @Composable
     override fun getBottomNavConfiguration(): BottomNavConfiguration {
         return BottomNavConfiguration(
@@ -83,7 +83,7 @@ class CompanyDutyNavigationProvider : FeatureNavigationProvider {
             order = 2
         )
     }
-    
+
     override fun NavGraphBuilder.registerScreens(
         mainNavController: NavHostController,
         tabNavController: NavHostController
@@ -92,4 +92,3 @@ class CompanyDutyNavigationProvider : FeatureNavigationProvider {
         // This provider only contributes to bottom navigation
     }
 }
-

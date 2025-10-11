@@ -25,7 +25,7 @@ val navigationModule = module {
             SettingsNavigationProvider()
         )
     }
-    
+
     // Main navigation providers for app-level screens
     single(qualifier = named("mainProviders")) {
         listOf<MainNavigationProvider>(
@@ -36,4 +36,3 @@ val navigationModule = module {
         )
     }
 }
-

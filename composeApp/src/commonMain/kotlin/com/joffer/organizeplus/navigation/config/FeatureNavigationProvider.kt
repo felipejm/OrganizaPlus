@@ -15,7 +15,7 @@ interface FeatureNavigationProvider {
      */
     @Composable
     fun getBottomNavConfiguration(): BottomNavConfiguration?
-    
+
     /**
      * Registers all composable screens for this feature.
      * @param builder The NavGraphBuilder to register screens with
@@ -27,4 +27,3 @@ interface FeatureNavigationProvider {
         tabNavController: NavHostController
     )
 }
-

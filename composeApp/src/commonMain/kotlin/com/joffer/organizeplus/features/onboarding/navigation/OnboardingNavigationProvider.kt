@@ -14,7 +14,7 @@ import com.joffer.organizeplus.navigation.config.MainNavigationProvider
 import org.koin.compose.koinInject
 
 class OnboardingNavigationProvider : MainNavigationProvider {
-    
+
     override fun NavGraphBuilder.registerMainScreens(navController: NavHostController) {
         composable<SignIn> {
             val viewModel: SignInViewModel = koinInject()
@@ -51,4 +51,3 @@ class OnboardingNavigationProvider : MainNavigationProvider {
         }
     }
 }
-

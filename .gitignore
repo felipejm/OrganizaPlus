@@ -18,5 +18,8 @@ captures
 **/xcshareddata/WorkspaceSettings.xcsettings
 node_modules/
 
-# Secret configuration
+# Project configuration (contains API keys and sensitive data)
+project.properties
+
+# Secret Configuration
 secret.properties

@@ -14,7 +14,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
-import com.joffer.organizeplus.common.constants.CategoryConstants
 import com.joffer.organizeplus.designsystem.colors.SemanticColors
 import com.joffer.organizeplus.designsystem.components.BottomNavItem
 import com.joffer.organizeplus.designsystem.components.OrganizeBottomNavigationBar
@@ -80,7 +79,7 @@ private fun rememberBottomNavItems(
     val configurations = featureProviders.mapNotNull { provider ->
         provider.getBottomNavConfiguration()
     }.sortedBy { it.order }
-    
+
     return configurations.map { config ->
         val label = stringResource(config.labelRes)
         remember(config, label) {

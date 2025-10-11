@@ -14,4 +14,3 @@ data class BottomNavConfiguration(
     val selectedIcon: ImageVector,
     val order: Int = 0
 )
-

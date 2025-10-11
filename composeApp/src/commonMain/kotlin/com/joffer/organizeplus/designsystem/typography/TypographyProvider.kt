@@ -28,10 +28,8 @@ fun ProvideTypography(
     }
 }
 
-
 @Composable
 fun typography(): Typography = LocalTypography.current
-
 
 @Composable
 fun ProvideTypography(

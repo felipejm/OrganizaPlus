@@ -15,18 +15,33 @@ plugins {
     alias(libs.plugins.buildkonfig)
 }
 
-// Load secret.properties
-val secretProperties = Properties().apply {
-    val secretPropertiesFile = rootProject.file("secret.properties")
-    if (secretPropertiesFile.exists()) {
-        secretPropertiesFile.inputStream().use { load(it) }
+// Load project.properties
+val projectProperties = Properties().apply {
+    val projectPropertiesFile = rootProject.file("project.properties")
+    if (projectPropertiesFile.exists()) {
+        projectPropertiesFile.inputStream().use { load(it) }
     }
 }
 
-val apiKey = secretProperties.getProperty("API_KEY", "")
-val baseUrl = secretProperties.getProperty("API_BASE_URL", "")
-val userPoolId = secretProperties.getProperty("USER_POOL_ID", "")
-val userPoolClientId = secretProperties.getProperty("USER_POOL_CLIENT_ID", "")
+// Read environment configuration
+val environment = projectProperties.getProperty("ENVIRONMENT", "prod")
+val isProd = environment.equals("prod", ignoreCase = true)
+
+// Select configuration based on environment
+val apiKey = if (isProd) {
+    projectProperties.getProperty("API_KEY_PROD", "")
+} else {
+    projectProperties.getProperty("API_KEY_DEV", "")
+}
+
+val baseUrl = if (isProd) {
+    projectProperties.getProperty("API_BASE_URL_PROD", "")
+} else {
+    projectProperties.getProperty("API_BASE_URL_DEV", "")
+}
+
+println("Building with environment: $environment")
+println("API Base URL: $baseUrl")
 
 buildkonfig {
     packageName = "com.joffer.organizeplus"
@@ -35,11 +50,9 @@ buildkonfig {
     
     defaultConfigs {
         buildConfigField(FieldSpec.Type.STRING, "VERSION", "1.0.0")
-        buildConfigField(FieldSpec.Type.STRING, "ENVIRONMENT", "Prod")
+        buildConfigField(FieldSpec.Type.STRING, "ENVIRONMENT", environment)
         buildConfigField(FieldSpec.Type.STRING, "API_BASE_URL", baseUrl)
         buildConfigField(FieldSpec.Type.STRING, "API_KEY", apiKey)
-        buildConfigField(FieldSpec.Type.STRING, "USER_POOL_ID", userPoolId)
-        buildConfigField(FieldSpec.Type.STRING, "USER_POOL_CLIENT_ID", userPoolClientId)
     }
 }
 
@@ -189,9 +202,6 @@ sqldelight {
         }
     }
 }
-
-
-
 
 dependencies {
     add("kspCommonMainMetadata", libs.room.compiler)

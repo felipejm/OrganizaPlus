@@ -58,7 +58,7 @@ class AuthRepositoryImpl(
     override suspend fun signOut() {
         val accessToken = localDataSource.getAccessToken()
         localDataSource.clearUserSession()
-        
+
         if (accessToken != null) {
             try {
                 remoteDataSource.signOut(accessToken)

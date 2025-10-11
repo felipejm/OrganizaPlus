@@ -57,10 +57,15 @@ class AuthRepositoryImpl(
 
     override suspend fun signOut() {
         val accessToken = localDataSource.getAccessToken()
-        if (accessToken != null) {
-            remoteDataSource.signOut(accessToken)
-        }
         localDataSource.clearUserSession()
+        
+        if (accessToken != null) {
+            try {
+                remoteDataSource.signOut(accessToken)
+            } catch (e: Exception) {
+                // Ignore remote sign out errors since we've already cleared the local session
+            }
+        }
     }
 
     override suspend fun getCurrentUser(): User? {

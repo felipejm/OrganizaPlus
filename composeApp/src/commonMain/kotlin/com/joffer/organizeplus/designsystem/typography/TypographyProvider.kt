@@ -28,21 +28,13 @@ fun ProvideTypography(
     }
 }
 
-/**
- * Retrieves the current typography from the composition.
- *
- * @return The current RobustTypography instance
- */
+
 @Composable
 fun typography(): Typography = LocalTypography.current
 
-/**
- * Convenience function to provide SF Pro Text typography.
- *
- * @param content The composable content that will have access to the typography
- */
+
 @Composable
-fun ProvideSfProTypography(
+fun ProvideTypography(
     content: @Composable () -> Unit
 ) {
     val typography = createTypography()

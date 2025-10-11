@@ -99,6 +99,9 @@ class DutyMainNavigationProvider : MainNavigationProvider {
                 viewModel = viewModel,
                 onNavigateBack = {
                     navController.popBackStack()
+                },
+                onNavigateToDuty = { dutyId ->
+                    navController.navigate(DutyOccurrences(dutyId))
                 }
             )
         }

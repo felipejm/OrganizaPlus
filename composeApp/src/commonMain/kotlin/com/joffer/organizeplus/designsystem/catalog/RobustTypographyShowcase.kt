@@ -22,7 +22,7 @@ import com.joffer.organizeplus.designsystem.typography.Typography
 fun RobustTypographyShowcase(
     onNavigateBack: () -> Unit
 ) {
-    ProvideSfProTypography {
+    ProvideTypography {
         val typography = DesignSystemTypography()
 
         Scaffold(

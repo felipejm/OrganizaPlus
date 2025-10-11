@@ -34,6 +34,7 @@ data class DutyOccurrenceRemoteDto(
 
 @Serializable
 data class CreateDutyRequest(
+    @SerialName("id") val id: Long = 0,
     @SerialName("title") val title: String,
     @SerialName("type") val type: String,
     @SerialName("categoryName") val categoryName: String

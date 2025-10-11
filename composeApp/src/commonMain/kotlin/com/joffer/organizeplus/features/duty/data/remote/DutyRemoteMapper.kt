@@ -46,6 +46,7 @@ object DutyRemoteMapper {
 
     fun toRemote(duty: Duty): CreateDutyRequest {
         return CreateDutyRequest(
+            id = duty.id,
             title = duty.title,
             type = when (duty.type) {
                 DutyType.PAYABLE -> "PAYABLE"

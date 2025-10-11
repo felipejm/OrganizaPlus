@@ -11,6 +11,7 @@ interface DutyRemoteDataSource {
     suspend fun getAllDuties(): Result<DutyListRemoteResponse>
     suspend fun getDutyById(id: Long): Result<DutyDetailRemoteResponse>
     suspend fun createDuty(request: CreateDutyRequest): Result<DutyRemoteDto>
+    suspend fun updateDuty(request: CreateDutyRequest): Result<DutyRemoteDto>
     suspend fun deleteDuty(id: Long): Result<Unit>
 }
 
@@ -67,6 +68,31 @@ class DutyRemoteDataSourceImpl(
             }
         } catch (e: Exception) {
             handleException(e, "createDuty")
+        }
+    }
+
+    override suspend fun updateDuty(request: CreateDutyRequest): Result<DutyRemoteDto> {
+        return try {
+            val response = httpClient.put("$baseUrl/duties/${request.id}") {
+                contentType(ContentType.Application.Json)
+                setBody(request)
+            }
+
+            if (response.status.isSuccess()) {
+                try {
+                    val updateResponse = response.body<CreateDutyResponse>()
+                    Result.success(updateResponse.duty)
+                } catch (e: Exception) {
+                    Napier.e("Failed to parse updateDuty response: ${e.message}", e, tag = TAG)
+                    Result.failure(Exception("Failed to parse response: ${e.message}"))
+                }
+            } else {
+                val error = "updateDuty failed: ${response.status.description}"
+                Napier.e(error, tag = TAG)
+                Result.failure(Exception(error))
+            }
+        } catch (e: Exception) {
+            handleException(e, "updateDuty")
         }
     }
 

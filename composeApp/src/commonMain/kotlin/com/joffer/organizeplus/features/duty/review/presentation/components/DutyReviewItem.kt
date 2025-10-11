@@ -1,5 +1,6 @@
 package com.joffer.organizeplus.features.duty.review.presentation.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -18,11 +19,13 @@ import com.joffer.organizeplus.features.duty.review.domain.entities.DutyReviewIt
 @Composable
 fun DutyReviewItem(
     item: DutyReviewItem,
+    onClick: (Long) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Row(
         modifier = modifier
             .fillMaxWidth()
+            .clickable { onClick(item.dutyId) }
             .padding(horizontal = Spacing.md, vertical = Spacing.sm),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically

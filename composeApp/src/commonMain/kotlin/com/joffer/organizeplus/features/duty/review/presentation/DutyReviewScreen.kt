@@ -31,6 +31,7 @@ import organizeplus.composeapp.generated.resources.duty_review_title
 fun DutyReviewScreen(
     viewModel: DutyReviewViewModel,
     onNavigateBack: () -> Unit,
+    onNavigateToDuty: (Long) -> Unit = {},
     modifier: Modifier = Modifier,
     showBackButton: Boolean = true
 ) {
@@ -50,7 +51,8 @@ fun DutyReviewScreen(
         DutyReviewContent(
             uiState = uiState,
             viewModel = viewModel,
-            paddingValues = paddingValues
+            paddingValues = paddingValues,
+            onDutyClick = onNavigateToDuty
         )
     }
 }
@@ -59,7 +61,8 @@ fun DutyReviewScreen(
 private fun DutyReviewContent(
     uiState: DutyReviewUiState,
     viewModel: DutyReviewViewModel,
-    paddingValues: PaddingValues
+    paddingValues: PaddingValues,
+    onDutyClick: (Long) -> Unit
 ) {
     when {
         uiState.isLoading -> {
@@ -81,7 +84,8 @@ private fun DutyReviewContent(
         else -> {
             DutyReviewDataContent(
                 data = uiState.dutyReviewData,
-                paddingValues = paddingValues
+                paddingValues = paddingValues,
+                onDutyClick = onDutyClick
             )
         }
     }
@@ -148,7 +152,8 @@ private fun DutyReviewCenteredContent(
 @Composable
 private fun DutyReviewDataContent(
     data: DutyReviewData?,
-    paddingValues: PaddingValues
+    paddingValues: PaddingValues,
+    onDutyClick: (Long) -> Unit
 ) {
     val listState = rememberLazyListState()
 
@@ -190,7 +195,10 @@ private fun DutyReviewDataContent(
                 key = { "${it.year}-${it.monthNumber}" },
                 contentType = { "monthly_section" }
             ) { monthlyReview ->
-                MonthlyDutySection(monthlyReview = monthlyReview)
+                MonthlyDutySection(
+                    monthlyReview = monthlyReview,
+                    onDutyClick = onDutyClick
+                )
             }
         }
     }

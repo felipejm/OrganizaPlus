@@ -22,6 +22,7 @@ import organizeplus.composeapp.generated.resources.duty_review_total
 @Composable
 fun MonthlyDutySection(
     monthlyReview: MonthlyDutyReview,
+    onDutyClick: (Long) -> Unit,
     modifier: Modifier = Modifier
 ) {
     OrganizeCard(
@@ -74,7 +75,10 @@ fun MonthlyDutySection(
             modifier = Modifier.fillMaxWidth()
         ) {
             monthlyReview.dutyItems.forEachIndexed { index, item ->
-                DutyReviewItem(item = item)
+                DutyReviewItem(
+                    item = item,
+                    onClick = onDutyClick
+                )
 
                 if (index < monthlyReview.dutyItems.size - 1) {
                     Divider()

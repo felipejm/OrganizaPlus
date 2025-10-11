@@ -11,7 +11,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
-import com.joffer.organizeplus.designsystem.typography.ProvideSfProTypography
+import com.joffer.organizeplus.designsystem.typography.ProvideTypography
 import com.joffer.organizeplus.features.onboarding.domain.usecases.CheckAuthStatusUseCase
 import com.joffer.organizeplus.navigation.config.MainNavigationProvider
 import kotlinx.coroutines.launch
@@ -42,7 +42,7 @@ fun AppNavigation(
         return
     }
 
-    ProvideSfProTypography {
+    ProvideTypography {
         NavHost(
             navController = navController,
             startDestination = startDestination!!

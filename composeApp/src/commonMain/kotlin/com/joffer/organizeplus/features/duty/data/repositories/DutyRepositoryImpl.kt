@@ -42,7 +42,7 @@ class DutyRepositoryImpl(
 
     override suspend fun updateDuty(duty: Duty): Flow<Result<Unit>> {
         return when (settingsRepository.getStorageMode()) {
-            StorageMode.REMOTE -> flow { emit(Result.failure(Exception("Update not yet implemented for remote"))) }
+            StorageMode.REMOTE -> updateRemoteDuty(duty)
             StorageMode.LOCAL -> updateLocalDuty(duty)
         }
     }
@@ -80,6 +80,13 @@ class DutyRepositoryImpl(
     private suspend fun createRemoteDuty(duty: Duty): Flow<Result<Unit>> = flow {
         val request = DutyRemoteMapper.toRemote(duty)
         val result = remoteDataSource.createDuty(request)
+            .map { Unit }
+        emit(result)
+    }
+
+    private suspend fun updateRemoteDuty(duty: Duty): Flow<Result<Unit>> = flow {
+        val request = DutyRemoteMapper.toRemote(duty)
+        val result = remoteDataSource.updateDuty(request)
             .map { Unit }
         emit(result)
     }

@@ -42,8 +42,8 @@ class SettingsViewModel(
     fun logout() {
         viewModelScope.launch {
             authRepository.signOut()
-            _navigationEvent.value = SettingsNavigationEvent.NavigateToSignIn
         }
+        _navigationEvent.value = SettingsNavigationEvent.NavigateToSignIn
     }
 
     fun clearNavigationEvent() {

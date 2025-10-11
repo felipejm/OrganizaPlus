@@ -101,39 +101,26 @@ fun DashboardScreen(
                     }
                 }
 
-                // Check if there are any duties at all
-                if (uiState.personalDuties.isEmpty() && uiState.companyDuties.isEmpty()) {
-                    item {
-                        EmptyDashboardState(
-                            onNavigateToCreateDuty = onNavigateToCreateDuty
-                        )
-                    }
-                } else {
-                    // Personal Duties Section
-                    if (uiState.personalDuties.isNotEmpty()) {
-                        item {
-                            DutyCategorySection(
-                                duties = uiState.personalDuties,
-                                onViewAll = onNavigateToPersonalDuties,
-                                onDutyClick = onNavigateToDutyDetails,
-                                categoryName = CategoryConstants.PERSONAL,
-                                monthlySummary = uiState.personalSummary
-                            )
-                        }
-                    }
+                // Always show Personal Duties Section (even if empty, with 0 values)
+                item {
+                    DutyCategorySection(
+                        duties = uiState.personalDuties,
+                        onViewAll = onNavigateToPersonalDuties,
+                        onDutyClick = onNavigateToDutyDetails,
+                        categoryName = CategoryConstants.PERSONAL,
+                        monthlySummary = uiState.personalSummary
+                    )
+                }
 
-                    // Company Duties Section
-                    if (uiState.companyDuties.isNotEmpty()) {
-                        item {
-                            DutyCategorySection(
-                                duties = uiState.companyDuties,
-                                onViewAll = onNavigateToCompanyDuties,
-                                onDutyClick = onNavigateToDutyDetails,
-                                categoryName = CategoryConstants.COMPANY,
-                                monthlySummary = uiState.companySummary
-                            )
-                        }
-                    }
+                // Always show Company Duties Section (even if empty, with 0 values)
+                item {
+                    DutyCategorySection(
+                        duties = uiState.companyDuties,
+                        onViewAll = onNavigateToCompanyDuties,
+                        onDutyClick = onNavigateToDutyDetails,
+                        categoryName = CategoryConstants.COMPANY,
+                        monthlySummary = uiState.companySummary
+                    )
                 }
             }
         }

@@ -16,7 +16,11 @@ object DashboardRemoteMapper {
     fun toDomain(remote: DashboardRemoteResponse): DashboardData {
         return DashboardData(
             upcomingDuties = remote.dashboard.personalDuties.map { toDomain(it.duty) } +
-                remote.dashboard.companyDuties.map { toDomain(it.duty) }
+                remote.dashboard.companyDuties.map { toDomain(it.duty) },
+            personalDuties = remote.dashboard.personalDuties.map { toDomain(it) },
+            companyDuties = remote.dashboard.companyDuties.map { toDomain(it) },
+            personalSummary = toDomain(remote.dashboard.personalSummary),
+            companySummary = toDomain(remote.dashboard.companySummary)
         )
     }
 

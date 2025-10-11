@@ -6,6 +6,7 @@ import com.joffer.organizeplus.features.duty.di.dutyModule
 import com.joffer.organizeplus.features.duty.review.di.dutyReviewModule
 import com.joffer.organizeplus.features.onboarding.di.onboardingModule
 import com.joffer.organizeplus.features.settings.di.settingsModule
+import com.joffer.organizeplus.navigation.config.navigationModule
 import org.koin.dsl.module
 
 val appModule = module {
@@ -13,6 +14,9 @@ val appModule = module {
     includes(networkModule)
     includes(databaseModule)
     includes(platformSecureStorageModule)
+
+    // Navigation
+    includes(navigationModule)
 
     // Feature modules
     includes(onboardingModule)

@@ -55,117 +55,59 @@ fun DutyCard(
     val typography = DesignSystemTypography()
     val duty = dutyWithOccurrence.duty
 
-    Card(
+    // Simplified card layout matching image design
+    Row(
         modifier = modifier
             .fillMaxWidth()
-            .clickable { onDutyClick() },
-        colors = CardDefaults.cardColors(
-            containerColor = SemanticColors.Background.surface
-        ),
-        shape = RoundedCornerShape(Spacing.Radius.md)
+            .clickable { onDutyClick() }
+            .padding(vertical = Spacing.sm),
+        verticalAlignment = Alignment.CenterVertically
     ) {
-        Column(
-            modifier = Modifier.padding(Spacing.md)
-        ) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
+        // Category icon with accent colors (matching image)
+        if (accentColor != null && accentLight != null) {
+            Box(
+                modifier = Modifier
+                    .size(Spacing.Icon.xl)
+                    .background(SemanticColors.Background.surfaceVariant, CircleShape), // Dark circle background
+                contentAlignment = Alignment.Center
             ) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.weight(1f)
-                ) {
-                    // Category icon with optional accent colors for dashboard
-                    if (accentColor != null && accentLight != null) {
-                        Box(
-                            modifier = Modifier
-                                .size(Spacing.Icon.xl)
-                                .background(accentLight, CircleShape)
-                                .clip(CircleShape),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            CategoryIcon(categoryName = duty.categoryName)
-                        }
-                    } else {
-                        // List style with default colors
-                        CategoryIcon(
-                            categoryName = duty.categoryName
-                        )
-                    }
-
-                    Spacer(modifier = Modifier.width(Spacing.md))
-
-                    // Duty title
-                    Text(
-                        text = duty.title,
-                        style = if (accentColor != null) typography.titleMedium else typography.titleSmall,
-                        color = SemanticColors.Foreground.primary,
-                        modifier = Modifier.weight(1f)
-                    )
-                }
-
-                // Right side actions
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(Spacing.xs)
-                ) {
-                    // Paid/Done chip
-                    if (showPaidChip && dutyWithOccurrence.hasCurrentMonthOccurrence) {
-                        PriorityChip(
-                            priority = ObligationPriority.LOW,
-                            text = when (duty.type) {
-                                DutyType.PAYABLE -> stringResource(Res.string.duty_list_paid)
-                                DutyType.ACTIONABLE -> stringResource(Res.string.duty_list_done)
-                            }
-                        )
-                    }
-
-                    // Delete button
-                    if (showDeleteButton && onDelete != null) {
-                        IconButton(
-                            onClick = { onDelete(duty.id) },
-                            modifier = Modifier.size(Spacing.xxl)
-                        ) {
-                            Icon(
-                                imageVector = OrganizeIcons.Actions.Delete,
-                                contentDescription = stringResource(Res.string.duty_list_delete_description),
-                                tint = SemanticColors.Foreground.primary,
-                                modifier = Modifier.size(Spacing.Icon.sm)
-                            )
-                        }
-                    }
-                }
+                Icon(
+                    imageVector = if (duty.categoryName == "Company") OrganizeIcons.Navigation.Building else OrganizeIcons.Navigation.User,
+                    contentDescription = null,
+                    tint = accentColor, // Category accent color
+                    modifier = Modifier.size(Spacing.Icon.sm)
+                )
             }
+        } else {
+            // List style with default colors
+            CategoryIcon(
+                categoryName = duty.categoryName
+            )
+        }
 
-            // Category and Type information
+        Spacer(modifier = Modifier.width(Spacing.md))
+
+        // Duty content
+        Column(
+            modifier = Modifier.weight(1f)
+        ) {
+            // Duty title (matching image)
+            Text(
+                text = duty.title,
+                style = typography.bodyMedium, // 16sp, Normal
+                color = SemanticColors.Foreground.primary // White
+            )
+            
+            // Category and type info (matching image)
             if (showCategoryInfo) {
-                Spacer(modifier = Modifier.height(Spacing.xs))
-
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(Spacing.sm)
-                ) {
-                    Text(
-                        text = duty.categoryName,
-                        style = typography.labelLarge,
-                        color = SemanticColors.Foreground.secondary
-                    )
-
-                    Text(
-                        text = stringResource(Res.string.duty_list_separator),
-                        style = typography.labelLarge,
-                        color = SemanticColors.Foreground.secondary
-                    )
-
-                    Text(
-                        text = when (duty.type) {
-                            DutyType.PAYABLE -> stringResource(Res.string.duty_type_payable)
-                            DutyType.ACTIONABLE -> stringResource(Res.string.duty_type_actionable)
-                        },
-                        style = typography.labelLarge,
-                        color = SemanticColors.Foreground.secondary
-                    )
-                }
+                Text(
+                    text = "${duty.categoryName} ${stringResource(Res.string.duty_list_separator)} ${when (duty.type) {
+                        DutyType.PAYABLE -> stringResource(Res.string.duty_type_payable)
+                        DutyType.ACTIONABLE -> stringResource(Res.string.duty_type_actionable)
+                    }}",
+                    style = typography.bodySmall, // 12sp, Normal
+                    color = SemanticColors.Foreground.secondary // Light grey
+                )
             }
         }
     }

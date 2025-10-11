@@ -55,8 +55,9 @@ fun DutyCategorySection(
     Card(
         modifier = modifier.fillMaxWidth(),
         colors = CardDefaults.cardColors(
-            containerColor = config.backgroundColor
+            containerColor = SemanticColors.Background.surface // Dark surface background
         ),
+        shape = RoundedCornerShape(Spacing.Card.borderRadius), // 12dp rounded corners
         elevation = CardDefaults.cardElevation(defaultElevation = Spacing.Elevation.none)
     ) {
         Column(
@@ -64,16 +65,16 @@ fun DutyCategorySection(
                 .fillMaxWidth()
                 .padding(Spacing.Card.padding)
         ) {
-            // Section Header with colored accent bar
+            // Section Header with colored accent bar (matching image)
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                // Colored accent bar
+                // Colored accent bar (thin vertical line)
                 Box(
                     modifier = Modifier
-                        .width(ACCENT_BAR_WIDTH)
-                        .height(ACCENT_BAR_HEIGHT)
+                        .width(Spacing.Card.accentWidth) // 4dp width
+                        .height(24.dp)
                         .background(config.accentColor, RoundedCornerShape(Spacing.Radius.xs))
                 )
 
@@ -89,11 +90,11 @@ fun DutyCategorySection(
 
                 Spacer(modifier = Modifier.width(Spacing.sm))
 
-                // Section title
+                // Section title (matching image)
                 Text(
                     text = sectionTitle ?: stringResource(config.titleResource),
-                    style = typography.titleMedium,
-                    color = SemanticColors.Foreground.primary
+                    style = typography.titleLarge, // 18sp, SemiBold
+                    color = SemanticColors.Foreground.primary // White
                 )
             }
 
@@ -244,69 +245,54 @@ private fun MonthlySummaryCard(
     modifier: Modifier = Modifier
 ) {
     val typography = DesignSystemTypography()
-    Card(
-        modifier = modifier.fillMaxWidth(),
-        colors = CardDefaults.cardColors(
-            containerColor = SemanticColors.Background.surface
-        ),
-        shape = RoundedCornerShape(Spacing.Radius.md)
+    
+    Column(
+        modifier = modifier.fillMaxWidth()
     ) {
-        Column(
-            modifier = Modifier.padding(Spacing.md)
+        // Month/Year label (matching image)
+        Text(
+            text = stringResource(Res.string.dashboard_monthly_summary),
+            style = typography.bodySmall, // 14sp, Normal
+            color = SemanticColors.Foreground.secondary // Light grey
+        )
+
+        Spacer(modifier = Modifier.height(Spacing.md))
+
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            // Month/Year label
-            Text(
-                text = stringResource(
-                    Res.string.dashboard_monthly_summary,
-                    DateUtils.getMonthName(summary.currentMonth),
-                    summary.year
-                ),
-                style = typography.bodyMedium,
-                color = SemanticColors.Foreground.primary
-            )
-
-            Spacer(modifier = Modifier.height(Spacing.md))
-
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
+            // Amount Paid (left aligned) - matching image
+            Column(
+                horizontalAlignment = Alignment.Start
             ) {
-                // Amount Paid (left aligned)
-                Column(
-                    horizontalAlignment = Alignment.Start
-                ) {
-                    Text(
-                        text = CurrencyUtils.formatCurrency(summary.totalAmountPaid),
-                        style = typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
-                        color = if (summary.totalAmountPaid > 0) {
-                            SemanticColors.Foreground.success
-                        } else {
-                            SemanticColors.Foreground.secondary
-                        }
-                    )
-                    Text(
-                        text = stringResource(Res.string.dashboard_amount_paid),
-                        style = typography.caption,
-                        color = SemanticColors.Foreground.secondary
-                    )
-                }
+                Text(
+                    text = CurrencyUtils.formatCurrency(summary.totalAmountPaid),
+                    style = typography.bodyLarge, // 24sp, Bold
+                    color = SemanticColors.Foreground.primary // White
+                )
+                Text(
+                    text = stringResource(Res.string.dashboard_amount_paid),
+                    style = typography.bodySmall, // 14sp, Normal
+                    color = SemanticColors.Foreground.secondary // Light grey
+                )
+            }
 
-                // Tasks Done (right aligned)
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Text(
-                        text = "${summary.totalCompleted}/${summary.totalTasks}",
-                        style = typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
-                        color = SemanticColors.Foreground.secondary
-                    )
-                    Text(
-                        text = stringResource(Res.string.dashboard_tasks_done),
-                        style = typography.caption,
-                        color = SemanticColors.Foreground.secondary
-                    )
-                }
+            // Tasks Done (right aligned) - matching image
+            Column(
+                horizontalAlignment = Alignment.End
+            ) {
+                Text(
+                    text = "${summary.totalCompleted}/${summary.totalTasks}",
+                    style = typography.titleMedium, // 18sp, SemiBold
+                    color = SemanticColors.Foreground.primary // White
+                )
+                Text(
+                    text = stringResource(Res.string.dashboard_tasks_done),
+                    style = typography.bodySmall, // 14sp, Normal
+                    color = SemanticColors.Foreground.secondary // Light grey
+                )
             }
         }
     }

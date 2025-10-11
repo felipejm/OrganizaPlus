@@ -53,11 +53,14 @@ fun FormField(
             },
             modifier = Modifier.fillMaxWidth(),
             colors = OutlinedTextFieldDefaults.colors(
-                focusedBorderColor = AppColorScheme.primary,
+                focusedBorderColor = if (isError) AppColorScheme.error else AppColorScheme.formBorder, // White border
                 unfocusedBorderColor = if (isError) AppColorScheme.error else AppColorScheme.formBorder,
                 focusedContainerColor = Color.Transparent,
                 unfocusedContainerColor = Color.Transparent,
-                errorBorderColor = AppColorScheme.error
+                errorBorderColor = AppColorScheme.error,
+                focusedTextColor = AppColorScheme.formText, // White text
+                unfocusedTextColor = AppColorScheme.formText, // White text
+                errorTextColor = AppColorScheme.error
             ),
             shape = RoundedCornerShape(Spacing.borderRadius),
             trailingIcon = trailingIcon,

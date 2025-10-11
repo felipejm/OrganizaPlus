@@ -119,12 +119,12 @@ fun createTypography(): Typography {
             letterSpacing = 0.sp
         ),
 
-        // ===== HEADLINE TYPOGRAPHY =====
+        // ===== HEADLINE TYPOGRAPHY (Updated to match image) =====
         headlineLarge = TextStyle(
             fontFamily = fontFamily,
-            fontWeight = FontWeight.Medium,
-            fontSize = 32.sp,
-            lineHeight = 40.sp,
+            fontWeight = FontWeight.Bold, // 700 weight for main header
+            fontSize = 24.sp, // Matching "October 2025" size
+            lineHeight = 32.sp,
             letterSpacing = 0.sp
         ),
 
@@ -144,21 +144,21 @@ fun createTypography(): Typography {
             letterSpacing = 0.sp
         ),
 
-        // ===== TITLE TYPOGRAPHY =====
+        // ===== TITLE TYPOGRAPHY (Updated to match image) =====
         titleLarge = TextStyle(
             fontFamily = fontFamily,
-            fontWeight = FontWeight.Medium,
-            fontSize = 22.sp,
-            lineHeight = 28.sp,
+            fontWeight = FontWeight.SemiBold, // 600 weight for card titles
+            fontSize = 18.sp, // Matching "Personal Duties" size
+            lineHeight = 24.sp,
             letterSpacing = 0.sp
         ),
 
         titleMedium = TextStyle(
             fontFamily = fontFamily,
-            fontWeight = FontWeight.Medium,
-            fontSize = 18.sp,
-            lineHeight = 26.sp,
-            letterSpacing = 0.15.sp
+            fontWeight = FontWeight.SemiBold, // 600 weight for amount/tasks
+            fontSize = 18.sp, // Matching "Tasks Done" size
+            lineHeight = 24.sp,
+            letterSpacing = 0.sp
         ),
 
         titleSmall = TextStyle(
@@ -169,29 +169,29 @@ fun createTypography(): Typography {
             letterSpacing = 0.1.sp
         ),
 
-        // ===== BODY TYPOGRAPHY =====
+        // ===== BODY TYPOGRAPHY (Updated to match image) =====
         bodyLarge = TextStyle(
             fontFamily = fontFamily,
-            fontWeight = FontWeight.Normal,
-            fontSize = 16.sp,
-            lineHeight = 24.sp,
-            letterSpacing = 0.5.sp
+            fontWeight = FontWeight.Bold, // 700 weight for large amounts
+            fontSize = 24.sp, // Matching "R$ 0,00" size
+            lineHeight = 32.sp,
+            letterSpacing = 0.sp
         ),
 
         bodyMedium = TextStyle(
             fontFamily = fontFamily,
-            fontWeight = FontWeight.Normal,
-            fontSize = 14.sp,
-            lineHeight = 20.sp,
-            letterSpacing = 0.25.sp
+            fontWeight = FontWeight.Normal, // 400 weight for secondary text
+            fontSize = 16.sp, // Matching "Test" duty title size
+            lineHeight = 24.sp,
+            letterSpacing = 0.sp
         ),
 
         bodySmall = TextStyle(
             fontFamily = fontFamily,
-            fontWeight = FontWeight.Normal,
-            fontSize = 12.sp,
-            lineHeight = 16.sp,
-            letterSpacing = 0.4.sp
+            fontWeight = FontWeight.Normal, // 400 weight for labels
+            fontSize = 14.sp, // Matching "Monthly Summary" size
+            lineHeight = 20.sp,
+            letterSpacing = 0.sp
         ),
 
         // ===== LABEL TYPOGRAPHY =====

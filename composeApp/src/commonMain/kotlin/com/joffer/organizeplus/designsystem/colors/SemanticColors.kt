@@ -10,22 +10,22 @@ import androidx.compose.runtime.Immutable
 @Immutable
 object SemanticColors {
 
-    // ===== BACKGROUND COLORS =====
+    // ===== BACKGROUND COLORS (Dark Theme) =====
     // Used as fills or backgrounds of interface elements
     object Background {
-        val primary = PrimitiveColors.lightGrey
-        val secondary = PrimitiveColors.neutral50
-        val tertiary = PrimitiveColors.neutral100
+        val primary = PrimitiveColors.darkBackground // Main background
+        val secondary = PrimitiveColors.darkSurface // Card/surface background
+        val tertiary = PrimitiveColors.darkSurfaceVariant // Circle backgrounds
         val quaternary = PrimitiveColors.neutral200
 
         // Surface variants
-        val surface = PrimitiveColors.white
-        val surfaceVariant = PrimitiveColors.neutral100
-        val surfaceContainer = PrimitiveColors.neutral50
-        val surfaceContainerLow = PrimitiveColors.neutral50
+        val surface = PrimitiveColors.darkSurface // Card backgrounds
+        val surfaceVariant = PrimitiveColors.darkSurfaceVariant // Circle backgrounds
+        val surfaceContainer = PrimitiveColors.darkSurface
+        val surfaceContainerLow = PrimitiveColors.darkSurface
 
         // Brand backgrounds
-        val brand = PrimitiveColors.black
+        val brand = PrimitiveColors.darkBackground
         val brandContainer = PrimitiveColors.primary100
 
         // State backgrounds
@@ -41,12 +41,12 @@ object SemanticColors {
         val disabled = PrimitiveColors.neutral200
     }
 
-    // ===== ON BACKGROUND COLORS =====
+    // ===== ON BACKGROUND COLORS (Dark Theme) =====
     // Accessible color pairs for use on top of specific background colors
     object OnBackground {
-        val primary = PrimitiveColors.neutral700
-        val secondary = PrimitiveColors.neutral600
-        val tertiary = PrimitiveColors.neutral500
+        val primary = PrimitiveColors.textPrimary // White text
+        val secondary = PrimitiveColors.textSecondary // Light grey text
+        val tertiary = PrimitiveColors.textSecondary
         val disabled = PrimitiveColors.neutral400
 
         // On brand backgrounds
@@ -64,12 +64,12 @@ object SemanticColors {
         val onSurfaceVariant = PrimitiveColors.neutral600
     }
 
-    // ===== FOREGROUND COLORS =====
+    // ===== FOREGROUND COLORS (Dark Theme) =====
     // Used for content placed on top of backgrounds such as text or icons
     object Foreground {
-        val primary = PrimitiveColors.neutral700
-        val secondary = PrimitiveColors.neutral600
-        val tertiary = PrimitiveColors.neutral500
+        val primary = PrimitiveColors.textPrimary // White text
+        val secondary = PrimitiveColors.textSecondary // Light grey text
+        val tertiary = PrimitiveColors.textSecondary
         val quaternary = PrimitiveColors.neutral400
         val disabled = PrimitiveColors.neutral400
 
@@ -164,10 +164,10 @@ object SemanticColors {
     // ===== LEGACY COMPATIBILITY =====
     // Maintain backward compatibility with existing color usage
     object Legacy {
-        // Dashboard specific colors
-        val personalAccent = PrimitiveColors.teal
+        // Dashboard specific colors (updated to match image)
+        val personalAccent = PrimitiveColors.personalAccent // #6A5ACD
         val personalAccentLight = PrimitiveColors.tealLight
-        val companyAccent = PrimitiveColors.amber
+        val companyAccent = PrimitiveColors.companyAccent // #FF8C00
         val companyAccentLight = PrimitiveColors.amberLight
 
         // Status colors

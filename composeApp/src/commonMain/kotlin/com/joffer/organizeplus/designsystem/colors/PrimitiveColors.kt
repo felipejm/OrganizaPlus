@@ -14,12 +14,21 @@ import androidx.compose.ui.graphics.Color
 @Immutable
 object PrimitiveColors {
 
-    // ===== NEUTRAL PRIMITIVES =====
+    // ===== NEUTRAL PRIMITIVES (Dark Theme) =====
     val black = Color(0xFF000000)
     val white = Color(0xFFFFFFFF)
+    
+    // Dark theme background colors (matching image)
+    val darkBackground = Color(0xFF1A1D29) // Main background
+    val darkSurface = Color(0xFF252836) // Card/surface background
+    val darkSurfaceVariant = Color(0xFF3A3D4A) // Circle backgrounds
+    
+    // Text colors (matching image)
     val lightGrey = Color(0xFFF7F8F9)
+    val textPrimary = Color(0xFFFFFFFF) // White text
+    val textSecondary = Color(0xFFB0B0B0) // Light grey text
 
-    // Neutral grays (from original ColorScheme)
+    // Neutral grays (dark theme adjusted)
     val neutral50 = Color(0xFFFCFCFC)
     val neutral100 = Color(0xFFFAFAFA)
     val neutral200 = Color(0xFFF5F5F5)
@@ -95,11 +104,15 @@ object PrimitiveColors {
     val info600 = Color(0xFF2E8CF0)
     val info700 = Color(0xFF1A70D2)
 
+    // ===== ACCENT COLORS (Matching Image) =====
+    val personalAccent = Color(0xFF6A5ACD) // Blue accent for Personal (SlateBlue)
+    val companyAccent = Color(0xFFFF8C00) // Orange accent for Company (DarkOrange)
+    
     // ===== ADDITIONAL PRIMITIVES =====
     // Based on specific colors used in the app
-    val teal = Color(0xFF42D9E4) // Personal accent
+    val teal = Color(0xFF42D9E4) // Personal accent (legacy)
     val tealLight = Color(0xFFE6F4FF) // Light teal
-    val amber = Color(0xFFFF9800) // Company accent
+    val amber = Color(0xFFFF9800) // Company accent (legacy)
     val amberLight = Color(0xFFFFF3E0) // Light amber
     val overdueRed = Color(0xFFE53935) // Red for overdue
     val amountPaidGreen = Color(0xFF2E7D32) // Green for amount paid

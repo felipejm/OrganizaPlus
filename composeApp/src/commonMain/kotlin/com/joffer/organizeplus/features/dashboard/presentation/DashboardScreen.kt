@@ -54,7 +54,8 @@ fun DashboardScreen(
     }
 
     Scaffold(
-        contentColor = SemanticColors.Background.primary,
+        containerColor = SemanticColors.Background.primary, // Dark background
+        contentColor = SemanticColors.Foreground.primary, // White text
     ) { paddingValues ->
         LazyColumn(
             state = listState,
@@ -81,26 +82,22 @@ fun DashboardScreen(
                     OrganizeProgressIndicatorFullScreen()
                 }
             } else {
-                // Month/Year Header
+                // Month/Year Header (Matching image design)
                 item {
-                    Row(
+                    Column(
                         modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
+                        verticalArrangement = Arrangement.spacedBy(Spacing.xs)
                     ) {
-                        Column {
-                            Text(
-                                text = "$currentMonth $currentYear",
-                                style = typography.headlineLarge,
-                                color = SemanticColors.Foreground.primary,
-                                fontWeight = FontWeight.Black
-                            )
-                            Text(
-                                text = stringResource(Res.string.dashboard_title),
-                                style = typography.titleMedium,
-                                color = SemanticColors.Foreground.secondary
-                            )
-                        }
+                        Text(
+                            text = "$currentMonth $currentYear",
+                            style = typography.headlineLarge, // 24sp, Bold
+                            color = SemanticColors.Foreground.primary, // White
+                        )
+                        Text(
+                            text = stringResource(Res.string.dashboard_title),
+                            style = typography.bodySmall, // 14sp, Normal
+                            color = SemanticColors.Foreground.secondary // Light grey
+                        )
                     }
                 }
 
